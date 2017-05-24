@@ -2,7 +2,7 @@
 #define COMMON_H
 #include <QtCore>
 #include "msgbox.h"
-
+#include "sysconfigfile.h"
 
 
 

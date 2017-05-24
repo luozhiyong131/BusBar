@@ -8,6 +8,7 @@ HEADERS += \
 #    $$PWD/icon/iconpath.h \
 #    $$PWD/signaldispatch.h \
 #    $$PWD/configtool.h
+    common/sysconfigfile.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -16,3 +17,6 @@ SOURCES += \
 #    $$PWD/icon/iconpath.cpp \
 #    $$PWD/signaldispatch.cpp \
 #    $$PWD/configtool.cpp
+    common/sysconfigfile.cpp
+
+
