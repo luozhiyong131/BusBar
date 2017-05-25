@@ -39,6 +39,19 @@ bool cm_isDigitStr(const QString &src)
     return true;
 }
 
+/**
+ * @brief 是否为IP地址
+ * @param ip
+ * @return
+ */
+bool cm_isIPaddress(const QString& ip)
+{
+    QRegExp regExp("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
+    if(regExp.exactMatch(ip))
+        return true ;
+
+    return false;
+}
 
 /***
   * 获取共享内存

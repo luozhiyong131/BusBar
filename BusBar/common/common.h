@@ -25,6 +25,7 @@
 
 QString cm_pathOfData(const QString& name);
 bool cm_isDigitStr(const QString &src);
+bool cm_isIPaddress(const QString& ip);
 
 sDataPacket *get_share_mem();
 
