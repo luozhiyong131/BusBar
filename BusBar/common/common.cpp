@@ -38,3 +38,18 @@ bool cm_isDigitStr(const QString &src)
 
     return true;
 }
+
+
+/***
+  * 获取共享内存
+  */
+sDataPacket *get_share_mem()
+{
+    static sDataPacket *shm = NULL;
+    if(shm == NULL) {
+        shm = share_mem_get();
+        share_mem_init();
+    }
+
+    return shm;
+}

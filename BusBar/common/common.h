@@ -3,7 +3,7 @@
 #include <QtCore>
 #include "msgbox.h"
 #include "sysconfigfile.h"
-
+#include "datapacket.h"
 
 
 //const QColor gray(174,225,254);//空设备,原为灰色，现为天蓝色
@@ -25,5 +25,7 @@
 
 QString cm_pathOfData(const QString& name);
 bool cm_isDigitStr(const QString &src);
+
+sDataPacket *get_share_mem();
 
 #endif // COMMON_H
