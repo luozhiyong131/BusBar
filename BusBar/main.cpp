@@ -1,6 +1,8 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 
+#include "datapacket.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
