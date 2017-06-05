@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "testdlg.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -8,7 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-     test = new Serial_Test ;
+//     test = new Serial_Test ;
+
+     TestDlg *dlg = new TestDlg(this);
+     dlg->exec();
 }
 
 MainWindow::~MainWindow()

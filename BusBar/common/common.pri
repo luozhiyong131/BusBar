@@ -9,7 +9,8 @@ HEADERS += \
 #    $$PWD/signaldispatch.h \
 #    $$PWD/configtool.h
     common/sysconfigfile.h \
-    common/datapacket.h
+    common/datapacket.h \
+    common/qcustomplot.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 #    $$PWD/signaldispatch.cpp \
 #    $$PWD/configtool.cpp
     common/sysconfigfile.cpp \
-    common/datapacket.cpp
+    common/datapacket.cpp \
+    common/qcustomplot.cpp
 
 
