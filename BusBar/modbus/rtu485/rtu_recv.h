@@ -12,6 +12,8 @@ struct RtuRecvLine {
     ushort pow; // 功率值
     uint ele; // 电能值
     ushort curAlarm; // 上限电流报警值
+    uchar pf; // 功率因素
+    uchar sw; // 开关
 };
 
 struct RtuRecvEnv {

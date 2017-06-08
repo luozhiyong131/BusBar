@@ -6,6 +6,8 @@
 
 QT      += core gui
 QT      += widgets printsupport
+QT      += sql
+QT      += network
 
 TARGET = BusBar
 TEMPLATE = app
@@ -13,6 +15,7 @@ TEMPLATE = app
 include(test/test.pri)
 include(common/common.pri)
 include(modbus/modbus.pri)
+include(sql/sql.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp

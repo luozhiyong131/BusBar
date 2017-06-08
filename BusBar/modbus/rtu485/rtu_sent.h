@@ -3,7 +3,7 @@
 
 #include <QtCore>
 
-#define RTU_SENT_LEN (12*9+4)
+#define RTU_SENT_LEN (12*9+4)  ////=============  长度需要改变
 
 struct Rtu_Sent {
     Rtu_Sent():fn(3),reg(0),len(RTU_SENT_LEN){}

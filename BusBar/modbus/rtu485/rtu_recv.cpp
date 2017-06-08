@@ -65,9 +65,11 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->ele =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
     msg->ele <<= 8; // 左移8位
     msg->ele +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
-    msg->curAlarm =  (*ptr) * 256 + *(ptr+1); // 上限电流报警值
+    msg->curAlarm =  (*ptr) * 256 + *(ptr+1);  ptr += 2;// 上限电流报警值
+    msg->pf = *(ptr++);// 功率因素
+    msg->sw = *(ptr++);  // 开关状态
 
-    return 12;
+    return 12;   ////============ 加上开关，功率因素之后，是为14
 }
 
 /**
@@ -92,7 +94,7 @@ static int rtu_recv_env(uchar *ptr, RtuRecvEnv *msg)
 static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
 {
     bool ret = true;
-    int rtn = len-2; uchar *ptr = buf-rtn;
+    int rtn = len-2; uchar *ptr = buf+rtn;
 
     msg->crc = (ptr[0]*256) + ptr[1]; // 获取校验码
     ushort crc = rtu_crc(buf, rtn);
