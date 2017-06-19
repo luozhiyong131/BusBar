@@ -53,8 +53,10 @@ bool DbAlarm::modifyItem(const DbAlarmItem &item, const QString &cmd)
 
 void DbAlarm::selectItem(QSqlQuery &query,DbAlarmItem &item)
 {
-//    item.id = query.value("id").toInt();
-//    item.date = query.value("date").toString();
-//    item.time = query.value("name").toString();
-//    item.msg = query.value("msg").toString();
+    item.id = query.value("id").toInt();
+    item.date = query.value("date").toString();
+    item.time = query.value("name").toString();
+    item.msg = query.value("msg").toString();
 }
+
+

@@ -4,6 +4,17 @@
 #include <QtSql>
 #include <QObject>
 
+struct DbBasicItem{
+    DbBasicItem():id(-1){
+        QDateTime dateTime = QDateTime::currentDateTime();
+        date = dateTime.toString("yyyy-MM-dd");
+        time = dateTime.toString("hh:mm:ss");
+    }
+
+    int id;
+    QString date, time;
+};
+
 class BasicSql : public QObject
 {
     Q_OBJECT
@@ -12,6 +23,7 @@ public:
 
     enum{Remove,Insert,Update};
     virtual QString tableName() = 0;
+
     int  maxId(const QString &idName = "id");
     void remove(const QString &condition);
 
@@ -61,6 +73,15 @@ public:
 
     T findById(int id){
         return findItemById(id).first();
+    }
+
+    QVector<T> selectByDate(const QString &start, const QString &end) {
+        QString cmd = QString("where date Between \'%2\' and  \'%3\'").arg(start).arg(end);
+        return selectItems(cmd);
+    }
+
+    QVector<T> selectByDate(const QString &date) {
+        return selectItems(QString("where date = %1").arg(date));
     }
 
 protected:
