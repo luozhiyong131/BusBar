@@ -156,6 +156,17 @@ void BasicSql::throwError(const QSqlError &err)
     qCritical() << "Sql_Error:" << err.text() << err.type();
 }
 
+bool BasicSql::clear()
+{
+    QString cmd = QString("truncate table %1").arg(tableName());
+    QSqlQuery query(cmd);
+    bool ret = query.exec(cmd);
+    if(!ret){
+        qDebug()<< "sql clear :" << query.lastError();
+    }
+
+    return ret;
+}
 
 /**
  * @brief BasicSql::tableMarking
