@@ -6,7 +6,7 @@
 #define DB_TABLE_BRANCHELE "branch_ele"
 
 struct DbBranchEleItem : public DbBasicItem{
-    int output_1, output_2, output_3, output;
+    double output_1, output_2, output_3, output;
 };
 
 

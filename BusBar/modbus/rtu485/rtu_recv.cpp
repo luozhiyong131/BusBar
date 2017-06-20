@@ -69,6 +69,8 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->pf = *(ptr++);// 功率因素
     msg->sw = *(ptr++);  // 开关状态
 
+    msg->apPow = msg->vol * msg->cur / 1000; // 视在功率
+
     return 12;   ////============ 加上开关，功率因素之后，是为14
 }
 

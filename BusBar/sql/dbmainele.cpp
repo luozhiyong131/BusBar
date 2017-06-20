@@ -1,3 +1,11 @@
+/*
+ * dbmainele.cpp
+ *
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "dbmainele.h"
 
 DbMainEle::DbMainEle()

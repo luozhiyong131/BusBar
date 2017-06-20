@@ -1,3 +1,11 @@
+/*
+ * BasicSql.cpp
+ *
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "basicsql.h"
 #include "common.h"
 

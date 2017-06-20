@@ -21,7 +21,7 @@
 #define BOX_NUM 20 // 插接箱数量
 #define BUS_NUM 4  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
-
+#define SENSOR_NUM 2 // 二个传感器
 
 /**
  * 统计数据结构体
@@ -33,6 +33,7 @@ typedef struct _sTgObjData {
     int pow; // 功率
     int ele; // 电能
     int pf; // 功率因素
+    int apPow; // 袖在功率
 }sTgObjData;
 
 
@@ -55,7 +56,7 @@ typedef struct _sDataUnit {
 /**
  * 插接位数据对象：包括电流，电压，功率，电能，开关状态，插接位名称
  */
-typedef struct _sOutputData {
+typedef struct _sObjData {
     int lineNum; //相数
     sDataUnit vol; // 电压
     sDataUnit cur;  // 电流
@@ -63,12 +64,22 @@ typedef struct _sOutputData {
     int pow[3]; // 功率
     int ele[3]; // 电能
     int pf[3]; // 功率因素
+    int sw[3]; // 开关状态
+    int apPow[3]; // 视在功率
+    int ratedCur[3]; // 额定电流
+}sObjData;
 
-    sTgObjData tgOutput; // 插接位统计信息
-    int ratedCur; // 额定电流
+/**
+ * 插接位数据对象：包括电流，电压，功率，电能，开关状态，插接位名称
+ */
+typedef struct _sOutputData {
+    sObjData data; // 插接位数据
     char outputAlarm; // 插接位报警
     char outputStatus; // 插接位状态
-    char outputName[NAME_LEN]; // 插接位名称
+    char outputName[3][NAME_LEN]; // 插接位名称
+
+    //========== 不监测分的 所以只有3个
+    // sTgObjData tgOutput; // 插接位统计信息
 }sOutputData;
 
 /**
@@ -86,8 +97,8 @@ typedef struct _sBoxData {
     char offLine; // 离线标识
     int outputNum; // 插接位数量
 
-    int sw[OUTPUT_NUM]; // 开关状态
-    sOutputData output[OUTPUT_NUM]; // 插接位3个
+    // sOutputData output[3]; //========== 不监测分的 所以只有0个
+    sOutputData output; // 插接位
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 插接箱统计信息
@@ -103,7 +114,7 @@ typedef struct _sBoxData {
 typedef struct _sBusData{
     int boxNum; // 插接箱数量
     sBoxData   box[BOX_NUM];  // 最多20个插接箱
-
+    sObjData data; // 母线数据
     sTgObjData tgBus; // 母线统计信息
     int rate; // 电压频率
     int ratedCur; // 额定电流

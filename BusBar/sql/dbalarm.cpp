@@ -1,3 +1,11 @@
+/*
+ * dbalarm.cpp
+ *
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "dbalarm.h"
 
 DbAlarm::DbAlarm()

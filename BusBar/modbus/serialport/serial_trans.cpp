@@ -103,7 +103,7 @@ bool Serial_Trans::openSerial(const QString serialName)
     }
 
     tcflush(fd, TCIFLUSH);
-    setting.c_cc[VTIME] = 6; // 超时时间 0.6S
+    setting.c_cc[VTIME] = 5; // 超时时间 0.5S
     setting.c_cc[VMIN] = 0; // 数据最小长度
     tcsetattr(fd, TCSANOW, &setting);
 
