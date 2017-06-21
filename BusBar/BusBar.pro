@@ -19,8 +19,10 @@ include(sql/sql.pri)
 include(dp/dp.pri)
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    initshm.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    initshm.h
 
 FORMS    += mainwindow.ui

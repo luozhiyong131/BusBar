@@ -6,6 +6,7 @@
 #define DB_TABLE_MAINELE "main_ele"
 
 struct DbMainEleItem : public DbBasicItem{
+    QString name;
     double line_1, line_2, line_3, line;
 };
 

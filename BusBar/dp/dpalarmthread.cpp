@@ -1,3 +1,11 @@
+/*
+ * dpalarmthread.cpp
+ * 报警标志位判定线程
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "dpalarmthread.h"
 
 DpAlarmThread::DpAlarmThread(QObject *parent) : QThread(parent)
@@ -48,7 +56,40 @@ void DpAlarmThread::alarmDataUnit(sDataUnit &unit, bool cr)
 }
 
 
+char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
+{
+    char flag=0;
 
+    for(int i=0; i<3; ++i) {
+        flag += unit.alarm[i];
+        if(cr) flag += unit.crAlarm[i];
+    }
+
+    if(flag) flag = 1;
+
+    return flag;
+}
+
+void DpAlarmThread::boxAlarm(sBoxData &box)
+{
+    alarmDataUnit(box.data.cur); // 回路是否有报警
+    box.boxAlarm = alarmFlag(box.data.cur);
+}
+
+void DpAlarmThread::busAlarm(sBusData &bus)
+{
+    for(int i=0; i<bus.boxNum; ++i) {
+        boxAlarm(bus.box[i]);
+    }
+
+    alarmDataUnit(bus.data.cur);
+    bus.busCurAlarm = alarmFlag(bus.data.cur);
+
+    alarmDataUnit(bus.data.vol);
+    bus.busVolAlarm = alarmFlag(bus.data.vol);
+
+    bus.busAlarm = bus.busCurAlarm + bus.busVolAlarm;
+}
 
 
 void DpAlarmThread::run()
@@ -57,8 +98,8 @@ void DpAlarmThread::run()
     {
         isRun  = true;
 
-//        for(int i=0; i<BUS_NUM; ++i)
-//            tgBus(&(shm->data[i]));
+        for(int i=0; i<BUS_NUM; ++i)
+            busAlarm(shm->data[i]);
 
         isRun  = false;
     }

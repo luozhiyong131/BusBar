@@ -23,10 +23,16 @@ RtuThread::~RtuThread()
     wait();
 }
 
+/**
+ * @brief RTU通讯初始化
+ * @param name 串口名
+ * @param id 母线ID
+ * @return
+ */
 bool RtuThread::init(const QString& name, int id)
 {
     sDataPacket *shm = get_share_mem(); // 获取共享内存
-    mBusData = &(shm->data[id]);
+    mBusData = &(shm->data[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
     if(ret)  start(); // 启动线程
@@ -36,32 +42,27 @@ bool RtuThread::init(const QString& name, int id)
 
 
 
-void RtuThread::outputObjData(sObjData *output, int id, RtuRecvLine *data)
+void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
-    output->vol.value[id] = data->vol;
-    output->cur.value[id] = data->cur;
+    loop->vol.value[id] = data->vol;
+    loop->cur.value[id] = data->cur;
 
-    output->pow[id] = data->pow;
-    output->ele[id] = data->ele;
-    output->pf[id] = data->pf;
-    output->sw[id] = data->sw;
-    output->apPow[id] = data->apPow;
-    output->ratedCur[id] = data->curAlarm;
+    loop->pow[id] = data->pow;
+    loop->ele[id] = data->ele;
+    loop->pf[id] = data->pf;
+    loop->sw[id] = data->sw;
+    loop->apPow[id] = data->apPow;
+    loop->ratedCur[id] = data->curAlarm;
 }
 
-void RtuThread::outputData(sBoxData *box, Rtu_recv *pkt)
+void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
 {
-    int line=0;
-//    for(int k=0; k<3; k++) //========== 不监测分的 所以只有3个
-//    {
-//        sOutputData *output = &(box->output[k]);
-        sObjData *output = &(box->output.data);
-        for(int i=0; i<3; i++)
-        {
-            RtuRecvLine *data = &(pkt->data[line++]);
-            outputObjData(output, i, data);
-        }
-//    }
+    sObjData *loop = &(box->data);
+    for(int i=0; i<3; i++)
+    {
+        RtuRecvLine *data = &(pkt->data[i]);
+        loopObjData(loop, i, data);
+    }
 }
 
 void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
@@ -88,7 +89,7 @@ void RtuThread::transData(int addr)
         if(ret) {
             if(addr == pkt->addr) {
                 offLine = 1;
-                outputData(box, pkt);
+                loopData(box, pkt);
                 envData(&(box->env), pkt);
             }
         }

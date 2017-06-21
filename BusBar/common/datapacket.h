@@ -17,7 +17,6 @@
 #include <string.h>
 
 #define LINE_NUM 3 // 三相
-#define OUTPUT_NUM 3 // 三个插接位
 #define BOX_NUM 20 // 插接箱数量
 #define BUS_NUM 4  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
@@ -44,13 +43,11 @@ typedef struct _sDataUnit {
     int value[3]; // 值
     int min[3]; // 最小值
     int max[3]; // 最大值
-    int alarm[3]; // 报警值
-    int flag; // 标志 0表示未纪录 1表示已纪录
+    int alarm[3]; // 报警值 0表示未报警  1表示已报警 2表示已纪录
 
     int crMin[3]; // 临界最小值
     int crMax[3]; // 临界最大值
     int crAlarm[3]; // 临界报警值
-    int crFlag[3];
 }sDataUnit;
 
 /**
@@ -69,18 +66,6 @@ typedef struct _sObjData {
     int ratedCur[3]; // 额定电流
 }sObjData;
 
-/**
- * 插接位数据对象：包括电流，电压，功率，电能，开关状态，插接位名称
- */
-typedef struct _sOutputData {
-    sObjData data; // 插接位数据
-    char outputAlarm; // 插接位报警
-    char outputStatus; // 插接位状态
-    char outputName[3][NAME_LEN]; // 插接位名称
-
-    //========== 不监测分的 所以只有3个
-    // sTgObjData tgOutput; // 插接位统计信息
-}sOutputData;
 
 /**
  * 环境数据结构体
@@ -95,10 +80,10 @@ typedef struct _sEnvData {
  */
 typedef struct _sBoxData {
     char offLine; // 离线标识
-    int outputNum; // 插接位数量
+    int loopNum; // 回路数量
 
-    // sOutputData output[3]; //========== 不监测分的 所以只有0个
-    sOutputData output; // 插接位
+    sObjData data; // 回路数据
+    char loopName[3][NAME_LEN]; // 回路名称
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 插接箱统计信息
@@ -118,8 +103,12 @@ typedef struct _sBusData{
     sTgObjData tgBus; // 母线统计信息
     int rate; // 电压频率
     int ratedCur; // 额定电流
+
+    char busCurAlarm; // 总线电流报警
+    char busVolAlarm; // 总线电压报警
     char busAlarm; // 总线报警
     char busStatus; // 母线状态
+
     char busName[NAME_LEN]; // 母线名称
 }sBusData;
 

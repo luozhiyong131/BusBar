@@ -15,6 +15,7 @@ DbAlarm::DbAlarm()
             "id             INTEGER primary key autoincrement not null,"
             "date           VCHAR,"
             "time           VCHAR,"
+            "type           VCHAR,"
             "msg            TEXT);";
     QSqlQuery query;
     if(!query.exec(cmd.arg(tableName())))
@@ -35,8 +36,8 @@ bool DbAlarm::insertItem(DbAlarmItem& item)
 {
     bool ret = false;
     item.id = maxId()+1;
-    QString cmd = "insert into %1 (id, date, time, msg) "
-            "values(:id,:date,:time,:msg)";
+    QString cmd = "insert into %1 (id, date, time,type, msg) "
+            "values(:id,:date,:time,:type,:msg)";
     ret = modifyItem(item,cmd.arg(tableName()));
     if(ret)
         emit itemChanged(item.id,Insert);
@@ -52,6 +53,7 @@ bool DbAlarm::modifyItem(const DbAlarmItem &item, const QString &cmd)
     query.bindValue(":id",item.id);
     query.bindValue(":date",item.date);
     query.bindValue(":time",item.time);
+    query.bindValue(":type",item.type);
     query.bindValue(":msg",item.msg);
     ret = query.exec();
     if(!ret)
@@ -63,7 +65,8 @@ void DbAlarm::selectItem(QSqlQuery &query,DbAlarmItem &item)
 {
     item.id = query.value("id").toInt();
     item.date = query.value("date").toString();
-    item.time = query.value("name").toString();
+    item.time = query.value("time").toString();
+    item.type = query.value("type").toString();
     item.msg = query.value("msg").toString();
 }
 

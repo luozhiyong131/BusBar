@@ -6,7 +6,8 @@
 #define DB_TABLE_BRANCHELE "branch_ele"
 
 struct DbBranchEleItem : public DbBasicItem{
-    double output_1, output_2, output_3, output;
+    QString name;
+    double loop_1, loop_2, loop_3, loop;
 };
 
 

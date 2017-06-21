@@ -140,7 +140,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="page_11"/>
    <widget class="QWidget" name="page">
@@ -1334,7 +1334,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>插接位</string>
+       <string>回路</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_153">
@@ -1699,46 +1699,6 @@
       <string>温度</string>
      </property>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>230</y>
-       <width>841</width>
-       <height>261</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>项目　</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>电压</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>电流　</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>功率</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>功率因素</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>电能</string>
-      </property>
-     </column>
-    </widget>
    </widget>
    <widget class="QWidget" name="page_4">
     <widget class="QTableWidget" name="tableWidget">
@@ -1990,27 +1950,27 @@
      </column>
      <column>
       <property name="text">
-       <string>名称</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>插接位1</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>插接位2</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>插接位3</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>插接箱</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>回路1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>回路2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>回路3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>合计</string>
       </property>
      </column>
     </widget>
@@ -2366,25 +2326,40 @@
     <widget class="QTableWidget" name="tableWidget_4">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>260</y>
-       <width>891</width>
-       <height>161</height>
+       <x>20</x>
+       <y>120</y>
+       <width>681</width>
+       <height>231</height>
       </rect>
      </property>
      <row>
       <property name="text">
-       <string>A相</string>
+       <string>A相电压</string>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>B相</string>
+       <string>B相电压</string>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>C相</string>
+       <string>C相电压</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>A相电流</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>B相电流 </string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>C相电流 </string>
       </property>
      </row>
      <column>
@@ -2454,206 +2429,11 @@
       <string>编辑</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_247">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>90</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>A相</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_248">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>70</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>相电压</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_249">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>70</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>最小值</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_250">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>70</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>最大值</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_251">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>100</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>220V</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_252">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>100</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>170</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_253">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>100</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>250</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_254">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>130</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>250</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_255">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>120</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>B相</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_256">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>130</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>170</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_257">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>130</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>220V</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_258">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>170</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>250</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_259">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>170</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>220V</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_260">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>160</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>C相</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_261">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>170</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>170</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_274">
      <property name="geometry">
       <rect>
-       <x>700</x>
-       <y>90</y>
+       <x>760</x>
+       <y>160</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2665,8 +2445,8 @@
     <widget class="QLabel" name="label_275">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>90</y>
+       <x>840</x>
+       <y>160</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2678,8 +2458,8 @@
     <widget class="QLabel" name="label_276">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>120</y>
+       <x>840</x>
+       <y>190</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2691,8 +2471,8 @@
     <widget class="QLabel" name="label_277">
      <property name="geometry">
       <rect>
-       <x>700</x>
-       <y>150</y>
+       <x>760</x>
+       <y>220</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2704,8 +2484,8 @@
     <widget class="QLabel" name="label_278">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>150</y>
+       <x>840</x>
+       <y>220</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2717,8 +2497,8 @@
     <widget class="QLabel" name="label_279">
      <property name="geometry">
       <rect>
-       <x>700</x>
-       <y>120</y>
+       <x>760</x>
+       <y>190</y>
        <width>66</width>
        <height>17</height>
       </rect>
@@ -2727,50 +2507,11 @@
       <string>最小值</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_34">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>100</y>
-       <width>61</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>编辑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_35">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>130</y>
-       <width>61</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>编辑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_36">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>160</y>
-       <width>61</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>编辑</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_40">
      <property name="geometry">
       <rect>
-       <x>750</x>
-       <y>180</y>
+       <x>760</x>
+       <y>240</y>
        <width>61</width>
        <height>27</height>
       </rect>
@@ -2782,8 +2523,8 @@
     <widget class="QPushButton" name="pushButton_62">
      <property name="geometry">
       <rect>
-       <x>750</x>
-       <y>220</y>
+       <x>760</x>
+       <y>280</y>
        <width>61</width>
        <height>27</height>
       </rect>
@@ -3060,9 +2801,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>100</y>
+       <y>60</y>
        <width>641</width>
-       <height>161</height>
+       <height>301</height>
       </rect>
      </property>
      <column>
@@ -3096,98 +2837,6 @@
       </property>
      </column>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_7">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>280</y>
-       <width>641</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>相</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>电流</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>最小值</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>临界下限</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>最大值</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>操作</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QLabel" name="label_25">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>70</y>
-       <width>91</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>最小值　</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_26">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>70</y>
-       <width>91</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>插接箱电流</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>540</x>
-       <y>70</y>
-       <width>91</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>插接箱电流</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_28">
-     <property name="geometry">
-      <rect>
-       <x>600</x>
-       <y>30</y>
-       <width>91</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>插接箱电流</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBox_10">
      <property name="geometry">
       <rect>
@@ -3216,66 +2865,40 @@
      <widget class="QLabel" name="label_29">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>70</y>
+        <x>130</x>
+        <y>30</y>
         <width>81</width>
         <height>17</height>
        </rect>
       </property>
       <property name="text">
-       <string>最小值：0　</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_30">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>100</y>
-        <width>91</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>最大值：３２　</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_31">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>100</y>
-        <width>91</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>临界上限:32　</string>
+       <string>功率：0　</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_32">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>70</y>
+        <x>10</x>
+        <y>60</y>
         <width>81</width>
         <height>17</height>
        </rect>
       </property>
       <property name="text">
-       <string>临界下限：0　</string>
+       <string>电压：0　</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_65">
+     <widget class="QLabel" name="label_33">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>20</y>
-        <width>61</width>
-        <height>27</height>
+        <x>130</x>
+        <y>60</y>
+        <width>81</width>
+        <height>17</height>
        </rect>
       </property>
       <property name="text">
-       <string>编辑</string>
+       <string>电能：0　</string>
       </property>
      </widget>
     </widget>
@@ -3370,6 +2993,12 @@
       </property>
      </widget>
     </widget>
+    <zorder>label_286</zorder>
+    <zorder>pushButton_63</zorder>
+    <zorder>tableWidget_6</zorder>
+    <zorder>groupBox_10</zorder>
+    <zorder>groupBox_11</zorder>
+    <zorder>label_24</zorder>
    </widget>
   </widget>
   <widget class="QLabel" name="label_372">

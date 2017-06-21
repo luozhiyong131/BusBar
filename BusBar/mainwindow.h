@@ -2,9 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "common.h"
+#include "initshm.h"
 
-#include "serialport/serial_test.h"
 
 
 namespace Ui {
@@ -19,10 +18,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void initSerial();
+
+protected slots:
+    void initFunSLot();
+
 private:
     Ui::MainWindow *ui;
+    InitShm *mInitShm;
 
-    Serial_Test *test;
 };
 
 #endif // MAINWINDOW_H

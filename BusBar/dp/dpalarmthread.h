@@ -15,6 +15,10 @@ signals:
 protected:
     void run();
     void alarmDataUnit(sDataUnit &unit, bool cr=true);
+    char alarmFlag(sDataUnit &unit, bool cr=true);
+
+    void boxAlarm(sBoxData &box);
+    void busAlarm(sBusData &bus);
 
 protected slots:
     void timeoutDone();

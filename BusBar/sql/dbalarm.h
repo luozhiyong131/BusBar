@@ -6,6 +6,7 @@
 #define DB_TABLE_ALARM "alarm"
 
 struct DbAlarmItem : public DbBasicItem{
+    QString type;
     QString msg;
 };
 

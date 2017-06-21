@@ -1,26 +1,23 @@
+/*
+ * dpthread.cpp
+ * 数据处理线程入口
+ *
+ *  Created on: 2016年10月11日
+ *      Author: Lzy
+ */
 #include "dpthread.h"
 
 DpThread::DpThread(QObject *parent) : QThread(parent)
 {
-    isRun = false;
-    shm = get_share_mem(); // 获取共享内存
-
-    timer = new QTimer(this);
-    timer->start(2*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    mTgThread = new DpTgThread(this);
+    mAlarmThread = new DpAlarmThread(this);
+    mEle = new DpEleSlaveThread(this);
+    mAlarmSlave = new DpAlarmSlave(this);
 }
 
 DpThread::~DpThread()
 {
-    isRun = false;
-    wait();
-}
 
-void DpThread::timeoutDone()
-{
-    if(isRun == false) {
-        start();
-    }
 }
 
 
@@ -30,14 +27,3 @@ void DpThread::timeoutDone()
 
 
 
-
-
-void DpThread::run()
-{
-    if(isRun == false)
-    {
-        isRun  = true;
-
-        isRun  = false;
-    }
-}

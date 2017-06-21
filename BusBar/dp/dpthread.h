@@ -3,6 +3,9 @@
 
 #include <QThread>
 #include "common.h"
+#include "dpalarmthread.h"
+#include "dpeleslavethread.h"
+#include "dpalarmslave.h"
 
 class DpThread : public QThread
 {
@@ -13,18 +16,12 @@ public:
 
 signals:
 
-protected:
-    void run();
-
-
-
-protected slots:
-    void timeoutDone();
 
 private:
-     bool isRun;
-     QTimer *timer;
-     sDataPacket *shm;
+     DpTgThread *mTgThread;
+     DpAlarmThread *mAlarmThread;
+     DpEleSlaveThread *mEle;
+     DpAlarmSlave *mAlarmSlave;
 };
 
 #endif // DPTHREAD_H

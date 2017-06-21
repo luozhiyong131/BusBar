@@ -73,11 +73,11 @@ void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
 
 void DpTgThread::tgBox(sBoxData *box)
 {
-    sObjData *output = &(box->output.data);
+    sObjData *loop = &(box->data);
     sTgObjData *tgBox = &(box->tgBox);
 
     if(box->offLine)
-        tgObj(output, tgBox);
+        tgObj(loop, tgBox);
 }
 
 /**
@@ -100,7 +100,7 @@ void DpTgThread::tgBusLine(sBusData *bus)
             if(box->offLine <= 0) continue;
             len++;
 
-            sObjData *obj = &(bus->box[k].output.data);
+            sObjData *obj = &(bus->box[k].data);
             tg->cur.value[i] += obj->cur.value[i];
             tg->pow[i] += obj->pow[i];
             tg->ele[i] += obj->ele[i];

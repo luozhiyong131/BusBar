@@ -23,8 +23,8 @@ protected:
     void run();
     void transData(int addr);
 
-    void outputObjData(sObjData *output, int id, RtuRecvLine *data);
-    void outputData(sBoxData *box, Rtu_recv *pkt);
+    void loopObjData(sObjData *loop, int id, RtuRecvLine *data);
+    void loopData(sBoxData *box, Rtu_recv *pkt);
 
     void envData(sEnvData *env, Rtu_recv *pkt);
 
