@@ -17,6 +17,11 @@ include(common/common.pri)
 include(modbus/modbus.pri)
 include(sql/sql.pri)
 include(dp/dp.pri)
+include(home/home.pri)
+include(line/line.pri)
+include(branch/branch.pri)
+include(logs/logs.pri)
+include(setting/setting.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \

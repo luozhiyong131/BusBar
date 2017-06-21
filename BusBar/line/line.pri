@@ -2,16 +2,16 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/homewid.h
+    $$PWD/linewid.h
     
    
 	
 SOURCES += \
-    $$PWD/homewid.cpp
+    $$PWD/linewid.cpp
     
     
 
 FORMS += \
-    $$PWD/homewid.ui
+    $$PWD/linewid.ui
 
 

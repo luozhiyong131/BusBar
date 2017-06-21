@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
 
 //    initSerial();
+
+    initWidget();
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
 
 //     TestDlg *dlg = new TestDlg(this);
@@ -27,6 +29,11 @@ MainWindow::~MainWindow()
     share_mem_del();
 }
 
+void MainWindow::timeoutDone()
+{
+    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    ui->timeLab->setText(time);
+}
 
 /**
  * @brief 初始化串口
@@ -50,4 +57,52 @@ void MainWindow::initSerial()
 void MainWindow::initFunSLot()
 {
      new DpThread(this); // 创建数据处理线程
+
+
+    timer = new QTimer(this);
+    timer->start(1000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+}
+
+void MainWindow::initWidget()
+{
+    mHomeWid = new HomeWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mHomeWid);
+
+    mLineWid = new LineWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLineWid);
+
+    mBranchWid = new BranchWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mBranchWid);
+
+    mLogsWid = new LogsWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogsWid);
+
+    mSettingWid = new SettingWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSettingWid);
+}
+
+void MainWindow::on_homeBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mHomeWid);
+}
+
+void MainWindow::on_lineBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mLineWid);
+}
+
+void MainWindow::on_branchBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mBranchWid);
+}
+
+void MainWindow::on_logBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mLogsWid);
+}
+
+void MainWindow::on_setBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mSettingWid);
 }
