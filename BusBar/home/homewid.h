@@ -2,7 +2,6 @@
 #define HOMEWID_H
 
 #include <QWidget>
-#include "smtp/emailwid.h"
 
 namespace Ui {
 class HomeWid;
@@ -19,7 +18,6 @@ public:
 private:
     Ui::HomeWid *ui;
 
-    EmailWid *mEmailWid;
 };
 
 #endif // HOMEWID_H

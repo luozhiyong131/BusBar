@@ -90,7 +90,6 @@ void EmailWid::on_setBtn_clicked()
     dlg.exec();
 }
 
-
 void EmailWid::on_sentBtn_clicked()
 {
     QStringList recipient;
