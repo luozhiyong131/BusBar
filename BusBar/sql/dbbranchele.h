@@ -16,20 +16,20 @@ class DbBranchEle : public SqlBasic<DbBranchEleItem>
 public:
     DbBranchEle();
 
-    static DbBranchEle* bulid();
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(1) ;}
     bool insertItem(DbBranchEleItem &item); // 插入
 
 protected:
+     void createTable();
     bool modifyItem(const DbBranchEleItem& item,const QString& cmd);
     void selectItem(QSqlQuery &query,DbBranchEleItem &item);
 };
 
 
-
 class DbBranchEle2 : public DbBranchEle
 {
 public:
+     DbBranchEle2(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(2) ;}
 };
 
@@ -37,12 +37,16 @@ public:
 class DbBranchEle3 : public DbBranchEle
 {
 public:
+     DbBranchEle3(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(3) ;}
 };
 
 class DbBranchEle4 : public DbBranchEle
 {
 public:
+     DbBranchEle4(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(4) ;}
 };
+
+DbBranchEle* db_branchEle_obj(int id);
 #endif // DBBRANCHELE_H

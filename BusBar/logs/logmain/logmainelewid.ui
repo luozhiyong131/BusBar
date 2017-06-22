@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HomeWid</class>
- <widget class="QWidget" name="HomeWid">
+ <class>LogMainEleWid</class>
+ <widget class="QWidget" name="LogMainEleWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>935</width>
-    <height>421</height>
+    <width>786</width>
+    <height>506</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QTableView" name="tableView">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>100</y>
-     <width>91</width>
-     <height>171</height>
+     <x>10</x>
+     <y>10</y>
+     <width>651</width>
+     <height>491</height>
     </rect>
-   </property>
-   <property name="text">
-    <string>罗志勇</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
-     <width>341</width>
-     <height>271</height>
+     <x>660</x>
+     <y>20</y>
+     <width>120</width>
+     <height>411</height>
     </rect>
    </property>
   </widget>

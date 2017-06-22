@@ -6,6 +6,8 @@ HomeWid::HomeWid(QWidget *parent) :
     ui(new Ui::HomeWid)
 {
     ui->setupUi(this);
+
+    mEmailWid = new EmailWid(ui->widget);
 }
 
 HomeWid::~HomeWid()

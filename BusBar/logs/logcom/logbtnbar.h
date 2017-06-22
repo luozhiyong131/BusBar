@@ -17,6 +17,7 @@ public:
     ~LogBtnBar();
 
 signals:
+    void refreshSig();
     void busNumSig(int);
     void querySig(QString);
     void exportSig();

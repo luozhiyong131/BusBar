@@ -61,8 +61,6 @@ bool SqlTableModel::removeRow(int curRow)
     bool ret = model->removeRow(curRow);
     if(ret)
         ret = submitChanges();
-    else
-        qDebug() << "remove Row err" << "######################";
 
     return ret;
 }

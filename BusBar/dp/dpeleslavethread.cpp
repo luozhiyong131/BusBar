@@ -47,22 +47,7 @@ void DpEleSlaveThread::saveBox(int bus, sBoxData  &box)
     item.loop_2 = data->ele[line++]/rate;
     item.loop_3 = data->ele[line++]/rate;
     item.loop = box.tgBox.ele/rate;
-
-    switch(bus)
-    {
-    case 0:
-        DbBranchEle::bulid()->insertItem(item);
-        break;
-    case 1:
-        DbBranchEle2::bulid()->insertItem(item);
-        break;
-    case 2:
-        DbBranchEle3::bulid()->insertItem(item);
-        break;
-    case 3:
-        DbBranchEle4::bulid()->insertItem(item);
-        break;
-    }
+    db_branchEle_obj(bus)->insertItem(item);
     msleep(5);
 }
 
@@ -75,27 +60,11 @@ void DpEleSlaveThread::saveBus(int id)
     if(bus->tgBus.vol == 0) return; //不保存
 
     DbMainEleItem item;
-    item.name = bus->busName;
     item.line_1 = bus->data.ele[line++]/rate;
     item.line_2 = bus->data.ele[line++]/rate;
     item.line_3 = bus->data.ele[line++]/rate;
     item.line = bus->tgBus.ele/rate;
-
-    switch(id)
-    {
-    case 0:
-        DbMainEle::bulid()->insertItem(item);
-        break;
-    case 1:
-        DbMainEle2::bulid()->insertItem(item);
-        break;
-    case 2:
-        DbMainEle3::bulid()->insertItem(item);
-        break;
-    case 3:
-        DbMainEle4::bulid()->insertItem(item);
-        break;
-    }
+    db_mainEle_obj(id)->insertItem(item);
     msleep(5);
 
     for(int i=0; i<bus->boxNum; ++i)

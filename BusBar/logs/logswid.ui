@@ -6,24 +6,60 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>459</height>
+    <width>989</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="lineBtn">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>160</y>
-     <width>141</width>
-     <height>91</height>
+     <x>850</x>
+     <y>80</y>
+     <width>80</width>
+     <height>26</height>
     </rect>
    </property>
    <property name="text">
-    <string>日志界面</string>
+    <string>主路电量</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="branchBtn">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>180</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>支路电量</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="alarmBtn">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>280</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>报警日志</string>
+   </property>
+  </widget>
+  <widget class="QStackedWidget" name="stackedWid">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>791</width>
+     <height>421</height>
+    </rect>
    </property>
   </widget>
  </widget>

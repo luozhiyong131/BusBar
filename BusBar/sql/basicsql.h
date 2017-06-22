@@ -3,6 +3,7 @@
 
 #include <QtSql>
 #include <QObject>
+#include "common.h"
 
 struct DbBasicItem{
     DbBasicItem():id(-1){

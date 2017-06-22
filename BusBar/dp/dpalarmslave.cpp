@@ -70,22 +70,7 @@ void DpAlarmSlave::saveMsg(const QString &typeStr, const QString &str)
     DbAlarmItem item;
     item.type = typeStr;
     item.msg = str;
-
-    switch(mBusId)
-    {
-    case 0:
-        DbAlarm::bulid()->insertItem(item);
-        break;
-    case 1:
-        DbAlarm2::bulid()->insertItem(item);
-        break;
-    case 2:
-        DbAlarm3::bulid()->insertItem(item);
-        break;
-    case 3:
-        DbAlarm4::bulid()->insertItem(item);
-        break;
-    }
+    db_alarm_obj(mBusId)->insertItem(item);
     msleep(5);
 
     QMutexLocker locker(&mutex);

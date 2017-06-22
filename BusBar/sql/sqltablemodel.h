@@ -32,7 +32,7 @@ signals:
 public slots:
     void queryFilter(QString);
 
-protected:
+public:
     QSqlTableModel *model;
 };
 

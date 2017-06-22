@@ -22,6 +22,8 @@ include(line/line.pri)
 include(branch/branch.pri)
 include(logs/logs.pri)
 include(setting/setting.pri)
+include(services/services.pri)
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \

@@ -1,3 +1,10 @@
+/*
+ * logbtnbar.cpp
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "logbtnbar.h"
 #include "ui_logbtnbar.h"
 #include "logcalendardlg.h"

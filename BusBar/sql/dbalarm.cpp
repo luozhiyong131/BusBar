@@ -10,6 +10,11 @@
 
 DbAlarm::DbAlarm()
 {
+    createTable();
+}
+
+void DbAlarm::createTable()
+{
     QString cmd =
             "create table if not exists %1("
             "id             INTEGER primary key autoincrement not null,"
@@ -22,14 +27,6 @@ DbAlarm::DbAlarm()
     {
         throwError(query.lastError());
     }
-}
-
-DbAlarm *DbAlarm::bulid()
-{
-    static DbAlarm* sington = NULL;
-    if(sington == NULL)
-        sington = new DbAlarm();
-    return sington;
 }
 
 bool DbAlarm::insertItem(DbAlarmItem& item)
@@ -70,4 +67,33 @@ void DbAlarm::selectItem(QSqlQuery &query,DbAlarmItem &item)
     item.msg = query.value("msg").toString();
 }
 
+
+DbAlarm* db_alarm_obj(int id)
+{
+    static DbAlarm* sington1  = new DbAlarm();
+    static DbAlarm2* sington2  = new DbAlarm2();
+    static DbAlarm3* sington3  = new DbAlarm3();
+    static DbAlarm4* sington4  = new DbAlarm4();
+
+    DbAlarm* sington = NULL;
+    switch (id)
+    {
+    case 0:
+        sington = sington1;
+        break;
+
+    case 1:
+        sington = sington2;
+        break;
+
+    case 2:
+        sington = sington3;
+        break;
+
+    case 3:
+        sington = sington4;
+        break;
+    }
+    return sington;
+}
 

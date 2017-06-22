@@ -1,3 +1,10 @@
+/*
+ * logcalendardlg.cpp
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "logcalendardlg.h"
 #include "ui_logcalendardlg.h"
 

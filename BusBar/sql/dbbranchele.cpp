@@ -10,6 +10,11 @@
 
 DbBranchEle::DbBranchEle()
 {
+    createTable();
+}
+
+void DbBranchEle::createTable()
+{
     QString cmd =
             "create table if not exists %1("
             "id             INTEGER primary key autoincrement not null,"
@@ -25,15 +30,6 @@ DbBranchEle::DbBranchEle()
     {
         throwError(query.lastError());
     }
-}
-
-
-DbBranchEle *DbBranchEle::bulid()
-{
-    static DbBranchEle* sington = NULL;
-    if(sington == NULL)
-        sington = new DbBranchEle();
-    return sington;
 }
 
 bool DbBranchEle::insertItem(DbBranchEleItem& item)
@@ -78,4 +74,35 @@ void DbBranchEle::selectItem(QSqlQuery &query,DbBranchEleItem &item)
     item.loop_2 = query.value("loop_2").toDouble();
     item.loop_3 = query.value("loop_3").toDouble();
     item.loop = query.value("loop").toDouble();
+}
+
+
+
+DbBranchEle* db_branchEle_obj(int id)
+{
+    static DbBranchEle* sington1  = new DbBranchEle();
+    static DbBranchEle2* sington2  = new DbBranchEle2();
+    static DbBranchEle3* sington3  = new DbBranchEle3();
+    static DbBranchEle4* sington4  = new DbBranchEle4();
+
+    DbBranchEle* sington = NULL;
+    switch (id)
+    {
+    case 0:
+        sington = sington1;
+        break;
+
+    case 1:
+        sington = sington2;
+        break;
+
+    case 2:
+        sington = sington3;
+        break;
+
+    case 3:
+        sington = sington4;
+        break;
+    }
+    return sington;
 }

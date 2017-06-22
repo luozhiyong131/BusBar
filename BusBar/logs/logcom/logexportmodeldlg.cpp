@@ -1,3 +1,10 @@
+/*
+ * logexportmodeldlg.cpp
+ *
+ *
+ *  Created on: 2017年10月1日
+ *      Author: Lzy
+ */
 #include "logexportmodeldlg.h"
 #include "ui_logexportmodeldlg.h"
 #include "logcalendardlg.h"
@@ -37,24 +44,29 @@ void LogExportModelDlg::on_exportBtn_clicked()
     QString endDate = ui->endDateEdit->date().toString("yyyy-MM-dd");
 
     emit exportSig(startDate, endDate);
+    this->accept();
 }
 
 void LogExportModelDlg::on_dayBtn_clicked()
 {
     emit exportSig(1);
+    this->accept();
 }
 
 void LogExportModelDlg::on_monthBtn_clicked()
 {
     emit exportSig(2);
+    this->accept();
 }
 
 void LogExportModelDlg::on_yearBtn_clicked()
 {
      emit exportSig(3);
+    this->accept();
 }
 
 void LogExportModelDlg::on_quitBtn_clicked()
 {
     this->close();
+    this->accept();
 }
