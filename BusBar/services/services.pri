@@ -7,7 +7,11 @@ HEADERS += \
     $$PWD/smtp/smtp.h \
     $$PWD/smtp/smtpssl.h \
     $$PWD/smtp/emailwid.h \
-    $$PWD/smtp/emailthread.h
+    $$PWD/smtp/emailthread.h \
+    $$PWD/excel/basicExcel/BasicExcel.hpp \
+    $$PWD/excel/excelexportlogthread.h \
+    $$PWD/excel/excelexportwid.h \
+    $$PWD/excel/txtexportlogthread.h
     
    
 	
@@ -17,11 +21,17 @@ SOURCES += \
     $$PWD/smtp/smtp.cpp \
     $$PWD/smtp/smtpssl.cpp \
     $$PWD/smtp/emailwid.cpp \
-    $$PWD/smtp/emailthread.cpp
+    $$PWD/smtp/emailthread.cpp \
+    $$PWD/excel/basicExcel/BasicExcel.cpp \
+    $$PWD/excel/execl_demo.cpp \
+    $$PWD/excel/excelexportlogthread.cpp \
+    $$PWD/excel/excelexportwid.cpp \
+    $$PWD/excel/txtexportlogthread.cpp
     
 
 FORMS += \
     $$PWD/smtp/emailsetdlg.ui \
-    $$PWD/smtp/emailwid.ui
+    $$PWD/smtp/emailwid.ui \
+    $$PWD/excel/excelexportwid.ui
 
 

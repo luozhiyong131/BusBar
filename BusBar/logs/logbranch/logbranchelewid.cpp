@@ -8,6 +8,7 @@
 #include "logbranchelewid.h"
 #include "ui_logbranchelewid.h"
 #include "dbbranchele.h"
+#include "logbrancheleexportdlg.h"
 
 LogBranchEleWid::LogBranchEleWid(QWidget *parent) :
     QWidget(parent),
@@ -50,7 +51,6 @@ void LogBranchEleWid::initBtnBar()
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
     connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int)));
-    connect(mBtnBar,SIGNAL(exportSig(QString, QString)),this,SLOT(exportSlot(QString, QString)));
 }
 
 QString LogBranchEleWid::getTableName(int id)
@@ -104,20 +104,14 @@ void LogBranchEleWid::doubleSlot(QModelIndex)
 }
 
 
-
-/**
- * @brief 按时间段导出
- */
-void LogBranchEleWid::exportSlot(QString startDate, QString endDate)
-{
-    qDebug() << startDate << endDate;
-}
-
-
 /**
  * @brief 纪录导出 1日报表 ，2月报表  3 年报表
  */
 void LogBranchEleWid::exportSlot(int mode)
 {
-    qDebug() << mode;
+    if(mode == 0) {
+        LogBranchEleExportDlg dlg(this);
+        dlg.set(mid);
+        dlg.exec();
+    }
 }

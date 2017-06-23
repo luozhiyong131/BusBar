@@ -22,8 +22,6 @@ signals:
     void querySig(QString);
     void exportSig();
     void clearSig();
-
-    void exportSig(QString startDate, QString endDate);
     void exportSig(int);
 
 private slots:

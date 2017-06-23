@@ -2,6 +2,7 @@
 #define LOGEXPORTMODELDLG_H
 
 #include <QDialog>
+#include "excel/excelexportlogthread.h"
 
 namespace Ui {
 class LogExportModelDlg;
@@ -19,6 +20,9 @@ signals:
     void exportSig(QString startDate, QString endDate);
      void exportSig(int);
 
+protected:
+     bool checkInput();
+
 private slots:
     void on_startDateBtn_clicked();
     void on_endDateBtn_clicked();
@@ -28,8 +32,12 @@ private slots:
     void on_yearBtn_clicked();
     void on_quitBtn_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::LogExportModelDlg *ui;
 };
+
+extern sExcelExportStr *gExcelExportStr;
 
 #endif // LOGEXPORTMODELDLG_H

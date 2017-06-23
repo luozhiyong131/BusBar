@@ -21,7 +21,6 @@ LogBtnBar::LogBtnBar(QWidget *parent) :
 
     mExportDlg = new LogExportModelDlg(this);
     connect(mExportDlg, SIGNAL(exportSig(int)),this,SIGNAL(exportSig(int))); // 导出信号
-    connect(mExportDlg, SIGNAL(exportSig(QString,QString)),this,SIGNAL(exportSig(QString,QString)));
 }
 
 LogBtnBar::~LogBtnBar()

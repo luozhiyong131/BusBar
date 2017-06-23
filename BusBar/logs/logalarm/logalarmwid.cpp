@@ -8,6 +8,7 @@
 #include "logalarmwid.h"
 #include "ui_logalarmwid.h"
 #include "dbalarm.h"
+#include "logalarmeleexportdlg.h"
 
 LogAlarmWid::LogAlarmWid(QWidget *parent) :
     QWidget(parent),
@@ -50,7 +51,6 @@ void LogAlarmWid::initBtnBar()
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
     connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int)));
-    connect(mBtnBar,SIGNAL(exportSig(QString, QString)),this,SLOT(exportSlot(QString, QString)));
 }
 
 QString LogAlarmWid::getTableName(int id)
@@ -106,18 +106,13 @@ void LogAlarmWid::doubleSlot(QModelIndex)
 
 
 /**
- * @brief 按时间段导出
- */
-void LogAlarmWid::exportSlot(QString startDate, QString endDate)
-{
-    qDebug() << startDate << endDate;
-}
-
-
-/**
  * @brief 纪录导出 1日报表 ，2月报表  3 年报表
  */
 void LogAlarmWid::exportSlot(int mode)
 {
-    qDebug() << mode;
+    if(mode == 0) {
+        LogAlarmEleExportDlg dlg(this);
+        dlg.set(mid);
+        dlg.exec();
+    }
 }

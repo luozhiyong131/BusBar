@@ -28,7 +28,6 @@ protected slots:
     void doubleSlot(QModelIndex);
     void clearTableSlot();
     void refreshSlot();
-    void exportSlot(QString startDate, QString endDate);
     void exportSlot(int);
 
 private:

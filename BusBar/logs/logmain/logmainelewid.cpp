@@ -8,7 +8,7 @@
 #include "logmainelewid.h"
 #include "ui_logmainelewid.h"
 #include "dbmainele.h"
-
+#include "logmaineleexportdlg.h"
 
 LogMainEleWid::LogMainEleWid(QWidget *parent) :
     QWidget(parent),
@@ -50,7 +50,6 @@ void LogMainEleWid::initBtnBar()
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
     connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int)));
-    connect(mBtnBar,SIGNAL(exportSig(QString, QString)),this,SLOT(exportSlot(QString, QString)));
 }
 
 QString LogMainEleWid::getTableName(int id)
@@ -104,20 +103,14 @@ void LogMainEleWid::doubleSlot(QModelIndex)
 }
 
 
-
 /**
- * @brief 按时间段导出
- */
-void LogMainEleWid::exportSlot(QString startDate, QString endDate)
-{
-    qDebug() << startDate << endDate;
-}
-
-
-/**
- * @brief 纪录导出 1日报表 ，2月报表  3 年报表
+ * @brief 纪录导出 0按时间段导出 1日报表 ，2月报表  3 年报表
  */
 void LogMainEleWid::exportSlot(int mode)
 {
-    qDebug() << mode;
+   if(mode == 0) {
+       LogMainEleExportDlg dlg(this);
+       dlg.set(mid);
+       dlg.exec();
+   }
 }

@@ -8,7 +8,13 @@ HEADERS += \
     $$PWD/logcom/logexportmodeldlg.h \
     $$PWD/logmain/logmainelewid.h \
     $$PWD/logbranch/logbranchelewid.h \
-    $$PWD/logalarm/logalarmwid.h
+    $$PWD/logalarm/logalarmwid.h \
+    $$PWD/logmain/logmaineleexportthread.h \
+    $$PWD/logmain/logmaineleexportdlg.h \
+    $$PWD/logbranch/logbrancheleexportthread.h \
+    $$PWD/logbranch/logbrancheleexportdlg.h \
+    $$PWD/logalarm/logalarmexportthread.h \
+    $$PWD/logalarm/logalarmeleexportdlg.h
     
    
 	
@@ -19,7 +25,13 @@ SOURCES += \
     $$PWD/logcom/logexportmodeldlg.cpp \
     $$PWD/logmain/logmainelewid.cpp \
     $$PWD/logbranch/logbranchelewid.cpp \
-    $$PWD/logalarm/logalarmwid.cpp
+    $$PWD/logalarm/logalarmwid.cpp \
+    $$PWD/logmain/logmaineleexportthread.cpp \
+    $$PWD/logmain/logmaineleexportdlg.cpp \
+    $$PWD/logbranch/logbrancheleexportthread.cpp \
+    $$PWD/logbranch/logbrancheleexportdlg.cpp \
+    $$PWD/logalarm/logalarmexportthread.cpp \
+    $$PWD/logalarm/logalarmeleexportdlg.cpp
     
     
 
@@ -30,6 +42,9 @@ FORMS += \
     $$PWD/logcom/logexportmodeldlg.ui \
     $$PWD/logmain/logmainelewid.ui \
     $$PWD/logbranch/logbranchelewid.ui \
-    $$PWD/logalarm/logalarmwid.ui
+    $$PWD/logalarm/logalarmwid.ui \
+    $$PWD/logmain/logmaineleexportdlg.ui \
+    $$PWD/logbranch/logbrancheleexportdlg.ui \
+    $$PWD/logalarm/logalarmeleexportdlg.ui
 
 
