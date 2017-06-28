@@ -62,10 +62,13 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 
     for(int i=0; i<3; ++i) {
         flag += unit.alarm[i];
-        if(cr) flag += unit.crAlarm[i];
+        if(flag) return 2;
     }
 
-    if(flag) flag = 1;
+    for(int i=0; i<3; ++i) {
+        if(cr) flag += unit.crAlarm[i];
+        if(flag) return 1;
+    }
 
     return flag;
 }
