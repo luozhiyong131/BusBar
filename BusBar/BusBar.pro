@@ -27,9 +27,12 @@ include(services/services.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    initshm.cpp
+    initshm.cpp \
+    currentalarmsdlg.cpp
 
 HEADERS  += mainwindow.h \
-    initshm.h
+    initshm.h \
+    currentalarmsdlg.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    currentalarmsdlg.ui

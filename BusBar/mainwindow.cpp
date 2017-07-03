@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "rtuthread.h"
 #include "dpthread.h"
+#include "currentalarmsdlg.h"
 
 #include "testdlg.h"
 
@@ -105,4 +106,10 @@ void MainWindow::on_logBtn_clicked()
 void MainWindow::on_setBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mSettingWid);
+}
+
+void MainWindow::on_alarmBtn_clicked()
+{
+    CurrentAlarmsDlg dlg(this);
+    dlg.exec();
 }

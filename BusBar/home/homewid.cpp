@@ -21,6 +21,8 @@ HomeWid::HomeWid(QWidget *parent) :
         }
     }
 
+    //
+
 
 }
 
