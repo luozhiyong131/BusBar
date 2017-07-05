@@ -46,7 +46,7 @@ void BoxTableWidget::initTableWidget()
 
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-    ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
+   // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
     // ui->tableWidget->setColumnWidth(0,200);
 }
 
@@ -160,7 +160,7 @@ void BoxTableWidget::setAlarmStatus(int id, int column)
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
     if(mBoxData->box[id].offLine)
     {
-        int alarm = mBoxData->box[id].boxAlarm;
+        int alarm = mBoxData->box[id].boxCurAlarm;
         if(alarm == 2) { // 报警
             str = tr("报警");
             item->setTextColor(QColor(Qt::red));

@@ -87,7 +87,7 @@ typedef struct _sBoxData {
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 插接箱统计信息
-    char boxAlarm; // 插接箱报警
+    char boxAlarm, boxCurAlarm, boxEnvAlarm; // 插接箱报警
     char boxStatus; // 插接箱状态
     char boxName[NAME_LEN]; // 插接箱名称
     int rate; // 电压频率
@@ -107,6 +107,7 @@ typedef struct _sBusData{
 
     char busCurAlarm; // 总线电流报警
     char busVolAlarm; // 总线电压报警
+    char busEnvAlarm;
     char busAlarm; // 总线报警
     char busStatus; // 母线状态
 

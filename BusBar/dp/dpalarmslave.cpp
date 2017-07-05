@@ -115,12 +115,21 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
 }
 
 
-void DpAlarmSlave::boxALarm(sBoxData &box)
+void DpAlarmSlave::boxAlarm(sBoxData &box)
 {
-    QString typeStr = tr("回路电流");
-    if(box.boxAlarm) {
-        QString msg = tr("插接箱：%1，回路").arg(box.boxName);
-        unitAlarm(typeStr, msg, box.data.cur, 10, "A");
+    if(box.boxAlarm)
+    {
+        QString typeStr = tr("回路电流");
+        if(box.boxCurAlarm) {
+            QString msg = tr("插接箱：%1，回路").arg(box.boxName);
+            unitAlarm(typeStr, msg, box.data.cur, 10, "A");
+        }
+
+        typeStr = tr("接插箱温度");
+        if(box.boxEnvAlarm) {
+            QString msg = tr("插接箱：%1，温度").arg(box.boxName);
+            unitAlarm(typeStr, msg, box.env.tem, 10, "C");
+        }
     }
 }
 
@@ -142,10 +151,16 @@ void DpAlarmSlave::busAlarm(int id)
             QString msg = tr("母线：%1，Line ").arg(bus->busName);
             unitAlarm(typeStr, msg, bus->data.vol, 10, "V");
         }
+
+        if(bus->busEnvAlarm) { // 温度
+            QString typeStr = tr("主路湿度");
+            QString msg = tr("母线：%1，温度").arg(bus->busName);
+            unitAlarm(typeStr, msg, bus->env.tem, 10, "C");
+        }
     }
 
     for(int i=0; i<bus->boxNum; ++i) {
-        boxALarm(bus->box[i]);
+        boxAlarm(bus->box[i]);
     }
 }
 

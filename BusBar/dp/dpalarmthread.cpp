@@ -76,7 +76,12 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 void DpAlarmThread::boxAlarm(sBoxData &box)
 {
     alarmDataUnit(box.data.cur); // 回路是否有报警
-    box.boxAlarm = alarmFlag(box.data.cur);
+    box.boxCurAlarm = alarmFlag(box.data.cur);
+
+    alarmDataUnit(box.env.tem);
+    box.boxEnvAlarm =  alarmFlag(box.env.tem);
+
+    box.boxAlarm = box.boxCurAlarm + box.boxEnvAlarm;
 }
 
 void DpAlarmThread::busAlarm(sBusData &bus)
@@ -91,7 +96,10 @@ void DpAlarmThread::busAlarm(sBusData &bus)
     alarmDataUnit(bus.data.vol);
     bus.busVolAlarm = alarmFlag(bus.data.vol);
 
-    bus.busAlarm = bus.busCurAlarm + bus.busVolAlarm;
+    alarmDataUnit(bus.env.tem);
+    bus.busEnvAlarm = alarmFlag(bus.env.tem);
+
+    bus.busAlarm = bus.busCurAlarm + bus.busVolAlarm + bus.busEnvAlarm;
 }
 
 

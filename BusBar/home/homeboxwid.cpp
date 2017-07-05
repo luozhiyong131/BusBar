@@ -36,9 +36,9 @@ void HomeBoxWid::updateData()
     QString str =  QString::number(mData->tgBox.cur) + "A";
     if(mData->offLine)   // 在线
     {
-        if(mData->boxAlarm == 2)
+        if(mData->boxCurAlarm == 2)
             pe.setColor(QPalette::WindowText,Qt::red);
-        else  if(mData->boxAlarm == 1)
+        else  if(mData->boxCurAlarm == 1)
             pe.setColor(QPalette::WindowText,Qt::yellow);
         else
             pe.setColor(QPalette::WindowText,Qt::black);
