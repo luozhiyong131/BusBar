@@ -4,7 +4,7 @@
 #include <QObject>
 #include "common.h"
 
-class InitShm : public QObject
+class InitShm : public QThread
 {
     Q_OBJECT
 public:
@@ -13,7 +13,13 @@ public:
 signals:
 
 protected:
+    void run();
     void initBoxNum();
+
+    void initThresholdUnit(int bus, int type, int num, sDataUnit &unit, int max);
+    void initBoxThreshold();
+    void initBusThreshold();
+    void initThreshold();
 
 private:
     sDataPacket *shm;
