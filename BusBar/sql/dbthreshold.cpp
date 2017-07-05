@@ -142,3 +142,16 @@ void DbThreshold::globalUnifiedSet(DbThresholdItem &item)
     QString condition = QString("where type=%1").arg(item.type);
     updateThreshold(item, condition);
 }
+
+bool DbThreshold::getItem(DbThresholdItem &item)
+{
+    bool ret = true;
+
+    item.id = getId(item);
+    if(item.id > 0) {
+        item = findById(item.id);
+    } else
+        ret = false;
+
+    return ret;
+}

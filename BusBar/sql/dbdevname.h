@@ -20,6 +20,8 @@ public:
     static DbDevName* bulid();
     bool saveItem(DbNameItem &item);
 
+    QString getName(int busId, int typeId, int num);
+
 protected:
     bool insertItem(DbNameItem &item); // 插入
     bool updateItem(const DbNameItem &item);

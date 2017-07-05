@@ -20,6 +20,7 @@ public:
     static DbThreshold* bulid();
 
     bool saveItem(DbThresholdItem &item); // 单一设置
+    bool getItem(DbThresholdItem &item);
 
     void unifiedSet(DbThresholdItem &item); // 统一设置
     void globalSet(DbThresholdItem &item); // 全局设置
