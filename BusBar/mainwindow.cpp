@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    initSerial();
 
+
+
+
     initWidget();
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
 
