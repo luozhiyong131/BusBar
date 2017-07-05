@@ -39,7 +39,6 @@ void InitShm::initThresholdUnit(int bus, int type, int num, sDataUnit &unit, int
 
 void InitShm::initBoxThreshold()
 {
-    int maxCur = 630, num;
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *bus = &(shm->data[i]);
@@ -48,8 +47,8 @@ void InitShm::initBoxThreshold()
             sBoxData *box = &(bus->box[j]);
             for(int k=0; k<3; ++k)
             {
-                num = (j << 8) + k;
-                initThresholdUnit(i, 3, num, box->data.cur, maxCur);
+                int num = (j << 8) + k;
+                initThresholdUnit(i, 3, num, box->data.cur, 630);
                 initThresholdUnit(i, 5, num, box->env.tem, 99);
             }
         }
