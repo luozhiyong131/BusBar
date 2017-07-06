@@ -20,13 +20,15 @@ HomeBoxWid::~HomeBoxWid()
 void HomeBoxWid::initFun(int id)
 {
     mID = id;
-    mData = &(get_share_mem()->data[0].box[id]);
+    sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[0].box[id]);
     ui->titleLab->setText(QString::number(id+1));
 }
 
 void HomeBoxWid::busChangeSlot(int id)
 {
-    mData = &(get_share_mem()->data[id].box[mID]);
+    sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[id].box[mID]);
     updateData();
 }
 

@@ -26,7 +26,8 @@ void BoxTableWidget::initFunSLot()
 
 void BoxTableWidget::busChangeSlot(int id)
 {
-    mBoxData = &(get_share_mem()->data[id]);
+    sDataPacket *shm = get_share_mem();
+    mBoxData = &(shm->data[id]);
     updateData();
 }
 
@@ -125,7 +126,7 @@ bool BoxTableWidget::checkTable()
 
 void BoxTableWidget::setTableItem(int id, int column, const QString &str)
 {
-    QTableWidgetItem *item = ui->tableWidget->item(id, column);
+    QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
     item->setText(str);
 }
 
@@ -137,7 +138,7 @@ void BoxTableWidget::clearTable()
     int row = ui->tableWidget->rowCount();
     int column = ui->tableWidget->columnCount();
 
-    for(int i=0; i<row; ++i)
+    for(int i=1; i<=row; ++i)
     {
         for(int j=0; j<column; ++j)
             setTableItem(i, j, "---");
@@ -148,7 +149,7 @@ void BoxTableWidget::setName(int id, int column)
 {
     QString name = mBoxData->box[id].boxName;
     if(name.isEmpty())
-        name = tr("iBox-%1").arg(id+1);
+        name = tr("iBox-%1").arg(id);
     setTableItem(id, column, name);
 }
 
@@ -157,7 +158,7 @@ void BoxTableWidget::setName(int id, int column)
 void BoxTableWidget::setAlarmStatus(int id, int column)
 {
     QString str;
-    QTableWidgetItem *item = ui->tableWidget->item(id, column);
+    QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
     if(mBoxData->box[id].offLine)
     {
         int alarm = mBoxData->box[id].boxCurAlarm;
@@ -243,7 +244,7 @@ void BoxTableWidget::setTemp(int id, int column)
         str = QString::number(value, 'f', 1) + "C";
     setTableItem(id, column, str);
 
-    QTableWidgetItem *item = ui->tableWidget->item(id, column);
+    QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
     int data = unit->alarm[0];
     if(data > 0) // 报警
         item->setTextColor(QColor(Qt::red));
@@ -262,10 +263,9 @@ void BoxTableWidget::updateData()
         initTableWid(); // 重新建立表格
 
     int row = ui->tableWidget->rowCount();
-    for(int i=0; i<row; ++i)
+    for(int i=1; i<=row; ++i)
     {
         int k=0;
-
         setName(i, k++); // 设置输出位名称
         setAlarmStatus(i, k++);
 

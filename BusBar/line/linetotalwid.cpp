@@ -26,7 +26,8 @@ void LineTotalWid::initFunSLot()
 
 void LineTotalWid::busChangeSlot(int id)
 {
-    mTgBus = &(get_share_mem()->data[id].tgBus);
+    sDataPacket *shm = get_share_mem();
+    mTgBus = &(shm->data[id].tgBus);
     updateData();
 }
 

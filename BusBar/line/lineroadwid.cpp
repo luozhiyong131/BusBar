@@ -23,7 +23,8 @@ LineRoadWid::~LineRoadWid()
 void LineRoadWid::busChangeSlot(int id)
 {
      mID = id;
-    mData = &(get_share_mem()->data[id].data);
+     sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[id].data);
     updateData();
 }
 

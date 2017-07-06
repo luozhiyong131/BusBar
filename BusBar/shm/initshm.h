@@ -17,9 +17,16 @@ protected:
     void initBoxNum();
 
     void initThresholdUnit(int bus, int type, int num, sDataUnit &unit, int max);
+    void initThresholdUnit(int bus, int type, int num, int id, sDataUnit &unit, int max);
     void initBoxThreshold();
     void initBusThreshold();
     void initThreshold();
+
+    void initNameUnit(int bus, int type, int num, char *buf, const QString &name);
+    void initBusName();
+    void initBoxName();
+    void initLoopName();
+    void initName();
 
 private:
     sDataPacket *shm;

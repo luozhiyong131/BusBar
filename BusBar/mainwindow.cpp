@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mInitShm = new InitShm(this);
+    mInitShm->start();
 
 //    initSerial();
 

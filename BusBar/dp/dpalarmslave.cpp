@@ -86,7 +86,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
         if(unit.alarm[i])
         {
             typeStr += tr("报警");
-            str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(i)
+            str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(i+1)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.min[i]/rate).arg(sym)
                     .arg(unit.max[i]/rate).arg(sym);
@@ -99,7 +99,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
         else if(unit.crAlarm[i])
         {
             typeStr += tr("预警");
-            str += tr("%1，当前值：%2%3, 临界下限值：%4%5, 临界上限值：%6%7").arg(i)
+            str += tr("%1，当前值：%2%3, 临界下限值：%4%5, 临界上限值：%6%7").arg(i+1)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.crMin[i]/rate).arg(sym)
                     .arg(unit.crMax[i]/rate).arg(sym);
@@ -159,7 +159,7 @@ void DpAlarmSlave::busAlarm(int id)
         }
     }
 
-    for(int i=0; i<bus->boxNum; ++i) {
+    for(int i=1; i<=bus->boxNum; ++i) {
         boxAlarm(bus->box[i]);
     }
 }

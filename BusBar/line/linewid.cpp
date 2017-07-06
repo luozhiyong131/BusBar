@@ -47,5 +47,6 @@ void LineWid::timeoutDone()
 
 void LineWid::on_comboBox_currentIndexChanged(int index)
 {
-    mData = &(get_share_mem()->data[index]);
+    sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[index]);
 }

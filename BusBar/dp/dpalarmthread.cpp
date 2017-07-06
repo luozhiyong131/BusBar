@@ -86,7 +86,7 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
 
 void DpAlarmThread::busAlarm(sBusData &bus)
 {
-    for(int i=0; i<bus.boxNum; ++i) {
+    for(int i=1; i<=bus.boxNum; ++i) {
         boxAlarm(bus.box[i]);
     }
 
