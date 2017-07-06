@@ -132,7 +132,7 @@ void DbThreshold::setAll(DbThresholdItem &item)
     updateThreshold(item, condition);
 }
 
-void DbThreshold::setLoopAll(DbThresholdItem &item)
+void DbThreshold::setLoopCurAll(DbThresholdItem &item)
 {
     item.type = 3;
     setAll(item);
