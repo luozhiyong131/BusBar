@@ -7,8 +7,8 @@
 
 struct DbThresholdItem{
     int id;
-    int bus; // 母线编号 1~4
-    int type; // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值
+    int bus; // 母线编号 0~3
+    int type; // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
     int num; // 编号
     int min, crmin, crmax, max; // 最小值，临界下限  临界上限  最大值
 };
@@ -20,10 +20,14 @@ public:
     static DbThreshold* bulid();
 
     bool saveItem(DbThresholdItem &item); // 单一设置
+    bool getItem(DbThresholdItem &item);
 
-    void unifiedSet(DbThresholdItem &item); // 统一设置
-    void globalSet(DbThresholdItem &item); // 全局设置
-    void globalUnifiedSet(DbThresholdItem &item); // 全局统一设置
+    void setLoopCurAll(DbThresholdItem &item); // 设置所有回路电流
+    void setTempAll(DbThresholdItem &item); // 设置所有温度
+
+    void setLineVolAll(DbThresholdItem &item); // 设置成有主路电压
+    void setLineCurAll(DbThresholdItem &item); // 设置成有主路电流
+    void setAll(DbThresholdItem &item);
 
 protected:
     bool insertItem(DbThresholdItem &item); // 插入

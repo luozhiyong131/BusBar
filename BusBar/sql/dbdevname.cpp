@@ -96,3 +96,18 @@ bool DbDevName::saveItem(DbNameItem &item)
         ret = insertItem(item);
     return ret;
 }
+
+QString DbDevName::getName(int busId, int typeId, int num)
+{
+    DbNameItem item;
+    item.bus = busId;
+    item.type = typeId;
+    item.num = num;
+
+    int id = getId(item);
+    if(id > 0) {
+        item.name = findById(id).name;
+    }
+
+    return item.name;
+}

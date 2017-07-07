@@ -6,6 +6,7 @@ BranchWid::BranchWid(QWidget *parent) :
     ui(new Ui::BranchWid)
 {
     ui->setupUi(this);
+    mTableWid = new BoxTableWidget(ui->widget);
 }
 
 BranchWid::~BranchWid()

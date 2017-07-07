@@ -2,6 +2,7 @@
 #define BRANCHWID_H
 
 #include <QWidget>
+#include "boxtablewidget.h"
 
 namespace Ui {
 class BranchWid;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::BranchWid *ui;
+    BoxTableWidget *mTableWid;
 };
 
 #endif // BRANCHWID_H

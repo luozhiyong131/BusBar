@@ -37,6 +37,8 @@ private slots:
 
     void on_setBtn_clicked();
 
+    void on_alarmBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     InitShm *mInitShm;

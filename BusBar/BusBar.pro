@@ -23,13 +23,14 @@ include(branch/branch.pri)
 include(logs/logs.pri)
 include(setting/setting.pri)
 include(services/services.pri)
-
+include(shm/shm.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    initshm.cpp
+    currentalarmsdlg.cpp
 
 HEADERS  += mainwindow.h \
-    initshm.h
+    currentalarmsdlg.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    currentalarmsdlg.ui

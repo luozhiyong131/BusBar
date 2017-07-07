@@ -86,6 +86,7 @@ void DpTgThread::tgBox(sBoxData *box)
  */
 void DpTgThread::tgBusLine(sBusData *bus)
 {
+#if 0
     static int vol[BOX_NUM], pf[BOX_NUM];
     sObjData *tg = &(bus->data);
 
@@ -112,11 +113,28 @@ void DpTgThread::tgBusLine(sBusData *bus)
         tg->vol.value[i] = averData(vol, len);
         tg->pf[i] = averData(pf, len);
     }
+
+#else
+
+   sBoxData *box = &(bus->box[0]);
+    for(int i=0; i<3; ++i)
+    {
+        bus->data.cur.value[i] = box->data.cur.value[i];
+        bus->data.vol.value[i] = box->data.vol.value[i];
+        bus->data.pow[i] = box->data.pow[i];
+        bus->data.ele[i] = box->data.ele[i];
+        bus->data.apPow[i] = box->data.apPow[i];
+        bus->data.pf[i] = box->data.pf[i];
+        bus->data.sw[i] = box->data.sw[i];
+        bus->data.ratedCur[i] = box->data.ratedCur[i];
+    }
+
+#endif
 }
 
 void DpTgThread::tgBus(sBusData *bus)
 {
-    for(int i=0; i<bus->boxNum; ++i) { // 插接箱统计
+    for(int i=1; i<=bus->boxNum; ++i) { // 插接箱统计
         tgBox(&(bus->box[i]));
     }
     tgBusLine(bus);

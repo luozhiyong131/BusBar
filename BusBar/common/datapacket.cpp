@@ -10,7 +10,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
-#define SHM_KEY	6666
+#define SHM_KEY	1234
 
 
 /**
@@ -43,7 +43,7 @@ void share_mem_init()
     sDataPacket *shared = share_mem_get();//指向shm
     if(shared) {
         memset(shared, 0, sizeof(sDataPacket));
-//		printf("\nMemory init ok!!!\n");
+        printf("\nMemory init ok!!!\n");
     }
 }
 

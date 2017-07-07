@@ -17,7 +17,7 @@ protected:
     void run();
     void unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, double rate, const QString &sym);
 
-    void boxALarm(sBoxData &box);
+    void boxAlarm(sBoxData &box);
     void busAlarm(int id);
     void checkAlarm();
 

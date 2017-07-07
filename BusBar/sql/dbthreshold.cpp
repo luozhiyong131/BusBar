@@ -125,20 +125,47 @@ void  DbThreshold::updateThreshold(DbThresholdItem &item, const QString &cmd)
     updateColumn("max", item.max, cmd);
 }
 
-void DbThreshold::unifiedSet(DbThresholdItem &item)
-{
-    QString condition = QString("where bus=%1 and type=%2").arg(item.bus).arg(item.type);
-    updateThreshold(item, condition);
-}
 
-void DbThreshold::globalSet(DbThresholdItem &item)
-{
-    QString condition = QString("where type=%1 and num=%2").arg(item.type).arg(item.num);
-    updateThreshold(item, condition);
-}
-
-void DbThreshold::globalUnifiedSet(DbThresholdItem &item)
+void DbThreshold::setAll(DbThresholdItem &item)
 {
     QString condition = QString("where type=%1").arg(item.type);
     updateThreshold(item, condition);
+}
+
+void DbThreshold::setLoopCurAll(DbThresholdItem &item)
+{
+    item.type = 3;
+    setAll(item);
+}
+
+void DbThreshold::setTempAll(DbThresholdItem &item)
+{
+    item.type = 5;
+    QString condition = QString("where type=%1 OR type=%2").arg(item.type).arg(4);
+    updateThreshold(item, condition);
+}
+
+void DbThreshold::setLineVolAll(DbThresholdItem &item)
+{
+    item.type = 1;
+    setAll(item);
+}
+
+void DbThreshold::setLineCurAll(DbThresholdItem &item)
+{
+    item.type = 2;
+    setAll(item);
+}
+
+bool DbThreshold::getItem(DbThresholdItem &item)
+{
+    bool ret = true;
+
+    item.id = getId(item);
+    if(item.id > 0) {
+        item = findById(item.id);
+    } else
+        ret = false;
+
+    return ret;
 }
