@@ -60,7 +60,6 @@ void MainWindow::initFunSLot()
 {
      new DpThread(this); // 创建数据处理线程
 
-
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));

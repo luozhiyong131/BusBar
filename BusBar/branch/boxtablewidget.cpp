@@ -1,5 +1,6 @@
 #include "boxtablewidget.h"
 #include "ui_boxtablewidget.h"
+#include "box/boxdlg.h"
 
 BoxTableWidget::BoxTableWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,6 +27,7 @@ void BoxTableWidget::initFunSLot()
 
 void BoxTableWidget::busChangeSlot(int id)
 {
+    mBusID = id;
     sDataPacket *shm = get_share_mem();
     mBoxData = &(shm->data[id]);
     updateData();
@@ -47,6 +49,10 @@ void BoxTableWidget::initTableWidget()
 
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
    // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
     // ui->tableWidget->setColumnWidth(0,200);
 }
@@ -282,4 +288,13 @@ void BoxTableWidget::updateData()
 void BoxTableWidget::timeoutDone()
 {
     updateData();
+}
+
+void BoxTableWidget::getItem(QTableWidgetItem*)
+{
+    int row = ui->tableWidget->currentRow();
+
+    BoxDlg dlg(this);
+    dlg.initBox(mBusID, row+1);
+    dlg.exec();
 }
