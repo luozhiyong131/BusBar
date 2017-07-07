@@ -101,7 +101,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
 
     case 3:
         boxNum = num / 3 + 1;
-        num = (num-1) % 3 ;
+        num = num % 3 ;
         unit = &(bus->box[boxNum].data.cur);
         break;
 
@@ -111,7 +111,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
 
     case 5:
         boxNum = num / 3 + 1;
-        num = (num-1) % 3 ;
+        num = num % 3 ;
         unit = &(bus->box[boxNum].env.tem);
         break;
     }
