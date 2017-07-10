@@ -8,8 +8,7 @@ SettingWid::SettingWid(QWidget *parent) :
     ui->setupUi(this);
     initWidget();
 
-    //    int index = 0;
-    //    majorSettingWidget->updateWidget(index);
+
 }
 
 SettingWid::~SettingWid()

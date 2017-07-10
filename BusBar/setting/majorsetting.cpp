@@ -6,6 +6,8 @@ MajorSetting::MajorSetting(QWidget *parent) :
     ui(new Ui::MajorSetting)
 {
     ui->setupUi(this);
+
+    mIndex = 0;
     initWidget();
 
 }
@@ -17,12 +19,25 @@ MajorSetting::~MajorSetting()
 
 void MajorSetting::initWidget()
 {
-    connect(ui->progressBar,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_2,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_3,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_4,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_5,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_6,SIGNAL(clicked()),this,SLOT(barClicked()));
+    sDataPacket *mPacket = get_share_mem();
+
+    ui->progressBar->setPacket(&(mPacket->data[mIndex].data),true,0);
+    connect(ui->progressBar,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
+
+    ui->progressBar_2->setPacket(&(mPacket->data[mIndex].data),false,0);
+    connect(ui->progressBar_2,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
+
+    ui->progressBar_3->setPacket(&(mPacket->data[mIndex].data),true,0);
+    connect(ui->progressBar_3,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
+
+    ui->progressBar_4->setPacket(&(mPacket->data[mIndex].data),false,0);
+    connect(ui->progressBar_4,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
+
+    ui->progressBar_5->setPacket(&(mPacket->data[mIndex].data),true,0);
+    connect(ui->progressBar_5,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
+
+    ui->progressBar_6->setPacket(&(mPacket->data[mIndex].data),false,0);
+    connect(ui->progressBar_6,SIGNAL(clicked(sObjData *data,bool isCur,int index)),this,SLOT(barClicked(sObjData *data,bool isCur,int index)));
 }
 
 /**
@@ -31,7 +46,9 @@ void MajorSetting::initWidget()
  */
 void MajorSetting::updateWidget(int index)
 {
-    mPacket = get_share_mem();
+    mIndex = index; //主路源编号
+
+    sDataPacket *mPacket = get_share_mem();
     sBusData busData = mPacket->data[0];
 
     ui->lineEdit->setText(busData.busName);
@@ -55,9 +72,15 @@ void MajorSetting::updateWidget(int index)
 
 }
 
-void MajorSetting::barClicked()
+/**
+ * @brief MajorSetting::barClicked
+ * @param data 阈值相关数据包
+ * @param isCur 非电流即电压
+ * @param index 电流或电压相数
+ */
+void MajorSetting::barClicked(sObjData *data,bool isCur,int index)
 {
-//    QMessageBox::information(this,tr("helolo"),tr("nn"));
-    mSettingThroldWid  = new SettingThreshold(this);
+    //    QMessageBox::information(this,tr("helolo"),tr("nn"));
+    mSettingThroldWid  = new SettingThreshold(data,isCur,index,this);
     mSettingThroldWid->exec();
 }

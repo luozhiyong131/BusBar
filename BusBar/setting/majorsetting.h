@@ -22,16 +22,18 @@ public:
 
     void updateWidget(int index);
 
+
 private:
     void initWidget();
 //    sDataPacket *get_share_mem();
 private slots:
-    void barClicked();
+    void barClicked(sObjData *data,bool isCur,int index);
 
 private:
     Ui::MajorSetting *ui;
-    sDataPacket *mPacket;
+
     SettingThreshold *mSettingThroldWid;
+    int mIndex; //当前主路源标志位
 
 };
 
