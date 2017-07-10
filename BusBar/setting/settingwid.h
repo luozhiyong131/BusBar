@@ -1,7 +1,8 @@
-#ifndef SETTINGWID_H
+﻿#ifndef SETTINGWID_H
 #define SETTINGWID_H
 
 #include <QWidget>
+#include "majorsetting.h"
 
 namespace Ui {
 class SettingWid;
@@ -16,7 +17,16 @@ public:
     ~SettingWid();
 
 private:
+    void initWidget();
+
+private slots:
+    void on_pushButton_clicked();
+
+    void on_comboBox_currentIndexChanged(int index);
+
+private:
     Ui::SettingWid *ui;
+    MajorSetting *majorSettingWidget;
 };
 
 #endif // SETTINGWID_H
