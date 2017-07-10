@@ -165,32 +165,6 @@
     <string>视在功率:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_11">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>80</y>
-     <width>54</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>温度</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="temLab">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>80</y>
-     <width>54</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>48KVA:</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
