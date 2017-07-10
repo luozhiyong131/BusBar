@@ -58,7 +58,7 @@ void InitShm::initBoxThreshold()
             sBoxData *box = &(busData->box[j]);
             for(int k=0; k<3; ++k)
             {
-                int num = j*3 + k; // 回路编号规划
+                int num = (j-1)*3 + k; // 回路编号规划
                 initThresholdUnit(i, 3, num, k, box->data.cur, 630);
                 initThresholdUnit(i, 5, num, k, box->env.tem, 99);
                 num++;

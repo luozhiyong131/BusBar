@@ -10,7 +10,8 @@ HEADERS += \
 #    $$PWD/configtool.h
     common/sysconfigfile.h \
     common/datapacket.h \
-    common/qcustomplot.h
+    common/qcustomplot.h \
+    $$PWD/myprogressbar.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 #    $$PWD/configtool.cpp
     common/sysconfigfile.cpp \
     common/datapacket.cpp \
-    common/qcustomplot.cpp
+    common/qcustomplot.cpp \
+    $$PWD/myprogressbar.cpp
 
 

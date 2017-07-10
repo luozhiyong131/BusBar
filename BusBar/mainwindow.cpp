@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "rtuthread.h"
 #include "dpthread.h"
@@ -35,6 +35,7 @@ void MainWindow::timeoutDone()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->timeLab->setText(time);
+
 }
 
 /**
