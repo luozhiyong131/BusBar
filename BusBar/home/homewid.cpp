@@ -7,7 +7,7 @@ HomeWid::HomeWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    int id=0;
+    int id=1;
 
     QObjectList list = children();
     foreach (QObject *obj1, list)
@@ -20,8 +20,6 @@ HomeWid::HomeWid(QWidget *parent) :
             connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), boxWid, SLOT(busChangeSlot(int)));
         }
     }
-
-    //
 
 
 }

@@ -1,5 +1,6 @@
 #include "homeboxwid.h"
 #include "ui_homeboxwid.h"
+#include "box/boxdlg.h"
 
 HomeBoxWid::HomeBoxWid(QWidget *parent) :
     QWidget(parent),
@@ -8,7 +9,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui->setupUi(this);
 
     timer = new QTimer(this);
-    timer->start(1000);
+    timer->start(2000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -19,14 +20,17 @@ HomeBoxWid::~HomeBoxWid()
 
 void HomeBoxWid::initFun(int id)
 {
+    mBusID = 0;
     mID = id;
+
     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[0].box[id]);
-    ui->titleLab->setText(QString::number(id+1));
+    mData = &(shm->data[mBusID].box[id]);
+    ui->titleLab->setText(QString::number(id));
 }
 
 void HomeBoxWid::busChangeSlot(int id)
 {
+    mBusID = id;
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[id].box[mID]);
     updateData();
@@ -58,5 +62,7 @@ void HomeBoxWid::timeoutDone()
 
 void HomeBoxWid::on_pushButton_clicked()
 {
-    qDebug() << "点击了接插箱，弹出相关信息";
+    BoxDlg dlg(this);
+    dlg.initBox(mBusID, mID);
+    dlg.exec();
 }

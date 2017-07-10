@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "common.h"
+#include <QTableWidgetItem>
 
 namespace Ui {
 class BoxTableWidget;
@@ -42,8 +43,13 @@ public slots:
     void timeoutDone();
     void initFunSLot();
 
+protected slots:
+    void getItem(QTableWidgetItem*);
+
 private:
     Ui::BoxTableWidget *ui;
+
+    int mBusID;
     sBusData *mBoxData;
     QTimer *timer;
 };

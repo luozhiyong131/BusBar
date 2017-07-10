@@ -32,7 +32,7 @@ private slots:
 private:
     Ui::HomeBoxWid *ui;
 
-    int mID;
+    int mID, mBusID;
     sBoxData *mData;
     QTimer *timer;
 };

@@ -1,39 +1,36 @@
-#ifndef LINEROADWID_H
-#define LINEROADWID_H
+#ifndef BOXLOOPWID_H
+#define BOXLOOPWID_H
 
 #include <QWidget>
 #include "common.h"
 
 namespace Ui {
-class LineRoadWid;
+class BoxLoopWid;
 }
 
-class LineRoadWid : public QWidget
+class BoxLoopWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit LineRoadWid(QWidget *parent = 0);
-    ~LineRoadWid();
+    explicit BoxLoopWid(QWidget *parent = 0);
+    ~BoxLoopWid();
 
-   void initLine(int id);
+    void initLine(int bus, int box, int id);
 
 protected:
     void updateData();
     void updateAlarmStatus(QLabel *lab, sDataUnit &unit);
 
-public slots:
-    void busChangeSlot(int id);
-
 protected slots:
     void timeoutDone();
 
 private:
-    Ui::LineRoadWid *ui;
+    Ui::BoxLoopWid *ui;
 
     int mID;
     sObjData *mData;
     QTimer *timer;
 };
 
-#endif // LINEROADWID_H
+#endif // BOXLOOPWID_H

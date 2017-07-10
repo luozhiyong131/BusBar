@@ -30,7 +30,7 @@ void LineWid::initWid()
 
     for(int i=0; i<3; ++i) {
         LineRoadWid *line  = mLine[i];
-        line->busChangeSlot(i);
+        line->initLine(i);
         connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), line, SLOT(busChangeSlot(int)));
     }
 }

@@ -1,44 +1,39 @@
-#include "lineroadwid.h"
-#include "ui_lineroadwid.h"
+#include "boxloopwid.h"
+#include "ui_boxloopwid.h"
 
-LineRoadWid::LineRoadWid(QWidget *parent) :
+BoxLoopWid::BoxLoopWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::LineRoadWid)
+    ui(new Ui::BoxLoopWid)
 {
     ui->setupUi(this);
 
-    initLine(0);
-    busChangeSlot(0);
     timer = new QTimer(this);
     timer->start(2*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
-LineRoadWid::~LineRoadWid()
+BoxLoopWid::~BoxLoopWid()
 {
     delete ui;
 }
 
-void LineRoadWid::initLine(int id)
+
+void BoxLoopWid::initLine(int bus, int box, int id)
 {
-     mID = id;
-}
-
-
-void LineRoadWid::busChangeSlot(int id)
-{    
-     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[id].data);
+    mID = id;
+    sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[bus].box[box].data);
     updateData();
 }
 
-void LineRoadWid::timeoutDone()
+
+void BoxLoopWid::timeoutDone()
 {
     updateData();
 }
 
 
-void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
+void BoxLoopWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
 {
     int id = mID;
     QPalette pe;
@@ -54,10 +49,10 @@ void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
 }
 
 
-void LineRoadWid::updateData()
+void BoxLoopWid::updateData()
 {
     int id = mID;
-    QString str = "L" + QString::number(id+1) + tr("相");
+    QString str = "Loop" + QString::number(id+1);
     ui->name->setText(str);
 
     str = QString::number(mData->vol.value[id]) + "V";
