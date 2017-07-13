@@ -5,6 +5,7 @@
 #include <QTableWidgetItem>
 #include "common.h"
 #include "settingthreshold.h"
+#include <QProgressBar>
 
 #pragma execution_character_set("utf-8")
 
@@ -25,13 +26,16 @@ public:
 
 private:
     void initWidget();
-//    sDataPacket *get_share_mem();
+    void setProgressbarValue(QProgressBar *bar,sDataUnit  *data ,int index);
+    //    sDataPacket *get_share_mem();
 private slots:
-    void barClicked(sObjData *data,bool isCur,int index);
+    void barClicked(bool isCur,int index);
+
 
 private:
     Ui::MajorSetting *ui;
 
+    sDataPacket *mPacket;
     SettingThreshold *mSettingThroldWid;
     int mIndex; //当前主路源标志位
 
