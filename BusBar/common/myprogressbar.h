@@ -12,13 +12,13 @@ class MyProgressBar : public QProgressBar
 
 public:
     explicit MyProgressBar(QWidget* parent=0);
-    void setPacket(sObjData *data,bool isCur,int index);
+    void setPacket(bool isCur, int index);
 
 signals:
-    void clicked(sObjData *data,bool isCur,int index);
+    void clicked(bool isCur,int index);
 
 private :
-    sObjData *mData;
+//    int mBus;
     bool mIsCur;
     int mIndex;
 
