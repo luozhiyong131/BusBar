@@ -12,7 +12,7 @@
 #define SERIAL_COM3     "ttyS3"
 #define SERIAL_COM4     "ttyS4"
 #else
-#define SERIAL_COM1     "ttyUSB0"
+#define SERIAL_COM1     "ttyUSB0" //ttyS8
 #define SERIAL_COM2     "ttyUSB1"
 #define SERIAL_COM3     "ttyUSB2"
 #define SERIAL_COM4     "ttyUSB3"
