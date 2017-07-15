@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "majorsetting.h"
+#include "subseeting.h"
+#include "systemsettingdlg.h"
 
 namespace Ui {
 class SettingWid;
@@ -24,9 +26,15 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index);
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::SettingWid *ui;
     MajorSetting *majorSettingWidget;
+    SubSeeting *mSubsettingWid;
+    SystemSettingDlg *mSystemDlg;
 };
 
 #endif // SETTINGWID_H

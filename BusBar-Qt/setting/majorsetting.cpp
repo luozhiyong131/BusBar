@@ -6,8 +6,10 @@ MajorSetting::MajorSetting(QWidget *parent) :
     ui(new Ui::MajorSetting)
 {
     ui->setupUi(this);
-    initWidget();
 
+    mPacket = get_share_mem();
+    mIndex = 0;
+    initWidget();
 }
 
 MajorSetting::~MajorSetting()
@@ -17,12 +19,23 @@ MajorSetting::~MajorSetting()
 
 void MajorSetting::initWidget()
 {
-    connect(ui->progressBar,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_2,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_3,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_4,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_5,SIGNAL(clicked()),this,SLOT(barClicked()));
-    connect(ui->progressBar_6,SIGNAL(clicked()),this,SLOT(barClicked()));
+    ui->progressBar->setPacket(true,0);
+    connect(ui->progressBar,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    ui->progressBar_2->setPacket(false,0);
+    connect(ui->progressBar_2,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    ui->progressBar_3->setPacket(true,1);
+    connect(ui->progressBar_3,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    ui->progressBar_4->setPacket(false,1);
+    connect(ui->progressBar_4,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    ui->progressBar_5->setPacket(true,2);
+    connect(ui->progressBar_5,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    ui->progressBar_6->setPacket(false,2);
+    connect(ui->progressBar_6,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
 }
 
 /**
@@ -31,33 +44,55 @@ void MajorSetting::initWidget()
  */
 void MajorSetting::updateWidget(int index)
 {
-    mPacket = get_share_mem();
-    sBusData busData = mPacket->data[0];
+    mIndex = index; //主路源编号
+    sBusData *busData = &(mPacket->data[0]);
 
-    ui->lineEdit->setText(busData.busName);
+    ui->lineEdit->setText(busData->busName);
     ui->lineEdit_2->setText("20");
-    ui->lineEdit_3->setText(QString(busData.boxNum,10));
+    ui->lineEdit_3->setText(QString(busData->boxNum,10));
 
-    sObjData  objData = busData.data;
-    ui->label_1_cur->setText(QString(objData .cur.value[index],10));
-    ui->label_1_vol->setText(QString(objData .vol.value[index],10));
-    ui->label_2_cur->setText(QString(objData .cur.value[index],10));
-    ui->label_2_vol->setText(QString(objData .vol.value[index],10));
-    ui->label_3_cur->setText(QString(objData .cur.value[index],10));
-    ui->label_3_vol->setText(QString(objData .vol.value[index],10));
+    sObjData  *objData = &(busData->data);
+    ui->label_1_cur->setText(QString(objData ->cur.value[0],10));
+    ui->label_1_vol->setText(QString(objData ->vol.value[0],10));
+    ui->label_2_cur->setText(QString(objData ->cur.value[1],10));
+    ui->label_2_vol->setText(QString(objData ->vol.value[1],10));
+    ui->label_3_cur->setText(QString(objData ->cur.value[2],10));
+    ui->label_3_vol->setText(QString(objData ->vol.value[2],10));
 
-    ui->progressBar->setValue(objData .cur.value[0]/objData.cur.max[0]);
-    ui->progressBar_2->setValue(objData .vol.value[0]/objData.vol.max[0]);
-    ui->progressBar_3->setValue(objData .cur.value[1]/objData.cur.max[1]);
-    ui->progressBar_4->setValue(objData .vol.value[1]/objData.vol.max[1]);
-    ui->progressBar_5->setValue(objData .cur.value[2]/objData.cur.max[2]);
-    ui->progressBar_6->setValue(objData .vol.value[2]/objData.vol.max[2]);
-
+    setProgressbarValue(ui->progressBar,&(objData->cur),0);
+    setProgressbarValue(ui->progressBar_2,&(objData->vol),0);
+    setProgressbarValue(ui->progressBar_3,&(objData->cur),1);
+    setProgressbarValue(ui->progressBar_4,&(objData->vol),1);
+    setProgressbarValue(ui->progressBar_5,&(objData->cur),2);
+    setProgressbarValue(ui->progressBar_6,&(objData->vol),2);
 }
 
-void MajorSetting::barClicked()
+/**
+ * @brief MajorSetting::barClicked
+ * @param data 阈值相关数据包
+ * @param isCur 非电流即电压
+ * @param index 电流或电压相数
+ */
+void MajorSetting::barClicked(bool isCur,int index)
 {
-//    QMessageBox::information(this,tr("helolo"),tr("nn"));
-    mSettingThroldWid  = new SettingThreshold(this);
+    //    QMessageBox::information(this,tr("helolo"),tr("nn"));
+    mSettingThroldWid  = new SettingThreshold(mIndex,isCur,index,this);
     mSettingThroldWid->exec();
+}
+
+/**
+ * @brief MajorSetting::setProgressbarValue
+ * @param bar
+ * @param index 相位
+ */
+void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int index)
+{
+    int max = data->max[index];
+    if(max > 0)
+    {
+        int value = data->value[index];
+        int ret = (value/max)*100;
+        bar->setValue(ret);
+    }else
+        bar->setValue(0);
 }

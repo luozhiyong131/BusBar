@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QProgressBar>
+#include "datapacket.h"
 
 class MyProgressBar : public QProgressBar
 {
@@ -11,10 +12,15 @@ class MyProgressBar : public QProgressBar
 
 public:
     explicit MyProgressBar(QWidget* parent=0);
+    void setPacket(bool isCur, int index);
 
 signals:
-    void clicked();
-//    void isClicked();
+    void clicked(bool isCur,int index);
+
+private :
+//    int mBus;
+    bool mIsCur;
+    int mIndex;
 
 protected:
     void mousePressEvent(QMouseEvent* event);
