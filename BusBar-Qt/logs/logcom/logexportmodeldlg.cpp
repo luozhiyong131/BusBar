@@ -135,7 +135,7 @@ void LogExportModelDlg::on_pushButton_clicked()
 {
     QFileDialog dlg(this,tr("路径选择"));
     dlg.setFileMode(QFileDialog::DirectoryOnly);
-    dlg.setDirectory("~");    ////////////============
+    dlg.setDirectory("/mnt/sda1/");
     if(dlg.exec() == QDialog::Accepted) {
         QStringList fileNames = dlg.selectedFiles();
         ui->pathEdit->setText(fileNames.at(0) + "/");

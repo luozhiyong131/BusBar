@@ -12,13 +12,13 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-    //    initSerial();
+    // initSerial();
 
     initWidget();
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
-
-    //     TestDlg *dlg = new TestDlg(this);
-    //     dlg->exec();
+    on_comboBox_currentIndexChanged(0);
+    // TestDlg *dlg = new TestDlg(this);
+    // dlg->exec();
 }
 
 MainWindow::~MainWindow()
@@ -31,12 +31,11 @@ void MainWindow::timeoutDone()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->timeLab->setText(time);
-
 }
 
 /**
-    * @brief 初始化串口
-    */
+ * @brief 初始化串口
+ */
 void MainWindow::initSerial()
 {
     RtuThread *rtu = new RtuThread(this);
@@ -66,15 +65,19 @@ void MainWindow::initWidget()
 {
     mHomeWid = new HomeWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeWid);
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mHomeWid, SIGNAL(busChangedSig(int)));
 
     mLineWid = new LineWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLineWid);
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mLineWid, SIGNAL(busChangedSig(int)));
 
     mBranchWid = new BranchWid(ui->stackedWid);
     ui->stackedWid->addWidget(mBranchWid);
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mBranchWid, SIGNAL(busChangedSig(int)));
 
     mLogsWid = new LogsWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogsWid);
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mLogsWid, SIGNAL(busChangedSig(int)));
 
     mSettingWid = new SettingWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSettingWid);
@@ -109,4 +112,13 @@ void MainWindow::on_alarmBtn_clicked()
 {
     CurrentAlarmsDlg dlg(this);
     dlg.exec();
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+     sDataPacket *shm = get_share_mem();
+     char *name = shm->data[index].busName;
+
+     QString str(name);
+     ui->busNameLab->setText(str);
 }

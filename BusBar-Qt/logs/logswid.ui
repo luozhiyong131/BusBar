@@ -13,55 +13,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="lineBtn">
-   <property name="geometry">
-    <rect>
-     <x>900</x>
-     <y>70</y>
-     <width>80</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>主路电量</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="branchBtn">
-   <property name="geometry">
-    <rect>
-     <x>900</x>
-     <y>170</y>
-     <width>80</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>支路电量</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="alarmBtn">
-   <property name="geometry">
-    <rect>
-     <x>900</x>
-     <y>270</y>
-     <width>80</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>报警日志</string>
-   </property>
-  </widget>
-  <widget class="QStackedWidget" name="stackedWid">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>20</y>
-     <width>891</width>
-     <height>421</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QStackedWidget" name="stackedWid"/>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

@@ -42,6 +42,8 @@ private slots:
 
     void on_alarmBtn_clicked();
 
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     InitShm *mInitShm;

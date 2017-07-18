@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "logexportmodeldlg.h"
+#include "logsignal.h"
 
 namespace Ui {
 class LogBtnBar;
@@ -18,7 +19,6 @@ public:
 
 signals:
     void refreshSig();
-    void busNumSig(int);
     void querySig(QString);
     void exportSig();
     void clearSig();
@@ -31,6 +31,8 @@ private slots:
     void on_exportBtn_clicked();
 
     void on_clearBtn_clicked();
+
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::LogBtnBar *ui;

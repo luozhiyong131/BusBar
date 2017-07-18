@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>191</width>
-    <height>314</height>
+    <width>146</width>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,39 +17,34 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>20</y>
-     <width>72</width>
-     <height>26</height>
+     <y>40</y>
+     <width>131</width>
+     <height>41</height>
     </rect>
    </property>
    <item>
     <property name="text">
-     <string>母线 1</string>
+     <string>主路电路</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>母线 2</string>
+     <string>支路电量</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>母线 3</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>母线 4</string>
+     <string>报警日志</string>
     </property>
    </item>
   </widget>
   <widget class="QDateEdit" name="dateEdit">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>110</width>
-     <height>27</height>
+     <x>9</x>
+     <y>140</y>
+     <width>131</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="displayFormat">
@@ -59,21 +54,21 @@
   <widget class="QPushButton" name="dateBtn">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>60</y>
-     <width>51</width>
-     <height>26</height>
+     <x>20</x>
+     <y>105</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>选择</string>
+    <string>时间选择</string>
    </property>
   </widget>
   <widget class="QPushButton" name="queryBtn">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>105</y>
+     <x>30</x>
+     <y>190</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -86,7 +81,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>150</y>
+     <y>250</y>
      <width>81</width>
      <height>26</height>
     </rect>
@@ -98,8 +93,8 @@
   <widget class="QPushButton" name="refreshBtn">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>200</y>
+     <x>30</x>
+     <y>300</y>
      <width>81</width>
      <height>26</height>
     </rect>
@@ -111,8 +106,8 @@
   <widget class="QPushButton" name="clearBtn">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>260</y>
+     <x>30</x>
+     <y>350</y>
      <width>71</width>
      <height>26</height>
     </rect>

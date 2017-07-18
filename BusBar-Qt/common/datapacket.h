@@ -17,7 +17,7 @@
 #include <string.h>
 
 #define LINE_NUM 3 // 三相
-#define BOX_NUM 20 // 插接箱数量
+#define BOX_NUM 32 // 插接箱数量
 #define BUS_NUM 4  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 2 // 二个传感器

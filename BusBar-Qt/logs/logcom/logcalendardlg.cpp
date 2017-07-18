@@ -36,5 +36,6 @@ void LogCalendarDlg::selectionChangedSLot()
 
 void LogCalendarDlg::on_pushButton_clicked()
 {
+    mDate= ui->calendarWidget->selectedDate();
       this->accept();
 }

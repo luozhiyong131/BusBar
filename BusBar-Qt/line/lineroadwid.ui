@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
+    <width>1024</width>
     <height>41</height>
    </rect>
   </property>
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -32,10 +32,10 @@
   <widget class="QLabel" name="curLab">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>299</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
@@ -48,10 +48,10 @@
   <widget class="QLabel" name="maxCur">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>443</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
@@ -64,10 +64,10 @@
   <widget class="QLabel" name="apPow">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>587</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
@@ -80,10 +80,10 @@
   <widget class="QLabel" name="volLab">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>154</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
@@ -96,10 +96,10 @@
   <widget class="QLabel" name="powLab">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>731</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
@@ -112,10 +112,10 @@
   <widget class="QLabel" name="eleLab">
    <property name="geometry">
     <rect>
-     <x>460</x>
+     <x>876</x>
      <y>10</y>
-     <width>54</width>
-     <height>18</height>
+     <width>100</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">

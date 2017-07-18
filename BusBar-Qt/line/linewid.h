@@ -17,14 +17,17 @@ public:
     explicit LineWid(QWidget *parent = 0);
     ~LineWid();
 
+signals:
+    void busChangedSig(int);
+
 protected:
+    void initFun();
     void initWid();
 
 protected slots:
     void timeoutDone();
 
 private slots:
-    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::LineWid *ui;

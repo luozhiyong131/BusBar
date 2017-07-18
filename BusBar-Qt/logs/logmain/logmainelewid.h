@@ -22,9 +22,11 @@ protected:
     QString getTableName(int id);
     bool refreshTable(const QString &table);
 
+public slots:
+    void initTableSlot(int id);
+
 protected slots:
     void initFunSLot();
-    void initTableSlot(int id);
     void doubleSlot(QModelIndex);
     void clearTableSlot();
     void refreshSlot();

@@ -46,7 +46,7 @@ void LogAlarmWid::initFunSLot()
 void LogAlarmWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
-    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
+//    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
     connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString)));
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
@@ -64,7 +64,7 @@ void LogAlarmWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱")<< tr("回路1") << tr("回路2") << tr("回路3") << tr("合计");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("报警项目")<< tr("报警内容") ;
     model->setHeaders(mHeadList);
 }
 

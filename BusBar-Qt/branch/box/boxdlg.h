@@ -21,6 +21,9 @@ public:
 protected:
     void initWid(int bus, int box);
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::BoxDlg *ui;
     BoxTotalWid *mTotalWid;

@@ -20,7 +20,7 @@ void LineTotalWid::initFunSLot()
 {
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(1000);
+    timer->start(2*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -38,10 +38,7 @@ void LineTotalWid::timeoutDone()
 
 void LineTotalWid::updateData()
 {
-    QString str = QString::number(mTgBus->vol) + "V";
-    ui->tVolLab->setText(str);
-
-    str =  QString::number(mTgBus->cur) + "A";
+    QString str =  QString::number(mTgBus->cur) + "A";
     ui->tCurLab->setText(str);
 
     str =  QString::number(mTgBus->pow) + "KW";

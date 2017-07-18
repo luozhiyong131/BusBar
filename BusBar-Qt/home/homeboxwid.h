@@ -16,7 +16,8 @@ public:
     explicit HomeBoxWid(QWidget *parent = 0);
     ~HomeBoxWid();
 
-    void initFun(int id);
+    void initFun(int base, int id);
+    void setBaseNum(int base);
 
 protected:
     void updateData();
@@ -32,7 +33,7 @@ private slots:
 private:
     Ui::HomeBoxWid *ui;
 
-    int mID, mBusID;
+    int mID, mBusID, mBaseNum;
     sBoxData *mData;
     QTimer *timer;
 };

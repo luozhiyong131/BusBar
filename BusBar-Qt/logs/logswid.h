@@ -21,12 +21,11 @@ public:
 protected:
     void initWidget();
 
+signals:
+    void busChangedSig(int);
+
 private slots:
-    void on_lineBtn_clicked();
-
-    void on_branchBtn_clicked();
-
-    void on_alarmBtn_clicked();
+    void logTypeSlot(int);
 
 private:
     Ui::LogsWid *ui;

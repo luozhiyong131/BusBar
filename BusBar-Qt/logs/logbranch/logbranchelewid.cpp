@@ -46,7 +46,7 @@ void LogBranchEleWid::initFunSLot()
 void LogBranchEleWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
-    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
+//    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
     connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString)));
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));

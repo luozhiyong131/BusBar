@@ -6,23 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>981</width>
-    <height>380</height>
+    <width>921</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>961</width>
-     <height>341</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTableWidget" name="tableWidget"/>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

@@ -16,8 +16,8 @@ LogBtnBar::LogBtnBar(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->dateEdit->setDate(QDate::currentDate());
-    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this,SIGNAL(busNumSig(int)));
     connect(ui->refreshBtn, SIGNAL(clicked()),this,SIGNAL(refreshSig()));
+    connect(LogSignal::get(), SIGNAL(logTypeSig(int)), ui->comboBox,SLOT(setCurrentIndex(int)));
 
     mExportDlg = new LogExportModelDlg(this);
     connect(mExportDlg, SIGNAL(exportSig(int)),this,SIGNAL(exportSig(int))); // 导出信号
@@ -54,4 +54,9 @@ void LogBtnBar::on_clearBtn_clicked()
     QuMsgBox box(this, tr("确认清空数据?"));
     if(box.Exec())
         emit clearSig();
+}
+
+void LogBtnBar::on_comboBox_currentIndexChanged(int index)
+{
+    LogSignal::get()->changeType(index);
 }

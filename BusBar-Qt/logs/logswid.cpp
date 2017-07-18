@@ -22,30 +22,37 @@ LogsWid::~LogsWid()
     delete ui;
 }
 
-
 void LogsWid::initWidget()
 {
     mMainEleWid = new LogMainEleWid(ui->stackedWid);
     ui->stackedWid->addWidget(mMainEleWid);
+    connect(this, SIGNAL(busChangedSig(int)), mMainEleWid, SLOT(initTableSlot(int)));
 
     mBranchEleWid = new LogBranchEleWid(ui->stackedWid);
     ui->stackedWid->addWidget(mBranchEleWid);
+    connect(this, SIGNAL(busChangedSig(int)), mBranchEleWid, SLOT(initTableSlot(int)));
 
     mAlarmWid = new LogAlarmWid(ui->stackedWid);
     ui->stackedWid->addWidget(mAlarmWid);
+    connect(this, SIGNAL(busChangedSig(int)), mAlarmWid, SLOT(initTableSlot(int)));
+    connect(LogSignal::get(), SIGNAL(logTypeSig(int)), this,SLOT(logTypeSlot(int)));
 }
 
-void LogsWid::on_lineBtn_clicked()
+void LogsWid::logTypeSlot(int type)
 {
-    ui->stackedWid->setCurrentWidget(mMainEleWid);
+    switch (type) {
+    case 0:
+        ui->stackedWid->setCurrentWidget(mMainEleWid);
+        break;
+    case 1:
+        ui->stackedWid->setCurrentWidget(mBranchEleWid);
+        break;
+
+    case 2:
+        ui->stackedWid->setCurrentWidget(mAlarmWid);
+        break;
+    default:
+        break;
+    }
 }
 
-void LogsWid::on_branchBtn_clicked()
-{
-    ui->stackedWid->setCurrentWidget(mBranchEleWid);
-}
-
-void LogsWid::on_alarmBtn_clicked()
-{
-    ui->stackedWid->setCurrentWidget(mAlarmWid);
-}

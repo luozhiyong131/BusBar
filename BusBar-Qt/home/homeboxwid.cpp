@@ -7,6 +7,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui(new Ui::HomeBoxWid)
 {
     ui->setupUi(this);
+    mBusID = 0;
 
     timer = new QTimer(this);
     timer->start(2000);
@@ -18,15 +19,15 @@ HomeBoxWid::~HomeBoxWid()
     delete ui;
 }
 
-void HomeBoxWid::initFun(int id)
+void HomeBoxWid::initFun(int base, int id)
 {
-    mBusID = 0;
-    mID = id;
-
-    sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[mBusID].box[id]);
-    ui->titleLab->setText(QString::number(id));
+     mID = base*10 + id+1;
+     sDataPacket *shm = get_share_mem();
+     mData = &(shm->data[mBusID].box[mID]);
+     ui->titleLab->setText(QString::number(mID));
+     updateData();
 }
+
 
 void HomeBoxWid::busChangeSlot(int id)
 {

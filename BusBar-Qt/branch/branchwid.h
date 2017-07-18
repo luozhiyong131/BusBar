@@ -16,6 +16,9 @@ public:
     explicit BranchWid(QWidget *parent = 0);
     ~BranchWid();
 
+signals:
+    void busChangedSig(int);
+
 private:
     Ui::BranchWid *ui;
     BoxTableWidget *mTableWid;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>976</width>
+    <width>1023</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,8 +17,8 @@
    <widget class="QToolButton" name="branchBtn">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>480</y>
+      <x>280</x>
+      <y>530</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -32,7 +32,7 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>51</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -43,8 +43,8 @@
    <widget class="QToolButton" name="setBtn">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>480</y>
+      <x>560</x>
+      <y>530</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -56,10 +56,10 @@
    <widget class="QPushButton" name="alarmBtn">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>490</y>
+      <x>930</x>
+      <y>20</y>
       <width>80</width>
-      <height>26</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -69,8 +69,8 @@
    <widget class="QToolButton" name="logBtn">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>480</y>
+      <x>420</x>
+      <y>530</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -82,9 +82,9 @@
    <widget class="QLabel" name="nameLab">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>110</x>
       <y>10</y>
-      <width>81</width>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
@@ -95,9 +95,9 @@
    <widget class="QLabel" name="ratedLab">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>270</x>
       <y>10</y>
-      <width>51</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -108,10 +108,10 @@
    <widget class="QStackedWidget" name="stackedWid">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>60</y>
-      <width>991</width>
-      <height>391</height>
+      <width>1021</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -121,8 +121,8 @@
    <widget class="QToolButton" name="homeBtn">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>480</y>
+      <x>20</x>
+      <y>530</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -134,8 +134,8 @@
    <widget class="QToolButton" name="lineBtn">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>480</y>
+      <x>150</x>
+      <y>530</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -147,36 +147,63 @@
    <widget class="QLabel" name="timeLab">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>560</x>
       <y>10</y>
-      <width>351</width>
-      <height>31</height>
+      <width>321</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>2017-06-30 12:00:00</string>
+     <string>2017-06-30 </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>540</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>01 主路源</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>02 主路源</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>03 主路源</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>04 主路源</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="busNameLab">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>20</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bus</string>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>976</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

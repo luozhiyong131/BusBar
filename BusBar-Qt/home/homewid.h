@@ -16,10 +16,27 @@ public:
     explicit HomeWid(QWidget *parent = 0);
     ~HomeWid();
 
+protected:
+    void initFun();
+    void initWidget();
+    bool checkBoxBaseNum();
+    void setBoxBaseNum();
+
+signals:
+    void busChangedSig(int);
+
+public slots:
+    void timeoutDone();
+    void on_upBtn_clicked();
+    void on_downBtn_clicked();
+
 private:
     Ui::HomeWid *ui;
+    QTimer *timer;
 
-    HomeBoxWid *mBoxWid[18];
+    int mBaseNum;
+    sBusData *mBusData;
+    HomeBoxWid *mBoxWid[BOX_NUM];
 };
 
 #endif // HOMEWID_H

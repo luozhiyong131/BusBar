@@ -18,7 +18,7 @@ void BoxDlg::initBox(int bus, int box)
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[bus].box[box]);
 
-    QString name = mData->boxName;
+    QString name(mData->boxName);
     ui->titleLab->setText(name);
 
     initWid(bus, box);
@@ -37,4 +37,9 @@ void BoxDlg::initWid(int bus, int box)
         BoxLoopWid *line  = mLine[i];
         line->initLine(bus, box, i);
     }
+}
+
+void BoxDlg::on_pushButton_clicked()
+{
+    this->close();
 }

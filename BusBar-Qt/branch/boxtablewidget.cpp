@@ -43,7 +43,7 @@ void BoxTableWidget::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("接插箱") << tr("状态") <<tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能") << tr("温度");
+    header <<tr("接插箱") << tr("状态") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能") << tr("温度");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -67,7 +67,7 @@ void BoxTableWidget::initTableWidget()
 void BoxTableWidget::addItemContent(int row, int column, const QString &content)
 {
     QTableWidgetItem *item = new QTableWidgetItem(content);
-    if(column > 1)
+    if(column > 0)
         item->setTextAlignment(Qt::AlignCenter);
     else
         item->setTextAlignment(Qt::AlignVCenter);
@@ -275,7 +275,7 @@ void BoxTableWidget::updateData()
         setName(i, k++); // 设置输出位名称
         setAlarmStatus(i, k++);
 
-        setVol(i, k++); // 设置电压
+      // setVol(i, k++); // 设置电压
         setCur(i, k++); // 设置电流值
 
         setPow(i, k++); // 功率

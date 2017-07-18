@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/logbranch/logbrancheleexportthread.h \
     $$PWD/logbranch/logbrancheleexportdlg.h \
     $$PWD/logalarm/logalarmexportthread.h \
-    $$PWD/logalarm/logalarmeleexportdlg.h
+    $$PWD/logalarm/logalarmeleexportdlg.h \
+    $$PWD/logcom/logsignal.h
     
    
 	
@@ -31,7 +32,8 @@ SOURCES += \
     $$PWD/logbranch/logbrancheleexportthread.cpp \
     $$PWD/logbranch/logbrancheleexportdlg.cpp \
     $$PWD/logalarm/logalarmexportthread.cpp \
-    $$PWD/logalarm/logalarmeleexportdlg.cpp
+    $$PWD/logalarm/logalarmeleexportdlg.cpp \
+    $$PWD/logcom/logsignal.cpp
     
     
 

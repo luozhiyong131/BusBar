@@ -7,6 +7,7 @@ BranchWid::BranchWid(QWidget *parent) :
 {
     ui->setupUi(this);
     mTableWid = new BoxTableWidget(ui->widget);
+    connect(this, SIGNAL(busChangedSig(int)), mTableWid, SLOT(busChangeSlot(int)));
 }
 
 BranchWid::~BranchWid()

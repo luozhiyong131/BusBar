@@ -32,10 +32,7 @@ void BoxTotalWid::timeoutDone()
 
 void BoxTotalWid::updateData()
 {
-    QString str = QString::number(mTgBus->vol) + "V";
-    ui->tVolLab->setText(str);
-
-    str =  QString::number(mTgBus->cur) + "A";
+    QString str = QString::number(mTgBus->cur) + "A";
     ui->tCurLab->setText(str);
 
     str =  QString::number(mTgBus->pow) + "KW";
