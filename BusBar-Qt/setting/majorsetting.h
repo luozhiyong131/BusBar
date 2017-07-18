@@ -7,7 +7,6 @@
 #include "settingthreshold.h"
 #include <QProgressBar>
 
-#pragma execution_character_set("utf-8")
 
 namespace Ui {
 class MajorSetting;

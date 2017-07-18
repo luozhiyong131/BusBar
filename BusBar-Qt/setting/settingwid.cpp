@@ -18,17 +18,7 @@ SettingWid::~SettingWid()
     delete ui;
 }
 
-/**
- * @brief 主路设置
- */
-void SettingWid::on_pushButton_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(majorSettingWidget);
 
-    int index = ui->comboBox->currentIndex();
-    majorSettingWidget->updateWidget(index);
-
-}
 
 void SettingWid::initWidget()
 {
@@ -46,10 +36,18 @@ void SettingWid::initWidget()
  * @brief 主路源发生变化，即母线切换
  * @param index
  */
-void SettingWid::on_comboBox_currentIndexChanged(int index)
+void SettingWid::busChangedSlot(int index)
 {
     majorSettingWidget->updateWidget(index);
     mSubsettingWid->updateWid(index);
+}
+
+/**
+ * @brief 主路设置
+ */
+void SettingWid::on_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(majorSettingWidget);
 }
 
 /**
@@ -58,8 +56,6 @@ void SettingWid::on_comboBox_currentIndexChanged(int index)
 void SettingWid::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
-    int index = ui->comboBox->currentIndex();
-    mSubsettingWid->updateWid(index);
 }
 
 void SettingWid::on_pushButton_3_clicked()

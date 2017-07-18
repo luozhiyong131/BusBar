@@ -28,34 +28,7 @@
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 170, 255);</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,0,0">
-      <item>
-       <widget class="QComboBox" name="comboBox">
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>Q1主路源</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Q2主路源</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Q3主路源</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Q4主路源</string>
-         </property>
-        </item>
-       </widget>
-      </item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,0,0">
       <item>
        <widget class="QPushButton" name="pushButton">
         <property name="text">

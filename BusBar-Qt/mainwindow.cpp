@@ -81,6 +81,7 @@ void MainWindow::initWidget()
 
     mSettingWid = new SettingWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSettingWid);
+     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
 
 void MainWindow::on_homeBtn_clicked()
