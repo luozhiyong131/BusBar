@@ -81,7 +81,7 @@ void MainWindow::initWidget()
 
     mSettingWid = new SettingWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSettingWid);
-     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
 
 void MainWindow::on_homeBtn_clicked()
@@ -117,9 +117,9 @@ void MainWindow::on_alarmBtn_clicked()
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
-     sDataPacket *shm = get_share_mem();
-     char *name = shm->data[index].busName;
+    sDataPacket *shm = get_share_mem();
+    char *name = shm->data[index].busName;
 
-     QString str(name);
-     ui->busNameLab->setText(str);
+    QString str(name);
+    ui->busNameLab->setText(str);
 }
