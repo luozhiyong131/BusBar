@@ -3,8 +3,8 @@
 
 #include "rtu_sent.h"
 
-#define RTU_LINE_NUM 9 // 9相
-#define RTU_TH_NUM 2 // 2个传感器
+#define RTU_LINE_NUM 3 // 3相
+#define RTU_TH_NUM 3 // 3个传感器
 
 struct RtuRecvLine {
     ushort vol; // 电压值
@@ -13,6 +13,7 @@ struct RtuRecvLine {
     ushort apPow; // 视在功率
     uint ele; // 电能值
     ushort curAlarm; // 上限电流报警值
+    ushort wave; // 谐波值
     uchar pf; // 功率因素
     uchar sw; // 开关
 };
@@ -29,6 +30,7 @@ struct Rtu_recv {
 
     RtuRecvLine data[RTU_LINE_NUM];
     RtuRecvEnv  env[RTU_TH_NUM];
+    uchar lineNum;
 
     ushort crc; // 检验码
 };

@@ -22,7 +22,6 @@ QString cm_pathOfData(const QString& name)
     return dataDir.absoluteFilePath(name);
 }
 
-
 /***
   *判断一个字符串是否为纯数字
   */

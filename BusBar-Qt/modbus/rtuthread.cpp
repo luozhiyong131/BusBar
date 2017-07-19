@@ -53,16 +53,18 @@ void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
     loop->sw[id] = data->sw;
     loop->apPow[id] = data->apPow;
     loop->ratedCur[id] = data->curAlarm;
+    loop->wave[id] = data->wave;
 }
 
 void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
 {
     sObjData *loop = &(box->data);
-    for(int i=0; i<3; i++)
+    for(int i=0; i<LINE_NUM; i++)
     {
         RtuRecvLine *data = &(pkt->data[i]);
         loopObjData(loop, i, data);
     }
+    loop->lineNum = pkt->lineNum;
 }
 
 void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
@@ -90,7 +92,7 @@ void RtuThread::transData(int addr)
             if(addr == pkt->addr) {
                 offLine = 1;
                 loopData(box, pkt);
-                envData(&(box->env), pkt);
+                envData(&(box->env), pkt);                
             }
         }
     }
