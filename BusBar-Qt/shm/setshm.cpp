@@ -120,6 +120,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
         setThresholdUnit(num, item, bus->data.cur);
         DbThreshold::bulid()->saveItem(item);
     }
+    return true;
 }
 
 void SetShm::setName(DbNameItem &item)
