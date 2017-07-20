@@ -20,7 +20,7 @@
 #define BOX_NUM 32 // 插接箱数量
 #define BUS_NUM 4  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
-#define SENSOR_NUM 2 // 二个传感器
+#define SENSOR_NUM 3 // 二个传感器
 
 /**
  * 统计数据结构体
@@ -64,6 +64,7 @@ typedef struct _sObjData {
     int sw[3]; // 开关状态
     int apPow[3]; // 视在功率
     int ratedCur[3]; // 额定电流
+    int wave[3]; // 谐波值
 }sObjData;
 
 
