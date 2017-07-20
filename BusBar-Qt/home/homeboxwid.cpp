@@ -7,7 +7,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui(new Ui::HomeBoxWid)
 {
     ui->setupUi(this);
-//    initWid();
+    initWid();
     mBusID = 0;
 
     timer = new QTimer(this);
@@ -22,11 +22,11 @@ HomeBoxWid::~HomeBoxWid()
 
 void HomeBoxWid::initFun(int base, int id)
 {
-     mID = base*10 + id+1;
-     sDataPacket *shm = get_share_mem();
-     mData = &(shm->data[mBusID].box[mID]);
-     ui->titleLab->setText(QString::number(mID));
-     updateData();
+    mID = base*10 + id+1;
+    sDataPacket *shm = get_share_mem();
+    mData = &(shm->data[mBusID].box[mID]);
+    ui->titleLab->setText(QString::number(mID));
+    updateData();
 }
 
 
@@ -71,8 +71,13 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
-    QPixmap pix;
-    pix.load(":/new/prefix1/image/round.png",0,Qt::AvoidDither|Qt::ThresholdAlphaDither);
-    resize(pix.size());
-    setMask(QBitmap(pix.mask()));
+    //    QPixmap pix;
+    //    pix.load(":/new/prefix1/image/round.png",0,Qt::AvoidDither|Qt::ThresholdAlphaDither);
+    //    resize(pix.size());
+    //    setMask(QBitmap(pix.mask()));
+//    set_background_icon(this, ":/new/prefix1/image/round.png");
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(),QBrush(QPixmap(":/new/prefix1/image/round.png")));
+    this->setPalette(palette);
+    this->setAutoFillBackground(true);
 }

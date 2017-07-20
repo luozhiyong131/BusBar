@@ -68,8 +68,9 @@ sDataPacket *get_share_mem()
 
 void set_background_icon(QWidget *widget, const QString &icon)
 {
+    widget->setAutoFillBackground(true);
     QPalette palette;
     palette.setBrush(QPalette::Background, QBrush(QPixmap(icon)));
     widget->setPalette(palette);
-    widget->setAutoFillBackground(true);
+
 }

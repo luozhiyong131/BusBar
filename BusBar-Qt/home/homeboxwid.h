@@ -2,6 +2,8 @@
 #define HOMEBOXWID_H
 
 #include <QWidget>
+#include <QPalette>
+#include <QPixmap>
 #include "common.h"
 
 namespace Ui {
