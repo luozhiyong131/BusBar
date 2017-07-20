@@ -31,6 +31,23 @@ void MainWindow::timeoutDone()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->timeLab->setText(time);
+    checkAlarm();
+}
+
+void MainWindow::checkAlarm()
+{
+    int alarm = 0;
+    sDataPacket *shm = get_share_mem();
+    for(int i=0; i>BUS_NUM; ++i) {
+        alarm += shm->data[i].busAlarm;
+    }
+
+    alarm = 1;  /////========= 特意显示出来
+    if(alarm)  {
+        ui->alarmBtn->setVisible(true);
+    } else {
+        ui->alarmBtn->setVisible(false);
+    }
 }
 
 /**

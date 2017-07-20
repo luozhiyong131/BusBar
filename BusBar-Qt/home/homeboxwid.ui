@@ -51,9 +51,9 @@
   <widget class="QLabel" name="titleLab">
    <property name="geometry">
     <rect>
-     <x>16</x>
+     <x>-4</x>
      <y>5</y>
-     <width>51</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
@@ -67,12 +67,12 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="iconLab">
+  <widget class="QLabel" name="iconLab_1">
    <property name="geometry">
     <rect>
-     <x>16</x>
+     <x>0</x>
      <y>30</y>
-     <width>51</width>
+     <width>20</width>
      <height>31</height>
     </rect>
    </property>
@@ -80,18 +80,18 @@
     <string notr="true">background-color: transparent;</string>
    </property>
    <property name="text">
-    <string>---</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="iconLab_2">
+  <widget class="QLabel" name="curLab">
    <property name="geometry">
     <rect>
-     <x>16</x>
+     <x>6</x>
      <y>60</y>
-     <width>51</width>
+     <width>81</width>
      <height>20</height>
     </rect>
    </property>
@@ -105,9 +105,49 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="iconLab_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>30</y>
+     <width>20</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="iconLab_3">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>30</y>
+     <width>20</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>titleLab</zorder>
-  <zorder>iconLab</zorder>
+  <zorder>iconLab_1</zorder>
+  <zorder>curLab</zorder>
   <zorder>iconLab_2</zorder>
+  <zorder>iconLab_3</zorder>
   <zorder>pushButton</zorder>
  </widget>
  <resources/>

@@ -25,6 +25,7 @@ public:
 protected:
     void initSerial();
     void initWidget();
+    void checkAlarm();
 
 protected slots:
     void initFunSLot();

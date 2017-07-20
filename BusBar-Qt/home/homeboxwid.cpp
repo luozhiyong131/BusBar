@@ -38,6 +38,9 @@ void HomeBoxWid::busChangeSlot(int id)
     updateData();
 }
 
+/**
+ * @brief 更新电流显示
+ */
 void HomeBoxWid::updateData()
 {
     QPalette pe;
@@ -52,14 +55,48 @@ void HomeBoxWid::updateData()
             pe.setColor(QPalette::WindowText,Qt::black);
     } else {
         str = "---";
+
     }
-    ui->iconLab->setText(str);
-    ui->iconLab->setPalette(pe);
+    ui->curLab->setText(str);
+    ui->curLab->setPalette(pe);
+}
+
+void HomeBoxWid::updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id)
+{
+    QString str = ":/new/prefix1/image/";
+    if(unit.alarm[id]) {
+        str += "round.png"; //////======== 图片不对
+    } else if(unit.crAlarm[id]) {
+        str += "round.png";
+    } else {
+        str += "round.png";
+    }
+
+   set_background_icon(lab, str, QSize(20,40));
+}
+
+/**
+ * @brief 更新报警图片
+ */
+void HomeBoxWid::updateAlarmStatus()
+{
+    int id = 0;
+    if(mData->offLine) {
+        updateAlarmIcon(ui->iconLab_1,  mData->data.cur, id++);
+        updateAlarmIcon(ui->iconLab_2,  mData->data.cur, id++);
+        updateAlarmIcon(ui->iconLab_3,  mData->data.cur, id++);
+    } else { // 离线
+        QString str = ":/new/prefix1/image/round.png";  //////======== 图片不对
+        set_background_icon(ui->iconLab_1, str);
+        set_background_icon(ui->iconLab_2, str);
+        set_background_icon(ui->iconLab_3, str);
+    }
 }
 
 void HomeBoxWid::timeoutDone()
 {
     updateData();
+    updateAlarmStatus();
 }
 
 void HomeBoxWid::on_pushButton_clicked()
@@ -71,5 +108,5 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
-    set_background_icon(this, ":/new/prefix1/image/round.png", QSize(83,83));
+    set_background_icon(this, ":/new/prefix1/image/round.png", QSize(83,81));
 }
