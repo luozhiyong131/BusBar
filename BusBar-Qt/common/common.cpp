@@ -70,7 +70,17 @@ void set_background_icon(QWidget *widget, const QString &icon)
 {
     widget->setAutoFillBackground(true);
     QPalette palette;
-    palette.setBrush(QPalette::Background, QBrush(QPixmap(icon)));
+    QPixmap map = QPixmap(icon);
+    palette.setBrush(QPalette::Background, QBrush(map));
     widget->setPalette(palette);
+}
 
+
+void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
+{
+    widget->setAutoFillBackground(true);
+    QPalette palette;
+    QPixmap map = QPixmap(icon).scaled(size);
+    palette.setBrush(QPalette::Background, QBrush(map));
+    widget->setPalette(palette);
 }

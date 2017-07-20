@@ -71,13 +71,5 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
-    //    QPixmap pix;
-    //    pix.load(":/new/prefix1/image/round.png",0,Qt::AvoidDither|Qt::ThresholdAlphaDither);
-    //    resize(pix.size());
-    //    setMask(QBitmap(pix.mask()));
-//    set_background_icon(this, ":/new/prefix1/image/round.png");
-    QPalette palette;
-    palette.setBrush(this->backgroundRole(),QBrush(QPixmap(":/new/prefix1/image/round.png")));
-    this->setPalette(palette);
-    this->setAutoFillBackground(true);
+    set_background_icon(this, ":/new/prefix1/image/round.png", QSize(83,83));
 }

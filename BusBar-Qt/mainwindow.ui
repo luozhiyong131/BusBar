@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(242,242,242);</string>
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>-1</number>
