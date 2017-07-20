@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // initSerial();
 
+    mIndex = 0;
     initWidget();
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
@@ -31,7 +32,19 @@ void MainWindow::timeoutDone()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->timeLab->setText(time);
+
     checkAlarm();
+    setBusName(mIndex);
+}
+
+void MainWindow::setBusName(int index)
+{
+    sDataPacket *shm = get_share_mem();
+    char *name = shm->data[index].busName;
+
+    QString str(name);
+    ui->busNameLab->setText(str);
+    mIndex = index;
 }
 
 void MainWindow::checkAlarm()
@@ -134,9 +147,5 @@ void MainWindow::on_alarmBtn_clicked()
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
-    sDataPacket *shm = get_share_mem();
-    char *name = shm->data[index].busName;
-
-    QString str(name);
-    ui->busNameLab->setText(str);
+    setBusName(index);
 }
