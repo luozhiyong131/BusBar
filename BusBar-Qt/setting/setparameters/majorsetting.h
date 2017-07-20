@@ -4,7 +4,8 @@
 #include <QWidget>
 #include <QTableWidgetItem>
 #include "common.h"
-#include "settingthreshold.h"
+#include "setthreshold/settingthreshold.h"
+#include "setshm.h"
 #include <QProgressBar>
 
 
@@ -29,7 +30,7 @@ private:
     //    sDataPacket *get_share_mem();
 private slots:
     void barClicked(bool isCur,int index);
-
+    void on_pushButton_clicked();
 
 private:
     Ui::MajorSetting *ui;
@@ -37,6 +38,7 @@ private:
     sDataPacket *mPacket;
     SettingThreshold *mSettingThroldWid;
     int mIndex; //当前主路源标志位
+    SetShm * mShm;
 
 };
 

@@ -2,31 +2,38 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/settingwid.h \
-    $$PWD/majorsetting.h \
-    $$PWD/settingthreshold.h \
-    $$PWD/subseeting.h \
-    $$PWD/subsettingthreshold.h \
-    $$PWD/systemsettingdlg.h
+    $$PWD/setparameters/majorsetting.h \ 
+    $$PWD/setparameters/majorsetting.h \
+    $$PWD/setparameters/settingwid.h \
+    $$PWD/setparameters/subseeting.h \
+    $$PWD/setsystem/systemsettingdlg.h \
+    $$PWD/setthreshold/settingthreshold.h \
+    $$PWD/setthreshold/subsettingthreshold.h
+    
     
    
 	
 SOURCES += \
-    $$PWD/settingwid.cpp \
-    $$PWD/majorsetting.cpp \
-    $$PWD/settingthreshold.cpp \
-    $$PWD/subseeting.cpp \
-    $$PWD/subsettingthreshold.cpp \
-    $$PWD/systemsettingdlg.cpp
+    $$PWD/setparameters/majorsetting.cpp \
+    $$PWD/setparameters/settingwid.cpp \
+    $$PWD/setparameters/subseeting.cpp \
+    $$PWD/setsystem/systemsettingdlg.cpp \
+    $$PWD/setthreshold/settingthreshold.cpp \
+    $$PWD/setthreshold/subsettingthreshold.cpp
     
     
 
 FORMS += \
-    $$PWD/settingwid.ui \
-    $$PWD/majorsetting.ui \
-    $$PWD/settingthreshold.ui \
-    $$PWD/subseeting.ui \
-    $$PWD/subsettingthreshold.ui \
-    $$PWD/systemsettingdlg.ui
+    $$PWD/setparameters/majorsetting.ui \
+    $$PWD/setparameters/majorsetting.ui \
+    $$PWD/setparameters/settingwid.ui \
+    $$PWD/setparameters/subseeting.ui \
+    $$PWD/setsystem/systemsettingdlg.ui \
+    $$PWD/setthreshold/settingthreshold.ui \
+    $$PWD/setthreshold/subsettingthreshold.ui
+
+DISTFILES += \
+    $$PWD/setparameters/setting.pri
+
 
 

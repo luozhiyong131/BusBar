@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QTableWidget>
 #include "common.h"
-#include "subsettingthreshold.h"
+#include "setthreshold/subsettingthreshold.h"
 
 namespace Ui {
 class SubSeeting;

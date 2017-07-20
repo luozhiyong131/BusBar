@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "majorsetting.h"
 #include "subseeting.h"
-#include "systemsettingdlg.h"
+#include "setsystem/systemsettingdlg.h"
 
 namespace Ui {
 class SettingWid;

@@ -8,6 +8,7 @@ MajorSetting::MajorSetting(QWidget *parent) :
     ui->setupUi(this);
 
     mPacket = get_share_mem();
+    mShm = new SetShm;
     mIndex = 0;
     initWidget();
 }
@@ -48,7 +49,7 @@ void MajorSetting::updateWidget(int index)
     sBusData *busData = &(mPacket->data[0]);
 
     ui->lineEdit->setText(busData->busName);
-    ui->lineEdit_2->setText("20");
+    ui->lineEdit_2->setText(QString::number(busData->ratedCur,10));
     ui->lineEdit_3->setText(QString(busData->boxNum,10));
 
     sObjData  *objData = &(busData->data);
@@ -95,4 +96,25 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
         bar->setValue(ret);
     }else
         bar->setValue(0);
+}
+
+/**
+ * @brief MajorSetting::on_pushButton_clicked 改变母线名称
+ */
+void MajorSetting::on_pushButton_clicked()
+{
+
+    DbNameItem item;
+    item.bus = mIndex;
+    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    int num = 0; // 编号
+    QString name = ui->lineEdit->text();
+    if(name.isEmpty()) {
+
+    }
+    if(name.size() > NAME_LEN) {
+
+    }
+
+    mShm->setName(item);
 }

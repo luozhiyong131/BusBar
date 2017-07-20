@@ -7,7 +7,7 @@
 #include "linewid.h"
 #include "branchwid.h"
 #include "logswid.h"
-#include "settingwid.h"
+#include "setparameters/settingwid.h"
 //#include "frminput.h"
 
 namespace Ui {
