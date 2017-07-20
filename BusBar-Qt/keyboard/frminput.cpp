@@ -64,7 +64,7 @@ void frmInput::InitForm()
 #if 1
     mDb = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "pinyin"));
     mDb->setDatabaseName(qApp->applicationDirPath() + "/pinyin.db");
-//    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
+    //    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
     if(!mDb->open()) {
         qDebug()<<mDb->lastError().text();
         qDebug("DbConn.open failed");
@@ -72,10 +72,10 @@ void frmInput::InitForm()
 #else
     QSqlDatabase DbConn;
     DbConn = QSqlDatabase::addDatabase("QSQLITE");
-//    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
+    //    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
     DbConn.setDatabaseName(qApp->applicationDirPath() + "/pinyin.db");
-//    DbConn.setDatabaseName(":/db/pinyin.db");
-//    DbConn.setDatabaseName("c:/pinyin.db");
+    //    DbConn.setDatabaseName(":/db/pinyin.db");
+    //    DbConn.setDatabaseName("c:/pinyin.db");
     bool isSuccess = DbConn.open();
     if(!isSuccess)
     {
@@ -211,7 +211,6 @@ void frmInput::InitProperty()
 void frmInput::ShowPanel()
 {
     this->setVisible(true);
-//    this->show();
 
     int width = ui->btn0->width();
     width = width > 40 ? width : 40;
@@ -382,7 +381,7 @@ void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
         if (NULL != pModalWidget && pModalWidget->inherits("QDialog"))
         {
             Qt::WindowModality Modality = pModalWidget->windowModality();
-          /*Qt::NonModal       The window is not modal and does not block input to other windows.
+            /*Qt::NonModal       The window is not modal and does not block input to other windows.
           非模态对话框
 
           Qt::WindowModal        The window is modal to a single window hierarchy and blocks input to its parent window, all grandparent windows, and all siblings of its parent and grandparent windows.
@@ -520,7 +519,7 @@ void frmInput::selectChinese()
     clearChinese();
     QSqlQuery query(*mDb);
     QString currentPY = ui->labPY->text();
-//    QString sql = "select [word] from [pinyin] where [pinyin]='" + currentPY + "';";
+    //    QString sql = "select [word] from [pinyin] where [pinyin]='" + currentPY + "';";
     QString sql = "select [chinese] from [hzpy] where [pinyin]='" + currentPY + "'order by type desc;";
     query.exec(sql);
     //逐个将查询到的字词加入汉字队列
