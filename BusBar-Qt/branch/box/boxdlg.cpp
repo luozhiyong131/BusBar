@@ -6,6 +6,7 @@ BoxDlg::BoxDlg(QWidget *parent) :
     ui(new Ui::BoxDlg)
 {
     ui->setupUi(this);
+    this->setWindowTitle(tr("aaaaaaa"));
 }
 
 BoxDlg::~BoxDlg()
