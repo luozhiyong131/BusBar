@@ -7,6 +7,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui(new Ui::HomeBoxWid)
 {
     ui->setupUi(this);
+//    initWid();
     mBusID = 0;
 
     timer = new QTimer(this);
@@ -66,4 +67,12 @@ void HomeBoxWid::on_pushButton_clicked()
     BoxDlg dlg(this);
     dlg.initBox(mBusID, mID);
     dlg.exec();
+}
+
+void HomeBoxWid::initWid()
+{
+    QPixmap pix;
+    pix.load(":/new/prefix1/image/round.png",0,Qt::AvoidDither|Qt::ThresholdAlphaDither);
+    resize(pix.size());
+    setMask(QBitmap(pix.mask()));
 }

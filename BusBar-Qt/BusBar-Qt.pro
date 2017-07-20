@@ -52,5 +52,11 @@ FORMS += \
         mainwindow.ui \
     currentalarmsdlg.ui
 
+RESOURCES += \
+    images.qrc
+
+
+LIBS += -lts
+
 target.path = /opt
 INSTALLS += target

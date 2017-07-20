@@ -1,4 +1,4 @@
-#include "setshm.h"
+﻿#include "setshm.h"
 
 SetShm::SetShm(QObject *parent) : QObject(parent)
 {
@@ -86,6 +86,7 @@ void SetShm::setTempAll(DbThresholdItem &item)
 
 bool SetShm::saveItem(DbThresholdItem &item)
 {
+    bool ret = false;
     sDataUnit *unit=NULL;
     int boxNum=0, num = item.num;
     sBusData *bus = &(shm->data[item.bus]);
@@ -106,7 +107,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
         break;
 
     case 4:
-         unit = &(bus->env.tem);
+        unit = &(bus->env.tem);
         break;
 
     case 5:
@@ -117,10 +118,15 @@ bool SetShm::saveItem(DbThresholdItem &item)
     }
 
     if(unit) {
-        setThresholdUnit(num, item, bus->data.cur);
-        DbThreshold::bulid()->saveItem(item);
+        setThresholdUnit(num, item, (*unit));
+       ret = DbThreshold::bulid()->saveItem(item);
     }
+<<<<<<< HEAD
     return true;
+=======
+
+    return ret;
+>>>>>>> wdl
 }
 
 void SetShm::setName(DbNameItem &item)

@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+<<<<<<< HEAD
     // qApp->setFont(QFont("Microsoft YaHei", 10));
     //qApp->setFont(QFont("WenQuanYi Micro Hei", 15));
 
@@ -15,6 +16,10 @@ int main(int argc, char *argv[])
     frmInput::Instance()->Init("control", "black", 11, 11);
     //以下方法打开数字键盘
     // frmNum::Instance()->Init("lightgray",10);
+=======
+//    frmInput::Instance()->Init("control", "black", 10, 10);
+//    frmInput::Instance()->hide();
+>>>>>>> wdl
 
     MainWindow w;
     w.show();

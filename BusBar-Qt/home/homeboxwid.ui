@@ -6,24 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>64</width>
-    <height>73</height>
+    <width>85</width>
+    <height>85</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: rgb(255, 255, 255);</string>
+  </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>51</width>
-     <height>51</height>
+     <x>1</x>
+     <y>1</y>
+     <width>83</width>
+     <height>83</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../images.qrc">
+     <normaloff>:/new/prefix1/image/round.png</normaloff>:/new/prefix1/image/round.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>81</width>
+     <height>81</height>
+    </size>
    </property>
    <property name="autoDefault">
     <bool>false</bool>
@@ -38,11 +54,14 @@
   <widget class="QLabel" name="titleLab">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>31</width>
-     <height>21</height>
+     <x>16</x>
+     <y>5</y>
+     <width>51</width>
+     <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
    </property>
    <property name="text">
     <string>1</string>
@@ -54,11 +73,14 @@
   <widget class="QLabel" name="iconLab">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>40</y>
-     <width>31</width>
-     <height>18</height>
+     <x>16</x>
+     <y>30</y>
+     <width>51</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
    </property>
    <property name="text">
     <string>---</string>
@@ -67,10 +89,28 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <zorder>titleLab</zorder>
-  <zorder>iconLab</zorder>
-  <zorder>pushButton</zorder>
+  <widget class="QLabel" name="iconLab_2">
+   <property name="geometry">
+    <rect>
+     <x>16</x>
+     <y>60</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>12A</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
  <connections/>
 </ui>

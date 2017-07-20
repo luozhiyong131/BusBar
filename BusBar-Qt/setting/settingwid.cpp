@@ -55,7 +55,7 @@ void SettingWid::on_pushButton_clicked()
  */
 void SettingWid::on_pushButton_2_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(mSubsettingWid);
+    ui->stackedWidget->setCurrentWidget(mSubsettingWid);    
 }
 
 void SettingWid::on_pushButton_3_clicked()

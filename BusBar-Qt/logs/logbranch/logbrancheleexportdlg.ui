@@ -13,13 +13,18 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(143, 89, 2);
+font: 57 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);</string>
+  </property>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>20</x>
      <y>130</y>
-     <width>61</width>
-     <height>18</height>
+     <width>81</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -42,10 +47,10 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>20</x>
      <y>90</y>
-     <width>61</width>
-     <height>18</height>
+     <width>81</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -65,14 +70,17 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>50</y>
-     <width>61</width>
-     <height>21</height>
+     <x>10</x>
+     <y>40</y>
+     <width>441</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>日志导出</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="statusLab">

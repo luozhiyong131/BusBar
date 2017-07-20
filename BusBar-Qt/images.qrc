@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>image/alarm.png</file>
+        <file>image/branch.png</file>
+        <file>image/data.png</file>
+        <file>image/home.png</file>
+        <file>image/logo.jpg</file>
+        <file>image/main.png</file>
+        <file>image/setting.png</file>
+        <file>image/branchs.png</file>
+        <file>image/round.png</file>
+    </qresource>
+</RCC>
