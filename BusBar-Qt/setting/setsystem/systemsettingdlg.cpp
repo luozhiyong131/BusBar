@@ -7,6 +7,7 @@ SystemSettingDlg::SystemSettingDlg(QWidget *parent) :
     ui(new Ui::SystemSettingDlg)
 {
     ui->setupUi(this);
+    mEmailWid = new EmailWid(ui->smtpWid);
 }
 
 SystemSettingDlg::~SystemSettingDlg()

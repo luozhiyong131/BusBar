@@ -32,8 +32,6 @@ FORMS += \
     $$PWD/setthreshold/settingthreshold.ui \
     $$PWD/setthreshold/subsettingthreshold.ui
 
-DISTFILES += \
-    $$PWD/setparameters/setting.pri
 
 
 

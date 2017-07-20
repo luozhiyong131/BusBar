@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <QDateTime>
 #include <QDebug>
-
+#include "smtp/emailwid.h"
 
 namespace Ui {
 class SystemSettingDlg;
@@ -27,6 +27,7 @@ private:
 
 private:
     Ui::SystemSettingDlg *ui;
+    EmailWid *mEmailWid;
 };
 
 #endif // SYSTEMSETTINGDLG_H
