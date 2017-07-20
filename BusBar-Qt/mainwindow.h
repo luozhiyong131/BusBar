@@ -8,6 +8,7 @@
 #include "branchwid.h"
 #include "logswid.h"
 #include "settingwid.h"
+//#include "frminput.h"
 
 namespace Ui {
 class MainWindow;

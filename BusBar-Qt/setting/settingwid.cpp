@@ -43,8 +43,6 @@ void SettingWid::busChangedSlot(int index)
 }
 
 /**
-<<<<<<< HEAD:BusBar/setting/settingwid.cpp
-=======
  * @brief 主路设置
  */
 void SettingWid::on_pushButton_clicked()
@@ -53,17 +51,11 @@ void SettingWid::on_pushButton_clicked()
 }
 
 /**
->>>>>>> master:BusBar-Qt/setting/settingwid.cpp
  * @brief 支路设置按钮
  */
 void SettingWid::on_pushButton_2_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(mSubsettingWid);
-<<<<<<< HEAD:BusBar/setting/settingwid.cpp
-    int index = ui->comboBox->currentIndex();
-    mSubsettingWid->updateWid(index);
-=======
->>>>>>> master:BusBar-Qt/setting/settingwid.cpp
+    ui->stackedWidget->setCurrentWidget(mSubsettingWid);    
 }
 
 void SettingWid::on_pushButton_3_clicked()
