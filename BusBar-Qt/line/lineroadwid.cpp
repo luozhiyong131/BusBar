@@ -64,19 +64,22 @@ void LineRoadWid::updateData()
     ui->volLab->setText(str);
     updateAlarmStatus(ui->volLab, mData->vol);
 
-    str =  QString::number(mData->cur.value[id]) + "A";
+    str =  QString::number(mData->cur.value[id]/10.0,'f',1) + "A";
     ui->curLab->setText(str);
     updateAlarmStatus(ui->curLab, mData->cur);
 
-    str =  QString::number(mData->cur.max[id]) + "A";
+    str =  QString::number(mData->cur.max[id]/10.0,'f',1) + "A";
     ui->maxCur->setText(str);
 
-    str =  QString::number(mData->apPow[id]) + "kVA";
+    str =  QString::number(mData->apPow[id]/10.0,'f',1) + "kVA";
     ui->apPow->setText(str);
 
-    str =  QString::number(mData->pow[id]) + "kW";
+    str =  QString::number(mData->pow[id]/10.0,'f',1) + "kW";
     ui->powLab->setText(str);
 
-    str =  QString::number(mData->ele[id]) + "kWh";
+    str =  QString::number(mData->pf[id]/100.0, 'f',2);
+    ui->pfLab->setText(str);
+
+    str =  QString::number(mData->ele[id]/10.0,'f',1) + "kWh";
     ui->eleLab->setText(str);
 }

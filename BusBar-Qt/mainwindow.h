@@ -25,6 +25,8 @@ public:
 protected:
     void initSerial();
     void initWidget();
+    void checkAlarm();
+    void setBusName(int index);
 
 protected slots:
     void initFunSLot();
@@ -50,6 +52,7 @@ private:
     InitShm *mInitShm;
     QTimer *timer;
 
+    int mIndex;
     HomeWid *mHomeWid;
     LineWid *mLineWid;
     BranchWid *mBranchWid;

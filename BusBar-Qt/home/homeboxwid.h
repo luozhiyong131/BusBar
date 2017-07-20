@@ -23,7 +23,9 @@ public:
 
 protected:
     void updateData();
-    void updateAlarmStatus(QLabel *lab, sDataUnit &unit);
+    void updateAlarmStatus();
+    void updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id);
+
     void initWid();
 
 public slots:
