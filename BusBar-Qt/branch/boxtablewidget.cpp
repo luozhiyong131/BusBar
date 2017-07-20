@@ -214,7 +214,7 @@ void BoxTableWidget::setPow(int id, int column)
 
     double value = unit->pow / COM_RATE_POW;
     if(value >= 0)
-        str = QString::number(value, 'f', 1) + "KW";
+        str = QString::number(value, 'f', 1) + "kW";
     setTableItem(id, column, str);
 }
 
@@ -236,7 +236,7 @@ void BoxTableWidget::setEle(int id, int column)
 
     double value = unit->ele / COM_RATE_ELE;
     if(value >= 0)
-        str = QString::number(value, 'f', 1) + "KWh";
+        str = QString::number(value, 'f', 1) + "kWh";
     setTableItem(id, column, str);
 }
 
@@ -294,7 +294,7 @@ void BoxTableWidget::getItem(QTableWidgetItem*)
 {
     int row = ui->tableWidget->currentRow();
 
-    BoxDlg dlg(this);
+    BoxDlg dlg(0);
     dlg.initBox(mBusID, row+1);
     dlg.exec();
 }

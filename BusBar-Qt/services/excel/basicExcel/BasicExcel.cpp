@@ -3581,16 +3581,16 @@ size_t Worksheet::CellTable::RowBlock::CellBlock::MulBlank::RecordSize()
 }
 
 Worksheet::CellTable::RowBlock::CellBlock::MulRK::XFRK::XFRK() :
-	XFRecordIndex_(0), RKValue_(0) {};
+	XFRecordIndex_(0), RkVAlue_(0) {};
 void Worksheet::CellTable::RowBlock::CellBlock::MulRK::XFRK::Read(const char* data)
 {
 	LittleEndian::Read(data, XFRecordIndex_, 0, 2);
-	LittleEndian::Read(data, RKValue_, 2, 4);
+	LittleEndian::Read(data, RkVAlue_, 2, 4);
 }	
 void Worksheet::CellTable::RowBlock::CellBlock::MulRK::XFRK::Write(char* data)
 {
 	LittleEndian::Write(data, XFRecordIndex_, 0, 2);
-	LittleEndian::Write(data, RKValue_, 2, 4);
+	LittleEndian::Write(data, RkVAlue_, 2, 4);
 }
 
 Worksheet::CellTable::RowBlock::CellBlock::MulRK::MulRK() : Record(),
@@ -4374,19 +4374,19 @@ size_t Worksheet::Window2::Write(char* data)
 
 /************************************************************************************************************/
 // Returns true if the supplied rk value contains an integer.
-bool IsRKValueAnInteger(int rkValue)
+bool IsRkVAlueAnInteger(int rkVAlue)
 {
-	return (rkValue & 2);
+	return (rkVAlue & 2);
 }
 
 // Returns true if the supplied rk value contains a double.
-bool IsRKValueADouble(int rkValue)
+bool IsRkVAlueADouble(int rkVAlue)
 {
-	return !(rkValue & 2);
+	return !(rkVAlue & 2);
 }
 
 // Convert a rk value to a double.
-double GetDoubleFromRKValue(int rkValue)
+double GetDoubleFromRkVAlue(int rkVAlue)
 {
 	union 
 	{
@@ -4394,25 +4394,25 @@ double GetDoubleFromRKValue(int rkValue)
 		double doublevalue_;
 	} intdouble;
 
-	bool isMultiplied = rkValue & 1;
-	rkValue >>= 2;
-	intdouble.intvalue_ = rkValue;
+	bool isMultiplied = rkVAlue & 1;
+	rkVAlue >>= 2;
+	intdouble.intvalue_ = rkVAlue;
 	intdouble.intvalue_ <<= 34;
 	if (isMultiplied) intdouble.doublevalue_ *= 0.01;
 	return intdouble.doublevalue_;
 }
 
 // Convert a rk value to an integer.
-int GetIntegerFromRKValue(int rkValue)
+int GetIntegerFromRkVAlue(int rkVAlue)
 {
-	bool isMultiplied = rkValue & 1;
-	rkValue >>= 2;
-	if (isMultiplied) rkValue *= 0.01;
-	return rkValue;
+	bool isMultiplied = rkVAlue & 1;
+	rkVAlue >>= 2;
+	if (isMultiplied) rkVAlue *= 0.01;
+	return rkVAlue;
 }
 
 // Convert a double to a rk value.
-int GetRKValueFromDouble(double value)
+int GetRkVAlueFromDouble(double value)
 {
 	union 
 	{
@@ -4433,14 +4433,14 @@ int GetRKValueFromDouble(double value)
 	intdouble.doublevalue_ = value;
 	intdouble.intvalue_ >>= 34;
 
-	int rkValue = intdouble.intvalue_;
-	rkValue <<= 2;
-	rkValue |= isMultiplied;
-	return rkValue;
+	int rkVAlue = intdouble.intvalue_;
+	rkVAlue <<= 2;
+	rkVAlue |= isMultiplied;
+	return rkVAlue;
 }
 
 // Convert an integer to a rk value.
-int GetRKValueFromInteger(int value)
+int GetRkVAlueFromInteger(int value)
 {
 	value <<= 2;
 	value |= 2;
@@ -4448,7 +4448,7 @@ int GetRKValueFromInteger(int value)
 }
 
 // Returns true if the supplied double can be stored as a rk value.
-bool CanStoreAsRKValue(double value)
+bool CanStoreAsRkVAlue(double value)
 {
 	int testVal1 = value * 100;
 	testVal1 *= 100;
@@ -5208,7 +5208,7 @@ void BasicExcel::UpdateWorksheets()
 								for (size_t i=0; c<cl; ++c, ++i)
 								{
 									cell = yesheets_[s].Cell(r,c);
-									pCell->mulrk_.XFRK_[i].RKValue_ = GetRKValueFromInteger(cell->GetInteger());
+									pCell->mulrk_.XFRK_[i].RkVAlue_ = GetRkVAlueFromInteger(cell->GetInteger());
 								}
 								--c;
 							}
@@ -5219,7 +5219,7 @@ void BasicExcel::UpdateWorksheets()
 								pCell->type_ = CODE::RK;
 								pCell->rk_.rowIndex_ = r;
 								pCell->rk_.colIndex_ = c;
-								pCell->rk_.value_ = GetRKValueFromInteger(cell->GetInteger());
+								pCell->rk_.value_ = GetRkVAlueFromInteger(cell->GetInteger());
 							}
 							break;
 						}
@@ -5228,17 +5228,17 @@ void BasicExcel::UpdateWorksheets()
 						{
 							// Check whether it is a single cell or range of cells.
 							// Double values which cannot be stored as RK values will be stored as single cells.
-							bool canStoreAsRKValue = CanStoreAsRKValue(cell->GetDouble());
+							bool canStoreAsRkVAlue = CanStoreAsRkVAlue(cell->GetDouble());
 							size_t cl = c + 1;
 							for (; cl<maxCols; ++cl)
 							{
 								BasicExcelCell* cellNext = yesheets_[s].Cell(r,cl);
 								if (cellNext->Type()==BasicExcelCell::UNDEFINED ||
 									cellNext->Type()!=cell->Type() ||
-									canStoreAsRKValue!=CanStoreAsRKValue(cellNext->GetDouble())) break;
+									canStoreAsRkVAlue!=CanStoreAsRkVAlue(cellNext->GetDouble())) break;
 							}
 
-							if (cl > c+1 && canStoreAsRKValue)
+							if (cl > c+1 && canStoreAsRkVAlue)
 							{
 								// MULRK cells
 								pCell->type_ = CODE::MULRK;
@@ -5250,7 +5250,7 @@ void BasicExcel::UpdateWorksheets()
 								for (size_t i=0; c<cl; ++c, ++i)
 								{
 									cell = yesheets_[s].Cell(r,c);
-									pCell->mulrk_.XFRK_[i].RKValue_ = GetRKValueFromDouble(cell->GetDouble());
+									pCell->mulrk_.XFRK_[i].RkVAlue_ = GetRkVAlueFromDouble(cell->GetDouble());
 								}
 								--c;
 							}
@@ -5258,12 +5258,12 @@ void BasicExcel::UpdateWorksheets()
 							{
 								// Single cell
 								pCell->normalType_ = true;
-								if (canStoreAsRKValue)
+								if (canStoreAsRkVAlue)
 								{
 									pCell->type_ = CODE::RK;
 									pCell->rk_.rowIndex_ = r;
 									pCell->rk_.colIndex_ = c;
-									pCell->rk_.value_ = GetRKValueFromDouble(cell->GetDouble());
+									pCell->rk_.value_ = GetRkVAlueFromDouble(cell->GetDouble());
 								}
 								else
 								{									
@@ -5636,14 +5636,14 @@ void BasicExcelWorksheet::UpdateCells()
 					for (size_t k=0; k<maxCols; ++k, ++col)
 					{
 						// Get values of the whole range
-						int rkValue = rCellBlocks[j].mulrk_.XFRK_[k].RKValue_;
-						if (IsRKValueAnInteger(rkValue))
+						int rkVAlue = rCellBlocks[j].mulrk_.XFRK_[k].RkVAlue_;
+						if (IsRkVAlueAnInteger(rkVAlue))
 						{
-							cells_[row][col].Set(GetIntegerFromRKValue(rkValue));
+							cells_[row][col].Set(GetIntegerFromRkVAlue(rkVAlue));
 						}
 						else
 						{
-							cells_[row][col].Set(GetDoubleFromRKValue(rkValue));
+							cells_[row][col].Set(GetDoubleFromRkVAlue(rkVAlue));
 						}
 					}
 					break;
@@ -5655,14 +5655,14 @@ void BasicExcelWorksheet::UpdateCells()
 
 				case CODE::RK:
 				{
-					int rkValue = rCellBlocks[j].rk_.value_;
-					if (IsRKValueAnInteger(rkValue))
+					int rkVAlue = rCellBlocks[j].rk_.value_;
+					if (IsRkVAlueAnInteger(rkVAlue))
 					{
-						cells_[row][col].Set(GetIntegerFromRKValue(rkValue));
+						cells_[row][col].Set(GetIntegerFromRkVAlue(rkVAlue));
 					}
 					else
 					{
-						cells_[row][col].Set(GetDoubleFromRKValue(rkValue));
+						cells_[row][col].Set(GetDoubleFromRkVAlue(rkVAlue));
 					}
 					break;
 				}

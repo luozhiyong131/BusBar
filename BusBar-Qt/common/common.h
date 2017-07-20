@@ -29,4 +29,6 @@ bool cm_isIPaddress(const QString& ip);
 
 sDataPacket *get_share_mem();
 
+void set_background_icon(QWidget *widget, const QString &icon);
+
 #endif // COMMON_H

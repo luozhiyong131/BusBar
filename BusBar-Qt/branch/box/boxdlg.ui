@@ -10,15 +10,18 @@
     <height>400</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::PreventContextMenu</enum>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>helloworld</string>
   </property>
   <property name="styleSheet">
    <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(233, 185, 110);</string>
   </property>
   <property name="modal">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <widget class="QLabel" name="titleLab">
    <property name="geometry">

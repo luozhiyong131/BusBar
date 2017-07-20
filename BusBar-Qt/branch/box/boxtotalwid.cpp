@@ -35,12 +35,12 @@ void BoxTotalWid::updateData()
     QString str = QString::number(mTgBus->cur) + "A";
     ui->tCurLab->setText(str);
 
-    str =  QString::number(mTgBus->pow) + "KW";
+    str =  QString::number(mTgBus->pow) + "kW";
     ui->tPowLab->setText(str);
 
-    str =  QString::number(mTgBus->apPow) + "KVA";
+    str =  QString::number(mTgBus->apPow) + "kVA";
     ui->tApPowLab->setText(str);
 
-    str =  QString::number(mTgBus->ele) + "KWh";
+    str =  QString::number(mTgBus->ele) + "kWh";
     ui->tEleLab->setText(str);
 }

@@ -241,7 +241,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>2.2  KW</string>
+       <string>2.2  kW</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -267,7 +267,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>2.2  KW</string>
+       <string>2.2  kW</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_20">
@@ -436,7 +436,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>2.2  KW</string>
+       <string>2.2  kW</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_16">

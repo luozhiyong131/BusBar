@@ -66,12 +66,12 @@ void BoxLoopWid::updateData()
     str =  QString::number(mData->cur.max[id]) + "A";
     ui->maxCur->setText(str);
 
-    str =  QString::number(mData->apPow[id]) + "KVA";
+    str =  QString::number(mData->apPow[id]) + "kVA";
     ui->apPow->setText(str);
 
-    str =  QString::number(mData->pow[id]) + "KW";
+    str =  QString::number(mData->pow[id]) + "kW";
     ui->powLab->setText(str);
 
-    str =  QString::number(mData->ele[id]) + "KWh";
+    str =  QString::number(mData->ele[id]) + "kWh";
     ui->eleLab->setText(str);
 }

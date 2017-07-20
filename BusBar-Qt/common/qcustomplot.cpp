@@ -3481,7 +3481,7 @@ double QCPLineEnding::boundingDistance() const
 
 /*!
   Starting from the origin of this line ending (which is style specific), returns the length
-  covered by the line ending symbol, in backward direction.
+  covered by the line ending symbol, in backWard direction.
 
   For example, the \ref esSpikeArrow has a shorter real length than a \ref esFlatArrow, even if
   both have the same \ref setLength value, because the spike arrow has an inward curved back, which
@@ -4596,7 +4596,7 @@ void QCPAxis::setTickLabelColor(const QColor &color)
 
 /*!
   Sets the rotation of the tick labels. If \a degrees is zero, the labels are drawn normally. Else,
-  the tick labels are drawn rotated by \a degrees clockwise. The specified angle is bound to values
+  the tick labels are drawn rotated by \a degrees clockWise. The specified angle is bound to values
   from -90 to 90 degrees.
 
   If \a degrees is exactly -90, 0 or 90, the tick labels are centered on the tick coordinate. For
@@ -6568,7 +6568,7 @@ QPointF QCPAxisPainterPrivate::getTickLabelDrawOffset(const TickLabelData &label
     calculate label offset from base point at tick (non-trivial, for best visual appearance): short
     explanation for bottom axis: The anchor, i.e. the point in the label that is placed
     horizontally under the corresponding tick is always on the label side that is closer to the
-    axis (e.g. the left side of the text when we're rotating clockwise). On that side, the height
+    axis (e.g. the left side of the text when we're rotating clockWise). On that side, the height
     is halved and the resulting point is defined the anchor. This way, a 90 degree rotated text
     will be centered under the tick (i.e. displaced horizontally by half its height). At the same
     time, a 45 degree rotated text will "point toward" its tick, as is typical for rotated tick
@@ -12350,7 +12350,7 @@ void QCPAxisRect::setRangeZoomAxes(QCPAxis *horizontal, QCPAxis *vertical)
   let the horizontal axis zoom at different rates than the vertical axis. Which axis is horizontal
   and which is vertical, can be set with \ref setRangeZoomAxes.
 
-  When the zoom factor is greater than one, scrolling the mouse wheel backwards (towards the user)
+  When the zoom factor is greater than one, scrolling the mouse wheel backWards (towards the user)
   will zoom in (make the currently visible range smaller). For zoom factors smaller than one, the
   same scrolling direction will zoom out.
 */

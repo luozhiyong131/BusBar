@@ -880,7 +880,7 @@ public:
 						void Read(const char* data);
 						void Write(char* data);
 						short XFRecordIndex_;
-						int RKValue_;
+						int RkVAlue_;
 					};
 					short rowIndex_;
 					short firstColIndex_;
@@ -1093,13 +1093,13 @@ public:
 	YEOF eof_;
 };
 
-bool IsRKValueAnInteger(int rkValue);		///< Returns true if the supplied rk value contains an integer. 
-bool IsRKValueADouble(int rkValue);			///< Returns true if the supplied rk value contains a double.
-double GetDoubleFromRKValue(int rkValue);	///< Convert a rk value to a double.
-int GetIntegerFromRKValue(int rkValue);		///< Convert a rk value to an integer.
-int GetRKValueFromDouble(double value);		///< Convert a double to a rk value.
-int GetRKValueFromInteger(int value);		///< Convert an integer to a rk value.
-bool CanStoreAsRKValue(double value);		///< Returns true if the supplied double can be stored as a rk value.
+bool IsRkVAlueAnInteger(int rkVAlue);		///< Returns true if the supplied rk value contains an integer. 
+bool IsRkVAlueADouble(int rkVAlue);			///< Returns true if the supplied rk value contains a double.
+double GetDoubleFromRkVAlue(int rkVAlue);	///< Convert a rk value to a double.
+int GetIntegerFromRkVAlue(int rkVAlue);		///< Convert a rk value to an integer.
+int GetRkVAlueFromDouble(double value);		///< Convert a double to a rk value.
+int GetRkVAlueFromInteger(int value);		///< Convert an integer to a rk value.
+bool CanStoreAsRkVAlue(double value);		///< Returns true if the supplied double can be stored as a rk value.
 
 // Forward declarations
 class BasicExcel;

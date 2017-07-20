@@ -31,7 +31,7 @@ bool LogBranchEleExportThread::readDb()
     emit readDbSig(msg);
 
     QStringList heads;
-    heads << "No." << "Date" << "Time" << "i-Box" << "Loop 1(KWh)" << "Loop 2(KWh)" << "Loop 3(KWh)" << "Loop(KWh)";
+    heads << "No." << "Date" << "Time" << "i-Box" << "Loop 1(kWh)" << "Loop 2(kWh)" << "Loop 3(kWh)" << "Loop(kWh)";
     mList << heads;
 
     QVector<DbBranchEleItem> items = mEle->selectByDate(mExcelStr->start, mExcelStr->end);

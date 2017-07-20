@@ -64,7 +64,7 @@ void HomeBoxWid::timeoutDone()
 
 void HomeBoxWid::on_pushButton_clicked()
 {
-    BoxDlg dlg(this);
+    BoxDlg dlg(0);
     dlg.initBox(mBusID, mID);
     dlg.exec();
 }

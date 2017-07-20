@@ -66,3 +66,11 @@ sDataPacket *get_share_mem()
 
     return shm;
 }
+
+void set_background_icon(QWidget *widget, const QString &icon)
+{
+    QPalette palette;
+    palette.setBrush(QPalette::Background, QBrush(QPixmap(icon)));
+    widget->setPalette(palette);
+    widget->setAutoFillBackground(true);
+}

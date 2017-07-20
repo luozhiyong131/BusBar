@@ -31,7 +31,7 @@ bool LogMainEleExportThread::readDb()
     emit readDbSig(msg);
 
     QStringList heads;
-    heads << "No." << "Date" << "Time" << "A(KWh)" << "B(KWh)" << "C(KWh)" << "Bus(KWh)";
+    heads << "No." << "Date" << "Time" << "A(kWh)" << "B(kWh)" << "C(kWh)" << "Bus(kWh)";
     mList << heads;
 
     QVector<DbMainEleItem> items = mEle->selectByDate(mExcelStr->start, mExcelStr->end);

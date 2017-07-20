@@ -20,7 +20,7 @@
       <x>0</x>
       <y>80</y>
       <width>1021</width>
-      <height>421</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -161,6 +161,18 @@ color: rgb(255, 255, 255);</string>
        </item>
        <item>
         <widget class="QPushButton" name="alarmBtn">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <family>URW Bookman L</family>
@@ -169,8 +181,21 @@ color: rgb(255, 255, 255);</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: transparent;</string>
+         </property>
          <property name="text">
-          <string>当前报警</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="images.qrc">
+           <normaloff>:/new/prefix1/image/alarm.png</normaloff>:/new/prefix1/image/alarm.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>45</width>
+           <height>45</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -182,28 +207,46 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>504</y>
+      <y>520</y>
       <width>1031</width>
-      <height>101</height>
+      <height>80</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>80</height>
+     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(0,100,205);
 color: rgb(255, 255, 255);</string>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QToolButton" name="homeBtn">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>75</height>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>75</width>
-         <height>16777215</height>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -218,8 +261,8 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>75</width>
-         <height>75</height>
+         <width>65</width>
+         <height>65</height>
         </size>
        </property>
        <property name="autoRepeat">
@@ -260,8 +303,14 @@ color: rgb(255, 255, 255);</string>
       <widget class="QToolButton" name="lineBtn">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>75</height>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -276,8 +325,8 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>75</width>
-         <height>75</height>
+         <width>65</width>
+         <height>65</height>
         </size>
        </property>
       </widget>
@@ -312,8 +361,14 @@ color: rgb(255, 255, 255);</string>
       <widget class="QToolButton" name="branchBtn">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>75</height>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -328,8 +383,8 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>75</width>
-         <height>75</height>
+         <width>65</width>
+         <height>65</height>
         </size>
        </property>
       </widget>
@@ -364,8 +419,14 @@ color: rgb(255, 255, 255);</string>
       <widget class="QToolButton" name="logBtn">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>75</height>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -380,8 +441,8 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>75</width>
-         <height>75</height>
+         <width>65</width>
+         <height>65</height>
         </size>
        </property>
       </widget>
@@ -416,8 +477,14 @@ color: rgb(255, 255, 255);</string>
       <widget class="QToolButton" name="setBtn">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>75</height>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -432,8 +499,8 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>75</width>
-         <height>75</height>
+         <width>65</width>
+         <height>65</height>
         </size>
        </property>
       </widget>

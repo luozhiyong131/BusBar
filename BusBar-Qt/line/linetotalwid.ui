@@ -111,7 +111,7 @@
       </size>
      </property>
      <property name="text">
-      <string>0.2Kwh</string>
+      <string>0.2kWh</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -206,7 +206,7 @@
       </size>
      </property>
      <property name="text">
-      <string>50KW</string>
+      <string>50kW</string>
      </property>
     </widget>
    </item>
@@ -260,7 +260,7 @@
       </size>
      </property>
      <property name="text">
-      <string>50KW</string>
+      <string>50kW</string>
      </property>
     </widget>
    </item>
@@ -314,7 +314,7 @@
       </size>
      </property>
      <property name="text">
-      <string>48KVA</string>
+      <string>48kVA</string>
      </property>
     </widget>
    </item>

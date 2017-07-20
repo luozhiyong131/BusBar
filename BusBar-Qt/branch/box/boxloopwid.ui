@@ -117,7 +117,7 @@
       </size>
      </property>
      <property name="text">
-      <string>2.5KVA</string>
+      <string>2.5kVA</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -139,7 +139,7 @@
       </size>
      </property>
      <property name="text">
-      <string>2.5KW</string>
+      <string>2.5kW</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -161,7 +161,7 @@
       </size>
      </property>
      <property name="text">
-      <string>2.5KWh</string>
+      <string>2.5kWh</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
