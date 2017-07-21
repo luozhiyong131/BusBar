@@ -35,7 +35,10 @@ bool RtuThread::init(const QString& name, int id)
     mBusData = &(shm->data[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
-    if(ret)  start(); // 启动线程
+    if(ret)
+    {
+        QTimer::singleShot(3*1000,this,SLOT(start()));  // 启动线程
+    }
 
     return ret;
 }

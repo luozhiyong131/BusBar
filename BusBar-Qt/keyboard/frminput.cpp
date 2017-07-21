@@ -33,6 +33,7 @@ void frmInput::mouseMoveEvent(QMouseEvent *e)
     if (mousePressed && (e->buttons() && Qt::LeftButton)) {
         this->move(e->globalPos() - mousePoint);
         e->accept();
+        this->close();  ////=========== 因为ka才加的
     }
 }
 
@@ -48,6 +49,7 @@ void frmInput::mousePressEvent(QMouseEvent *e)
 void frmInput::mouseReleaseEvent(QMouseEvent *)
 {
     mousePressed = false;
+    this->show(); ////=========== 因为ka才加的
 }
 
 void frmInput::InitForm()
@@ -64,7 +66,7 @@ void frmInput::InitForm()
 #if 1
     mDb = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "pinyin"));
     mDb->setDatabaseName(qApp->applicationDirPath() + "/pinyin.db");
-//    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
+    //    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
     if(!mDb->open()) {
         qDebug()<<mDb->lastError().text();
         qDebug("DbConn.open failed");
@@ -72,10 +74,10 @@ void frmInput::InitForm()
 #else
     QSqlDatabase DbConn;
     DbConn = QSqlDatabase::addDatabase("QSQLITE");
-//    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
+    //    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
     DbConn.setDatabaseName(qApp->applicationDirPath() + "/pinyin.db");
-//    DbConn.setDatabaseName(":/db/pinyin.db");
-//    DbConn.setDatabaseName("c:/pinyin.db");
+    //    DbConn.setDatabaseName(":/db/pinyin.db");
+    //    DbConn.setDatabaseName("c:/pinyin.db");
     bool isSuccess = DbConn.open();
     if(!isSuccess)
     {
@@ -211,7 +213,6 @@ void frmInput::InitProperty()
 void frmInput::ShowPanel()
 {
     this->setVisible(true);
-//    this->show();
 
     int width = ui->btn0->width();
     width = width > 40 ? width : 40;
@@ -264,7 +265,7 @@ bool frmInput::eventFilter(QObject *obj, QEvent *event)
         }
         return false;
     } else if (event->type() == QEvent::KeyPress) {
-        //如果输入法窗体不可见,则不需要处理
+        //如果输入法窗体不 2293   800 root     R    57096  98%  58% /opt/busbar可见,则不需要处理
         if (!isVisible()) {
             return QWidget::eventFilter(obj, event);
         }
@@ -362,7 +363,8 @@ void frmInput::reClicked()
 
 void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
 {
-    //qDebug() << "oldWidget:" << oldWidget << " nowWidget:" << nowWidget;
+    this->close(); ///============ 因为ka才加的
+    //    qDebug() << "oldWidget:" << oldWidget << " nowWidget:" << nowWidget;
     if (nowWidget != 0 && !this->isAncestorOf(nowWidget)) {
         //在Qt5和linux系统中(嵌入式linux除外),当输入法面板关闭时,焦点会变成无,然后焦点会再次移到焦点控件处
         //这样导致输入法面板的关闭按钮不起作用,关闭后马上有控件获取焦点又显示.
@@ -382,7 +384,7 @@ void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
         if (NULL != pModalWidget && pModalWidget->inherits("QDialog"))
         {
             Qt::WindowModality Modality = pModalWidget->windowModality();
-          /*Qt::NonModal       The window is not modal and does not block input to other windows.
+            /*Qt::NonModal       The window is not modal and does not block input to other windows.
           非模态对话框
 
           Qt::WindowModal        The window is modal to a single window hierarchy and blocks input to its parent window, all grandparent windows, and all siblings of its parent and grandparent windows.
@@ -471,7 +473,7 @@ void frmInput::changeType(QString type)
     if (type == "max") {
         changeLetter(true);
         ui->btnType->setText("大写");
-        ui->labInfo->setText("中文输入法--大写");
+        ui->labInfo->setText("输入法--大写");
         ui->btnOther12->setText("/");
         ui->btnOther14->setText(":");
         ui->btnOther17->setText(",");
@@ -480,7 +482,7 @@ void frmInput::changeType(QString type)
     } else if (type == "min") {
         changeLetter(false);
         ui->btnType->setText("小写");
-        ui->labInfo->setText("中文输入法--小写");
+        ui->labInfo->setText("输入法--小写");
         ui->btnOther12->setText("/");
         ui->btnOther14->setText(":");
         ui->btnOther17->setText(",");
@@ -489,7 +491,7 @@ void frmInput::changeType(QString type)
     } else {
         changeLetter(false);
         ui->btnType->setText("中文");
-        ui->labInfo->setText("中文输入法--中文");
+        ui->labInfo->setText("输入法--中文");
         ui->btnOther12->setText("。");
         ui->btnOther14->setText("：");
         ui->btnOther17->setText("，");
@@ -520,7 +522,7 @@ void frmInput::selectChinese()
     clearChinese();
     QSqlQuery query(*mDb);
     QString currentPY = ui->labPY->text();
-//    QString sql = "select [word] from [pinyin] where [pinyin]='" + currentPY + "';";
+    //    QString sql = "select [word] from [pinyin] where [pinyin]='" + currentPY + "';";
     QString sql = "select [chinese] from [hzpy] where [pinyin]='" + currentPY + "'order by type desc;";
     query.exec(sql);
     //逐个将查询到的字词加入汉字队列

@@ -23,7 +23,7 @@ EmailWid::EmailWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    gSet = new email_setInfo();
+    gSet = new email_setInfo;
     initData();
 
     mEmailThread = new EmailThread(this);
