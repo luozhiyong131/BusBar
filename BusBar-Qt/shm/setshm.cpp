@@ -3,7 +3,7 @@
 SetShm::SetShm(QObject *parent) : QObject(parent)
 {
     shm = get_share_mem(); // 获取共享内存
-//    mSetting = new QSettings("line.ini",QSettings::IniFormat);
+    //    mSetting = new QSettings("line.ini",QSettings::IniFormat);
 }
 
 void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
@@ -114,6 +114,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     case 5:
         boxNum = num / 3 + 1;
         num = num % 3 ;
+        qDebug() << "---boxNum---" << boxNum;
         unit = &(bus->box[boxNum].env.tem);
         break;
     }
@@ -163,7 +164,7 @@ void SetShm::setName(DbNameItem &item)
  */
 void SetShm::setLineRatedCur(int index, int data)
 {
-    sBusData *bus = &(shm->data[item.bus]);
+    sBusData *bus = &(shm->data[index]);
     bus->ratedCur = data;
     QString str = QString::number(bus->ratedCur,10);
     QString groupStr = QString("Line%1").arg(index+1);
@@ -177,10 +178,9 @@ void SetShm::setLineRatedCur(int index, int data)
  */
 void SetShm::setLineBoxNum(int index, int num)
 {
-    sBusData *bus = &(shm->data[item.bus]);
+    sBusData *bus = &(shm->data[index]);
     bus->boxNum = num ;
     QString str = QString::number(bus->boxNum,10);
-    QString groupStr = QString("Line1%").arg(index+1);
+    QString groupStr = QString("Line%1").arg(index+1);
     sys_configFile_writeParam("boxNum",str,groupStr); // Line1/boxNum
-
 }

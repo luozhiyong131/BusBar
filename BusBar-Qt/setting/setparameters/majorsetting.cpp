@@ -46,15 +46,24 @@ void MajorSetting::initWidget()
 void MajorSetting::updateWidget(int index)
 {
     mIndex = index; //主路源编号
+    int rateCur = 0 ;
+    int boxNum = 0 ;
+
     sBusData *busData = &(mPacket->data[index]);
 
     ui->lineEdit->setText(busData->busName);
 
-    int rateCur = sys_configFile_readInt("rateCur",QString("Line%1").arg(index+1));
-    ui->lineEdit_2->setText(QString::number(rateCur,10));
+    bool ret = sys_configFile_open();  //打开配置文件
+    if(ret)
+    {
+        QString strGroup = QString("Line%1").arg(index+1);
+        rateCur = sys_configFile_readInt("rateCur",strGroup);
+        boxNum = sys_configFile_readInt("boxNum",strGroup);
+        sys_configFile_close();
+    }
 
-    int boxNum = sys_configFile_readInt("boxNum",QString("Line%1").arg(index+1));
-    ui->lineEdit_3->setText(QString(boxNum,10));
+    ui->lineEdit_2->setText(QString::number(rateCur,10));
+    ui->lineEdit_3->setText(QString::number(boxNum,10));
 
     sObjData  *objData = &(busData->data);
     ui->label_1_cur->setText(QString(objData ->cur.value[0],10));
@@ -117,4 +126,17 @@ void MajorSetting::on_pushButton_clicked()
         item.name = name;
         mShm->setName(item);
     }
+
+    QString rateCurStr = ui->lineEdit_2->text();
+    if((!rateCurStr.isEmpty()) && (cm_isDigitStr(rateCurStr)))
+    {
+        mShm->setLineRatedCur(mIndex,rateCurStr.toInt());
+    }
+
+    QString boxNumStr = ui->lineEdit_3->text();
+    if((!boxNumStr.isEmpty()) && (cm_isDigitStr(boxNumStr)))
+    {
+        mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
+    }
+
 }

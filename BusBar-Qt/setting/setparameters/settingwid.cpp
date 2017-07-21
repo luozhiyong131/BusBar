@@ -10,6 +10,7 @@ SettingWid::SettingWid(QWidget *parent) :
 
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
     majorSettingWidget->updateWidget(0);
+
 }
 
 SettingWid::~SettingWid()
@@ -55,6 +56,7 @@ void SettingWid::on_pushButton_clicked()
 void SettingWid::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
+    mSubsettingWid->updateWid(0);
 }
 
 void SettingWid::on_pushButton_3_clicked()

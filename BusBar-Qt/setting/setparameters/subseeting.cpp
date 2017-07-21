@@ -34,9 +34,9 @@ void SubSeeting::initTableWidget()
     mWidget->horizontalHeader()->setStretchLastSection(true);
     mWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);  //设置不可编辑
     mWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
-    connect(mWidget,SIGNAL(itemDoubleClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
+    connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 
-    for(int i = 0 ;  i < 18 ; i++)
+    for(int i = 0 ;  i < BOX_NUM ; i++)
         for(int j = 0 ;  j < 5 ; j++)
         {
             QTableWidgetItem * item = new QTableWidgetItem("---");
@@ -143,13 +143,17 @@ void SubSeeting::setTem(int row, int column)
 
 void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
 {
+    qDebug() << "item clicked";
+    int index = mIndex ;
+    int boxNum = item->row() +1 ;
+    int lineNum ;
 
-    int row = item->row();
     int column = item->column();
-    if( column == 0 )
+    if(column != 0)
     {
-        SubSettingThreshold subSettingWid(mIndex ,row ,this);
-        subSettingWid.exec();
-
+        lineNum = column -1 ;
+        SettingThreshold settingWid(0);
+        settingWid.initWidget(index,boxNum,lineNum); //初始化界面
+        settingWid.exec();
     }
 }

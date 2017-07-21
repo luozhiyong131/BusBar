@@ -16,23 +16,37 @@ class SettingThreshold : public QDialog
 
 public:
     explicit SettingThreshold(int bus,bool isCur,int index,QWidget *parent = 0);
+    explicit SettingThreshold(QWidget *parent = 0);
     ~SettingThreshold();
+
+    void initWidget(int index ,int boxNUm ,int lineNum);
 
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_cancel_clicked();
+
 private:
     void initWidget();
-    void setSuffex(QString str);
+    void initData(sDataUnit *unit, int index);
     void saveData();
+    void saveLoopData();
+    void setSuffex(QString str);
+
+
 
 private:
     Ui::SettingThreshold *ui;
 
     int mBus;
-    bool mIsCur;
     int mIndex;
+    bool mIsCur;
     SetShm *mShm;
+
+    int mBusNum;
+    int mBoxNum;
+    int mLineNum;
+    bool isBox;
 
 
 };

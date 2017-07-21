@@ -22,10 +22,20 @@
 #define COM_RATE_TEM	10.0    // 温度
 #define COM_RATE_HUM	10.0    // 湿度
 
+typedef struct {
+    int sec;
+    int min;
+    int hour;
+    int day;
+    int mon;
+    int year;
+}settingTime;
+
 
 QString cm_pathOfData(const QString& name);
 bool cm_isDigitStr(const QString &src);
 bool cm_isIPaddress(const QString& ip);
+int SetSystemTime(settingTime *time);
 
 sDataPacket *get_share_mem();
 

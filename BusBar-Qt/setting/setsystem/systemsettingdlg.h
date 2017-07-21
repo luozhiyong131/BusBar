@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <QDateTime>
 #include <QDebug>
+#include "common.h"
 #include "smtp/emailwid.h"
 
 namespace Ui {
@@ -21,9 +22,6 @@ public:
 
 private slots:
     void on_pushButton_7_clicked();
-
-private:
-    void setDate(QString year, QString month, QString day, QString hour, QString minute, QString second);
 
 private:
     Ui::SystemSettingDlg *ui;

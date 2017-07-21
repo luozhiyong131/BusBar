@@ -7,7 +7,10 @@
 #include "common.h"
 #include <QWidget>
 #include <QHeaderView>
-
+#include <time.h>
+#include <linux/rtc.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 /***
   * 获取程序数据目录
@@ -91,4 +94,28 @@ void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
     palette.setBrush(QPalette::Background, QBrush(map));
     widget->setAutoFillBackground(true);
     widget->setPalette(palette);
+}
+
+int SetSystemTime(settingTime *time)
+{
+    struct rtc_time tm;
+    struct tm _tm;
+    struct timeval tv;
+    time_t timep;
+    _tm.tm_sec = time->sec;
+    _tm.tm_min = time->min;
+    _tm.tm_hour = time->hour;
+    _tm.tm_mday = time->day;
+    _tm.tm_mon = time->mon - 1;
+    _tm.tm_year = time->year - 1900;
+
+    timep = mktime(&_tm);
+    tv.tv_sec = timep;
+    tv.tv_usec = 0;
+    if(settimeofday (&tv, (struct timezone *) 0) < 0)
+    {
+        printf("Set system datatime error!/n");
+        return -1;
+    }
+    return 0;
 }
