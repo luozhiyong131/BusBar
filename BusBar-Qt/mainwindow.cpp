@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-    // initSerial();
+//  initSerial();
 
     mIndex = 0;
     initWidget();
@@ -26,6 +26,28 @@ MainWindow::~MainWindow()
 {
     delete ui;
     share_mem_del();
+}
+
+
+/**
+ * @brief 初始化串口
+ */
+void MainWindow::initSerial()
+{
+    RtuThread *rtu = new RtuThread(this);
+//    rtu->init("ttyS2", 1);
+    rtu->init(SERIAL_COM1, 1);
+
+
+
+//    rtu = new RtuThread(this);
+//    rtu->init(SERIAL_COM2, 2);
+
+//    rtu = new RtuThread(this);
+//    rtu->init(SERIAL_COM3, 3);
+
+//    rtu = new RtuThread(this);
+//    rtu->init(SERIAL_COM4, 4);
 }
 
 void MainWindow::timeoutDone()
@@ -62,25 +84,6 @@ void MainWindow::checkAlarm()
         ui->alarmBtn->setVisible(false);
     }
 }
-
-/**
- * @brief 初始化串口
- */
-void MainWindow::initSerial()
-{
-    RtuThread *rtu = new RtuThread(this);
-    rtu->init(SERIAL_COM1, 1);
-
-    rtu = new RtuThread(this);
-    rtu->init(SERIAL_COM2, 2);
-
-    rtu = new RtuThread(this);
-    rtu->init(SERIAL_COM3, 3);
-
-    rtu = new RtuThread(this);
-    rtu->init(SERIAL_COM4, 4);
-}
-
 
 void MainWindow::initFunSLot()
 {
