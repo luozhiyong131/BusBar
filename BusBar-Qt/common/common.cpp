@@ -75,6 +75,14 @@ void set_background_icon(QWidget *widget, const QString &icon)
     widget->setPalette(palette);
 }
 
+void set_background_color(QWidget *widget, const QColor &color)
+{
+    widget->setAutoFillBackground(true);
+    QPalette palette;
+    palette.setColor(QPalette::Background, color);
+    widget->setPalette(palette);
+}
+
 
 void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
 {

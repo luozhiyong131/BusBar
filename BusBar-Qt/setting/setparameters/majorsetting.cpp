@@ -46,7 +46,7 @@ void MajorSetting::initWidget()
 void MajorSetting::updateWidget(int index)
 {
     mIndex = index; //主路源编号
-    sBusData *busData = &(mPacket->data[0]);
+    sBusData *busData = &(mPacket->data[index]);
 
     ui->lineEdit->setText(busData->busName);
     ui->lineEdit_2->setText(QString::number(busData->ratedCur,10));
@@ -103,18 +103,14 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
  */
 void MajorSetting::on_pushButton_clicked()
 {
-
+    qDebug() << "cliced";
     DbNameItem item;
     item.bus = mIndex;
     item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
-    int num = 0; // 编号
+    item.num = 0; // 编号
     QString name = ui->lineEdit->text();
-    if(name.isEmpty()) {
-
+    if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
+        item.name = name;
+        mShm->setName(item);
     }
-    if(name.size() > NAME_LEN) {
-
-    }
-
-    mShm->setName(item);
 }

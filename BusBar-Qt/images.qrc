@@ -4,10 +4,14 @@
         <file>image/branch.png</file>
         <file>image/data.png</file>
         <file>image/home.png</file>
-        <file>image/logo.jpg</file>
         <file>image/main.png</file>
         <file>image/setting.png</file>
         <file>image/branchs.png</file>
         <file>image/round.png</file>
+        <file>image/box-alarm.png</file>
+        <file>image/box-ciralarm.png</file>
+        <file>image/box-offine.png</file>
+        <file>image/box-online.png</file>
+        <file>image/logo.png</file>
     </qresource>
 </RCC>
