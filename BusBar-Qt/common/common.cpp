@@ -68,27 +68,27 @@ sDataPacket *get_share_mem()
 
 void set_background_icon(QWidget *widget, const QString &icon)
 {
-    widget->setAutoFillBackground(true);
     QPalette palette;
     QPixmap map = QPixmap(icon);
     palette.setBrush(QPalette::Background, QBrush(map));
+    widget->setAutoFillBackground(true);
     widget->setPalette(palette);
 }
 
 void set_background_color(QWidget *widget, const QColor &color)
 {
-    widget->setAutoFillBackground(true);
     QPalette palette;
     palette.setColor(QPalette::Background, color);
+    widget->setAutoFillBackground(true);
     widget->setPalette(palette);
 }
 
 
 void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
-{
-    widget->setAutoFillBackground(true);
+{    
     QPalette palette;
     QPixmap map = QPixmap(icon).scaled(size);
     palette.setBrush(QPalette::Background, QBrush(map));
+    widget->setAutoFillBackground(true);
     widget->setPalette(palette);
 }

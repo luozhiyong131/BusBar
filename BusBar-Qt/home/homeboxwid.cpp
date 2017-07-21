@@ -9,7 +9,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui->setupUi(this);
     initWid();
     mBusID = 0;
-
+    
     timer = new QTimer(this);
     timer->start(2000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
@@ -55,7 +55,7 @@ void HomeBoxWid::updateData()
             pe.setColor(QPalette::WindowText,Qt::black);
     } else {
         str = "---";
-
+        
     }
     ui->curLab->setText(str);
     ui->curLab->setPalette(pe);
@@ -93,6 +93,7 @@ void HomeBoxWid::updateAlarmStatus()
     } else { // 离线
         QString str = ":/new/prefix1/image/box-offine.png";  //////======== 图片不对
         QColor color("229,229,229"); //灰色
+        //        QColor color = QColor(204,29,26); //红色
         //        set_background_icon(ui->iconLab_1, str);
         //        set_background_icon(ui->iconLab_2, str);
         //        set_background_icon(ui->iconLab_3, str);
@@ -117,9 +118,10 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
-    QColor color("255,255,255");
-    set_background_color(ui->iconLab_1, color);
-    set_background_color(ui->iconLab_2, color);
-    set_background_color(ui->iconLab_3, color);
-    set_background_icon(this, ":/new/prefix1/image/round.png", QSize(80,80));
+    //    QColor color("255,255,255");
+    //    set_background_color(ui->iconLab_1, color);
+    //    set_background_color(ui->iconLab_2, color);
+    //    set_background_color(ui->iconLab_3, color);
+    QSize size(95,95);
+    set_background_icon(this, ":/new/prefix1/image/round.png", size);
 }

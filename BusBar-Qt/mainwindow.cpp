@@ -93,7 +93,7 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWidget()
 {
-//    set_background_color(ui->stackedWid,QColor("242,242,242"));
+    //    set_background_color(ui->stackedWid,QColor("0,0,0"));
 
     mHomeWid = new HomeWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeWid);

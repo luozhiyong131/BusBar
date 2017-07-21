@@ -49,8 +49,12 @@ void MajorSetting::updateWidget(int index)
     sBusData *busData = &(mPacket->data[index]);
 
     ui->lineEdit->setText(busData->busName);
-    ui->lineEdit_2->setText(QString::number(busData->ratedCur,10));
-    ui->lineEdit_3->setText(QString(busData->boxNum,10));
+
+    int rateCur = sys_configFile_readInt("rateCur",QString("Line%1").arg(index+1));
+    ui->lineEdit_2->setText(QString::number(rateCur,10));
+
+    int boxNum = sys_configFile_readInt("boxNum",QString("Line%1").arg(index+1));
+    ui->lineEdit_3->setText(QString(boxNum,10));
 
     sObjData  *objData = &(busData->data);
     ui->label_1_cur->setText(QString(objData ->cur.value[0],10));

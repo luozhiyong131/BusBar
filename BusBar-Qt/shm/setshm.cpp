@@ -3,6 +3,7 @@
 SetShm::SetShm(QObject *parent) : QObject(parent)
 {
     shm = get_share_mem(); // 获取共享内存
+//    mSetting = new QSettings("line.ini",QSettings::IniFormat);
 }
 
 void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
@@ -119,7 +120,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
 
     if(unit) {
         setThresholdUnit(num, item, (*unit));
-       ret = DbThreshold::bulid()->saveItem(item);
+        ret = DbThreshold::bulid()->saveItem(item);
     }
 
     return ret;
@@ -153,4 +154,33 @@ void SetShm::setName(DbNameItem &item)
         strcpy(name,mm);
         DbDevName::bulid()->saveItem(item);
     }
+}
+
+/**
+ * @brief SetShm::setLineRatedCur  设置母线额定电流
+ * @param index  母线编号
+ * @param data   额定电流值
+ */
+void SetShm::setLineRatedCur(int index, int data)
+{
+    sBusData *bus = &(shm->data[item.bus]);
+    bus->ratedCur = data;
+    QString str = QString::number(bus->ratedCur,10);
+    QString groupStr = QString("Line%1").arg(index+1);
+    sys_configFile_writeParam("rateCur",str,groupStr);
+}
+
+/**
+ * @brief SetShm::setLineBoxNum  设置母线插接箱数量
+ * @param index  母线编号
+ * @param num    数量
+ */
+void SetShm::setLineBoxNum(int index, int num)
+{
+    sBusData *bus = &(shm->data[item.bus]);
+    bus->boxNum = num ;
+    QString str = QString::number(bus->boxNum,10);
+    QString groupStr = QString("Line1%").arg(index+1);
+    sys_configFile_writeParam("boxNum",str,groupStr); // Line1/boxNum
+
 }

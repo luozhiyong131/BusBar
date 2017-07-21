@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>20</y>
-     <width>85</width>
-     <height>85</height>
+     <y>10</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -30,9 +30,9 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>300</y>
-     <width>85</width>
-     <height>85</height>
+     <y>310</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -43,9 +43,9 @@
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>20</y>
-     <width>85</width>
-     <height>85</height>
+     <y>10</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -56,9 +56,9 @@
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>300</y>
-     <width>85</width>
-     <height>85</height>
+     <y>310</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -69,9 +69,9 @@
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>20</y>
-     <width>85</width>
-     <height>85</height>
+     <y>10</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -82,9 +82,9 @@
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>300</y>
-     <width>85</width>
-     <height>85</height>
+     <y>310</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -95,9 +95,9 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>20</y>
-     <width>85</width>
-     <height>85</height>
+     <y>10</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -108,9 +108,9 @@
    <property name="geometry">
     <rect>
      <x>680</x>
-     <y>300</y>
-     <width>85</width>
-     <height>85</height>
+     <y>310</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -121,9 +121,9 @@
    <property name="geometry">
     <rect>
      <x>850</x>
-     <y>20</y>
-     <width>85</width>
-     <height>85</height>
+     <y>10</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -134,9 +134,9 @@
    <property name="geometry">
     <rect>
      <x>850</x>
-     <y>300</y>
-     <width>85</width>
-     <height>85</height>
+     <y>310</y>
+     <width>96</width>
+     <height>96</height>
     </rect>
    </property>
    <property name="styleSheet">
