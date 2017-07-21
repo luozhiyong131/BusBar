@@ -33,7 +33,7 @@ void frmInput::mouseMoveEvent(QMouseEvent *e)
     if (mousePressed && (e->buttons() && Qt::LeftButton)) {
         this->move(e->globalPos() - mousePoint);
         e->accept();
-        this->close();
+        this->close();  ////=========== 因为ka才加的
     }
 }
 
@@ -49,7 +49,7 @@ void frmInput::mousePressEvent(QMouseEvent *e)
 void frmInput::mouseReleaseEvent(QMouseEvent *)
 {
     mousePressed = false;
-    this->show(); ////===========
+    this->show(); ////=========== 因为ka才加的
 }
 
 void frmInput::InitForm()
@@ -363,7 +363,7 @@ void frmInput::reClicked()
 
 void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
 {
-    this->close(); ///============
+    this->close(); ///============ 因为ka才加的
     //    qDebug() << "oldWidget:" << oldWidget << " nowWidget:" << nowWidget;
     if (nowWidget != 0 && !this->isAncestorOf(nowWidget)) {
         //在Qt5和linux系统中(嵌入式linux除外),当输入法面板关闭时,焦点会变成无,然后焦点会再次移到焦点控件处
@@ -473,7 +473,7 @@ void frmInput::changeType(QString type)
     if (type == "max") {
         changeLetter(true);
         ui->btnType->setText("大写");
-        ui->labInfo->setText("中文输入法--大写");
+        ui->labInfo->setText("输入法--大写");
         ui->btnOther12->setText("/");
         ui->btnOther14->setText(":");
         ui->btnOther17->setText(",");
@@ -482,7 +482,7 @@ void frmInput::changeType(QString type)
     } else if (type == "min") {
         changeLetter(false);
         ui->btnType->setText("小写");
-        ui->labInfo->setText("中文输入法--小写");
+        ui->labInfo->setText("输入法--小写");
         ui->btnOther12->setText("/");
         ui->btnOther14->setText(":");
         ui->btnOther17->setText(",");
@@ -491,7 +491,7 @@ void frmInput::changeType(QString type)
     } else {
         changeLetter(false);
         ui->btnType->setText("中文");
-        ui->labInfo->setText("中文输入法--中文");
+        ui->labInfo->setText("输入法--中文");
         ui->btnOther12->setText("。");
         ui->btnOther14->setText("：");
         ui->btnOther17->setText("，");
