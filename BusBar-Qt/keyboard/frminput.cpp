@@ -33,6 +33,7 @@ void frmInput::mouseMoveEvent(QMouseEvent *e)
     if (mousePressed && (e->buttons() && Qt::LeftButton)) {
         this->move(e->globalPos() - mousePoint);
         e->accept();
+        this->close();
     }
 }
 
@@ -48,6 +49,7 @@ void frmInput::mousePressEvent(QMouseEvent *e)
 void frmInput::mouseReleaseEvent(QMouseEvent *)
 {
     mousePressed = false;
+    this->show(); ////===========
 }
 
 void frmInput::InitForm()
@@ -263,7 +265,7 @@ bool frmInput::eventFilter(QObject *obj, QEvent *event)
         }
         return false;
     } else if (event->type() == QEvent::KeyPress) {
-        //如果输入法窗体不可见,则不需要处理
+        //如果输入法窗体不 2293   800 root     R    57096  98%  58% /opt/busbar可见,则不需要处理
         if (!isVisible()) {
             return QWidget::eventFilter(obj, event);
         }
@@ -361,7 +363,8 @@ void frmInput::reClicked()
 
 void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
 {
-    //qDebug() << "oldWidget:" << oldWidget << " nowWidget:" << nowWidget;
+    this->close(); ///============
+    //    qDebug() << "oldWidget:" << oldWidget << " nowWidget:" << nowWidget;
     if (nowWidget != 0 && !this->isAncestorOf(nowWidget)) {
         //在Qt5和linux系统中(嵌入式linux除外),当输入法面板关闭时,焦点会变成无,然后焦点会再次移到焦点控件处
         //这样导致输入法面板的关闭按钮不起作用,关闭后马上有控件获取焦点又显示.
