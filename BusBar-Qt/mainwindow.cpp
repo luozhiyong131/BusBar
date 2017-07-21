@@ -93,6 +93,8 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWidget()
 {
+//    set_background_color(ui->stackedWid,QColor("242,242,242"));
+
     mHomeWid = new HomeWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mHomeWid, SIGNAL(busChangedSig(int)));
