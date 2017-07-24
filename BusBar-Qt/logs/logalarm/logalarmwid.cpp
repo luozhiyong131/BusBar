@@ -83,7 +83,7 @@ bool LogAlarmWid::refreshTable(const QString &table)
 void LogAlarmWid::clearTableSlot()
 {
     if(model->removeRow(0))
-        QTimer::singleShot(100,this,SLOT(clearTableSlot()));
+        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
 }
 
 void LogAlarmWid::refreshSlot()

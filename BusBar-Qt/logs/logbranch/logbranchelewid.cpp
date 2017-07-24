@@ -83,7 +83,7 @@ bool LogBranchEleWid::refreshTable(const QString &table)
 void LogBranchEleWid::clearTableSlot()
 {
     if(model->removeRow(0))
-        QTimer::singleShot(100,this,SLOT(clearTableSlot()));
+        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
 }
 
 void LogBranchEleWid::refreshSlot()

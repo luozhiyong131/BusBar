@@ -82,7 +82,7 @@ bool LogMainEleWid::refreshTable(const QString &table)
 void LogMainEleWid::clearTableSlot()
 {
     if(model->removeRow(0))
-        QTimer::singleShot(100,this,SLOT(clearTableSlot()));
+        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
 }
 
 void LogMainEleWid::refreshSlot()
