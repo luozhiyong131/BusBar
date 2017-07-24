@@ -38,6 +38,7 @@ include(setting/setting.pri)
 include(services/services.pri)
 include(shm/shm.pri)
 include(keyboard/keyboard.pri)
+include(customdialplot/customdialplot.pri)
 
 SOURCES += \
         main.cpp \
@@ -47,6 +48,7 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     currentalarmsdlg.h
+
 
 FORMS += \
         mainwindow.ui \
@@ -60,3 +62,13 @@ LIBS += -lts
 
 target.path = /opt
 INSTALLS += target
+
+
+
+
+
+
+
+
+
+

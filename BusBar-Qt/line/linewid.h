@@ -2,8 +2,11 @@
 #define LINEWID_H
 
 #include <QWidget>
+#include <QHBoxLayout>
+#include <QTimer>
 #include "linetotalwid.h"
 #include "lineroadwid.h"
+#include "customdialplot.h"
 
 namespace Ui {
 class LineWid;
@@ -23,6 +26,8 @@ signals:
 protected:
     void initFun();
     void initWid();
+    void initTotalWid();
+    void onUpdateDials();
 
 protected slots:
     void timeoutDone();
@@ -35,6 +40,10 @@ private:
     LineTotalWid *mTotalWid;
     LineRoadWid *mLine[3];
     sBusData *mData;
+    CustomDialPlot *mCurPlot;
+    CustomDialPlot *mVolPlot;
+    CustomDialPlot *mPwPlot;
+    CustomDialPlot *mPfPlot;
 };
 
 #endif // LINEWID_H

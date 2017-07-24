@@ -47,6 +47,7 @@
 	border-right:none;
 	border-top: none;
 	border-bottom:1px solid rgb(12,62,180);
+	background-color: transparent;
 }</string>
       </property>
      </widget>
@@ -79,6 +80,7 @@
 	border-right:none;
 	border-top: none;
 	border-bottom:1px solid rgb(12,62,180);
+background-color: transparent;
 }</string>
       </property>
      </widget>
@@ -111,6 +113,7 @@
 	border-right:none;
 	border-top: none;
 	border-bottom:1px solid rgb(12,62,180);
+background-color: transparent;
 }</string>
       </property>
      </widget>

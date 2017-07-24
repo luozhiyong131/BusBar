@@ -273,7 +273,7 @@ color: rgb(255, 255, 255);</string>
       <widget class="QLabel" name="label_3">
        <property name="maximumSize">
         <size>
-         <width>50</width>
+         <width>51</width>
          <height>16777215</height>
         </size>
        </property>
@@ -313,7 +313,7 @@ color: rgb(255, 255, 255);</string>
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>主路信息</string>
+        <string/>
        </property>
        <property name="iconSize">
         <size>

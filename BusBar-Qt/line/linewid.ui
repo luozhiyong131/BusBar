@@ -75,9 +75,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>60</y>
+     <y>40</y>
      <width>1011</width>
-     <height>111</height>
+     <height>201</height>
     </rect>
    </property>
   </widget>
@@ -166,7 +166,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>名称</string>
+       <string>相位</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
