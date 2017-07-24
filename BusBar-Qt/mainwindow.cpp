@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-//  initSerial();
+    //  initSerial();
 
     mIndex = 0;
     initWidget();
@@ -35,19 +35,19 @@ MainWindow::~MainWindow()
 void MainWindow::initSerial()
 {
     RtuThread *rtu = new RtuThread(this);
-//    rtu->init("ttyS2", 1);
+    //    rtu->init("ttyS2", 1);
     rtu->init(SERIAL_COM1, 1);
 
 
 
-//    rtu = new RtuThread(this);
-//    rtu->init(SERIAL_COM2, 2);
+    //    rtu = new RtuThread(this);
+    //    rtu->init(SERIAL_COM2, 2);
 
-//    rtu = new RtuThread(this);
-//    rtu->init(SERIAL_COM3, 3);
+    //    rtu = new RtuThread(this);
+    //    rtu->init(SERIAL_COM3, 3);
 
-//    rtu = new RtuThread(this);
-//    rtu->init(SERIAL_COM4, 4);
+    //    rtu = new RtuThread(this);
+    //    rtu->init(SERIAL_COM4, 4);
 }
 
 void MainWindow::timeoutDone()
@@ -97,6 +97,7 @@ void MainWindow::initFunSLot()
 void MainWindow::initWidget()
 {
     //    set_background_color(ui->stackedWid,QColor("0,0,0"));
+    initBackground();
 
     mHomeWid = new HomeWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeWid);
@@ -153,4 +154,20 @@ void MainWindow::on_alarmBtn_clicked()
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     setBusName(index);
+}
+
+void MainWindow::setButtonImage(QToolButton *button, QString name)
+{
+    QString strNormal = tr("QToolButton{border-image: url(:/new/prefix1/image/%1.png);}").arg(name);
+    QString strSelect = tr("QToolButton:pressed{border-image: url(:/new/prefix1/image/%1_select.png);}").arg(name);
+    button->setStyleSheet(strNormal+strSelect);
+}
+
+void MainWindow::initBackground()
+{
+    setButtonImage(ui->homeBtn,"home");
+    setButtonImage(ui->lineBtn,"main");
+    setButtonImage(ui->branchBtn,"branch");
+    setButtonImage(ui->logBtn,"data");
+    setButtonImage(ui->setBtn,"setting");
 }

@@ -25,8 +25,10 @@ public:
 protected:
     void initSerial();
     void initWidget();
+    void initBackground();
     void checkAlarm();
     void setBusName(int index);
+    void setButtonImage(QToolButton *button, QString name);
 
 protected slots:
     void initFunSLot();

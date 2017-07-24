@@ -255,10 +255,6 @@ color: rgb(255, 255, 255);</string>
        <property name="text">
         <string/>
        </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/image/home.png</normaloff>:/new/prefix1/image/home.png</iconset>
-       </property>
        <property name="iconSize">
         <size>
          <width>65</width>
@@ -319,10 +315,6 @@ color: rgb(255, 255, 255);</string>
        <property name="text">
         <string>主路信息</string>
        </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/image/main.png</normaloff>:/new/prefix1/image/main.png</iconset>
-       </property>
        <property name="iconSize">
         <size>
          <width>65</width>
@@ -376,10 +368,6 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/image/branch.png</normaloff>:/new/prefix1/image/branch.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -435,10 +423,6 @@ color: rgb(255, 255, 255);</string>
        <property name="text">
         <string/>
        </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/image/data.png</normaloff>:/new/prefix1/image/data.png</iconset>
-       </property>
        <property name="iconSize">
         <size>
          <width>65</width>
@@ -492,10 +476,6 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/image/setting.png</normaloff>:/new/prefix1/image/setting.png</iconset>
        </property>
        <property name="iconSize">
         <size>

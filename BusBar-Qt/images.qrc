@@ -13,5 +13,10 @@
         <file>image/box-offine.png</file>
         <file>image/box-online.png</file>
         <file>image/logo.png</file>
+        <file>image/branch_select.png</file>
+        <file>image/data_select.png</file>
+        <file>image/home_select.png</file>
+        <file>image/main_select.png</file>
+        <file>image/setting_select.png</file>
     </qresource>
 </RCC>
