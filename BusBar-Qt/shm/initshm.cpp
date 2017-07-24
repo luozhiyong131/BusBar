@@ -81,7 +81,6 @@ void InitShm::initBusThreshold()
     }
 }
 
-
 void InitShm::initThreshold()
 {
     initBusThreshold();
