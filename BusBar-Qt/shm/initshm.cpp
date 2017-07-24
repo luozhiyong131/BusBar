@@ -87,7 +87,6 @@ void InitShm::initThreshold()
     initBoxThreshold();
 }
 
-
 void InitShm::initNameUnit(int bus, int type, int num, char *buf, const QString &name)
 {
     QString  str = DbDevName::bulid()->getName(bus, type, num);
