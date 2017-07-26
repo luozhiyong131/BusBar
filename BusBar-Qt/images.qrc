@@ -18,5 +18,13 @@
         <file>image/home_select.png</file>
         <file>image/main_select.png</file>
         <file>image/setting_select.png</file>
+        <file>image/boxalarm.png</file>
+        <file>image/boxciralarm.png</file>
+        <file>image/boxoffine.png</file>
+        <file>image/boxonline.png</file>
+        <file>image/save.png</file>
+        <file>image/background.png</file>
+        <file>image/dialog.png</file>
+        <file>image/confirm.png</file>
     </qresource>
 </RCC>

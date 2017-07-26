@@ -63,20 +63,15 @@ void HomeBoxWid::updateData()
 
 void HomeBoxWid::updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id)
 {
-    QString str = ":/new/prefix1/image/";
-    QColor color;
+    QString str;
     if(unit.alarm[id]) {
-        str += "box-alarm.png"; //////======== 图片不对
-        color = QColor(204,29,26); //红色
+        str = "boxalarm"; //////======== 图片不对
     } else if(unit.crAlarm[id]) {
-        str += "box-ciralarm.png";
-        color = QColor("232,157,18"); //黄色
+        str = "boxciralarm";
     } else {
-        str += "box-online.png";
-        color = QColor("34,139,34"); //绿色
+        str = "boxonline";
     }
-    //   set_background_icon(lab, str, QSize(20,40));
-    set_background_color(lab,color);
+    setBackgroundImage(lab,str);
 }
 
 /**
@@ -91,15 +86,9 @@ void HomeBoxWid::updateAlarmStatus()
         updateAlarmIcon(ui->iconLab_2,  mData->data.cur, id++);
         updateAlarmIcon(ui->iconLab_3,  mData->data.cur, id++);
     } else { // 离线
-        QString str = ":/new/prefix1/image/box-offine.png";  //////======== 图片不对
-        QColor color("229,229,229"); //灰色
-        //        QColor color = QColor(204,29,26); //红色
-        //        set_background_icon(ui->iconLab_1, str);
-        //        set_background_icon(ui->iconLab_2, str);
-        //        set_background_icon(ui->iconLab_3, str);
-        set_background_color(ui->iconLab_1, color);
-        set_background_color(ui->iconLab_2, color);
-        set_background_color(ui->iconLab_3, color);
+        setBackgroundImage(ui->iconLab_1, "boxoffine");
+        setBackgroundImage(ui->iconLab_2, "boxoffine");
+        setBackgroundImage(ui->iconLab_3, "boxoffine");
     }
 }
 
@@ -118,10 +107,12 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
-    //    QColor color("255,255,255");
-    //    set_background_color(ui->iconLab_1, color);
-    //    set_background_color(ui->iconLab_2, color);
-    //    set_background_color(ui->iconLab_3, color);
     QSize size(95,95);
     set_background_icon(this, ":/new/prefix1/image/round.png", size);
+}
+
+void HomeBoxWid::setBackgroundImage(QLabel *lab, QString name)
+{
+    QString str = QString("border-image: url(:/new/prefix1/image/%1.png);").arg(name);
+    lab->setStyleSheet(str);
 }

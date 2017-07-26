@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>506</height>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,7 @@
    <property name="styleSheet">
     <string notr="true">QGroupBox{
 border:5px solid rgb(15,78,225);
+border-radius:15px
 };</string>
    </property>
    <property name="title">

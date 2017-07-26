@@ -25,8 +25,8 @@ protected:
     void updateData();
     void updateAlarmStatus();
     void updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id);
-
     void initWid();
+    void setBackgroundImage(QLabel *lab,QString name);
 
 public slots:
     void busChangeSlot(int id);

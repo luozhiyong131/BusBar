@@ -7,6 +7,8 @@
 #include <QDebug>
 #include "common.h"
 #include "smtp/emailwid.h"
+#include "netsettingdlg.h"
+#include "othersettingdlg.h"
 
 namespace Ui {
 class SystemSettingDlg;
@@ -21,11 +23,15 @@ public:
     ~SystemSettingDlg();
 
 private slots:
-    void on_pushButton_7_clicked();
+//    void on_pushButton_7_clicked();
+
+//    void on_pushButton_clicked();
 
 private:
     Ui::SystemSettingDlg *ui;
     EmailWid *mEmailWid;
+    NetSettingDlg *mNetWid;
+    OtherSettingDlg *mOtherWid;
 };
 
 #endif // SYSTEMSETTINGDLG_H

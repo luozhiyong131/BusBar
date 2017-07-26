@@ -119,3 +119,22 @@ int SetSystemTime(settingTime *time)
     }
     return 0;
 }
+
+/**
+ * @brief getPassword 读取系统密码
+ * @return
+ */
+QString getPassword()
+{
+    QString passpord = "";
+
+    bool ret = sys_configFile_open();  //打开配置文件
+
+    if(ret)
+    {
+        passpord = sys_configFile_readStr("password");
+        sys_configFile_close();
+    }
+
+    return passpord;
+}

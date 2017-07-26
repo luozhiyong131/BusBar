@@ -36,6 +36,7 @@ QString cm_pathOfData(const QString& name);
 bool cm_isDigitStr(const QString &src);
 bool cm_isIPaddress(const QString& ip);
 int SetSystemTime(settingTime *time);
+QString getPassword();
 
 sDataPacket *get_share_mem();
 

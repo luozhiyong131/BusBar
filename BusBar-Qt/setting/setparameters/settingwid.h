@@ -5,6 +5,7 @@
 #include "majorsetting.h"
 #include "subseeting.h"
 #include "setsystem/systemsettingdlg.h"
+#include "setsystem/checkpassworddlg.h"
 
 namespace Ui {
 class SettingWid;

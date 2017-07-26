@@ -28,8 +28,9 @@ void LineWid::initFun()
 
 void LineWid::initWid()
 {
-    mTotalWid = new LineTotalWid(ui->totalWid);
-    connect(this, SIGNAL(busChangedSig(int)), mTotalWid, SLOT(busChangeSlot(int)));
+    //    mTotalWid = new LineTotalWid(ui->totalWid);
+    //    connect(this, SIGNAL(busChangedSig(int)), mTotalWid, SLOT(busChangeSlot(int)));
+    initTotalWid();
 
     mLine[0] = new LineRoadWid(ui->line1Wid);
     mLine[1] = new LineRoadWid(ui->line2Wid);
@@ -49,5 +50,43 @@ void LineWid::timeoutDone()
 
     str = QString::number(mData->env.tem.value[0]) + "C";
     ui->temLab->setText(str);
+
+    onUpdateDials();
+}
+
+void LineWid::initTotalWid()
+{
+    QHBoxLayout *layout = new QHBoxLayout(ui->totalWid);
+
+    mCurPlot = new CustomDialPlot(ui->totalWid);
+    mVolPlot = new CustomDialPlot(ui->totalWid);
+    mPwPlot = new CustomDialPlot(ui->totalWid);
+    mPfPlot = new CustomDialPlot(ui->totalWid);
+
+    layout->addWidget(mCurPlot);
+    layout->addWidget(mVolPlot);
+    layout->addWidget(mPwPlot);
+    layout->addWidget(mPfPlot);
+
+    mCurPlot->setUnit("A");
+    mVolPlot->setUnit("V");
+    mPwPlot->setUnit("kVA");
+    mPfPlot->setUnit("kWh");
+
+    mCurPlot->setRange(0,100);
+}
+
+void LineWid::onUpdateDials()
+{
+    double dValue = 0;
+
+    dValue = rand()%(mCurPlot->getMax());
+    mCurPlot->setValue(dValue);
+
+}
+
+void LineWid::updatePlot()
+{
+
 }
 

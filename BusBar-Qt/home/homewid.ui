@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>421</height>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QWidget" name="widget_1" native="true">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>10</y>
+     <x>220</x>
+     <y>54</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>310</y>
+     <x>220</x>
+     <y>300</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -42,8 +42,8 @@
   <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>10</y>
+     <x>360</x>
+     <y>54</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -55,8 +55,8 @@
   <widget class="QWidget" name="widget_4" native="true">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>310</y>
+     <x>360</x>
+     <y>300</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -69,7 +69,7 @@
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>10</y>
+     <y>54</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -82,7 +82,7 @@
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>310</y>
+     <y>300</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -95,7 +95,7 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>10</y>
+     <y>54</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -107,8 +107,8 @@
   <widget class="QWidget" name="widget_8" native="true">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>310</y>
+     <x>670</x>
+     <y>300</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -120,8 +120,8 @@
   <widget class="QWidget" name="widget_9" native="true">
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>10</y>
+     <x>820</x>
+     <y>54</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -133,8 +133,8 @@
   <widget class="QWidget" name="widget_10" native="true">
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>310</y>
+     <x>820</x>
+     <y>300</y>
      <width>96</width>
      <height>96</height>
     </rect>
@@ -147,7 +147,7 @@
    <property name="geometry">
     <rect>
      <x>910</x>
-     <y>210</y>
+     <y>230</y>
      <width>89</width>
      <height>30</height>
     </rect>
@@ -160,7 +160,7 @@
    <property name="geometry">
     <rect>
      <x>910</x>
-     <y>150</y>
+     <y>170</y>
      <width>89</width>
      <height>30</height>
     </rect>
@@ -173,15 +173,18 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>60</y>
-     <width>67</width>
-     <height>21</height>
+     <y>120</y>
+     <width>81</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>AR PL UKai CN</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+     <stylestrategy>PreferAntialias</stylestrategy>
     </font>
    </property>
    <property name="text">
@@ -195,19 +198,21 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>290</y>
-     <width>67</width>
-     <height>21</height>
+     <y>229</y>
+     <width>91</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>AR PL UKai CN</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
-    <string>总功能</string>
+    <string>总功率</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -217,7 +222,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>90</y>
+     <y>160</y>
      <width>101</width>
      <height>51</height>
     </rect>
@@ -229,12 +234,15 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Flat</enum>
+   </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>110</y>
+     <y>180</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -247,21 +255,21 @@
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>350</y>
+     <y>290</y>
      <width>41</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Kw</string>
+    <string>kW</string>
    </property>
   </widget>
   <widget class="QLCDNumber" name="powLcd">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
-     <width>91</width>
+     <y>269</y>
+     <width>101</width>
      <height>51</height>
     </rect>
    </property>
@@ -271,13 +279,16 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Flat</enum>
+   </property>
   </widget>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>110</y>
-     <width>761</width>
+     <y>130</y>
+     <width>691</width>
      <height>191</height>
     </rect>
    </property>

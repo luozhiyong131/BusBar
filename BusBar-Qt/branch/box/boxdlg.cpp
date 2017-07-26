@@ -6,6 +6,7 @@ BoxDlg::BoxDlg(QWidget *parent) :
     ui(new Ui::BoxDlg)
 {
     ui->setupUi(this);
+    set_background_icon(this,":/new/prefix1/image/dialog.png",QSize(815,400));
     this->setWindowFlags(Qt::WindowSystemMenuHint|Qt::WindowMinimizeButtonHint);
 }
 

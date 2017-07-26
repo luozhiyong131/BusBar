@@ -19,10 +19,10 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>1</x>
-     <y>1</y>
-     <width>83</width>
-     <height>83</height>
+     <x>-9</x>
+     <y>-9</y>
+     <width>111</width>
+     <height>111</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -53,7 +53,7 @@
     <rect>
      <x>-4</x>
      <y>5</y>
-     <width>91</width>
+     <width>103</width>
      <height>20</height>
     </rect>
    </property>
@@ -70,14 +70,16 @@
   <widget class="QLabel" name="iconLab_1">
    <property name="geometry">
     <rect>
-     <x>6</x>
+     <x>19</x>
      <y>30</y>
-     <width>20</width>
-     <height>31</height>
+     <width>15</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: transparent;</string>
+    <string notr="true">background-color: transparent;
+border:none;
+</string>
    </property>
    <property name="text">
     <string/>
@@ -108,10 +110,10 @@
   <widget class="QLabel" name="iconLab_2">
    <property name="geometry">
     <rect>
-     <x>36</x>
+     <x>42</x>
      <y>30</y>
-     <width>20</width>
-     <height>31</height>
+     <width>15</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -127,10 +129,10 @@
   <widget class="QLabel" name="iconLab_3">
    <property name="geometry">
     <rect>
-     <x>66</x>
+     <x>64</x>
      <y>30</y>
-     <width>20</width>
-     <height>31</height>
+     <width>16</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">

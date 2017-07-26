@@ -96,7 +96,8 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWidget()
 {
-    //    set_background_color(ui->stackedWid,QColor("0,0,0"));
+//    set_background_color(ui->stackedWid,Qt::white);
+    set_background_icon(ui->stackedWid,":/new/prefix1/image/background.png");
     initBackground();
 
     mHomeWid = new HomeWid(ui->stackedWid);
@@ -122,26 +123,31 @@ void MainWindow::initWidget()
 
 void MainWindow::on_homeBtn_clicked()
 {
+    setButtonClickedImage(ui->homeBtn,"home_select");
     ui->stackedWid->setCurrentWidget(mHomeWid);
 }
 
 void MainWindow::on_lineBtn_clicked()
 {
+    setButtonClickedImage(ui->lineBtn,"main_select");
     ui->stackedWid->setCurrentWidget(mLineWid);
 }
 
 void MainWindow::on_branchBtn_clicked()
 {
+    setButtonClickedImage(ui->branchBtn,"branch_select");
     ui->stackedWid->setCurrentWidget(mBranchWid);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
+    setButtonClickedImage(ui->logBtn,"data_select");
     ui->stackedWid->setCurrentWidget(mLogsWid);
 }
 
 void MainWindow::on_setBtn_clicked()
 {
+    setButtonClickedImage(ui->setBtn,"setting_select");
     ui->stackedWid->setCurrentWidget(mSettingWid);
 }
 
@@ -158,9 +164,15 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 
 void MainWindow::setButtonImage(QToolButton *button, QString name)
 {
-    QString strNormal = tr("QToolButton{border-image: url(:/new/prefix1/image/%1.png);}").arg(name);
-    QString strSelect = tr("QToolButton:pressed{border-image: url(:/new/prefix1/image/%1_select.png);}").arg(name);
-    button->setStyleSheet(strNormal+strSelect);
+    QString str = tr("QToolButton{border-image: url(:/new/prefix1/image/%1.png);}").arg(name);
+    button->setStyleSheet(str);
+}
+
+void MainWindow::setButtonClickedImage(QToolButton *button, QString name)
+{
+    initBackground();
+    QString str = tr("QToolButton{border-image: url(:/new/prefix1/image/%1.png);}").arg(name);
+    button->setStyleSheet(str);
 }
 
 void MainWindow::initBackground()
