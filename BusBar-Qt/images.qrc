@@ -26,5 +26,9 @@
         <file>image/background.png</file>
         <file>image/dialog.png</file>
         <file>image/confirm.png</file>
+        <file>image/last.png</file>
+        <file>image/next.png</file>
+        <file>image/logoff.png</file>
+        <file>image/cancel.png</file>
     </qresource>
 </RCC>

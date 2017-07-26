@@ -58,6 +58,8 @@ private slots:
     //定时器处理退格键
     void reClicked();
 
+
+
 private:
     Ui::frmInput *ui;
     static frmInput *_instance;     //实例对象

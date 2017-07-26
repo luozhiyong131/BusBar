@@ -1,11 +1,14 @@
 #include "checkpassworddlg.h"
 #include "ui_checkpassworddlg.h"
+//#include "frminput.h"
 
 CheckPasswordDlg::CheckPasswordDlg(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CheckPasswordDlg)
 {
     ui->setupUi(this);
+
+//    frmInput::Instance()->Init("bottom", "black", 10, 10);  //打开中文输入法
 }
 
 CheckPasswordDlg::~CheckPasswordDlg()
@@ -13,7 +16,12 @@ CheckPasswordDlg::~CheckPasswordDlg()
     delete ui;
 }
 
-void CheckPasswordDlg::accept()
+void CheckPasswordDlg::clear()
+{
+    ui->lineEdit->clear();
+}
+
+void CheckPasswordDlg::on_pushButton_clicked()
 {
     QString str = getPassword();
     QString linestr = ui->lineEdit->text();
@@ -24,10 +32,6 @@ void CheckPasswordDlg::accept()
     else
         mResult = false;
 
-//    this->close();
-}
-
-bool CheckPasswordDlg::getResult()
-{
-    return mResult;
+    emit dialogClosed(mResult);
+    this->close();
 }

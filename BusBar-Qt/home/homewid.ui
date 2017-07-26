@@ -152,8 +152,21 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
    <property name="text">
-    <string>下一页</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../images.qrc">
+     <normaloff>:/new/prefix1/image/next.png</normaloff>:/new/prefix1/image/next.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>89</width>
+     <height>30</height>
+    </size>
    </property>
   </widget>
   <widget class="QPushButton" name="upBtn">
@@ -165,8 +178,21 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
    <property name="text">
-    <string>上一页</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../images.qrc">
+     <normaloff>:/new/prefix1/image/last.png</normaloff>:/new/prefix1/image/last.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>89</width>
+     <height>30</height>
+    </size>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -297,6 +323,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -17,7 +17,7 @@ NetSettingDlg::~NetSettingDlg()
 
 void NetSettingDlg::on_pushButton_4_clicked()
 {
-    this->close();
+//    this->close();
 }
 
 void NetSettingDlg::initData()

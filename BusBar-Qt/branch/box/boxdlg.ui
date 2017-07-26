@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>815</width>
+    <width>722</width>
     <height>400</height>
    </rect>
   </property>
@@ -17,8 +17,7 @@
    <string>helloworld</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: rgb(0, 0, 0);
-</string>
+   <string notr="true"/>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -74,7 +73,7 @@
     <rect>
      <x>30</x>
      <y>50</y>
-     <width>771</width>
+     <width>661</width>
      <height>121</height>
     </rect>
    </property>
@@ -85,14 +84,27 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>710</x>
-     <y>350</y>
-     <width>89</width>
-     <height>25</height>
+     <x>650</x>
+     <y>0</y>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(204, 0, 0);</string>
+   </property>
    <property name="text">
-    <string>退出</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/new/prefix1/image/cancel.png</normaloff>:/new/prefix1/image/cancel.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>41</width>
+     <height>41</height>
+    </size>
    </property>
   </widget>
   <widget class="QWidget" name="line1Wid_2" native="true">
@@ -211,7 +223,7 @@
        </size>
       </property>
       <property name="text">
-       <string>功率</string>
+       <string>视在功率</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -233,7 +245,7 @@
        </size>
       </property>
       <property name="text">
-       <string>功率因数</string>
+       <string>有功功率</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -265,6 +277,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../images.qrc"/>
+ </resources>
  <connections/>
 </ui>
