@@ -17,7 +17,6 @@ SOURCES += \
     common/qcustomplot.cpp \
     $$PWD/myprogressbar.cpp
 
-DISTFILES += \
-    $$PWD/../setting/setting.pri
+
 
 

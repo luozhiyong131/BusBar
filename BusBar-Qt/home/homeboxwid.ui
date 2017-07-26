@@ -70,14 +70,15 @@
   <widget class="QLabel" name="iconLab_1">
    <property name="geometry">
     <rect>
-     <x>13</x>
+     <x>19</x>
      <y>30</y>
-     <width>17</width>
-     <height>31</height>
+     <width>15</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
+border:none;
 </string>
    </property>
    <property name="text">
@@ -109,10 +110,10 @@
   <widget class="QLabel" name="iconLab_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>42</x>
      <y>30</y>
-     <width>17</width>
-     <height>31</height>
+     <width>15</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -128,10 +129,10 @@
   <widget class="QLabel" name="iconLab_3">
    <property name="geometry">
     <rect>
-     <x>66</x>
+     <x>64</x>
      <y>30</y>
-     <width>17</width>
-     <height>31</height>
+     <width>16</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">

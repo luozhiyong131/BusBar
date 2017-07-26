@@ -17,8 +17,8 @@ public:
     int getMax()const;
 
     //更新表盘显示值
-    void setValue(double dValue);
-    void setColor(QPainter &pPainter,double dValue);
+    void setValue(double dValue );
+    void setColor(QPainter &pPainter, double dValue);
 
 
     //设置表盘表示数据单位
@@ -52,6 +52,8 @@ private:
     double m_dCurrentValue;
     //单位
     QString m_strUnit;
+
+    int mType;//标志位，根据标志位决定颜色
 };
 
 #endif // CUSTOMDIALPLOT_H

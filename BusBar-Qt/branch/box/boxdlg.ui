@@ -18,7 +18,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(233, 185, 110);</string>
+</string>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -77,6 +77,9 @@ background-color: rgb(233, 185, 110);</string>
      <width>771</width>
      <height>121</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">

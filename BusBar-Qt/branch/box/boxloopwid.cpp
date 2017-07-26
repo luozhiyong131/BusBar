@@ -55,16 +55,20 @@ void BoxLoopWid::updateData()
     QString str = "Loop" + QString::number(id+1);
     ui->name->setText(str);
 
-    str = QString::number(mData->vol.value[id]) + "V";
+    int sw = mData->sw[id];
+    if(sw)
+        str = "开";
+    else
+        str = "关";
     ui->volLab->setText(str);
+
+    str =  QString::number(mData->vol.value[id]) + "V";
+    ui->curLab->setText(str);
     updateAlarmStatus(ui->volLab, mData->vol);
 
     str =  QString::number(mData->cur.value[id]) + "A";
-    ui->curLab->setText(str);
-    updateAlarmStatus(ui->curLab, mData->cur);
-
-    str =  QString::number(mData->cur.max[id]) + "A";
     ui->maxCur->setText(str);
+    updateAlarmStatus(ui->curLab, mData->cur);
 
     str =  QString::number(mData->apPow[id]) + "kVA";
     ui->apPow->setText(str);

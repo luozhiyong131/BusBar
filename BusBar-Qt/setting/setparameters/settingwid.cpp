@@ -59,7 +59,24 @@ void SettingWid::on_pushButton_2_clicked()
     mSubsettingWid->updateWid(0);
 }
 
+/**
+ * @brief SettingWid::on_pushButton_3_clicked 系统设置
+ */
 void SettingWid::on_pushButton_3_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(mSystemDlg);
+{   
+    bool ret = false;
+    CheckPasswordDlg checkDlg(NULL);
+
+    if(QDialog::Accepted == checkDlg.exec())
+    {
+        qDebug() << "close";
+
+        ret = checkDlg.getResult();
+
+        qDebug() << "---ret---" << ret;
+        if(ret)
+            ui->stackedWidget->setCurrentWidget(mSystemDlg);
+        else
+            QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
+    }
 }

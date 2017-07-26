@@ -11,6 +11,7 @@ MajorSetting::MajorSetting(QWidget *parent) :
     mShm = new SetShm;
     mIndex = 0;
     initWidget();
+    setProcessBarColor(ui->progressBar_2,"red");
 }
 
 MajorSetting::~MajorSetting()
@@ -109,6 +110,16 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
         bar->setValue(ret);
     }else
         bar->setValue(0);
+
+    int cirAlarm = data->crAlarm[index];
+    int alarm = data->alarm[index];
+    if(alarm == 1)
+        setProcessBarColor(bar,"red"); //报警
+    else if(cirAlarm == 1)
+        setProcessBarColor(bar,"yellow"); //预警
+    else
+        setProcessBarColor(bar,"green"); //正常
+
 }
 
 /**
@@ -139,4 +150,17 @@ void MajorSetting::on_pushButton_clicked()
         mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
     }
 
+}
+
+/**
+ * @brief MajorSetting::setProcessBarColor 设置进度条颜色
+ * @param bar
+ * @param color
+ */
+void MajorSetting::setProcessBarColor(QProgressBar *bar, QString color)
+{
+
+    QString str = "QProgressBar{border:1px solid #000000;height:20;background:transparent;text-align:center;color:rgb(134,68,54);border-radius:10px;}";
+    str += QString(" QProgressBar::chunk{border-radius:10px;border:1px solid black;background-color:%1;margin:0.5px;}").arg(color);
+    bar->setStyleSheet(str);
 }

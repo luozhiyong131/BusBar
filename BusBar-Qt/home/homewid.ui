@@ -16,7 +16,7 @@
   <widget class="QWidget" name="widget_1" native="true">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>220</x>
      <y>54</y>
      <width>96</width>
      <height>96</height>
@@ -29,7 +29,7 @@
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>220</x>
      <y>300</y>
      <width>96</width>
      <height>96</height>
@@ -42,7 +42,7 @@
   <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>360</x>
      <y>54</y>
      <width>96</width>
      <height>96</height>
@@ -55,7 +55,7 @@
   <widget class="QWidget" name="widget_4" native="true">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>360</x>
      <y>300</y>
      <width>96</width>
      <height>96</height>
@@ -68,7 +68,7 @@
   <widget class="QWidget" name="widget_5" native="true">
    <property name="geometry">
     <rect>
-     <x>560</x>
+     <x>510</x>
      <y>54</y>
      <width>96</width>
      <height>96</height>
@@ -81,7 +81,7 @@
   <widget class="QWidget" name="widget_6" native="true">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>510</x>
      <y>300</y>
      <width>96</width>
      <height>96</height>
@@ -94,7 +94,7 @@
   <widget class="QWidget" name="widget_7" native="true">
    <property name="geometry">
     <rect>
-     <x>730</x>
+     <x>670</x>
      <y>54</y>
      <width>96</width>
      <height>96</height>
@@ -107,7 +107,7 @@
   <widget class="QWidget" name="widget_8" native="true">
    <property name="geometry">
     <rect>
-     <x>720</x>
+     <x>670</x>
      <y>300</y>
      <width>96</width>
      <height>96</height>
@@ -120,7 +120,7 @@
   <widget class="QWidget" name="widget_9" native="true">
    <property name="geometry">
     <rect>
-     <x>890</x>
+     <x>820</x>
      <y>54</y>
      <width>96</width>
      <height>96</height>
@@ -133,7 +133,7 @@
   <widget class="QWidget" name="widget_10" native="true">
    <property name="geometry">
     <rect>
-     <x>890</x>
+     <x>820</x>
      <y>300</y>
      <width>96</width>
      <height>96</height>
@@ -288,7 +288,7 @@
     <rect>
      <x>130</x>
      <y>130</y>
-     <width>761</width>
+     <width>691</width>
      <height>191</height>
     </rect>
    </property>

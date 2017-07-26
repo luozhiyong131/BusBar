@@ -27,7 +27,8 @@ public:
 private:
     void initWidget();
     void setProgressbarValue(QProgressBar *bar,sDataUnit  *data ,int index);
-    //    sDataPacket *get_share_mem();
+    void setProcessBarColor(QProgressBar *bar, QString color);
+
 private slots:
     void barClicked(bool isCur,int index);
     void on_pushButton_clicked();

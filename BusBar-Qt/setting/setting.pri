@@ -8,7 +8,12 @@ HEADERS += \
     $$PWD/setparameters/subseeting.h \
     $$PWD/setsystem/systemsettingdlg.h \
     $$PWD/setthreshold/settingthreshold.h \
-    $$PWD/setthreshold/subsettingthreshold.h
+    $$PWD/setthreshold/subsettingthreshold.h \
+    $$PWD/setsystem/datetimesettingdlg.h \
+    $$PWD/setsystem/netsettingdlg.h \
+    $$PWD/setsystem/othersettingdlg.h \
+    $$PWD/passordsettingdlg.h \
+    $$PWD/setsystem/checkpassworddlg.h
     
     
    
@@ -19,7 +24,12 @@ SOURCES += \
     $$PWD/setparameters/subseeting.cpp \
     $$PWD/setsystem/systemsettingdlg.cpp \
     $$PWD/setthreshold/settingthreshold.cpp \
-    $$PWD/setthreshold/subsettingthreshold.cpp
+    $$PWD/setthreshold/subsettingthreshold.cpp \
+    $$PWD/setsystem/datetimesettingdlg.cpp \
+    $$PWD/setsystem/netsettingdlg.cpp \
+    $$PWD/setsystem/othersettingdlg.cpp \
+    $$PWD/passordsettingdlg.cpp \
+    $$PWD/setsystem/checkpassworddlg.cpp
     
     
 
@@ -30,7 +40,12 @@ FORMS += \
     $$PWD/setparameters/subseeting.ui \
     $$PWD/setsystem/systemsettingdlg.ui \
     $$PWD/setthreshold/settingthreshold.ui \
-    $$PWD/setthreshold/subsettingthreshold.ui
+    $$PWD/setthreshold/subsettingthreshold.ui \
+    $$PWD/setsystem/datetimesettingdlg.ui \
+    $$PWD/setsystem/netsettingdlg.ui \
+    $$PWD/setsystem/othersettingdlg.ui \
+    $$PWD/passordsettingdlg.ui \
+    $$PWD/setsystem/checkpassworddlg.ui
 
 
 

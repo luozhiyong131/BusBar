@@ -85,3 +85,8 @@ void LineWid::onUpdateDials()
 
 }
 
+void LineWid::updatePlot()
+{
+
+}
+

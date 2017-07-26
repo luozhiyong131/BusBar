@@ -96,7 +96,8 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWidget()
 {
-    //    set_background_color(ui->stackedWid,QColor("0,0,0"));
+//    set_background_color(ui->stackedWid,Qt::white);
+    set_background_icon(ui->stackedWid,":/new/prefix1/image/background.png");
     initBackground();
 
     mHomeWid = new HomeWid(ui->stackedWid);

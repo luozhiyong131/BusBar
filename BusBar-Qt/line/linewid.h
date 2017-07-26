@@ -28,6 +28,7 @@ protected:
     void initWid();
     void initTotalWid();
     void onUpdateDials();
+    void updatePlot();
 
 protected slots:
     void timeoutDone();

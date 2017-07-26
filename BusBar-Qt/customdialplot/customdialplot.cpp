@@ -95,6 +95,7 @@ void CustomDialPlot::setValue(double dValue)
     }
 
     m_dCurrentValue = dValue;
+    //    mType = type; //标志位
 
     //更新界面显示
     update();
@@ -157,11 +158,11 @@ void CustomDialPlot::_drawDial(QPainter *pPainter)
 
     //黄色部分
     QRadialGradient secondGradient(m_centerPointF,m_nRadius,m_centerPointF);
-    secondGradient.setColorAt(0,Qt::transparent);
-    secondGradient.setColorAt(0.6,Qt::transparent);
-    secondGradient.setColorAt(0.61,QColor(229,229,229).darker(150));
-    secondGradient.setColorAt(0.8,QColor(229,229,229).lighter(150));
-    secondGradient.setColorAt(1.0,QColor(229,229,229).darker(150));
+    secondGradient.setColorAt(0,QColor(229,229,229));
+    secondGradient.setColorAt(0.6,QColor(229,229,229));
+    secondGradient.setColorAt(0.61,QColor(229,229,229));
+    secondGradient.setColorAt(0.8,QColor(229,229,229));
+    secondGradient.setColorAt(1.0,QColor(229,229,229));
     pPainter->setBrush(secondGradient);
     pPainter->drawPie(pieRect,315*16,270*16);
 
@@ -311,7 +312,7 @@ void CustomDialPlot::_drawValue(QPainter *pPainter)
  * @brief CustomDialPlot::setColor 刷新背景颜色
  * @param dValue
  */
-void CustomDialPlot::setColor(QPainter &pPainter,double dValue)
+void CustomDialPlot::setColor(QPainter &pPainter, double dValue)
 {
     //    m_dCurrentValue = 100 ;
     double value = (dValue/getMax())*270; //
