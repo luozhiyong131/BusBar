@@ -12,9 +12,9 @@
 RtuThread::RtuThread(QObject *parent) :
     QThread(parent)
 {
-     mBuf = (uchar *)malloc(RTU_BUF_SIZE);
-     mRtuPkt = new Rtu_recv;
-     mSerial = new Serial_Trans(this);     
+    mBuf = (uchar *)malloc(RTU_BUF_SIZE);
+    mRtuPkt = new Rtu_recv;
+    mSerial = new Serial_Trans(this);
 }
 
 RtuThread::~RtuThread()
@@ -85,7 +85,7 @@ void RtuThread::transData(int addr)
     char offLine = 0;
     uchar *buf = mBuf;
     Rtu_recv *pkt = mRtuPkt;
-    sBoxData *box = &(mBusData->box[addr-1]);
+    sBoxData *box = &(mBusData->box[addr]);
 
     int rtn = rtu_sent_buff(addr,buf); // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf); // 传输数据，发送同时接收
@@ -95,11 +95,11 @@ void RtuThread::transData(int addr)
             if(addr == pkt->addr) {
                 offLine = 1;
                 loopData(box, pkt);
-                envData(&(box->env), pkt);                
+                envData(&(box->env), pkt);
             }
         }
     }
-     box->offLine = offLine;
+    box->offLine = offLine;
 }
 
 
@@ -108,7 +108,10 @@ void RtuThread::run()
     isRun = true;
     while(isRun)
     {
-        for(int i=1; i<=mBusData->boxNum; ++i)
+        //////====================== 地址修改
+        for(int i=1; i<=mBusData->boxNum; ++i) {
             transData(i);
+            msleep(1);
+        }
     }
 }

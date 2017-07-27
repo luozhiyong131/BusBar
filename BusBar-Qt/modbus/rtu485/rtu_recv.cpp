@@ -68,8 +68,11 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->curAlarm =  (*ptr) * 256 + *(ptr+1);  ptr += 2;// 上限电流报警值
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
 
-    msg->apPow = msg->vol * msg->cur / 1000; // 视在功率
-    if(msg->apPow > 0)  msg->pf = (msg->pow * 100) / msg->apPow;// 功率因素
+    msg->apPow = msg->vol * msg->cur; // 视在功率
+    if(msg->apPow > 0)
+    {
+        msg->pf = (msg->pow * 100) / msg->apPow;// 功率因素
+    }
     else msg->pf = 0;
 
     if(msg->vol > 0) msg->sw = 1;  // 开关状态
@@ -102,7 +105,7 @@ static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
     bool ret = true;
     int rtn = len-2; uchar *ptr = buf+rtn;
 
-    msg->crc = (ptr[0]*256) + ptr[1]; // 获取校验码
+    msg->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
     ushort crc = rtu_crc(buf, rtn);
     if(crc != msg->crc) {
         ret = false;

@@ -49,8 +49,8 @@ void HomeWid::initWidget()
 
 void HomeWid::timeoutDone()
 {
-    ui->curLcd->display(mBusData->tgBus.cur);
-    ui->powLcd->display(mBusData->tgBus.pow);
+    ui->curLcd->display(mBusData->tgBus.cur/COM_RATE_CUR);
+    ui->powLcd->display(mBusData->tgBus.pow/COM_RATE_POW);
 }
 
 void HomeWid::setBoxBaseNum()

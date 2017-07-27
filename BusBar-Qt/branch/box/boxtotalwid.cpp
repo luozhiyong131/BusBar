@@ -21,7 +21,7 @@ BoxTotalWid::~BoxTotalWid()
 void BoxTotalWid::initFun(int bus, int box)
 {
     sDataPacket *shm = get_share_mem();
-    mTgBus = &(shm->data[bus].box[box].tgBox);
+    mTgBox = &(shm->data[bus].box[box].tgBox);
     updateData();
 }
 
@@ -32,15 +32,18 @@ void BoxTotalWid::timeoutDone()
 
 void BoxTotalWid::updateData()
 {
-    QString str = QString::number(mTgBus->cur) + "A";
+    QString str = QString::number(mTgBox->cur/COM_RATE_CUR, 'f', 1) + "A";
     ui->tCurLab->setText(str);
 
-    str =  QString::number(mTgBus->pow) + "kW";
+    str =  QString::number(mTgBox->pow/COM_RATE_POW, 'f', 1) + "kW";
     ui->tPowLab->setText(str);
 
-    str =  QString::number(mTgBus->apPow) + "kVA";
+    str =  QString::number(mTgBox->apPow/COM_RATE_POW, 'f', 1) + "kVA";
     ui->tApPowLab->setText(str);
 
-    str =  QString::number(mTgBus->ele) + "kWh";
+    str =  QString::number(mTgBox->pf/COM_RATE_PF, 'f', 2);
+    ui->tPfLab->setText(str);
+
+    str =  QString::number(mTgBox->ele/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->tEleLab->setText(str);
 }

@@ -81,13 +81,11 @@ void InitShm::initBusThreshold()
     }
 }
 
-
 void InitShm::initThreshold()
 {
     initBusThreshold();
     initBoxThreshold();
 }
-
 
 void InitShm::initNameUnit(int bus, int type, int num, char *buf, const QString &name)
 {

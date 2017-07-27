@@ -28,9 +28,7 @@ void CheckPasswordDlg::on_pushButton_clicked()
 {
     QString str = getPassword();
     QString linestr = ui->lineEdit->text();
-    qDebug() << str << ui->lineEdit->text();
-
-    if((!linestr.isEmpty()) && (str == linestr))
+    if(str == linestr)
         mResult = true;
     else
         mResult = false;
