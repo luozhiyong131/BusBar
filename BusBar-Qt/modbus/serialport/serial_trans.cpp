@@ -174,7 +174,8 @@ int Serial_Trans::recvData(uchar *pBuf, int nCount)
             if(rtn > 0) {
                 pBuf += rtn; // 指针移动
                 ret += rtn; // 长度增加
-            }
+            } else if(ret >= nCount)
+                break;
         } while(rtn>0);
     }
 
@@ -191,7 +192,7 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
 {
     int ret = sendData(sent, len);
     if(ret > 0) {
-        ret = recvData(recv, 255);
+        ret = recvData(recv, 250);
         if(ret <=0 )
             qDebug() << "Serial Trans Err!!!";
     }
