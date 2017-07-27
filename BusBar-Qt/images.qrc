@@ -40,5 +40,7 @@
         <file>image/number/number18.png</file>
         <file>image/number/number19.png</file>
         <file>image/number/number20.png</file>
+        <file>image/off.png</file>
+        <file>image/on.png</file>
     </qresource>
 </RCC>

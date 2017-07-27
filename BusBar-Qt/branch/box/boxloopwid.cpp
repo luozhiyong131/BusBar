@@ -61,6 +61,7 @@ void BoxLoopWid::updateData()
     else
         str = "关";
     ui->volLab->setText(str);
+   ui->volLab->setStyleSheet("border-image: url(:/new/prefix1/image/last.png);");
 
     str =  QString::number(mData->vol.value[id]) + "V";
     ui->curLab->setText(str);
