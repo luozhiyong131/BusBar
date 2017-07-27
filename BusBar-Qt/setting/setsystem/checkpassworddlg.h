@@ -2,7 +2,9 @@
 #define CHECKPASSWORDDLG_H
 
 #include <QDialog>
+#include <QHBoxLayout>
 #include "common.h"
+#include "keyboard/mynumberkeyboardwid.h"
 
 namespace Ui {
 class CheckPasswordDlg;
@@ -26,7 +28,7 @@ signals:
 
 private:
     Ui::CheckPasswordDlg *ui;
-
+    MyNumberKeyboardWid *mNumberKeyboard;
     bool mResult;
 };
 
