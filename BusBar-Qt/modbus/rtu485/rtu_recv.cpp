@@ -102,7 +102,7 @@ static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
     bool ret = true;
     int rtn = len-2; uchar *ptr = buf+rtn;
 
-    msg->crc = (ptr[0]*256) + ptr[1]; // 获取校验码
+    msg->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
     ushort crc = rtu_crc(buf, rtn);
     if(crc != msg->crc) {
         ret = false;

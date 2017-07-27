@@ -103,7 +103,7 @@ bool Serial_Trans::openSerial(const QString serialName)
     }
 
     tcflush(fd, TCIFLUSH);
-    setting.c_cc[VTIME] = 5; // 超时时间 0.5S
+    setting.c_cc[VTIME] = 2; // 超时时间 0.5S
     setting.c_cc[VMIN] = 0; // 数据最小长度
     tcsetattr(fd, TCSANOW, &setting);
 
@@ -191,7 +191,7 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
 {
     int ret = sendData(sent, len);
     if(ret > 0) {
-        ret = recvData(recv, 256);
+        ret = recvData(recv, 255);
         if(ret <=0 )
             qDebug() << "Serial Trans Err!!!";
     }

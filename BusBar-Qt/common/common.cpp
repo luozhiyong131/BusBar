@@ -129,7 +129,6 @@ QString getPassword()
     QString passpord = "";
 
     bool ret = sys_configFile_open();  //打开配置文件
-
     if(ret)
     {
         passpord = sys_configFile_readStr("password");

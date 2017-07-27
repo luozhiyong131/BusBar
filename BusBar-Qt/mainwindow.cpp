@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-    //  initSerial();
+      initSerial();
 
     mIndex = 0;
     initWidget();
@@ -38,8 +38,8 @@ MainWindow::~MainWindow()
 void MainWindow::initSerial()
 {
     RtuThread *rtu = new RtuThread(this);
-    //    rtu->init("ttyS2", 1);
-    rtu->init(SERIAL_COM1, 1);
+        rtu->init("ttyS2", 1);
+//    rtu->init(SERIAL_COM1, 1);
 
 
 

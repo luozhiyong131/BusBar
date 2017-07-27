@@ -12,9 +12,9 @@
 RtuThread::RtuThread(QObject *parent) :
     QThread(parent)
 {
-     mBuf = (uchar *)malloc(RTU_BUF_SIZE);
-     mRtuPkt = new Rtu_recv;
-     mSerial = new Serial_Trans(this);     
+    mBuf = (uchar *)malloc(RTU_BUF_SIZE);
+    mRtuPkt = new Rtu_recv;
+    mSerial = new Serial_Trans(this);
 }
 
 RtuThread::~RtuThread()
@@ -95,11 +95,11 @@ void RtuThread::transData(int addr)
             if(addr == pkt->addr) {
                 offLine = 1;
                 loopData(box, pkt);
-                envData(&(box->env), pkt);                
+                envData(&(box->env), pkt);
             }
         }
     }
-     box->offLine = offLine;
+    box->offLine = offLine;
 }
 
 
@@ -108,7 +108,10 @@ void RtuThread::run()
     isRun = true;
     while(isRun)
     {
-        for(int i=1; i<=mBusData->boxNum; ++i)
-            transData(i);
+//        for(int i=1; i<=mBusData->boxNum; ++i) {
+//            transData(i);
+            transData(1);
+            msleep(1);
+//        }
     }
 }

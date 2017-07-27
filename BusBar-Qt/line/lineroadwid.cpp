@@ -64,22 +64,22 @@ void LineRoadWid::updateData()
     ui->volLab->setText(str);
     updateAlarmStatus(ui->volLab, mData->vol);
 
-    str =  QString::number(mData->cur.value[id]/10.0,'f',1) + "A";
+    str =  QString::number(mData->cur.value[id]/COM_RATE_CUR,'f',1) + "A";
     ui->curLab->setText(str);
     updateAlarmStatus(ui->curLab, mData->cur);
 
-    str =  QString::number(mData->cur.max[id]/10.0,'f',1) + "A";
+    str =  QString::number(mData->cur.max[id]/COM_RATE_CUR,'f',1) + "A";
     ui->maxCur->setText(str);
 
-    str =  QString::number(mData->apPow[id]/10.0,'f',1) + "kVA";
+    str =  QString::number(mData->apPow[id]/COM_RATE_POW,'f',1) + "kVA";
     ui->apPow->setText(str);
 
-    str =  QString::number(mData->pow[id]/10.0,'f',1) + "kW";
+    str =  QString::number(mData->pow[id]/COM_RATE_POW,'f',1) + "kW";
     ui->powLab->setText(str);
 
-    str =  QString::number(mData->pf[id]/100.0, 'f',2);
+    str =  QString::number(mData->pf[id]/COM_RATE_PF, 'f',2);
     ui->pfLab->setText(str);
 
-    str =  QString::number(mData->ele[id]/10.0,'f',1) + "kWh";
+    str =  QString::number(mData->ele[id]/COM_RATE_ELE,'f',1) + "kWh";
     ui->eleLab->setText(str);
 }

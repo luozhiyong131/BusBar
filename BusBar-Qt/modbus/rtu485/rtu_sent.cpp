@@ -21,7 +21,6 @@ static ushort calccrc (ushort crc, uchar crcbuf)
             crc = crc^0xa001;
         crc=crc&0xffff;
     }
-
     return crc;
 }
 
@@ -60,8 +59,8 @@ static int rtu_sent_packet(Rtu_Sent *pkt, uchar *ptr)
 
      /*填入CRC*/
     pkt->crc = rtu_crc(buf, 6);
-    *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
     *(ptr++) = (0xff)&(pkt->crc); /*低8位*/
+    *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
 
     return 8;
 }
