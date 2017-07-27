@@ -158,8 +158,8 @@ void CustomDialPlot::_drawDial(QPainter *pPainter)
 
     //黄色部分
     QRadialGradient secondGradient(m_centerPointF,m_nRadius,m_centerPointF);
-    secondGradient.setColorAt(0,QColor(229,229,229));
-    secondGradient.setColorAt(0.6,QColor(229,229,229));
+    secondGradient.setColorAt(0,Qt::transparent);
+    secondGradient.setColorAt(0.6,Qt::transparent);
     secondGradient.setColorAt(0.61,QColor(229,229,229));
     secondGradient.setColorAt(0.8,QColor(229,229,229));
     secondGradient.setColorAt(1.0,QColor(229,229,229));
@@ -211,19 +211,19 @@ void CustomDialPlot::_drawTicks(QPainter *pPainter)
         //        pPainter->drawLine(QPointF(0,m_nRadius*(0.6-dTickRatio)),
         //                           QPointF(0,m_nRadius*0.6));
         //表盘上显示最小值
-        if (0==nScale)
-        {
-            pPainter->drawText(-10,m_nRadius*(0.38),20,10,
-                               Qt::AlignCenter,
-                               QString::number(m_nMinValue));
-        }
-        //表盘上显示最大值
-        else if (100==nScale)
-        {
-            pPainter->drawText(-10,m_nRadius*(0.38),20,10,
-                               Qt::AlignCenter,
-                               QString::number(m_nMaxValue));
-        }
+        //        if (0==nScale)
+        //        {
+        //            pPainter->drawText(-10,m_nRadius*(0.38),20,10,
+        //                               Qt::AlignCenter,
+        //                               QString::number(m_nMinValue));
+        //        }
+        //        //表盘上显示最大值
+        //        else if (100==nScale)
+        //        {
+        //            pPainter->drawText(-10,m_nRadius*(0.38),20,10,
+        //                               Qt::AlignCenter,
+        //                               QString::number(m_nMaxValue));
+        //        }
         pPainter->rotate(2.4);
     }
     pPainter->restore();
@@ -299,12 +299,13 @@ void CustomDialPlot::_drawValue(QPainter *pPainter)
     pPainter->save();
 
     QFont font;
-    font.setPointSize(8);
+    font.setPointSize(13);
     pPainter->setFont(font);
 
     pPainter->setPen(Qt::black);
-    pPainter->drawText(QRectF(-20,m_nRadius*0.6*0.5,40,20),Qt::AlignCenter,QString::number(m_dCurrentValue)+m_strUnit);
-
+    pPainter->drawText(QRectF(-40,-15,80,20),Qt::AlignCenter,QString::number(m_dCurrentValue));
+    pPainter->drawText(QRectF(-20,m_nRadius*0.5,40,20),Qt::AlignCenter,m_strUnit);
+    //    qDebug() << "m_nradius" << m_nRadius;
     pPainter->restore();
 }
 

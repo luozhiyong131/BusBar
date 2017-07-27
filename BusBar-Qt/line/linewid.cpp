@@ -9,6 +9,9 @@ LineWid::LineWid(QWidget *parent) :
 
     initFun();
     initWid();
+
+    mIndex = 0;
+    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(indexChanged(int)));
 }
 
 LineWid::~LineWid()
@@ -51,7 +54,9 @@ void LineWid::timeoutDone()
     str = QString::number(mData->env.tem.value[0]) + "C";
     ui->temLab->setText(str);
 
-    onUpdateDials();
+    updatePlot();
+
+//    onUpdateDials();
 }
 
 void LineWid::initTotalWid()
@@ -59,17 +64,17 @@ void LineWid::initTotalWid()
     QHBoxLayout *layout = new QHBoxLayout(ui->totalWid);
 
     mCurPlot = new CustomDialPlot(ui->totalWid);
-    mVolPlot = new CustomDialPlot(ui->totalWid);
+    //    mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
     mPfPlot = new CustomDialPlot(ui->totalWid);
 
     layout->addWidget(mCurPlot);
-    layout->addWidget(mVolPlot);
+    //    layout->addWidget(mVolPlot);
     layout->addWidget(mPwPlot);
     layout->addWidget(mPfPlot);
 
     mCurPlot->setUnit("A");
-    mVolPlot->setUnit("V");
+    //    mVolPlot->setUnit("V");
     mPwPlot->setUnit("kVA");
     mPfPlot->setUnit("kWh");
 
@@ -87,6 +92,16 @@ void LineWid::onUpdateDials()
 
 void LineWid::updatePlot()
 {
+    sDataPacket *shm = get_share_mem();
+    sTgObjData *tgBusData = &(shm->data[mIndex].tgBus);
 
+    mCurPlot->setValue(tgBusData->cur);
+    mPwPlot->setValue(tgBusData->pow);
+    mPfPlot->setValue(tgBusData->pf);
+}
+
+void LineWid::indexChanged(int index)
+{
+    mIndex = index;
 }
 

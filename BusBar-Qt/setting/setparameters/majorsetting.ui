@@ -18,7 +18,7 @@
 	border-left:none;
 	border-right:none;
 	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
+	border-bottom:2px solid rgb(228,228,228);
 }</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
@@ -53,6 +53,9 @@
       </property>
       <property name="text">
        <string>母线名称</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
       </property>
      </widget>
     </item>
@@ -111,6 +114,9 @@
       <property name="text">
        <string>额定电流</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -167,6 +173,9 @@ background-color: transparent;
       </property>
       <property name="text">
        <string>插接箱数量</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
       </property>
      </widget>
     </item>
@@ -244,10 +253,10 @@ background-color: transparent;
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(228,228,228);
-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);</string>
        </property>
        <property name="text">
-        <string>编码</string>
+        <string>编号</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -263,10 +272,10 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(228,228,228);
-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);</string>
        </property>
        <property name="text">
-        <string>相数</string>
+        <string>相位</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -282,7 +291,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(228,228,228);
-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);</string>
        </property>
        <property name="text">
         <string>类型</string>
@@ -301,7 +310,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(228,228,228);
-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);</string>
        </property>
        <property name="text">
         <string>当前值</string>
@@ -326,7 +335,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(228,228,228);
-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);</string>
        </property>
        <property name="text">
         <string>设置</string>
@@ -353,12 +362,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>1</string>
@@ -454,12 +458,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>2</string>
@@ -555,12 +554,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>3</string>
@@ -584,12 +578,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>4</string>
@@ -781,12 +770,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:3px solid rgb(228,228,228);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>5</string>

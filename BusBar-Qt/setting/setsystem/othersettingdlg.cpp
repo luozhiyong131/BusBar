@@ -19,7 +19,7 @@ OtherSettingDlg::~OtherSettingDlg()
 void OtherSettingDlg::on_pushButton_3_clicked()
 {
     PassordSettingDlg *passwordDlg = new PassordSettingDlg(this);
-    passwordDlg->exec();
+    passwordDlg->show();
 }
 
 /**

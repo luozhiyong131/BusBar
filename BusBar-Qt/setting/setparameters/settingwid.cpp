@@ -8,6 +8,9 @@ SettingWid::SettingWid(QWidget *parent) :
     ui->setupUi(this);
     initWidget();
 
+//    mCheckDlg = new CheckPasswordDlg(this);
+//    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
+
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
     majorSettingWidget->updateWidget(0);
 
@@ -64,19 +67,17 @@ void SettingWid::on_pushButton_2_clicked()
  */
 void SettingWid::on_pushButton_3_clicked()
 {   
-    bool ret = false;
-    CheckPasswordDlg checkDlg(NULL);
+//    if(ui->stackedWidget->currentWidget() != mSystemDlg)
+//        mCheckDlg->show();
 
-    if(QDialog::Accepted == checkDlg.exec())
-    {
-        qDebug() << "close";
-
-        ret = checkDlg.getResult();
-
-        qDebug() << "---ret---" << ret;
-        if(ret)
-            ui->stackedWidget->setCurrentWidget(mSystemDlg);
-        else
-            QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
-    }
+    ui->stackedWidget->setCurrentWidget(mSystemDlg);
 }
+
+//void SettingWid::dialogClosed(bool ret)
+//{
+//    if(ret)
+//        ui->stackedWidget->setCurrentWidget(mSystemDlg);
+//    else
+//        QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
+//    mCheckDlg->clear();
+//}

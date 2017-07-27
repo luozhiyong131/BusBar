@@ -37,5 +37,14 @@ void DatetimeSettingDlg::on_pushButton_7_clicked()
 
 void DatetimeSettingDlg::initDateTime()
 {
+    ui->dateTimeEdit->setEnabled(false);
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+}
+
+void DatetimeSettingDlg::on_comboBox_currentIndexChanged(int index)
+{
+    if(index)
+        ui->dateTimeEdit->setEnabled(true);
+    else
+        ui->dateTimeEdit->setEnabled(false);
 }

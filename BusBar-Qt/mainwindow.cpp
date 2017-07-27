@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     initWidget();
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
+
+    mCheckDlg = new CheckPasswordDlg(this);
+    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
     // TestDlg *dlg = new TestDlg(this);
     // dlg->exec();
 }
@@ -96,7 +99,7 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWidget()
 {
-//    set_background_color(ui->stackedWid,Qt::white);
+    //    set_background_color(ui->stackedWid,Qt::white);
     set_background_icon(ui->stackedWid,":/new/prefix1/image/background.png");
     initBackground();
 
@@ -147,8 +150,9 @@ void MainWindow::on_logBtn_clicked()
 
 void MainWindow::on_setBtn_clicked()
 {
-    setButtonClickedImage(ui->setBtn,"setting_select");
-    ui->stackedWid->setCurrentWidget(mSettingWid);
+    if(ui->stackedWid->currentWidget() != mSettingWid)
+        mCheckDlg->show();
+
 }
 
 void MainWindow::on_alarmBtn_clicked()
@@ -182,4 +186,16 @@ void MainWindow::initBackground()
     setButtonImage(ui->branchBtn,"branch");
     setButtonImage(ui->logBtn,"data");
     setButtonImage(ui->setBtn,"setting");
+}
+
+void MainWindow::dialogClosed(bool ret)
+{
+    if(ret)
+    {
+        setButtonClickedImage(ui->setBtn,"setting_select");
+        ui->stackedWid->setCurrentWidget(mSettingWid);
+    }
+    else
+        QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
+    mCheckDlg->clear();
 }

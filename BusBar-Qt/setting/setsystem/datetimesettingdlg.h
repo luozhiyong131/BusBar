@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_7_clicked();
 
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     void initDateTime();
 

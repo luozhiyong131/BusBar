@@ -34,6 +34,7 @@ protected slots:
     void timeoutDone();
 
 private slots:
+    void indexChanged(int index);
 
 private:
     Ui::LineWid *ui;
@@ -45,6 +46,7 @@ private:
     CustomDialPlot *mVolPlot;
     CustomDialPlot *mPwPlot;
     CustomDialPlot *mPfPlot;
+    int mIndex;
 };
 
 #endif // LINEWID_H

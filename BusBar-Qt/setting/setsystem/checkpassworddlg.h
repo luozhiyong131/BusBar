@@ -16,13 +16,13 @@ public:
     explicit CheckPasswordDlg(QWidget *parent = 0);
     ~CheckPasswordDlg();
 
-    bool getResult();
-
-public slots:
-    void accept();
+    void clear();
 
 private slots:
-//    void on_pushButton_clicked();
+    void on_pushButton_clicked();
+
+signals:
+    void dialogClosed(bool ret);
 
 private:
     Ui::CheckPasswordDlg *ui;

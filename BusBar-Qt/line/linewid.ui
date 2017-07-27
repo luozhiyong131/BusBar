@@ -75,9 +75,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>40</y>
+     <y>60</y>
      <width>1011</width>
-     <height>201</height>
+     <height>181</height>
     </rect>
    </property>
   </widget>
@@ -92,7 +92,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
-border-bottom:5px solid rgb(228,228,228);
+border-bottom:2px solid rgb(228,228,228);
 };</string>
    </property>
   </widget>
@@ -107,7 +107,7 @@ border-bottom:5px solid rgb(228,228,228);
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
-border-bottom:5px solid rgb(228,228,228);
+border-bottom:2px solid rgb(228,228,228);
 };</string>
    </property>
   </widget>
@@ -122,7 +122,7 @@ border-bottom:5px solid rgb(228,228,228);
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
-border-bottom:5px solid rgb(228,228,228);
+border-bottom:2px solid rgb(228,228,228);
 };</string>
    </property>
   </widget>

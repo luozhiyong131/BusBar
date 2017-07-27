@@ -34,6 +34,7 @@ protected:
 protected slots:
     void initFunSLot();
     void timeoutDone();
+    void dialogClosed(bool ret);
 
 private slots:
     void on_homeBtn_clicked();
@@ -61,6 +62,7 @@ private:
     BranchWid *mBranchWid;
     LogsWid *mLogsWid;
     SettingWid *mSettingWid;
+     CheckPasswordDlg *mCheckDlg;
 };
 
 #endif // MAINWINDOW_H
