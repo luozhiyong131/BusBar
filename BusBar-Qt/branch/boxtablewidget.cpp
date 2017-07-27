@@ -245,9 +245,9 @@ void BoxTableWidget::setTemp(int id, int column)
     QString str = "---";
     sDataUnit *unit = &(mBoxData->box[id].env.tem);
 
-    double value = unit->value[0] / COM_RATE_TEM;
+    double value = unit->value[0];
     if(value >= 0)
-        str = QString::number(value, 'f', 1) + "C";
+        str = QString::number(value) + "C";
     setTableItem(id, column, str);
 
     QTableWidgetItem *item = ui->tableWidget->item(id-1, column);

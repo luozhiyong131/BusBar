@@ -44,7 +44,7 @@ void HomeBoxWid::busChangeSlot(int id)
 void HomeBoxWid::updateData()
 {
     QPalette pe;
-    QString str =  QString::number(mData->tgBox.cur) + "A";
+    QString str =  QString::number(mData->tgBox.cur/COM_RATE_CUR,'f',1) + "A";
     if(mData->offLine)   // 在线
     {
         if(mData->boxCurAlarm == 2)
@@ -54,8 +54,7 @@ void HomeBoxWid::updateData()
         else
             pe.setColor(QPalette::WindowText,Qt::black);
     } else {
-        str = "---";
-        
+        str = "---";        
     }
     ui->curLab->setText(str);
     ui->curLab->setPalette(pe);
@@ -65,7 +64,7 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id)
 {
     QString str;
     if(unit.alarm[id]) {
-        str = "boxalarm"; //////======== 图片不对
+        str = "boxalarm";
     } else if(unit.crAlarm[id]) {
         str = "boxciralarm";
     } else {

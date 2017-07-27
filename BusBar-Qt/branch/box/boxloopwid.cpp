@@ -66,16 +66,16 @@ void BoxLoopWid::updateData()
     ui->curLab->setText(str);
     updateAlarmStatus(ui->volLab, mData->vol);
 
-    str =  QString::number(mData->cur.value[id]) + "A";
+    str =  QString::number(mData->cur.value[id]/COM_RATE_CUR, 'f', 1) + "A";
     ui->maxCur->setText(str);
     updateAlarmStatus(ui->curLab, mData->cur);
 
-    str =  QString::number(mData->apPow[id]) + "kVA";
+    str =  QString::number(mData->apPow[id]/COM_RATE_POW, 'f', 1) + "kVA";
     ui->apPow->setText(str);
 
-    str =  QString::number(mData->pow[id]) + "kW";
+    str =  QString::number(mData->pow[id]/COM_RATE_POW, 'f', 1) + "kW";
     ui->powLab->setText(str);
 
-    str =  QString::number(mData->ele[id]) + "kWh";
+    str =  QString::number(mData->ele[id]/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->eleLab->setText(str);
 }
