@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-      initSerial();
+    initSerial();
 
     mIndex = 0;
     initWidget();
@@ -38,8 +38,8 @@ MainWindow::~MainWindow()
 void MainWindow::initSerial()
 {
     RtuThread *rtu = new RtuThread(this);
-        rtu->init("ttyS2", 1);
-//    rtu->init(SERIAL_COM1, 1);
+    rtu->init("ttyS2", 1);
+    //    rtu->init(SERIAL_COM1, 1);
 
 
 
@@ -151,8 +151,7 @@ void MainWindow::on_logBtn_clicked()
 void MainWindow::on_setBtn_clicked()
 {
     if(ui->stackedWid->currentWidget() != mSettingWid)
-        mCheckDlg->show();
-
+        mCheckDlg->exec();
 }
 
 void MainWindow::on_alarmBtn_clicked()
