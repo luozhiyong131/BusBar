@@ -10,7 +10,7 @@
 
 #include "netDataPacket.h"
 
-#define DATA_DEV_VERSION		1 /*设备通讯类型*/
+#define DATA_DEV_VERSION		2 /*设备通讯类型*/
 
 
 /**
@@ -18,6 +18,7 @@
  */
 typedef struct
 {
+    uchar num;	/*编号*/
     uchar addr;	/*地址*/
     uchar fn[2];	/*功能码*/
     ushort len; /*数据长度*/

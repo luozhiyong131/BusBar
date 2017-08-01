@@ -240,6 +240,7 @@ void sent_devData(uchar id, pduDevData *devData)
 	static uchar buf[DATA_MSG_SIZE] = {0};
 	int fn=1;
 
+    msg.num = 0;
 	msg.addr = id;
 	msg.fn[0] = fn++;
 	sent_object(&(devData->line),buf, &msg);

@@ -14,7 +14,7 @@
 
 static int sock_fd=-1; /*套按字*/
 char gUdpCount = UDP_SERVER_OK; /* 20 表示与服务端连接状态  0为断开*/
-static char server_ip[20] = {"192.170.1.1"}; /*服务器IP地址*/
+static char server_ip[20] = {"192.168.1.102"}; /*服务器IP地址*/
 static pthread_t threadId;
 
 /**
@@ -131,8 +131,8 @@ static void udp_thread_count(void)
 	while(1)
 	{
 		udp_delay(1);
-		if(gUdpCount>0)
-			gUdpCount--; /*发送一次减少一次 */
+		//if(gUdpCount>0)  ///====
+		//	gUdpCount--; /*发送一次减少一次 */
 	}
 }
 

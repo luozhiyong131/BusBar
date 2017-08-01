@@ -38,6 +38,7 @@ static int msg_packet(dev_data_packet *pkt, uchar *buf)
     ushort i,rtn=0;
     uchar *ptr = buf;
 
+    *(ptr++) = pkt->num; 	/*设备编号*/
     *(ptr++) = pkt->addr; 	/*设备号*/
 
     *(ptr++) = pkt->fn[0]; /*功能码*/
@@ -49,7 +50,7 @@ static int msg_packet(dev_data_packet *pkt, uchar *buf)
 
     for(i=0; i<pkt->len; ++i)
     	 *(ptr++) = pkt->data[i];
-    rtn = 1 + 2 + 2 + pkt->len;
+    rtn = 2 + 2 + 2 + pkt->len;
 
     return rtn; /*数据包长度*/
 }
@@ -109,6 +110,7 @@ static int msg_analytic(uchar *buf, ushort len, dev_data_packet *pkt)
 {
     uchar *ptr=buf;
 
+    pkt->num = *(ptr++);
     pkt->addr = *(ptr++);/*获取源地址码*/
 
     pkt->fn[0] = *(ptr++); /*功能码*/
