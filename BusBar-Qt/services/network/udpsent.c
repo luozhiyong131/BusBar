@@ -57,7 +57,7 @@ static void udp_initSocket(void)
 			udp_printf("udp init Socket Err\n");
 
 		srand(time(0)); // 获取真的随机数
-		port = 28720 /*+ rand()%udp_PORT_SIZE*/; // 随机分配一个端口
+        port = 28720 + rand()%udp_PORT_SIZE; // 随机分配一个端口
 		server_ip = udp_getServerIP();
 	}
 }

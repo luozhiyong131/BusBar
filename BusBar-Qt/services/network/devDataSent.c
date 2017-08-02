@@ -110,7 +110,7 @@ static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *
 	/*发送报警*/
 	msg->fn[1] = fc + fn++;
 	msg->len = len;
-	msg->data = unit->alrm;
+    msg->data = unit->alarm;
 	sent_packet(msg);
 
 	/*发送临界最小值*/
@@ -128,7 +128,7 @@ static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *
 	/*发送临界报警*/
 	msg->fn[1] = fc + fn++;
 	msg->len = len;
-	msg->data = unit->crAlrm;
+    msg->data = unit->crAlarm;
 	sent_packet(msg);
 }
 
@@ -272,7 +272,7 @@ void init_unit(_devDataUnit *unit)
 	unit->value = buf;
 	unit->max = maxBuf;
 	unit->min = maxBuf;
-	//unit->alrm = alarmbuf;
+    unit->alarm = alarmbuf;
 
 	unit->crMin = buf;
 	unit->crMax = buf;
