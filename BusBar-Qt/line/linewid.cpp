@@ -1,5 +1,6 @@
 #include "linewid.h"
 #include "ui_linewid.h"
+#include "interfacechangesig.h"
 
 LineWid::LineWid(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,7 @@ LineWid::LineWid(QWidget *parent) :
 
     mIndex = 0;
     connect(this, SIGNAL(busChangedSig(int)), this, SLOT(indexChanged(int)));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
 
 LineWid::~LineWid()
@@ -46,15 +48,25 @@ void LineWid::initWid()
     }
 }
 
+
+void LineWid::interfaceChangedSlot(int id)
+{
+    if(id == 2) {
+        isRun = true;
+    } else {
+        isRun = false;
+    }
+}
+
 void LineWid::timeoutDone()
 {
-    QString str = QString::number(mData->rate) + "Hz";
-    ui->rateLab->setText(str);
-
-    str = QString::number(mData->env.tem.value[0]) + "C";
-    ui->temLab->setText(str);
-
     if(isRun) {
+        QString str = QString::number(mData->rate) + "Hz";
+        ui->rateLab->setText(str);
+
+        str = QString::number(mData->env.tem.value[0]) + "C";
+        ui->temLab->setText(str);
+
         updatePlot();
     }
 

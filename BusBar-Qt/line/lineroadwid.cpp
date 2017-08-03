@@ -1,5 +1,6 @@
 #include "lineroadwid.h"
 #include "ui_lineroadwid.h"
+#include "interfacechangesig.h"
 
 LineRoadWid::LineRoadWid(QWidget *parent) :
     QWidget(parent),
@@ -7,11 +8,13 @@ LineRoadWid::LineRoadWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    isRun = false;
     initLine(0);
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(3*1000);
+    timer->start(3*1000 + rand() % 100);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
 
 LineRoadWid::~LineRoadWid()
@@ -21,20 +24,31 @@ LineRoadWid::~LineRoadWid()
 
 void LineRoadWid::initLine(int id)
 {
-     mID = id;
+    mID = id;
 }
 
 
+void LineRoadWid::interfaceChangedSlot(int id)
+{
+    if(id == 2) {
+        isRun = true;
+    } else {
+        isRun = false;
+    }
+}
+
 void LineRoadWid::busChangeSlot(int id)
 {    
-     sDataPacket *shm = get_share_mem();
+    sDataPacket *shm = get_share_mem();
     mData = &(shm->data[id].data);
     updateData();
 }
 
 void LineRoadWid::timeoutDone()
 {
-    updateData();
+    if(isRun) {
+        updateData();
+    }
 }
 
 

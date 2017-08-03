@@ -32,6 +32,7 @@ public slots:
 
 private slots:
     void timeoutDone();
+    void interfaceChangedSlot(int);
     void on_pushButton_clicked();
 
 private:
@@ -40,6 +41,7 @@ private:
     int mID, mBusID, mBaseNum;
     sBoxData *mData;
     QTimer *timer;
+    bool isRun;
 };
 
 #endif // HOMEBOXWID_H

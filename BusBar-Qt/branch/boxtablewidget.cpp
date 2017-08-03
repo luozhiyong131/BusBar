@@ -1,6 +1,7 @@
 #include "boxtablewidget.h"
 #include "ui_boxtablewidget.h"
 #include "box/boxdlg.h"
+#include "interfacechangesig.h"
 
 BoxTableWidget::BoxTableWidget(QWidget *parent) :
     QWidget(parent),
@@ -22,6 +23,7 @@ void BoxTableWidget::initFunSLot()
     timer = new QTimer(this);
     timer->start(3*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
     isRun = false;
 }
 
@@ -286,10 +288,21 @@ void BoxTableWidget::updateData()
     }
 }
 
+
+void BoxTableWidget::interfaceChangedSlot(int id)
+{
+    if(id == 3) {
+        isRun = true;
+    } else {
+        isRun = false;
+    }
+}
+
 void BoxTableWidget::timeoutDone()
 {
-    if(isRun)
+    if(isRun) {
         updateData();
+    }
 }
 
 void BoxTableWidget::getItem(QTableWidgetItem*)

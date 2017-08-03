@@ -3,6 +3,7 @@
 #include "rtuthread.h"
 #include "dpthread.h"
 #include "currentalarmsdlg.h"
+#include "interfacechangesig.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -124,18 +125,13 @@ void MainWindow::initWidget()
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
 
-void MainWindow::setTimerStop()
-{
-    mLineWid->setRun(false);
-    mBranchWid->setRun(false);
-}
 
 void MainWindow::on_homeBtn_clicked()
 {
     setButtonClickedImage(ui->homeBtn,"home_select");
     ui->stackedWid->setCurrentWidget(mHomeWid);
 
-    setTimerStop();
+    emit InterfaceChangeSig::get()->typeSig(1);
 }
 
 void MainWindow::on_lineBtn_clicked()
@@ -143,8 +139,7 @@ void MainWindow::on_lineBtn_clicked()
     setButtonClickedImage(ui->lineBtn,"main_select");
     ui->stackedWid->setCurrentWidget(mLineWid);
 
-    setTimerStop();
-    mLineWid->setRun(true);
+     emit InterfaceChangeSig::get()->typeSig(2);
 }
 
 void MainWindow::on_branchBtn_clicked()
@@ -152,15 +147,14 @@ void MainWindow::on_branchBtn_clicked()
     setButtonClickedImage(ui->branchBtn,"branch_select");
     ui->stackedWid->setCurrentWidget(mBranchWid);
 
-    setTimerStop();
-    mBranchWid->setRun(true);
+     emit InterfaceChangeSig::get()->typeSig(3);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
     setButtonClickedImage(ui->logBtn,"data_select");
     ui->stackedWid->setCurrentWidget(mLogsWid);
-    setTimerStop();
+     emit InterfaceChangeSig::get()->typeSig(4);
 }
 
 void MainWindow::on_setBtn_clicked()
@@ -209,7 +203,7 @@ void MainWindow::dialogClosed(bool ret)
     {
         setButtonClickedImage(ui->setBtn,"setting_select");
         ui->stackedWid->setCurrentWidget(mSettingWid);
-        setTimerStop();
+        emit InterfaceChangeSig::get()->typeSig(5);
     }
     else
         QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");

@@ -15,7 +15,6 @@ class BranchWid : public QWidget
 public:
     explicit BranchWid(QWidget *parent = 0);
     ~BranchWid();
-    void setRun(bool run){mTableWid->setRun(run);}
 
 signals:
     void busChangedSig(int);

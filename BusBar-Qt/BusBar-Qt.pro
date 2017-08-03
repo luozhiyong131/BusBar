@@ -43,11 +43,13 @@ include(customdialplot/customdialplot.pri)
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    currentalarmsdlg.cpp
+    currentalarmsdlg.cpp \
+    interfacechangesig.cpp
 
 HEADERS += \
         mainwindow.h \
-    currentalarmsdlg.h
+    currentalarmsdlg.h \
+    interfacechangesig.h
 
 
 FORMS += \

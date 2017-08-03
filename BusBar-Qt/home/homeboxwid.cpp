@@ -1,6 +1,7 @@
 #include "homeboxwid.h"
 #include "ui_homeboxwid.h"
 #include "box/boxdlg.h"
+#include "interfacechangesig.h"
 
 HomeBoxWid::HomeBoxWid(QWidget *parent) :
     QWidget(parent),
@@ -10,9 +11,11 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     initWid();
     mBusID = 0;
 
+    isRun = true;
     timer = new QTimer(this);
-    timer->start(3500);
+    timer->start(3000 + rand()%100);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
 
 HomeBoxWid::~HomeBoxWid()
@@ -29,6 +32,14 @@ void HomeBoxWid::initFun(int base, int id)
     updateData();
 }
 
+void HomeBoxWid::interfaceChangedSlot(int id)
+{
+    if(id == 1) {
+        isRun = true;
+    } else {
+         isRun = false;
+    }
+}
 
 void HomeBoxWid::busChangeSlot(int id)
 {
@@ -93,8 +104,10 @@ void HomeBoxWid::updateAlarmStatus()
 
 void HomeBoxWid::timeoutDone()
 {
-    updateData();
-    updateAlarmStatus();
+    if(isRun) {
+        updateData();
+        updateAlarmStatus();
+    }
 }
 
 void HomeBoxWid::on_pushButton_clicked()

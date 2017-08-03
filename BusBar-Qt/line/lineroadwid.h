@@ -27,6 +27,7 @@ public slots:
 
 protected slots:
     void timeoutDone();
+    void interfaceChangedSlot(int id);
 
 private:
     Ui::LineRoadWid *ui;
@@ -34,6 +35,7 @@ private:
     int mID;
     sObjData *mData;
     QTimer *timer;
+    bool isRun;
 };
 
 #endif // LINEROADWID_H

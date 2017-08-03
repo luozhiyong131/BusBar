@@ -16,7 +16,6 @@ class BoxTableWidget : public QWidget
 public:
     explicit BoxTableWidget(QWidget *parent = 0);
     ~BoxTableWidget();
-     void setRun(bool run){isRun=run;}
 
 protected:
     void initTableWidget();
@@ -43,6 +42,7 @@ public slots:
     void busChangeSlot(int id);
     void timeoutDone();
     void initFunSLot();
+    void interfaceChangedSlot(int id);
 
 protected slots:
     void getItem(QTableWidgetItem*);

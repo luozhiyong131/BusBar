@@ -1,5 +1,6 @@
 #include "homewid.h"
 #include "ui_homewid.h"
+#include "interfacechangesig.h"
 
 HomeWid::HomeWid(QWidget *parent) :
     QWidget(parent),
@@ -7,6 +8,7 @@ HomeWid::HomeWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    isRun = true;
     initFun();
     initWidget();
 }
@@ -24,6 +26,7 @@ void HomeWid::initFun()
     timer = new QTimer(this);
     timer->start(2*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
 
 void HomeWid::initWidget()
@@ -47,10 +50,21 @@ void HomeWid::initWidget()
     checkBoxBaseNum();
 }
 
+void HomeWid::interfaceChangedSlot(int id)
+{
+    if(id == 1) {
+        isRun = true;
+    } else {
+        isRun = false;
+    }
+}
+
 void HomeWid::timeoutDone()
 {
-    ui->curLcd->display(mBusData->tgBus.cur/COM_RATE_CUR);
-    ui->powLcd->display(mBusData->tgBus.pow/COM_RATE_POW);
+    if(isRun) {
+        ui->curLcd->display(mBusData->tgBus.cur/COM_RATE_CUR);
+        ui->powLcd->display(mBusData->tgBus.pow/COM_RATE_POW);
+    }
 }
 
 void HomeWid::setBoxBaseNum()
