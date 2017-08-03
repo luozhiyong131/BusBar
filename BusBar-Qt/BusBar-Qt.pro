@@ -59,6 +59,7 @@ RESOURCES += \
 
 
 LIBS += -lts
+#LIBS += -lpthread
 
 target.path = /opt
 INSTALLS += target

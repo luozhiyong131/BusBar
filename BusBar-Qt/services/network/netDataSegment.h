@@ -10,7 +10,7 @@
 
 #include "netDataPacket.h"
 
-#define DATA_DEV_VERSION		2 /*设备通讯类型*/
+#define  DATA_DEV_VERSION	2 /*设备通讯类型*/
 
 
 /**

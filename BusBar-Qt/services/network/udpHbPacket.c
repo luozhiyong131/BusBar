@@ -10,7 +10,7 @@
 #include "udpHbPacket.h"
 
 #define UDP_HBPORT_NUM    18725 // 心跳端口
-#define UDP_HEARTBEAT_MSG   "Clever-Manager PDU PC Server OK!"
+#define UDP_HEARTBEAT_MSG   "Clever-Manager PDU APP Server OK!"
 
 static int sock_fd=-1; /*套按字*/
 char gUdpCount = UDP_SERVER_OK; /* 20 表示与服务端连接状态  0为断开*/
@@ -131,8 +131,8 @@ static void udp_thread_count(void)
 	while(1)
 	{
 		udp_delay(1);
-		//if(gUdpCount>0)  ///====
-		//	gUdpCount--; /*发送一次减少一次 */
+        if(gUdpCount>0)  ///====
+            gUdpCount--; /*发送一次减少一次 */
 	}
 }
 
