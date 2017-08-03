@@ -13,10 +13,12 @@ InitShm::InitShm(QObject *parent) : QThread(parent)
 void InitShm::initBoxNum()
 {
     for(int i=0; i<BUS_NUM; ++i) {
-        shm->data[i].boxNum = 18; // 18个插接箱
+        shm->data[i].boxNum = 1; // 18个插接箱
+
+
+        ///////////////////////==================
     }
 }
-
 
 void InitShm::initThresholdUnit(int bus, int type, int num, int id, sDataUnit &unit, int max)
 {

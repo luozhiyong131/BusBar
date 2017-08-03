@@ -30,5 +30,17 @@
         <file>image/next.png</file>
         <file>image/logoff.png</file>
         <file>image/cancel.png</file>
+        <file>image/number/number11.png</file>
+        <file>image/number/number12.png</file>
+        <file>image/number/number13.png</file>
+        <file>image/number/number14.png</file>
+        <file>image/number/number15.png</file>
+        <file>image/number/number16.png</file>
+        <file>image/number/number17.png</file>
+        <file>image/number/number18.png</file>
+        <file>image/number/number19.png</file>
+        <file>image/number/number20.png</file>
+        <file>image/off.png</file>
+        <file>image/on.png</file>
     </qresource>
 </RCC>

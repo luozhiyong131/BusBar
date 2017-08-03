@@ -8,7 +8,10 @@ CheckPasswordDlg::CheckPasswordDlg(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    frmInput::Instance()->Init("bottom", "black", 10, 10);  //打开中文输入法
+    mNumberKeyboard = new MyNumberKeyboardWid(ui->widget_2);
+    QHBoxLayout *layout = new QHBoxLayout(ui->widget_2);
+    layout->addWidget(mNumberKeyboard);
+    mNumberKeyboard->setCurrentLineEdit(ui->lineEdit);
 }
 
 CheckPasswordDlg::~CheckPasswordDlg()
