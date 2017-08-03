@@ -9,9 +9,9 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
     ui->setupUi(this);
     initWid();
     mBusID = 0;
-    
+
     timer = new QTimer(this);
-    timer->start(2000);
+    timer->start(3500);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -54,7 +54,7 @@ void HomeBoxWid::updateData()
         else
             pe.setColor(QPalette::WindowText,Qt::black);
     } else {
-        str = "---";        
+        str = "---";
     }
     ui->curLab->setText(str);
     ui->curLab->setPalette(pe);

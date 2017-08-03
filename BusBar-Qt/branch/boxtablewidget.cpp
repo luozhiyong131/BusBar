@@ -20,8 +20,9 @@ void BoxTableWidget::initFunSLot()
 {
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(2*1000);
+    timer->start(3*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    isRun = false;
 }
 
 
@@ -287,7 +288,8 @@ void BoxTableWidget::updateData()
 
 void BoxTableWidget::timeoutDone()
 {
-    updateData();
+    if(isRun)
+        updateData();
 }
 
 void BoxTableWidget::getItem(QTableWidgetItem*)

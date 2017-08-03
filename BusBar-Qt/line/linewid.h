@@ -19,6 +19,7 @@ class LineWid : public QWidget
 public:
     explicit LineWid(QWidget *parent = 0);
     ~LineWid();
+    void setRun(bool run){isRun=run;}
 
 signals:
     void busChangedSig(int);
@@ -47,6 +48,7 @@ private:
     CustomDialPlot *mPwPlot;
     CustomDialPlot *mPfPlot;
     int mIndex;
+    bool isRun;
 };
 
 #endif // LINEWID_H

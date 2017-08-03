@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-      initSerial();
+    initSerial();
 
     mIndex = 0;
     initWidget();
@@ -38,8 +38,8 @@ MainWindow::~MainWindow()
 void MainWindow::initSerial()
 {
     RtuThread *rtu = new RtuThread(this);
-        rtu->init("ttyS2", 1);
-//    rtu->init(SERIAL_COM1, 1);
+    rtu->init("ttyS2", 1);
+    //    rtu->init(SERIAL_COM1, 1);
 
 
 
@@ -124,35 +124,50 @@ void MainWindow::initWidget()
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
 
+void MainWindow::setTimerStop()
+{
+    mLineWid->setRun(false);
+    mBranchWid->setRun(false);
+}
+
 void MainWindow::on_homeBtn_clicked()
 {
     setButtonClickedImage(ui->homeBtn,"home_select");
     ui->stackedWid->setCurrentWidget(mHomeWid);
+
+    setTimerStop();
 }
 
 void MainWindow::on_lineBtn_clicked()
 {
     setButtonClickedImage(ui->lineBtn,"main_select");
     ui->stackedWid->setCurrentWidget(mLineWid);
+
+    setTimerStop();
+    mLineWid->setRun(true);
 }
 
 void MainWindow::on_branchBtn_clicked()
 {
     setButtonClickedImage(ui->branchBtn,"branch_select");
     ui->stackedWid->setCurrentWidget(mBranchWid);
+
+    setTimerStop();
+    mBranchWid->setRun(true);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
     setButtonClickedImage(ui->logBtn,"data_select");
     ui->stackedWid->setCurrentWidget(mLogsWid);
+    setTimerStop();
 }
 
 void MainWindow::on_setBtn_clicked()
 {
-    if(ui->stackedWid->currentWidget() != mSettingWid)
-        mCheckDlg->show();
-
+    if(ui->stackedWid->currentWidget() != mSettingWid) {
+        mCheckDlg->exec();
+    }
 }
 
 void MainWindow::on_alarmBtn_clicked()
@@ -194,6 +209,7 @@ void MainWindow::dialogClosed(bool ret)
     {
         setButtonClickedImage(ui->setBtn,"setting_select");
         ui->stackedWid->setCurrentWidget(mSettingWid);
+        setTimerStop();
     }
     else
         QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");

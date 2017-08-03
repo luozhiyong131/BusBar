@@ -23,9 +23,9 @@ void LineWid::initFun()
 {
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[0]);
-
+    isRun = false;
     timer = new QTimer(this);
-    timer->start(2*1000);
+    timer->start(3*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -54,9 +54,11 @@ void LineWid::timeoutDone()
     str = QString::number(mData->env.tem.value[0]) + "C";
     ui->temLab->setText(str);
 
-    updatePlot();
+    if(isRun) {
+        updatePlot();
+    }
 
-//    onUpdateDials();
+    //    onUpdateDials();
 }
 
 void LineWid::initTotalWid()

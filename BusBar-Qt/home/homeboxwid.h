@@ -20,7 +20,6 @@ public:
 
     void initFun(int base, int id);
     void setBaseNum(int base);
-
 protected:
     void updateData();
     void updateAlarmStatus();

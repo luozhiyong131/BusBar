@@ -16,6 +16,7 @@ class BoxTableWidget : public QWidget
 public:
     explicit BoxTableWidget(QWidget *parent = 0);
     ~BoxTableWidget();
+     void setRun(bool run){isRun=run;}
 
 protected:
     void initTableWidget();
@@ -52,6 +53,7 @@ private:
     int mBusID;
     sBusData *mBoxData;
     QTimer *timer;
+    bool isRun;
 };
 
 #endif // BOXTABLEWIDGET_H
