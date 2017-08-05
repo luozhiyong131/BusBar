@@ -46,7 +46,7 @@ void LogBtnBar::on_queryBtn_clicked()
 
 void LogBtnBar::on_exportBtn_clicked()
 {
-    mExportDlg->exec();
+    mExportDlg->show();
 }
 
 void LogBtnBar::on_clearBtn_clicked()

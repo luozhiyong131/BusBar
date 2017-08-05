@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>379</height>
+    <width>438</width>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,8 +38,8 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QPushButton" name="pushButton_1">
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButton_space">
      <property name="minimumSize">
       <size>
        <width>60</width>
@@ -58,11 +58,7 @@
       </font>
      </property>
      <property name="text">
-      <string>1</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number11.png</normaloff>:/new/prefix1/image/number/number11.png</iconset>
+      <string>space</string>
      </property>
      <property name="iconSize">
       <size>
@@ -70,13 +66,10 @@
        <height>58</height>
       </size>
      </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="pushButton_2">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="pushButton_0">
      <property name="minimumSize">
       <size>
        <width>60</width>
@@ -94,18 +87,12 @@
        <pointsize>1</pointsize>
       </font>
      </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
      <property name="text">
-      <string>2</string>
+      <string>0</string>
      </property>
      <property name="icon">
       <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number12.png</normaloff>:/new/prefix1/image/number/number12.png</iconset>
+       <normaloff>:/new/prefix1/image/number/number20.png</normaloff>:/new/prefix1/image/number/number20.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -140,6 +127,40 @@
      <property name="icon">
       <iconset resource="../images.qrc">
        <normaloff>:/new/prefix1/image/number/number13.png</normaloff>:/new/prefix1/image/number/number13.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>58</width>
+       <height>58</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="pushButton_7">
+     <property name="minimumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>1</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>7</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/number17.png</normaloff>:/new/prefix1/image/number/number17.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -217,108 +238,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="pushButton_6">
-     <property name="minimumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>1</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>6</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number16.png</normaloff>:/new/prefix1/image/number/number16.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>58</width>
-       <height>58</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="pushButton_7">
-     <property name="minimumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>1</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>7</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number17.png</normaloff>:/new/prefix1/image/number/number17.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>58</width>
-       <height>58</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="minimumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>1</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>8</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number18.png</normaloff>:/new/prefix1/image/number/number18.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>58</width>
-       <height>58</height>
-      </size>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="2">
     <widget class="QPushButton" name="pushButton_9">
      <property name="minimumSize">
@@ -353,8 +272,8 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="pushButton_space">
+   <item row="0" column="0">
+    <widget class="QPushButton" name="pushButton_1">
      <property name="minimumSize">
       <size>
        <width>60</width>
@@ -373,7 +292,11 @@
       </font>
      </property>
      <property name="text">
-      <string>space</string>
+      <string>1</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/number11.png</normaloff>:/new/prefix1/image/number/number11.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -381,10 +304,13 @@
        <height>58</height>
       </size>
      </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QPushButton" name="pushButton_0">
+   <item row="0" column="1">
+    <widget class="QPushButton" name="pushButton_2">
      <property name="minimumSize">
       <size>
        <width>60</width>
@@ -402,12 +328,18 @@
        <pointsize>1</pointsize>
       </font>
      </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
      <property name="text">
-      <string>0</string>
+      <string>2</string>
      </property>
      <property name="icon">
       <iconset resource="../images.qrc">
-       <normaloff>:/new/prefix1/image/number/number20.png</normaloff>:/new/prefix1/image/number/number20.png</iconset>
+       <normaloff>:/new/prefix1/image/number/number12.png</normaloff>:/new/prefix1/image/number/number12.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -438,6 +370,74 @@
      </property>
      <property name="text">
       <string>delate</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>58</width>
+       <height>58</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="pushButton_6">
+     <property name="minimumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>1</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>6</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/number16.png</normaloff>:/new/prefix1/image/number/number16.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>58</width>
+       <height>58</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="minimumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>1</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>8</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/number18.png</normaloff>:/new/prefix1/image/number/number18.png</iconset>
      </property>
      <property name="iconSize">
       <size>

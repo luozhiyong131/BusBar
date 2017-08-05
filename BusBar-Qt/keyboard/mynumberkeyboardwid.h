@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QDebug>
+#include <QSpinBox>
 
 namespace Ui {
 class MyNumberKeyboardWid;
@@ -21,6 +22,7 @@ public:
 
 private slots:
     void buttonClicked();
+    void focusChanged(QWidget *old,QWidget *now);
 
 private:
     void initWid();
@@ -32,6 +34,10 @@ private:
 private:
     Ui::MyNumberKeyboardWid *ui;
     QLineEdit *mEdit;
+    QWidget *currentWid;
+    QSpinBox *currentSpinBox;
+    QLineEdit *currentLineEdit;
+    int mWidType;
 };
 
 #endif // MYNUMBERKEYBOARDWID_H

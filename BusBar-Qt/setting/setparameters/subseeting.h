@@ -23,6 +23,8 @@ public:
 
 private:
     void initWidget();
+    void resetWidget();
+    void clearWidget();
     void initTableWidget();
     void setName(int row , int column );
     void setFirstPhrase(int row , int column );

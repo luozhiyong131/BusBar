@@ -24,6 +24,9 @@ protected slots:
      void exportSlot(bool);
      void overSlot();
 
+private slots:
+     void on_pushButton_clicked();
+
 private:
     Ui::LogAlarmEleExportDlg *ui;
     LogAlarmExportThread *mDbThread;

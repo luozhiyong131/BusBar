@@ -14,15 +14,13 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(143, 89, 2);
-font: 57 14pt &quot;Ubuntu&quot;;
-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>110</y>
      <width>81</width>
      <height>20</height>
     </rect>
@@ -34,7 +32,7 @@ color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>330</x>
      <y>190</y>
      <width>80</width>
      <height>26</height>
@@ -48,7 +46,7 @@ color: rgb(255, 255, 255);</string>
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>90</y>
+     <y>70</y>
      <width>81</width>
      <height>20</height>
     </rect>
@@ -61,8 +59,8 @@ color: rgb(255, 255, 255);</string>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>120</y>
-     <width>251</width>
+     <y>100</y>
+     <width>281</width>
      <height>41</height>
     </rect>
    </property>
@@ -71,7 +69,7 @@ color: rgb(255, 255, 255);</string>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>40</y>
+     <y>10</y>
      <width>441</width>
      <height>31</height>
     </rect>
@@ -86,10 +84,10 @@ color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="statusLab">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>90</y>
+     <x>130</x>
+     <y>70</y>
      <width>281</width>
-     <height>18</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">

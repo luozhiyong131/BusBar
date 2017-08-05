@@ -458,7 +458,7 @@ void frmInput::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
             QPoint pos = QPoint(deskWidth / 2 - frmWidth / 2, deskHeight / 2 - frmHeight / 2);
             this->setGeometry(pos.x(), pos.y(), frmWidth, frmHeight);
         } else if (currentPosition == "bottom") {
-            this->setGeometry(0, deskHeight - frmHeight-20, deskWidth/2, frmHeight/2);
+            this->setGeometry(0, deskHeight - frmHeight-40, deskWidth*0.7, frmHeight);
         } else if (currentPosition == "control") {
             QRect rect = nowWidget->rect();
             QPoint pos = QPoint(rect.left(), rect.bottom() + 2);

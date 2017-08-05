@@ -7,7 +7,11 @@ MyNumberKeyboardWid::MyNumberKeyboardWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mWidType = 0;
     initWid();
+
+//    connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),
+//            this, SLOT(focusChanged(QWidget *, QWidget *)));
 }
 
 MyNumberKeyboardWid::~MyNumberKeyboardWid()
@@ -17,21 +21,16 @@ MyNumberKeyboardWid::~MyNumberKeyboardWid()
 
 void MyNumberKeyboardWid::initWid()
 {
-    qDebug() << "------initwid------";
     initButton();
-    int i = 0;
 
     QList<QPushButton *> btn = this->findChildren<QPushButton *>();
     foreach (QPushButton * b, btn) {
-        qDebug() << "---i---" << i++;
         connect(b, SIGNAL(clicked()), this, SLOT(buttonClicked()));
     }
 }
 
 void MyNumberKeyboardWid::initButton()
-{
-    qDebug() << "------initbutton------";
-
+{    
     ui->pushButton_0->setProperty("number",true);
     ui->pushButton_1->setProperty("number",true);
     ui->pushButton_2->setProperty("number",true);
@@ -48,24 +47,17 @@ void MyNumberKeyboardWid::initButton()
 
 void MyNumberKeyboardWid::buttonClicked()
 {
-    //    qDebug() << "numberclicked";
-
     QPushButton *btn = (QPushButton *)sender();
     QString objectName = btn->objectName();
     QString text = btn->text();
     bool isnum = btn->property("number").toBool();
 
-    qDebug() << "numberclicked"<< text << objectName;
-
     if(isnum)
     {
-        qDebug() << "==============================number";
         insertValue(text);
     }else if(text == "delate")
     {
-        qDebug() << "==============================delate";
         delateValue();
-
     }
     else if(text == "space")
         insertSpace();
@@ -73,13 +65,24 @@ void MyNumberKeyboardWid::buttonClicked()
 
 void MyNumberKeyboardWid::insertValue(QString text)
 {
-    qDebug() << "===text===" << text;
     mEdit->insert(text);
+#if 0
+    switch (mWidType) {
+    case 1:
+        currentLineEdit->insert(text);
+        break;
+    case 2:
+        //        QKeyEvent keyPress(QEvent::KeyPress, 0, Qt::NoModifier, text);
+        //        QApplication::sendEvent(currentSpinBox, &keyPress);
+        break;
+    default:
+        break;
+    }
+#endif
 }
 
 void MyNumberKeyboardWid::delateValue()
 {
-    qDebug() << "delatevalue";
     QString text = mEdit->text();
     QString newText ="";
     int len = text.length();
@@ -87,7 +90,6 @@ void MyNumberKeyboardWid::delateValue()
         newText = text.remove(len-1,1);
     mEdit->clear();
     mEdit->setText(newText);
-    qDebug() << "delatevalue"<< newText;
 }
 
 void MyNumberKeyboardWid::insertSpace()
@@ -98,5 +100,18 @@ void MyNumberKeyboardWid::insertSpace()
 void MyNumberKeyboardWid::setCurrentLineEdit(QLineEdit *lineedit)
 {
     mEdit = lineedit;
+}
+
+void MyNumberKeyboardWid::focusChanged(QWidget *old,QWidget *now)
+{
+    if(now->inherits("QLineEdit"))
+    {
+        currentLineEdit = (QLineEdit *)now;
+        mWidType = 1;
+    } else if(now->inherits("QSpinBox"))
+    {
+        currentSpinBox = (QSpinBox *)now;
+        mWidType = 2;
+    }
 }
 

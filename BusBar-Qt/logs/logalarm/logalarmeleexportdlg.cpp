@@ -50,3 +50,8 @@ void LogAlarmEleExportDlg:: overSlot()
 {
     ui->pushButton->setEnabled(true);
 }
+
+void LogAlarmEleExportDlg::on_pushButton_clicked()
+{
+    this->close();
+}

@@ -37,6 +37,8 @@ bool cm_isDigitStr(const QString &src);
 bool cm_isIPaddress(const QString& ip);
 int SetSystemTime(settingTime *time);
 QString getPassword();
+int getBoxNum(int index);
+int getRateCur(int index);
 
 sDataPacket *get_share_mem();
 

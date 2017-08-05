@@ -54,14 +54,8 @@ void MajorSetting::updateWidget(int index)
 
     ui->lineEdit->setText(busData->busName);
 
-    bool ret = sys_configFile_open();  //打开配置文件
-    if(ret)
-    {
-        QString strGroup = QString("Line%1").arg(index+1);
-        rateCur = sys_configFile_readInt("rateCur",strGroup);
-        boxNum = sys_configFile_readInt("boxNum",strGroup);
-        sys_configFile_close();
-    }
+    rateCur = getRateCur(index);
+    boxNum = getBoxNum(index);
 
     ui->lineEdit_2->setText(QString::number(rateCur,10));
     ui->lineEdit_3->setText(QString::number(boxNum,10));
@@ -127,7 +121,8 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
  */
 void MajorSetting::on_pushButton_clicked()
 {
-    qDebug() << "cliced";
+    //    qDebug() << "cliced";
+    bool saveSuccess = true;
     DbNameItem item;
     item.bus = mIndex;
     item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
@@ -136,20 +131,34 @@ void MajorSetting::on_pushButton_clicked()
     if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
         item.name = name;
         mShm->setName(item);
-    }
+    }else
+        saveSuccess = false;
 
     QString rateCurStr = ui->lineEdit_2->text();
     if((!rateCurStr.isEmpty()) && (cm_isDigitStr(rateCurStr)))
     {
         mShm->setLineRatedCur(mIndex,rateCurStr.toInt());
+    }else
+    {
+        QMessageBox::information(this,tr("information"),tr("请检查电流输入格式！"));
+        saveSuccess = false;
     }
 
     QString boxNumStr = ui->lineEdit_3->text();
     if((!boxNumStr.isEmpty()) && (cm_isDigitStr(boxNumStr)))
     {
         mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
+    }else
+    {
+        QMessageBox::information(this,tr("information"),tr("请检查插接箱数量输入格式！"));
+        saveSuccess = false;
     }
 
+
+    if(saveSuccess)
+        QMessageBox::information(this,tr("information"),tr("保存成功！"),tr("确定"));
+    else
+        QMessageBox::information(this,tr("information"),tr("保存失败！"),tr("确定"));
 }
 
 /**

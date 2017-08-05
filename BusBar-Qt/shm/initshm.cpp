@@ -12,11 +12,10 @@ InitShm::InitShm(QObject *parent) : QThread(parent)
  */
 void InitShm::initBoxNum()
 {
+    int boxNum = 18 ;
     for(int i=0; i<BUS_NUM; ++i) {
-        shm->data[i].boxNum = 18; // 18个插接箱
-
-
-        ///////////////////////==================
+        boxNum = getBoxNum(i);
+        shm->data[i].boxNum = boxNum; // 18个插接箱
     }
 }
 

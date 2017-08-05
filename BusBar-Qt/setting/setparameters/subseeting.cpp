@@ -33,17 +33,24 @@ void SubSeeting::initTableWidget()
     mWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     mWidget->horizontalHeader()->setStretchLastSection(true);
     mWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);  //设置不可编辑
-    mWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+    //    mWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
+}
 
-    for(int i = 0 ;  i < BOX_NUM ; i++)
+void SubSeeting::resetWidget()
+{
+    int boxNum = mPacket->data[mIndex].boxNum;
+
+    for(int i = 0 ;  i < boxNum ; i++)
+    {
+        mWidget->insertRow(i);
         for(int j = 0 ;  j < 5 ; j++)
         {
             QTableWidgetItem * item = new QTableWidgetItem("---");
             item->setTextAlignment(Qt::AlignHCenter);
             mWidget->setItem(i, j ,item);
         }
-
+    }
 }
 
 /**
@@ -53,9 +60,13 @@ void SubSeeting::initTableWidget()
 void SubSeeting::updateWid(int index)
 {
     mIndex = index;
+
     mPacket = get_share_mem();
+    clearWidget();
+    resetWidget();
 
     int row = mWidget->rowCount();
+    qDebug() << "row=============" << row;
     for(int i = 0 ; i < row ; i++)
     {
         int column = 0 ;
@@ -65,7 +76,13 @@ void SubSeeting::updateWid(int index)
         setThreePhrase(i,column++);
         setTem(i,column++);
     }
+}
 
+void SubSeeting::clearWidget()
+{
+    int row = mWidget->rowCount();
+    for(int i = 0 ; i < row ; i++)
+        mWidget->removeRow(0);
 }
 
 /**
@@ -77,6 +94,7 @@ void SubSeeting::setName(int row, int column)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
     QString str = mPacket->data[mIndex].box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
+    qDebug() << "mindex---------------" << mIndex << str;
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 
@@ -143,7 +161,6 @@ void SubSeeting::setTem(int row, int column)
 
 void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
 {
-    qDebug() << "item clicked";
     int index = mIndex ;
     int boxNum = item->row() +1 ;
     int lineNum ;

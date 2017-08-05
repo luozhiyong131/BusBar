@@ -13,15 +13,13 @@ SettingWid::SettingWid(QWidget *parent) :
 
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
     majorSettingWidget->updateWidget(0);
-
+    mSubsettingWid->updateWid(0);
 }
 
 SettingWid::~SettingWid()
 {
     delete ui;
 }
-
-
 
 void SettingWid::initWidget()
 {
@@ -59,7 +57,7 @@ void SettingWid::on_pushButton_clicked()
 void SettingWid::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
-    mSubsettingWid->updateWid(0);
+//    mSubsettingWid->updateWid(0);
 }
 
 /**

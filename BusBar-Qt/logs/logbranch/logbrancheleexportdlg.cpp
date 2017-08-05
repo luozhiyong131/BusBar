@@ -50,3 +50,8 @@ void LogBranchEleExportDlg:: overSlot()
 {
     ui->pushButton->setEnabled(true);
 }
+
+void LogBranchEleExportDlg::on_pushButton_clicked()
+{
+    this->close();
+}

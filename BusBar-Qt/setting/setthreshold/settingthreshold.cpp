@@ -13,6 +13,7 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
     isBox = false;
 
     mShm = new SetShm; //操作共享内存
+//    frmNum::Instance()->Init("lightgray",10); // 打开数字键盘
 
     initWidget();
 }

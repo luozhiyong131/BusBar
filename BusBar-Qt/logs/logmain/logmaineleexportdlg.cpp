@@ -49,3 +49,8 @@ void LogMainEleExportDlg:: overSlot()
 {
     ui->pushButton->setEnabled(true);
 }
+
+void LogMainEleExportDlg::on_pushButton_clicked()
+{
+    this->close();
+}

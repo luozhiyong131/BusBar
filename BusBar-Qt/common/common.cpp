@@ -137,3 +137,36 @@ QString getPassword()
 
     return passpord;
 }
+
+/**
+ * @brief getBoxNum
+ * @param index 即插接厢标号
+ * @return 
+ */
+int getBoxNum(int index)
+{
+    int boxNum = 0 ;
+    bool ret = sys_configFile_open();  //打开配置文件
+    if(ret)
+    {
+        QString strGroup = QString("Line%1").arg(index+1);
+        boxNum = sys_configFile_readInt("boxNum",strGroup);
+        sys_configFile_close();
+    } 
+    return boxNum;
+}
+
+int getRateCur(int index)
+{
+    int rateCur = 0 ;
+    bool ret = sys_configFile_open();  //打开配置文件
+    if(ret)
+    {
+        QString strGroup = QString("Line%1").arg(index+1);
+        rateCur = sys_configFile_readInt("rateCur",strGroup);
+        sys_configFile_close();
+    }  
+    return rateCur;
+}
+
+

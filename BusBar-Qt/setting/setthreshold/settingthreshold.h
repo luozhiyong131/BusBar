@@ -5,6 +5,7 @@
 #include <QSpinBox>
 #include "common.h"
 #include "setshm.h"
+#include "frmnum.h"
 
 namespace Ui {
 class SettingThreshold;
