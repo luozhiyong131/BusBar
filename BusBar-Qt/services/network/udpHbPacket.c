@@ -13,7 +13,7 @@
 #define UDP_HEARTBEAT_MSG   "Clever-Manager PDU APP Server OK!"
 
 static int sock_fd=-1; /*套按字*/
-char gUdpCount = UDP_SERVER_OK; /* 20 表示与服务端连接状态  0为断开*/
+char gUdpCount = 0; //UDP_SERVER_OK; /* 20 表示与服务端连接状态  0为断开*/
 static char server_ip[20] = {"192.168.1.102"}; /*服务器IP地址*/
 static pthread_t threadId;
 
