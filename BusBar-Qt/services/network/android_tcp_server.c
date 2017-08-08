@@ -14,7 +14,7 @@ int android_sent(uchar *buf, int len)
 {
 	if(gSocket > 0) {
 		len = send(gSocket, buf, len, 0);
-		usleep(25*1000);  // 适当延时，等待 移动端数据处理完成
+        usleep(25*1000);  // 适当延时，等待 移动端数据处理完成
 	}
 	else
 		len = -1;
@@ -93,9 +93,12 @@ static int tcp_accept(int sockfd)
 		if(landVerify(sock) > 0)
 			tcp_recv(sock);
 	}
-	else
+    else {
+        gSocket = -1;
 		udp_printf("call to accept error\n");
-	gSocket = -1;
+        sleep(1);
+    }
+
 
 	return 0;
 }
@@ -104,8 +107,9 @@ static void tcp_thread_entry(void)
 {
 	sock_fd = tcp_creatSocket(ANDROID_TCP_PORT, 1);
 
-	while(1)
-		tcp_accept(sock_fd);
+    while(1) {
+		tcp_accept(sock_fd);        
+    }
 
 }
 
