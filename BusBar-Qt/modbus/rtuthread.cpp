@@ -96,6 +96,7 @@ void RtuThread::transData(int addr)
                 offLine = 1;
                 loopData(box, pkt);
                 envData(&(box->env), pkt);
+                box->rate = pkt->rate;
             }
         }
     }

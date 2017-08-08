@@ -135,6 +135,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
+        pkt->rate = *ptr;
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
             ptr += rtu_recv_env(ptr, &(pkt->env[i]));
         pkt->lineNum = *ptr;
