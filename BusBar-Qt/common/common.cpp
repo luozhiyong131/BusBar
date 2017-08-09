@@ -145,7 +145,7 @@ QString getPassword()
  */
 int getBoxNum(int index)
 {
-    int boxNum = 0 ;
+    int boxNum = -1 ;
     bool ret = sys_configFile_open();  //打开配置文件
     if(ret)
     {

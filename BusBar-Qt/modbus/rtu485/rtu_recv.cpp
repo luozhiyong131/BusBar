@@ -23,12 +23,12 @@ static int rtu_recv_len(uchar *buf, int len)
         qDebug() << "rtu recv Err: len too short!!";
     } else if(len > rtn) {
         ret = -2;
-        qDebug() << "rtu recv Err: len too long!!";
+        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
         len = buf[2]*256 + buf[3];
         if(len != RTU_SENT_LEN) {
             ret = -3;
-            qDebug() << "rtu recv len Err!!";
+            qDebug() << "rtu recv len Err!!"<< len << rtn ;
         }
     }
 
@@ -72,6 +72,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     if(msg->apPow > 0)
     {
         msg->pf = (msg->pow * 100) / msg->apPow;// 功率因素
+        if(msg->pf > 99) msg->pf = 99;
     }
     else msg->pf = 0;
 

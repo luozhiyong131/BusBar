@@ -127,6 +127,9 @@ void DpTgThread::tgBusLine(sBusData *bus)
         bus->data.pf[i] = box->data.pf[i];
         bus->data.sw[i] = box->data.sw[i];
         bus->data.ratedCur[i] = box->data.ratedCur[i];
+
+        bus->rate =  box->rate;
+        bus->env.tem.value[i] = box->env.tem.value[i];
     }
 
 #endif
@@ -134,7 +137,7 @@ void DpTgThread::tgBusLine(sBusData *bus)
 
 void DpTgThread::tgBus(sBusData *bus)
 {
-    for(int i=1; i<=bus->boxNum; ++i) { // 插接箱统计
+    for(int i=0; i<=bus->boxNum; ++i) { // 插接箱统计
         tgBox(&(bus->box[i]));
     }
     tgBusLine(bus);

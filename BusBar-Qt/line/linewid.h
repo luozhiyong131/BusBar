@@ -27,7 +27,6 @@ protected:
     void initFun();
     void initWid();
     void initTotalWid();
-    void onUpdateDials();
     void updatePlot();
 
 protected slots:
