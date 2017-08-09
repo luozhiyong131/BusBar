@@ -250,7 +250,7 @@ void BoxTableWidget::setTemp(int id, int column)
 
     double value = unit->value[0];
     if(value >= 0)
-        str = QString::number(value) + "C";
+        str = QString::number(value) + "°C";
     setTableItem(id, column, str);
 
     QTableWidgetItem *item = ui->tableWidget->item(id-1, column);

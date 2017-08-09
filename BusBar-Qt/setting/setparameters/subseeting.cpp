@@ -66,7 +66,6 @@ void SubSeeting::updateWid(int index)
     resetWidget();
 
     int row = mWidget->rowCount();
-    qDebug() << "row=============" << row;
     for(int i = 0 ; i < row ; i++)
     {
         int column = 0 ;
@@ -94,7 +93,6 @@ void SubSeeting::setName(int row, int column)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
     QString str = mPacket->data[mIndex].box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
-    qDebug() << "mindex---------------" << mIndex << str;
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 

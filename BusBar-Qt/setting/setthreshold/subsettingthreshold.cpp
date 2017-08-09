@@ -69,7 +69,6 @@ void SubSettingThreshold::on_pushButton_clicked()
 
 void SubSettingThreshold::saveData()
 {
-    qDebug() << "mbus:" << mBus << "mindex:" << mIndex;
     getDigData(); //获取界面数据
 
     DbThresholdItem item;

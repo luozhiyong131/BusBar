@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-//    initSerial();
+    initSerial();
 
     mIndex = 0;
     initWidget();

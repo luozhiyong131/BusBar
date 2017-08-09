@@ -68,7 +68,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->curAlarm =  (*ptr) * 256 + *(ptr+1);  ptr += 2;// 上限电流报警值
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
 
-    msg->apPow = msg->vol * msg->cur; // 视在功率
+    msg->apPow = msg->vol * msg->cur / 10; // 视在功率
     if(msg->apPow > 0)
     {
         msg->pf = (msg->pow * 100) / msg->apPow;// 功率因素
@@ -135,7 +135,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
-        pkt->rate = *ptr;
+        pkt->rate = *(ptr++);
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
             ptr += rtu_recv_env(ptr, &(pkt->env[i]));
         pkt->lineNum = *ptr;
