@@ -5,6 +5,7 @@
 #include "currentalarmsdlg.h"
 #include "interfacechangesig.h"
 #include "beepthread.h"
+#include "datetime/timesettingdlg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -57,7 +58,7 @@ void MainWindow::initSerial()
 void MainWindow::timeoutDone()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    ui->timeLab->setText(time);
+    ui->timeBtn->setText(time);
 
     checkAlarm();
     setBusName(mIndex);
@@ -170,6 +171,7 @@ void MainWindow::on_setBtn_clicked()
 
 void MainWindow::on_alarmBtn_clicked()
 {
+     BeepThread::bulid()->beep();
     CurrentAlarmsDlg dlg(this);
     dlg.exec();
 }
@@ -212,4 +214,11 @@ void MainWindow::dialogClosed(bool ret)
     else
         QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
     mCheckDlg->clear();
+}
+
+void MainWindow::on_timeBtn_clicked()
+{
+     BeepThread::bulid()->beep();
+     TimeSettingDlg dlg(this);
+     dlg.exec();
 }

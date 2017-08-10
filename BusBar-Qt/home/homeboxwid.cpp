@@ -2,6 +2,7 @@
 #include "ui_homeboxwid.h"
 #include "box/boxdlg.h"
 #include "interfacechangesig.h"
+#include "beepthread.h"
 
 HomeBoxWid::HomeBoxWid(QWidget *parent) :
     QWidget(parent),
@@ -112,6 +113,7 @@ void HomeBoxWid::timeoutDone()
 
 void HomeBoxWid::on_pushButton_clicked()
 {
+    BeepThread::bulid()->beep();
     BoxDlg dlg(0);
     dlg.initBox(mBusID, mID);
     dlg.exec();

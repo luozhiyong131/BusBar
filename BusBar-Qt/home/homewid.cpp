@@ -1,6 +1,7 @@
 #include "homewid.h"
 #include "ui_homewid.h"
 #include "interfacechangesig.h"
+#include "beepthread.h"
 
 HomeWid::HomeWid(QWidget *parent) :
     QWidget(parent),
@@ -71,6 +72,7 @@ void HomeWid::setBoxBaseNum()
 {
     for(int i=0; i<10; ++i)
         mBoxWid[i]->initFun(mBaseNum, i);
+    BeepThread::bulid()->beep();
 }
 
 bool HomeWid::checkBoxBaseNum()

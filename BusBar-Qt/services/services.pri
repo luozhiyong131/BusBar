@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/network/udpdebug.h \
     $$PWD/network/udpHbPacket.h \
     $$PWD/network/udpsent.h \
-    $$PWD/network/udpservice.h
+    $$PWD/network/udpservice.h \
+    $$PWD/datetime/timesettingdlg.h
     
    
 	
@@ -44,12 +45,14 @@ SOURCES += \
     $$PWD/network/tcpserver.c \
     $$PWD/network/udpHbPacket.c \
     $$PWD/network/udpsent.c \
-    $$PWD/network/udpservice.c
+    $$PWD/network/udpservice.c \
+    $$PWD/datetime/timesettingdlg.cpp
     
 
 FORMS += \
     $$PWD/smtp/emailsetdlg.ui \
     $$PWD/smtp/emailwid.ui \
-    $$PWD/excel/excelexportwid.ui
+    $$PWD/excel/excelexportwid.ui \
+    $$PWD/datetime/timesettingdlg.ui
 
 

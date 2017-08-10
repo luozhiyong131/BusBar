@@ -2,6 +2,7 @@
 #include "ui_boxtablewidget.h"
 #include "box/boxdlg.h"
 #include "interfacechangesig.h"
+#include "beepthread.h"
 
 BoxTableWidget::BoxTableWidget(QWidget *parent) :
     QWidget(parent),
@@ -307,6 +308,7 @@ void BoxTableWidget::timeoutDone()
 
 void BoxTableWidget::getItem(QTableWidgetItem*)
 {
+     BeepThread::bulid()->beep();
     int row = ui->tableWidget->currentRow();
 
     BoxDlg dlg(0);
