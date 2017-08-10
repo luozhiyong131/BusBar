@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mIndex = 0;
     initWidget();
+     updateTime();
+
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
     BeepThread::bulid()->longBeep();
@@ -55,11 +57,15 @@ void MainWindow::initSerial()
     //    rtu->init(SERIAL_COM4, 4);
 }
 
-void MainWindow::timeoutDone()
+void MainWindow::updateTime()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->timeBtn->setText(time);
+}
 
+void MainWindow::timeoutDone()
+{   
+    updateTime();
     checkAlarm();
     setBusName(mIndex);
 }
@@ -93,6 +99,7 @@ void MainWindow::checkAlarm()
 void MainWindow::initFunSLot()
 {
     new DpThread(this); // 创建数据处理线程
+    updateTime();
 
     timer = new QTimer(this);
     timer->start(1000);

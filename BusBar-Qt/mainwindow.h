@@ -30,6 +30,7 @@ protected:
     void setBusName(int index);
     void setButtonImage(QToolButton *button, QString name);
     void setButtonClickedImage(QToolButton *button, QString name);
+    void updateTime();
 
 protected slots:
     void initFunSLot();
