@@ -40,6 +40,7 @@ include(services/services.pri)
 include(shm/shm.pri)
 include(keyboard/keyboard.pri)
 include(customdialplot/customdialplot.pri)
+include(beep/beep.pri)
 
 SOURCES += \
         main.cpp \
