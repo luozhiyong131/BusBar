@@ -43,5 +43,6 @@ void BoxDlg::initWid(int bus, int box)
 
 void BoxDlg::on_pushButton_clicked()
 {
+    BeepThread::bulid()->beep();
     this->close();
 }

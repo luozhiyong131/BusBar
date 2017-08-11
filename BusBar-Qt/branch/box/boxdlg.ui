@@ -85,13 +85,13 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>10</y>
+     <y>20</y>
      <width>41</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(204, 0, 0);</string>
+    <string notr="true">background-color: rgb(200, 200, 200);</string>
    </property>
    <property name="text">
     <string/>

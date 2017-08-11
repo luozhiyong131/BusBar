@@ -241,7 +241,7 @@ color: rgb(255, 255, 255);</string>
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>10</number>
      </property>
      <property name="bottomMargin">
       <number>0</number>
@@ -281,16 +281,16 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>0</height>
-        </size>
+      <widget class="QPushButton" name="homeLabBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>57</width>
          <height>16777215</height>
         </size>
        </property>
@@ -301,13 +301,13 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>主界面</string>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -354,12 +354,12 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>0</height>
-        </size>
+      <widget class="QPushButton" name="lineLabBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
@@ -374,13 +374,14 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
-        <string>主路信息</string>
+        <string>主路
+信息</string>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -427,12 +428,12 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_5">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>0</height>
-        </size>
+      <widget class="QPushButton" name="branchLabBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
@@ -447,13 +448,14 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
-        <string>支路信息</string>
+        <string>支路
+信息</string>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -500,12 +502,12 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_6">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>0</height>
-        </size>
+      <widget class="QPushButton" name="logLabBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
@@ -520,13 +522,14 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
-        <string>数据纪录</string>
+        <string>数据
+纪录</string>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -573,12 +576,12 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_7">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>0</height>
-        </size>
+      <widget class="QPushButton" name="setLabBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
@@ -593,13 +596,14 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
-        <string>参数设置</string>
+        <string>参数
+设置</string>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -661,5 +665,86 @@ color: rgb(255, 255, 255);</string>
  <resources>
   <include location="images.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>homeLabBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>homeBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>48</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineLabBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>lineBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>branchLabBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>branchBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>480</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>logLabBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>logBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>657</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setLabBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>setBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>834</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>763</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
