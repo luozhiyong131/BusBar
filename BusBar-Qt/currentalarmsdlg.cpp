@@ -84,11 +84,13 @@ void CurrentAlarmsDlg::updateData()
 
 void CurrentAlarmsDlg::on_refreshBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     initTableWidget();
     updateData();
 }
 
 void CurrentAlarmsDlg::on_quitBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     this->close();
 }
