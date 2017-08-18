@@ -33,7 +33,7 @@ border-radius:15px
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
-          <string>主路电路</string>
+          <string>主路电量</string>
          </property>
         </item>
         <item>

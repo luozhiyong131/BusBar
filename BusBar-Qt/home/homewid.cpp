@@ -111,3 +111,4 @@ void HomeWid::on_downBtn_clicked()
         mBaseNum--;
     }
 }
+

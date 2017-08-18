@@ -66,20 +66,13 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->ele <<= 8; // 左移8位
     msg->ele +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
     msg->curAlarm =  (*ptr) * 256 + *(ptr+1);  ptr += 2;// 上限电流报警值
+    msg->pf =  *(ptr++);;// 功率因素
+    msg->sw =  *(ptr++);// 开关状态
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
 
-    msg->apPow = msg->vol * msg->cur / 10; // 视在功率
-    if(msg->apPow > 0)
-    {
-        msg->pf = (msg->pow * 100) / msg->apPow;// 功率因素
-        if(msg->pf > 99) msg->pf = 99;
-    }
-    else msg->pf = 0;
+    msg->apPow = msg->vol * msg->cur / 10; // 视在功率   
 
-    if(msg->vol > 0) msg->sw = 1;  // 开关状态
-    else msg->sw = 0;  // 开关状态
-
-    return 14;   ////============ 加上开关，功率因素之后，是为14
+    return 16;   ////============ 加上开关，功率因素之后，是为14
 }
 
 /**

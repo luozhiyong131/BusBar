@@ -17,7 +17,7 @@ BeepThread *BeepThread::bulid()
 
 void BeepThread::beep()
 {
-    mSec = 255;
+    mSec = 55;
     start();
 }
 
