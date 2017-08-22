@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mIndex = 0;
     initWidget();
-     updateTime();
+    updateTime();
 
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
@@ -178,7 +178,7 @@ void MainWindow::on_setBtn_clicked()
 
 void MainWindow::on_alarmBtn_clicked()
 {
-     BeepThread::bulid()->beep();
+    BeepThread::bulid()->beep();
     CurrentAlarmsDlg dlg(this);
     dlg.exec();
 }
@@ -225,7 +225,7 @@ void MainWindow::dialogClosed(bool ret)
 
 void MainWindow::on_timeBtn_clicked()
 {
-     BeepThread::bulid()->beep();
-     TimeSettingDlg dlg(this);
-     dlg.exec();
+    BeepThread::bulid()->beep();
+    TimeSettingDlg dlg(this);
+    dlg.exec();
 }
