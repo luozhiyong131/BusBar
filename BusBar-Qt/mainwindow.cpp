@@ -13,15 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-//    initSerial();
+    //    initSerial();
 
     mIndex = 0;
     initWidget();
-<<<<<<< Updated upstream
-=======
-    updateTime();
+    //<<<<<<< Updated upstream
+    //=======
+    //    updateTime();
 
->>>>>>> Stashed changes
+    //>>>>>>> Stashed changes
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
 
@@ -144,7 +144,7 @@ void MainWindow::on_lineBtn_clicked()
     setButtonClickedImage(ui->lineBtn,"main_select");
     ui->stackedWid->setCurrentWidget(mLineWid);
 
-     emit InterfaceChangeSig::get()->typeSig(2);
+    emit InterfaceChangeSig::get()->typeSig(2);
 }
 
 void MainWindow::on_branchBtn_clicked()
@@ -152,14 +152,14 @@ void MainWindow::on_branchBtn_clicked()
     setButtonClickedImage(ui->branchBtn,"branch_select");
     ui->stackedWid->setCurrentWidget(mBranchWid);
 
-     emit InterfaceChangeSig::get()->typeSig(3);
+    emit InterfaceChangeSig::get()->typeSig(3);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
     setButtonClickedImage(ui->logBtn,"data_select");
     ui->stackedWid->setCurrentWidget(mLogsWid);
-     emit InterfaceChangeSig::get()->typeSig(4);
+    emit InterfaceChangeSig::get()->typeSig(4);
 }
 
 void MainWindow::on_setBtn_clicked()
@@ -171,10 +171,10 @@ void MainWindow::on_setBtn_clicked()
 
 void MainWindow::on_alarmBtn_clicked()
 {
-<<<<<<< Updated upstream
-=======
-    BeepThread::bulid()->beep();
->>>>>>> Stashed changes
+    //<<<<<<< Updated upstream
+    //=======
+//        BeepThread::bulid()->beep();
+    //>>>>>>> Stashed changes
     CurrentAlarmsDlg dlg(this);
     dlg.exec();
 }
@@ -218,13 +218,14 @@ void MainWindow::dialogClosed(bool ret)
         QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
     mCheckDlg->clear();
 }
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 
-void MainWindow::on_timeBtn_clicked()
-{
-    BeepThread::bulid()->beep();
-    TimeSettingDlg dlg(this);
-    dlg.exec();
-}
->>>>>>> Stashed changes
+//void MainWindow::on_timeBtn_clicked()
+//{
+//    BeepThread::bulid()->beep();
+//    TimeSettingDlg dlg(this);
+//    dlg.exec();
+//}
+//>>>>>>> Stashed changes
+
