@@ -20,7 +20,7 @@ public:
     explicit SettingThreshold(QWidget *parent = 0);
     ~SettingThreshold();
 
-    void initWidget(int index ,int boxNUm ,int lineNum);
+    void initWidget(int index ,int boxNUm ,int lineNum,int temNum = 0);
 
 private slots:
     void on_pushButton_clicked();
@@ -47,6 +47,7 @@ private:
     int mBusNum;
     int mBoxNum;
     int mLineNum;
+    int mTemNum;
     bool isBox;
 
 

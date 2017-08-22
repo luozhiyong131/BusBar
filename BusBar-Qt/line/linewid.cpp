@@ -25,6 +25,7 @@ void LineWid::initFun()
 {
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[0]);
+
     isRun = false;
     timer = new QTimer(this);
     timer->start(3*1000);
@@ -64,54 +65,53 @@ void LineWid::timeoutDone()
         QString str = QString::number(mData->rate) + "Hz";
         ui->rateLab->setText(str);
 
-        str = QString::number(mData->env.tem.value[0]) + "C";
+        str = QString::number(mData->env.tem.value[0]) + "°C";
         ui->temLab->setText(str);
 
         updatePlot();
     }
-
-    //    onUpdateDials();
 }
+
 
 void LineWid::initTotalWid()
 {
     QHBoxLayout *layout = new QHBoxLayout(ui->totalWid);
 
     mCurPlot = new CustomDialPlot(ui->totalWid);
-    //    mVolPlot = new CustomDialPlot(ui->totalWid);
+    mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
-    mPfPlot = new CustomDialPlot(ui->totalWid);
+//    mPfPlot = new CustomDialPlot(ui->totalWid);
 
+    layout->addWidget(mVolPlot);
     layout->addWidget(mCurPlot);
-    //    layout->addWidget(mVolPlot);
     layout->addWidget(mPwPlot);
-    layout->addWidget(mPfPlot);
+//    layout->addWidget(mPfPlot);
+
+    mVolPlot->setUnit("V");
+    mVolPlot->setRange(0,255);
 
     mCurPlot->setUnit("A");
-    //    mVolPlot->setUnit("V");
-    mPwPlot->setUnit("kVA");
-    mPfPlot->setUnit("kWh");
+    int max = 0;
+    for(int i=0; i<3; ++i) max += mData->data.cur.max[i];
+    mCurPlot->setRange(0,max/COM_RATE_CUR + 1);
 
-    mCurPlot->setRange(0,100);
+    mPwPlot->setUnit("kW");
+    max *= 255;
+    mPwPlot->setRange(0,max/COM_RATE_POW);
+
+//    mPfPlot->setUnit("");
+//    mPfPlot->setRange(0,1);
 }
 
-void LineWid::onUpdateDials()
-{
-    double dValue = 0;
-
-    dValue = rand()%(mCurPlot->getMax());
-    mCurPlot->setValue(dValue);
-
-}
 
 void LineWid::updatePlot()
-{
+{    
     sDataPacket *shm = get_share_mem();
     sTgObjData *tgBusData = &(shm->data[mIndex].tgBus);
-
-    mCurPlot->setValue(tgBusData->cur);
-    mPwPlot->setValue(tgBusData->pow);
-    mPfPlot->setValue(tgBusData->pf);
+    mVolPlot->setValue(tgBusData->vol);
+    mCurPlot->setValue(tgBusData->cur/COM_RATE_CUR);
+    mPwPlot->setValue(tgBusData->pow/COM_RATE_POW);
+//    mPfPlot->setValue(tgBusData->pf/COM_RATE_PF);
 }
 
 void LineWid::indexChanged(int index)

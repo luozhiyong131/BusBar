@@ -13,7 +13,7 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
     isBox = false;
 
     mShm = new SetShm; //操作共享内存
-//    frmNum::Instance()->Init("lightgray",10); // 打开数字键盘
+    //    frmNum::Instance()->Init("lightgray",10); // 打开数字键盘
 
     initWidget();
 }
@@ -53,7 +53,7 @@ void SettingThreshold::initWidget()
     //    qDebug() << "mBus" << mBus << "mIndex" << mIndex;
     sDataPacket *data = share_mem_get(); //获取共享内存
     sDataUnit *unit;
-
+    int aret;
 
     QString str;
 
@@ -61,17 +61,19 @@ void SettingThreshold::initWidget()
     {
         unit = &(data->data[mBus].data.cur);
         str = "A";
+        aret = COM_RATE_CUR;
     }
     else
     {
         unit = &(data->data[mBus].data.vol);
         str = "V";
+        aret = COM_RATE_VOL;
     }
 
-    ui->spinBox->setValue(unit->min[mIndex]);
-    ui->spinBox_2->setValue(unit->max[mIndex]);
-    ui->spinBox_3->setValue(unit->crMin[mIndex]);
-    ui->spinBox_4->setValue(unit->crMax[mIndex]);
+    ui->spinBox->setValue(unit->min[mIndex]/aret);
+    ui->spinBox_2->setValue(unit->max[mIndex]/aret);
+    ui->spinBox_3->setValue(unit->crMin[mIndex]/aret);
+    ui->spinBox_4->setValue(unit->crMax[mIndex]/aret);
 
     setSuffex(str);
 
@@ -83,11 +85,12 @@ void SettingThreshold::initWidget()
  * @param boxNUm 插接箱编号
  * @param lineNum 相数  0-2,为3则表示当前点击为温度
  */
-void SettingThreshold::initWidget(int index ,int boxNUm ,int lineNum)
+void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temNum)
 {
     mBusNum = index;
     mBoxNum = boxNUm;
     mLineNum = lineNum; //保存必要信息，为保存数据到共享内存做准备
+    mTemNum = temNum;
 
     sDataPacket *data = share_mem_get();
     sDataUnit *unit;
@@ -96,16 +99,16 @@ void SettingThreshold::initWidget(int index ,int boxNUm ,int lineNum)
     if((lineNum >= 0) && (lineNum < 3))
     {
         str = "A";
-        title = QString("母线%1插接箱%2相电流%3阈值设置").arg(index).arg(boxNUm).arg(lineNum);
+        title = QString("母线%1插接箱%2相电流%3阈值设置").arg(index+1).arg(boxNUm).arg(lineNum+1);
         unit = &(data->data[index].box[boxNUm].data.cur);
         initData(unit , lineNum);
     }
-    else if (lineNum == 3)
+    else if ((lineNum == 3) && (temNum != 0))
     {
         str = "℃";
-        title = QString("母线%1插接箱%2温度阈值设置").arg(index).arg(boxNUm);
+        title = QString("母线%1插接箱%2温度%3阈值设置").arg(index+1).arg(boxNUm).arg(temNum);
         unit = &(data->data[index].box[boxNUm].env.tem);
-        initData(unit , 0);  //温度只有一个
+        initData(unit , temNum-1);  //温度只有一个
     }
     else
         str = "X";
@@ -141,18 +144,27 @@ void SettingThreshold::setSuffex(QString str)
 void SettingThreshold::saveData()
 {
     DbThresholdItem item;
+    int aret;
 
-    item.min = ui->spinBox->value();
-    item.max = ui->spinBox_2->value();
-    item.crmin = ui->spinBox_3->value();
-    item.crmax = ui->spinBox_4->value();
+    if(mIsCur)
+        aret = COM_RATE_CUR;
+    else
+        aret  = COM_RATE_VOL;
+
+    item.min = ui->spinBox->value()*aret;
+    item.max = ui->spinBox_2->value()*aret;
+    item.crmin = ui->spinBox_3->value()*aret;
+    item.crmax = ui->spinBox_4->value()*aret;
 
 
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
         qDebug() << "统一设置";
-        mShm->setLineCurAll(item);
+        if(mIsCur)
+            mShm->setLineCurAll(item);
+        else
+            mShm->setLineVolAll(item);
 
     }else //单独设置
     {
@@ -167,7 +179,6 @@ void SettingThreshold::saveData()
         item.num = mIndex;
 
         mShm->saveItem(item);
-
     }
 }
 
@@ -207,7 +218,7 @@ void SettingThreshold::saveLoopData()
         else
         {
             item.type = 5; //插接箱温度
-            item.num = (mBoxNum - 1)*3 + 0 ;
+            item.num = (mBoxNum - 1)*3 + (mTemNum-1) ;
         }
         mShm->saveItem(item);
     }

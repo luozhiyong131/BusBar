@@ -62,6 +62,13 @@ border-radius:15px
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="pushButton_tem">
+      <property name="text">
+       <string>温度设置</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="pushButton_3">
       <property name="text">
        <string>系统设置</string>

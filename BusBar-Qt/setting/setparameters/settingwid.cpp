@@ -8,12 +8,13 @@ SettingWid::SettingWid(QWidget *parent) :
     ui->setupUi(this);
     initWidget();
 
-//    mCheckDlg = new CheckPasswordDlg(this);
-//    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
+    //    mCheckDlg = new CheckPasswordDlg(this);
+    //    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
 
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
     majorSettingWidget->updateWidget(0);
     mSubsettingWid->updateWid(0);
+    mTemWid->updateWid(0);
 }
 
 SettingWid::~SettingWid()
@@ -29,6 +30,9 @@ void SettingWid::initWidget()
     mSubsettingWid = new SubSeeting(ui->stackedWidget);
     ui->stackedWidget->addWidget(mSubsettingWid);
 
+    mTemWid = new TemSettingWid(ui->stackedWidget);
+    ui->stackedWidget->addWidget(mTemWid);
+
     mSystemDlg = new SystemSettingDlg(ui->stackedWidget);
     ui->stackedWidget->addWidget(mSystemDlg);
 }
@@ -41,6 +45,7 @@ void SettingWid::busChangedSlot(int index)
 {
     majorSettingWidget->updateWidget(index);
     mSubsettingWid->updateWid(index);
+    mTemWid->updateWid(index);
 }
 
 /**
@@ -57,7 +62,7 @@ void SettingWid::on_pushButton_clicked()
 void SettingWid::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
-//    mSubsettingWid->updateWid(0);
+    //    mSubsettingWid->updateWid(0);
 }
 
 /**
@@ -65,17 +70,17 @@ void SettingWid::on_pushButton_2_clicked()
  */
 void SettingWid::on_pushButton_3_clicked()
 {   
-//    if(ui->stackedWidget->currentWidget() != mSystemDlg)
-//        mCheckDlg->show();
+    //    if(ui->stackedWidget->currentWidget() != mSystemDlg)
+    //        mCheckDlg->show();
 
     ui->stackedWidget->setCurrentWidget(mSystemDlg);
 }
 
-//void SettingWid::dialogClosed(bool ret)
-//{
-//    if(ret)
-//        ui->stackedWidget->setCurrentWidget(mSystemDlg);
-//    else
-//        QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
-//    mCheckDlg->clear();
-//}
+
+/**
+ * @brief SettingWid::on_pushButton_tem_clicked  温度阈值设置
+ */
+void SettingWid::on_pushButton_tem_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(mTemWid);
+}

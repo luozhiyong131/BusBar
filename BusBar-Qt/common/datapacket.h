@@ -101,7 +101,7 @@ typedef struct _sBusData{
     int boxNum; // 插接箱数量
     sBoxData   box[BOX_NUM];  // 最多20个插接箱
     sObjData data; // 母线数据
-     sEnvData env; // 环境状态
+    sEnvData env; // 环境状态
     sTgObjData tgBus; // 母线统计信息
     int rate; // 电压频率
     int ratedCur; // 额定电流

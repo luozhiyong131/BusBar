@@ -2,6 +2,7 @@
 #include "ui_boxtablewidget.h"
 #include "box/boxdlg.h"
 #include "interfacechangesig.h"
+#include "beepthread.h"
 
 BoxTableWidget::BoxTableWidget(QWidget *parent) :
     QWidget(parent),
@@ -250,7 +251,7 @@ void BoxTableWidget::setTemp(int id, int column)
 
     double value = unit->value[0];
     if(value >= 0)
-        str = QString::number(value) + "C";
+        str = QString::number(value) + "°C";
     setTableItem(id, column, str);
 
     QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
@@ -307,6 +308,7 @@ void BoxTableWidget::timeoutDone()
 
 void BoxTableWidget::getItem(QTableWidgetItem*)
 {
+     BeepThread::bulid()->beep();
     int row = ui->tableWidget->currentRow();
 
     BoxDlg dlg(0);

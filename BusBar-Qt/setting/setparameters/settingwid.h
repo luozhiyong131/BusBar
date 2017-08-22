@@ -6,6 +6,7 @@
 #include "subseeting.h"
 #include "setsystem/systemsettingdlg.h"
 #include "setsystem/checkpassworddlg.h"
+#include "temsettingwid.h"
 
 namespace Ui {
 class SettingWid;
@@ -32,10 +33,13 @@ private slots:
 
 //    void dialogClosed(bool ret);
 
+    void on_pushButton_tem_clicked();
+
 private:
     Ui::SettingWid *ui;
     MajorSetting *majorSettingWidget;
     SubSeeting *mSubsettingWid;
+    TemSettingWid *mTemWid;
     SystemSettingDlg *mSystemDlg;
 //     CheckPasswordDlg *mCheckDlg;
 };

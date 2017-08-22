@@ -47,17 +47,14 @@ void MajorSetting::initWidget()
 void MajorSetting::updateWidget(int index)
 {
     mIndex = index; //主路源编号
-    int rateCur = 0 ;
-    int boxNum = 0 ;
 
     sBusData *busData = &(mPacket->data[index]);
-
     ui->lineEdit->setText(busData->busName);
 
-    rateCur = getRateCur(index);
-    boxNum = getBoxNum(index);
+    int boxNum = busData->boxNum;
+    double rateCur = busData->ratedCur/COM_RATE_CUR;
 
-    ui->lineEdit_2->setText(QString::number(rateCur,10));
+    ui->lineEdit_2->setText(QString::number(rateCur));
     ui->lineEdit_3->setText(QString::number(boxNum,10));
 
     sObjData  *objData = &(busData->data);
@@ -137,7 +134,7 @@ void MajorSetting::on_pushButton_clicked()
     QString rateCurStr = ui->lineEdit_2->text();
     if((!rateCurStr.isEmpty()) && (cm_isDigitStr(rateCurStr)))
     {
-        mShm->setLineRatedCur(mIndex,rateCurStr.toInt());
+        mShm->setLineRatedCur(mIndex,rateCurStr.toInt() * COM_RATE_CUR);
     }else
     {
         QMessageBox::information(this,tr("information"),tr("请检查电流输入格式！"));

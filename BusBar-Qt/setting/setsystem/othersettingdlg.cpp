@@ -1,5 +1,7 @@
 #include "othersettingdlg.h"
 #include "ui_othersettingdlg.h"
+#include "common.h"
+#include "datetime/timesettingdlg.h"
 
 OtherSettingDlg::OtherSettingDlg(QWidget *parent) :
     QWidget(parent),
@@ -13,30 +15,17 @@ OtherSettingDlg::~OtherSettingDlg()
     delete ui;
 }
 
-/**
- * @brief OtherSettingDlg::on_pushButton_3_clicked 密码
- */
-void OtherSettingDlg::on_pushButton_3_clicked()
+
+void OtherSettingDlg::on_updateBtn_clicked()
 {
-    PassordSettingDlg *passwordDlg = new PassordSettingDlg(this);
-    passwordDlg->show();
+    ///// ========== 从U盘把文件复制出来
+
 }
 
-/**
- * @brief OtherSettingDlg::on_pushButton_clicked  时间
- */
-void OtherSettingDlg::on_pushButton_clicked()
+void OtherSettingDlg::on_resetBtn_clicked()
 {
-    DatetimeSettingDlg *datetimeDlg = new DatetimeSettingDlg(this);
-    datetimeDlg->exec();
-}
-
-/**
- * @brief OtherSettingDlg::on_pushButton_2_clicked 重启
- */
-void OtherSettingDlg::on_pushButton_2_clicked()
-{
-    switch (QMessageBox::information(this,"waring","是否重启系统","确定","取消",0,1)) {
+    int ret = QMessageBox::information(this,"waring","是否重启系统","确定","取消",0,1);
+    switch (ret) {
     case 0:
         system("reboot");
         break;
@@ -46,5 +35,17 @@ void OtherSettingDlg::on_pushButton_2_clicked()
     default:
         break;
     }
+}
 
+void OtherSettingDlg::on_timeSetBtn_clicked()
+{
+    BeepThread::bulid()->beep();
+    TimeSettingDlg dlg(this);
+    dlg.exec();
+}
+
+void OtherSettingDlg::on_pwdSetBtn_clicked()
+{
+    PassordSettingDlg *passwordDlg = new PassordSettingDlg(this);
+    passwordDlg->show();
 }

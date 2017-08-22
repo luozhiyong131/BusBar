@@ -2,7 +2,6 @@
 #define OTHERSETTINGDLG_H
 
 #include <QWidget>
-#include "datetimesettingdlg.h"
 #include "passordsettingdlg.h"
 
 namespace Ui {
@@ -18,11 +17,10 @@ public:
     ~OtherSettingDlg();
 
 private slots:
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_updateBtn_clicked();
+    void on_resetBtn_clicked();
+    void on_timeSetBtn_clicked();
+    void on_pwdSetBtn_clicked();
 
 private:
     Ui::OtherSettingDlg *ui;

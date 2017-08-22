@@ -30,6 +30,7 @@ private:
 
     int mID;
     sObjData *mData;
+    sEnvData *mEnvData;
     QTimer *timer;
 };
 

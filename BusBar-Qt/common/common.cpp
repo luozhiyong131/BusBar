@@ -12,6 +12,24 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+void com_setBackColour(const QString &str,QWidget *target)
+{
+    target->setWindowTitle(str);
+    //target->setWindowFlags(Qt::FramelessWindowHint);
+    target->setAutoFillBackground(true) ;
+    QPalette paletteTool = target->palette() ;
+    QBrush brushToolPic(QColor(WIDGET_BACK_COLOR)) ;
+    QBrush brushToolwhite(QColor(BUTTON_BACK_COLOR)) ;
+    paletteTool.setBrush(QPalette::Window,brushToolPic) ;
+    paletteTool.setBrush(QPalette::Base,brushToolPic) ;
+    paletteTool.setBrush(QPalette::Button,brushToolwhite) ;
+    target->setPalette(paletteTool) ;
+
+    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
+    target->setWindowIcon(QIcon(":/image/logo.jpg"));
+}
+
+
 /***
   * 获取程序数据目录
   */
@@ -96,29 +114,6 @@ void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
     widget->setPalette(palette);
 }
 
-int SetSystemTime(settingTime *time)
-{
-    struct rtc_time tm;
-    struct tm _tm;
-    struct timeval tv;
-    time_t timep;
-    _tm.tm_sec = time->sec;
-    _tm.tm_min = time->min;
-    _tm.tm_hour = time->hour;
-    _tm.tm_mday = time->day;
-    _tm.tm_mon = time->mon - 1;
-    _tm.tm_year = time->year - 1900;
-
-    timep = mktime(&_tm);
-    tv.tv_sec = timep;
-    tv.tv_usec = 0;
-    if(settimeofday (&tv, (struct timezone *) 0) < 0)
-    {
-        printf("Set system datatime error!/n");
-        return -1;
-    }
-    return 0;
-}
 
 /**
  * @brief getPassword 读取系统密码
@@ -145,7 +140,7 @@ QString getPassword()
  */
 int getBoxNum(int index)
 {
-    int boxNum = 0 ;
+    int boxNum = -1 ;
     bool ret = sys_configFile_open();  //打开配置文件
     if(ret)
     {

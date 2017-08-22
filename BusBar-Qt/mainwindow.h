@@ -30,6 +30,7 @@ protected:
     void setBusName(int index);
     void setButtonImage(QToolButton *button, QString name);
     void setButtonClickedImage(QToolButton *button, QString name);
+    void updateTime();
 
 protected slots:
     void initFunSLot();
@@ -50,6 +51,8 @@ private slots:
     void on_alarmBtn_clicked();
 
     void on_comboBox_currentIndexChanged(int index);
+
+    void on_timeBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

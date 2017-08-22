@@ -109,10 +109,11 @@ void RtuThread::run()
     isRun = true;
     while(isRun)
     {
-        //////====================== 地址修改
-        for(int i=1; i<=mBusData->boxNum; ++i) {
+        for(int i=0; i<=mBusData->boxNum; ++i)
+        {
             transData(i);
-            msleep(1);
+            msleep(50);
         }
+        msleep(100);
     }
 }

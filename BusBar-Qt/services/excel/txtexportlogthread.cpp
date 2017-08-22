@@ -24,10 +24,14 @@ void TxtExportLogThread::exportMsg(QList<QStringList> &list)
     if (data.open(QFile::WriteOnly | QFile::Truncate))
     {
         QTextStream out(&data);
+        //设置文件流编码方式
+        out.setCodec("GBK");
+
         for(int i=0; i<list.size(); ++i)
         {
-            for(int j=0; j<list.at(i).size(); ++j)
+            for(int j=0; j<list.at(i).size(); ++j) {
                 out << list.at(i).at(j) << "\t";
+            }
             out << "\n";
             mSize++;
             msleep(30);

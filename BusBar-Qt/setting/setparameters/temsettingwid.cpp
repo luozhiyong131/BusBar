@@ -1,21 +1,21 @@
-﻿#include "subseeting.h"
-#include "ui_subseeting.h"
+#include "temsettingwid.h"
+#include "ui_temsettingwid.h"
 
-SubSeeting::SubSeeting(QWidget *parent) :
+TemSettingWid::TemSettingWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SubSeeting)
+    ui(new Ui::TemSettingWid)
 {
     ui->setupUi(this);
 
     initWidget();
 }
 
-SubSeeting::~SubSeeting()
+TemSettingWid::~TemSettingWid()
 {
     delete ui;
 }
 
-void SubSeeting::initWidget()
+void TemSettingWid::initWidget()
 {
     initTableWidget();
 
@@ -23,13 +23,13 @@ void SubSeeting::initWidget()
     mainLayout->addWidget(mWidget);
 }
 
-void SubSeeting::initTableWidget()
+void TemSettingWid::initTableWidget()
 {
     mWidget = new QTableWidget(this);
     mWidget->setRowCount(0);
 
     QStringList horHead;
-    horHead<< "插接箱名称" << "相电流1"<< "相电流2"<< "相电流3";
+    horHead<< "插接箱名称" << "温度1"<< "温度2"<< "温度3";
     mWidget->setColumnCount(horHead.size());
     mWidget->setHorizontalHeaderLabels(horHead);
 
@@ -40,7 +40,7 @@ void SubSeeting::initTableWidget()
     connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
 
-void SubSeeting::resetWidget()
+void TemSettingWid::resetWidget()
 {
     int boxNum = mPacket->data[mIndex].boxNum;
 
@@ -60,7 +60,7 @@ void SubSeeting::resetWidget()
  * @brief 刷新界面
  * @param index 主路源编号
  */
-void SubSeeting::updateWid(int index)
+void TemSettingWid::updateWid(int index)
 {
     mIndex = index;
 
@@ -72,15 +72,16 @@ void SubSeeting::updateWid(int index)
     for(int i = 0 ; i < row ; i++)
     {
         int column = 0 ;
+        int index = 0;
+
         setName(i,column++);
-        setFirstPhrase(i,column++);
-        setSecondPhrase(i,column++);
-        setThreePhrase(i,column++);
-        //        setTem(i,column++);
+        setTem(i,column++,index++);
+        setTem(i,column++,index++);
+        setTem(i,column++,index++);
     }
 }
 
-void SubSeeting::clearWidget()
+void TemSettingWid::clearWidget()
 {
     int row = mWidget->rowCount();
     for(int i = 0 ; i < row ; i++)
@@ -92,55 +93,10 @@ void SubSeeting::clearWidget()
  * @param row
  * @param column
  */
-void SubSeeting::setName(int row, int column)
+void TemSettingWid::setName(int row, int column)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
     QString str = mPacket->data[mIndex].box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
-}
-
-/**
- * @brief 设置L1
- * @param row
- * @param column
- */
-void SubSeeting::setFirstPhrase(int row, int column)
-{
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[0];
-    QString str = QString::number(value,10) + "A";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
-}
-
-/**
- * @brief 设置L2
- * @param row
- * @param column
- */
-void SubSeeting::setSecondPhrase(int row, int column)
-{
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[1];
-    QString str = QString::number(value,10) + "A";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
-}
-
-/**
- * @brief 设置L3
- * @param row
- * @param column
- */
-void SubSeeting::setThreePhrase(int row, int column)
-{
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[2];
-    QString str = QString::number(value,10) + "A";
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 
@@ -151,27 +107,28 @@ void SubSeeting::setThreePhrase(int row, int column)
  * @param row
  * @param column
  */
-void SubSeeting::setTem(int row, int column)
+void TemSettingWid::setTem(int row, int column ,int index)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].env.tem.value[0];
+    int value = mPacket->data[mIndex].box[row+1].env.tem.value[index];
     QString str = QString::number(value,10) + "℃";
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 }
 
-void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
+void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
 {
     int index = mIndex ;
     int boxNum = item->row() +1 ;
-    int lineNum ;
+    int lineNum = 3;
+    int temNum = 0;
 
     int column = item->column();
     if(column != 0)
     {
-        lineNum = column -1 ;
+        temNum = column ;
         SettingThreshold settingWid(0);
-        settingWid.initWidget(index,boxNum,lineNum); //初始化界面
+        settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();
     }
 }

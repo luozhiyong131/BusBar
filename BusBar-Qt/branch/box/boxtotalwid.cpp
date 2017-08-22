@@ -22,7 +22,7 @@ void BoxTotalWid::initFun(int bus, int box)
 {
     sDataPacket *shm = get_share_mem();
     mTgBox = &(shm->data[bus].box[box].tgBox);
-    mEnvBox = &(shm->data[bus].env);
+    mEnvBox = &(shm->data[bus].box[box].env);
     updateData();
 }
 
@@ -48,6 +48,6 @@ void BoxTotalWid::updateData()
     str =  QString::number(mTgBox->ele/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->tEleLab->setText(str);
 
-//    str = QString::number(mEnvBox->tem[0]/COM_RATE_TEM,'f',1)+"°C";
-//    ui->tEm
+    str = QString::number(mEnvBox->tem.value[0]) + "°C";
+    //    ui->temlab->setText(str);
 }

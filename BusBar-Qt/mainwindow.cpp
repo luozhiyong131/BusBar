@@ -4,6 +4,8 @@
 #include "dpthread.h"
 #include "currentalarmsdlg.h"
 #include "interfacechangesig.h"
+#include "beepthread.h"
+#include "datetime/timesettingdlg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,20 +15,17 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this);
     mInitShm->start();
 
-    //    initSerial();
+
+    initSerial();
 
     mIndex = 0;
     initWidget();
-    //<<<<<<< Updated upstream
-    //=======
-    //    updateTime();
+    updateTime();
 
-    //>>>>>>> Stashed changes
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
+    BeepThread::bulid()->longBeep();
 
-    mCheckDlg = new CheckPasswordDlg(this);
-    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
     // TestDlg *dlg = new TestDlg(this);
     // dlg->exec();
 }
@@ -59,11 +58,15 @@ void MainWindow::initSerial()
     //    rtu->init(SERIAL_COM4, 4);
 }
 
-void MainWindow::timeoutDone()
+void MainWindow::updateTime()
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    ui->timeLab->setText(time);
+    ui->timeBtn->setText(time);
+}
 
+void MainWindow::timeoutDone()
+{   
+    updateTime();
     checkAlarm();
     setBusName(mIndex);
 }
@@ -97,10 +100,14 @@ void MainWindow::checkAlarm()
 void MainWindow::initFunSLot()
 {
     new DpThread(this); // 创建数据处理线程
+    updateTime();
 
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
+    mCheckDlg = new CheckPasswordDlg(this);
+    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
 }
 
 void MainWindow::initWidget()
@@ -133,48 +140,46 @@ void MainWindow::initWidget()
 
 void MainWindow::on_homeBtn_clicked()
 {
-    setButtonClickedImage(ui->homeBtn,"home_select");
     ui->stackedWid->setCurrentWidget(mHomeWid);
+    setButtonClickedImage(ui->homeBtn,"home_select");
 
-    emit InterfaceChangeSig::get()->typeSig(1);
+    InterfaceChangeSig::get()->changeType(1);
 }
 
 void MainWindow::on_lineBtn_clicked()
 {
-    setButtonClickedImage(ui->lineBtn,"main_select");
     ui->stackedWid->setCurrentWidget(mLineWid);
+    setButtonClickedImage(ui->lineBtn,"main_select");
 
-    emit InterfaceChangeSig::get()->typeSig(2);
+    InterfaceChangeSig::get()->changeType(2);
 }
 
 void MainWindow::on_branchBtn_clicked()
 {
-    setButtonClickedImage(ui->branchBtn,"branch_select");
     ui->stackedWid->setCurrentWidget(mBranchWid);
+    setButtonClickedImage(ui->branchBtn,"branch_select");
 
-    emit InterfaceChangeSig::get()->typeSig(3);
+    InterfaceChangeSig::get()->changeType(3);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
-    setButtonClickedImage(ui->logBtn,"data_select");
     ui->stackedWid->setCurrentWidget(mLogsWid);
-    emit InterfaceChangeSig::get()->typeSig(4);
+    setButtonClickedImage(ui->logBtn,"data_select");
+    InterfaceChangeSig::get()->changeType(4);
 }
 
 void MainWindow::on_setBtn_clicked()
 {
     if(ui->stackedWid->currentWidget() != mSettingWid) {
+        BeepThread::bulid()->beep();
         mCheckDlg->exec();
     }
 }
 
 void MainWindow::on_alarmBtn_clicked()
 {
-    //<<<<<<< Updated upstream
-    //=======
-//        BeepThread::bulid()->beep();
-    //>>>>>>> Stashed changes
+    BeepThread::bulid()->beep();
     CurrentAlarmsDlg dlg(this);
     dlg.exec();
 }
@@ -185,7 +190,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 }
 
 void MainWindow::setButtonImage(QToolButton *button, QString name)
-{
+{    
     QString str = tr("QToolButton{border-image: url(:/new/prefix1/image/%1.png);}").arg(name);
     button->setStyleSheet(str);
 }
@@ -210,22 +215,18 @@ void MainWindow::dialogClosed(bool ret)
 {
     if(ret)
     {
-        setButtonClickedImage(ui->setBtn,"setting_select");
         ui->stackedWid->setCurrentWidget(mSettingWid);
-        emit InterfaceChangeSig::get()->typeSig(5);
+        setButtonClickedImage(ui->setBtn,"setting_select");
+        InterfaceChangeSig::get()->changeType(5);
     }
     else
         QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
     mCheckDlg->clear();
 }
-//<<<<<<< Updated upstream
-//=======
 
-//void MainWindow::on_timeBtn_clicked()
-//{
-//    BeepThread::bulid()->beep();
-//    TimeSettingDlg dlg(this);
-//    dlg.exec();
-//}
-//>>>>>>> Stashed changes
-
+void MainWindow::on_timeBtn_clicked()
+{
+    BeepThread::bulid()->beep();
+    TimeSettingDlg dlg(this);
+    dlg.exec();
+}

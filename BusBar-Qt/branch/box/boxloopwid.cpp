@@ -23,6 +23,7 @@ void BoxLoopWid::initLine(int bus, int box, int id)
     mID = id;
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[bus].box[box].data);
+    mEnvData = &(shm->data[bus].env);
     updateData();
 }
 
@@ -78,4 +79,7 @@ void BoxLoopWid::updateData()
 
     str =  QString::number(mData->ele[id]/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->eleLab->setText(str);
+
+    str =  QString::number(mEnvData->tem.value[id]/COM_RATE_TEM, 'f', 1) + "℃";
+    ui->temLab->setText(str);
 }

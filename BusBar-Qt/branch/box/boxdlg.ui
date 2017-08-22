@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
+    <width>752</width>
     <height>400</height>
    </rect>
   </property>
@@ -41,9 +41,9 @@
   <widget class="QWidget" name="line3Wid" native="true">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>0</x>
      <y>330</y>
-     <width>651</width>
+     <width>751</width>
      <height>41</height>
     </rect>
    </property>
@@ -51,9 +51,9 @@
   <widget class="QWidget" name="line2Wid" native="true">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>0</x>
      <y>280</y>
-     <width>651</width>
+     <width>751</width>
      <height>41</height>
     </rect>
    </property>
@@ -61,9 +61,9 @@
   <widget class="QWidget" name="line1Wid" native="true">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>0</x>
      <y>230</y>
-     <width>651</width>
+     <width>751</width>
      <height>41</height>
     </rect>
    </property>
@@ -85,13 +85,13 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>10</y>
+     <y>20</y>
      <width>41</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(204, 0, 0);</string>
+    <string notr="true">background-color: rgb(200, 200, 200);</string>
    </property>
    <property name="text">
     <string/>
@@ -110,9 +110,9 @@
   <widget class="QWidget" name="line1Wid_2" native="true">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>0</x>
      <y>190</y>
-     <width>651</width>
+     <width>751</width>
      <height>41</height>
     </rect>
    </property>
@@ -274,6 +274,28 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QLabel" name="label_8">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>温度</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="Line" name="line">
@@ -281,7 +303,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>731</width>
+     <width>751</width>
      <height>16</height>
     </rect>
    </property>
@@ -320,7 +342,7 @@
   <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>710</x>
+     <x>740</x>
      <y>14</y>
      <width>20</width>
      <height>391</height>
@@ -344,7 +366,7 @@
     <rect>
      <x>6</x>
      <y>388</y>
-     <width>711</width>
+     <width>741</width>
      <height>20</height>
     </rect>
    </property>
