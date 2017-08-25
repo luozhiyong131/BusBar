@@ -13,7 +13,6 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
     isBox = false;
 
     mShm = new SetShm; //操作共享内存
-    //    frmNum::Instance()->Init("lightgray",10); // 打开数字键盘
 
     initWidget();
 }
@@ -94,21 +93,24 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
 
     sDataPacket *data = share_mem_get();
     sDataUnit *unit;
-
+    int rate;
     QString str,title;
+
     if((lineNum >= 0) && (lineNum < 3))
     {
         str = "A";
+        rate = COM_RATE_CUR;
         title = QString("母线%1插接箱%2相电流%3阈值设置").arg(index+1).arg(boxNUm).arg(lineNum+1);
         unit = &(data->data[index].box[boxNUm].data.cur);
-        initData(unit , lineNum);
+        initData(unit , lineNum ,rate);
     }
     else if ((lineNum == 3) && (temNum != 0))
     {
         str = "℃";
+        rate = COM_RATE_TEM;
         title = QString("母线%1插接箱%2温度%3阈值设置").arg(index+1).arg(boxNUm).arg(temNum);
         unit = &(data->data[index].box[boxNUm].env.tem);
-        initData(unit , temNum-1);  //温度只有一个
+        initData(unit , temNum-1 ,rate);
     }
     else
         str = "X";
@@ -122,12 +124,12 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
  * @param unit  电流或温度数据包
  * @param index 相数
  */
-void SettingThreshold::initData(sDataUnit *unit ,int index)
+void SettingThreshold::initData(sDataUnit *unit ,int index,int rate)
 {
-    ui->spinBox->setValue(unit->min[index]);
-    ui->spinBox_2->setValue(unit->max[index]);
-    ui->spinBox_3->setValue(unit->crMin[index]);
-    ui->spinBox_4->setValue(unit->crMax[index]);
+    ui->spinBox->setValue(unit->min[index]/rate);
+    ui->spinBox_2->setValue(unit->max[index]/rate);
+    ui->spinBox_3->setValue(unit->crMin[index]/rate);
+    ui->spinBox_4->setValue(unit->crMax[index]/rate);
 }
 
 void SettingThreshold::setSuffex(QString str)
@@ -188,11 +190,17 @@ void SettingThreshold::saveData()
 void SettingThreshold::saveLoopData()
 {
     DbThresholdItem item;
+    int rate;
 
-    item.min = ui->spinBox->value();
-    item.max = ui->spinBox_2->value();
-    item.crmin = ui->spinBox_3->value();
-    item.crmax = ui->spinBox_4->value();
+    if(mLineNum !=3)
+        rate = COM_RATE_CUR;
+    else
+        rate = COM_RATE_TEM;
+
+    item.min = ui->spinBox->value()*rate;
+    item.max = ui->spinBox_2->value()*rate;
+    item.crmin = ui->spinBox_3->value()*rate;
+    item.crmax = ui->spinBox_4->value()*rate;
 
 
     bool ret = ui->checkBox->isChecked();

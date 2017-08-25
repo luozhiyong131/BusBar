@@ -11,8 +11,6 @@ void MyProgressBar::mousePressEvent(QMouseEvent *event)
     {
         emit clicked(mIsCur,mIndex);
     }
-
-//    QLabel::mousePressEvent(event);//将该事件传给父类处理
 }
 
 /**

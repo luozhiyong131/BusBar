@@ -33,6 +33,7 @@ typedef struct _sTgObjData {
     int ele; // 电能
     int pf; // 功率因素
     int apPow; // 袖在功率
+    int tem;
 }sTgObjData;
 
 

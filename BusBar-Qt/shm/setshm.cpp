@@ -114,7 +114,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     case 5:
         boxNum = num / 3 + 1;
         num = num % 3 ;
-        qDebug() << "---boxNum---" << boxNum;
+        //        qDebug() << "---boxNum---" << boxNum;
         unit = &(bus->box[boxNum].env.tem);
         break;
     }

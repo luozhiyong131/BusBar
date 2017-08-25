@@ -9,9 +9,6 @@ MyNumberKeyboardWid::MyNumberKeyboardWid(QWidget *parent) :
 
     mWidType = 0;
     initWid();
-
-//    connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),
-//            this, SLOT(focusChanged(QWidget *, QWidget *)));
 }
 
 MyNumberKeyboardWid::~MyNumberKeyboardWid()

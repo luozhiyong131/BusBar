@@ -20,10 +20,11 @@ BoxLoopWid::~BoxLoopWid()
 
 void BoxLoopWid::initLine(int bus, int box, int id)
 {
+    qDebug() <<"bus" << bus<< "box---------" << box;
     mID = id;
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[bus].box[box].data);
-    mEnvData = &(shm->data[bus].env);
+    mEnvData = &(shm->data[bus].box[box].env);
     updateData();
 }
 

@@ -25,6 +25,7 @@ private:
     Ui::TemSettingWid *ui;
     QTableWidget *mWidget;
     sDataPacket *mPacket;
+    sEnvData *mEnvData;
     int mIndex;
 
 private:

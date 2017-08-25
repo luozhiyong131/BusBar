@@ -15,7 +15,6 @@ LineTotalWid::~LineTotalWid()
     delete ui;
 }
 
-
 void LineTotalWid::initFunSLot()
 {
     busChangeSlot(0);

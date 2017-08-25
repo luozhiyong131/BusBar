@@ -249,7 +249,7 @@ void BoxTableWidget::setTemp(int id, int column)
     QString str = "---";
     sDataUnit *unit = &(mBoxData->box[id].env.tem);
 
-    double value = unit->value[0];
+    double value = unit->value[0]/COM_RATE_TEM;
     if(value >= 0)
         str = QString::number(value) + "°C";
     setTableItem(id, column, str);

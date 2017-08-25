@@ -68,6 +68,7 @@ void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
     }
     tg->vol = averData(obj->vol.value);
     tg->pf = averData(obj->pf);
+    tg->tem = averData(obj->pf);  ////===================
 }
 
 

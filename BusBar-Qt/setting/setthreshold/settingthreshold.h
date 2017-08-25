@@ -29,7 +29,7 @@ private slots:
 
 private:
     void initWidget();
-    void initData(sDataUnit *unit, int index);
+    void initData(sDataUnit *unit, int index, int rate);
     void saveData();
     void saveLoopData();
     void setSuffex(QString str);

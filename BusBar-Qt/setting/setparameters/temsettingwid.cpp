@@ -65,6 +65,8 @@ void TemSettingWid::updateWid(int index)
     mIndex = index;
 
     mPacket = get_share_mem();
+    //    mEnvData = &(mPacket->data[bus].box[box].env);
+
     clearWidget();
     resetWidget();
 
@@ -109,9 +111,9 @@ void TemSettingWid::setName(int row, int column)
  */
 void TemSettingWid::setTem(int row, int column ,int index)
 {
+    mEnvData = &(mPacket->data[mIndex].box[row+1].env);
     QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].env.tem.value[index];
-    QString str = QString::number(value,10) + "℃";
+    QString str = QString::number(mEnvData->tem.value[index]/COM_RATE_TEM,'f',1) + "℃";
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 }
@@ -128,7 +130,7 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
     {
         temNum = column ;
         SettingThreshold settingWid(0);
-        settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
+        settingWid.initWidget(index,boxNum,lineNum ,temNum); //初始化界面
         settingWid.exec();
     }
 }
