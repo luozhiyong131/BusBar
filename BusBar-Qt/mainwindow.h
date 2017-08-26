@@ -8,6 +8,7 @@
 #include "branchwid.h"
 #include "logswid.h"
 #include "setparameters/settingwid.h"
+#include "services/tcp/tcpthread.h"
 //#include "frminput.h"
 
 namespace Ui {

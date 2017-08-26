@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm->start();
 
 
-    initSerial();
+//    initSerial();
 
     mIndex = 0;
     initWidget();
@@ -100,6 +100,7 @@ void MainWindow::checkAlarm()
 void MainWindow::initFunSLot()
 {
     new DpThread(this); // 创建数据处理线程
+    new TcpThread(this); //創建TCP服務器端
     updateTime();
 
     timer = new QTimer(this);
