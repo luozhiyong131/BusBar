@@ -8,13 +8,16 @@ SettingWid::SettingWid(QWidget *parent) :
     ui->setupUi(this);
     initWidget();
 
-    //    mCheckDlg = new CheckPasswordDlg(this);
-    //    connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
+    mIndex = 0;
 
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
     majorSettingWidget->updateWidget(0);
     mSubsettingWid->updateWid(0);
     mTemWid->updateWid(0);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(updateWid()));
+    timer->start(5*1000);
 }
 
 SettingWid::~SettingWid()
@@ -43,6 +46,15 @@ void SettingWid::initWidget()
  */
 void SettingWid::busChangedSlot(int index)
 {
+    mIndex = index;
+    majorSettingWidget->updateWidget(index);
+    mSubsettingWid->updateWid(index);
+    mTemWid->updateWid(index);
+}
+
+void SettingWid::updateWid()
+{
+    int index = mIndex;
     majorSettingWidget->updateWidget(index);
     mSubsettingWid->updateWid(index);
     mTemWid->updateWid(index);
