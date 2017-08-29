@@ -148,10 +148,10 @@ static void tcp_thread_entry(void)
  */
 void tcp_server_thread(void)
 {
-	pthread_t *id = &threadId;
+    pthread_t *id = &threadId;
 	int ret = pthread_create(id, NULL, (void *)tcp_thread_entry, NULL);
 	if(ret != 0)
-		udp_printf("create hb pthread err\n");
+        udp_printf("create hb pthread err\n");
 }
 
 /**
@@ -159,8 +159,8 @@ void tcp_server_thread(void)
  */
 void tcp_server_stop(void)
 {
-	close(sock_fd);
-	pthread_cancel(threadId);
+    close(sock_fd);
+    pthread_cancel(threadId);
 }
 
 

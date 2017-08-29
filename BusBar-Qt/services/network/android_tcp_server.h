@@ -13,6 +13,6 @@
 
 void android_tcpServer_thread(void);
 void android_tcpServer_stop(void);
-int android_sent(uchar *buf, int len);
+int android_sent(void *buf, int len);
 
 #endif /* ANDROID_ANDROID_TCP_SERVER_H_ */

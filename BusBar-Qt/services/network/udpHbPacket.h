@@ -17,5 +17,6 @@ char* udp_getServerIP(void);
 void udp_hb_thread(void);
 void udp_hb_stop(void);
 extern char gUdpCount; // 大于0服务端在线   否则服务端离线
+void udp_count_thread(void);
 
 #endif /* UDP_UDPHBPACKET_H_ */
