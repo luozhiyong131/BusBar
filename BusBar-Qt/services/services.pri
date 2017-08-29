@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/datetime/timesettingdlg.h \
     $$PWD/tcp/tcpsocket.h \
     $$PWD/tcp/tcpthread.h \
-    $$PWD/tcp/bustcpserver.h
+    $$PWD/tcp/bustcpserver.h \
+    $$PWD/tcp/devicerelatedfunction.h
 
 
     
@@ -54,7 +55,8 @@ SOURCES += \
     $$PWD/datetime/timesettingdlg.cpp \
     $$PWD/tcp/tcpsocket.cpp \
     $$PWD/tcp/tcpthread.cpp \
-    $$PWD/tcp/bustcpserver.cpp
+    $$PWD/tcp/bustcpserver.cpp \
+    $$PWD/tcp/devicerelatedfunction.cpp
 
 
     

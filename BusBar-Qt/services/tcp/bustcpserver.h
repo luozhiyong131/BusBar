@@ -13,6 +13,8 @@ public:
 
     QByteArray getData();
     bool isConnecting();
+    int sendData(QByteArray &array);
+    int sendData(char *data);
 
 signals:
 
@@ -30,5 +32,7 @@ private:
 protected:
     void incomingConnection(int socketDescriptor);
 };
+
+extern BusTcpServer* getTcpServer();
 
 #endif // BUSTCPSERVER_H

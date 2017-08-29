@@ -11,6 +11,8 @@
 #include "tcpserver.h"
 #include "netDataSegment.h"
 
+#define ANDROID_TCP_PORT	11283  // 案桌TCP端口号
+
 void android_tcpServer_thread(void);
 void android_tcpServer_stop(void);
 int android_sent(uchar *buf, int len);

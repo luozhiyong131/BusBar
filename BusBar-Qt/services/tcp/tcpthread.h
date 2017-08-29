@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QTimer>
 #include "bustcpserver.h"
+#include "devicerelatedfunction.h"
 
 class TcpThread : public QThread
 {

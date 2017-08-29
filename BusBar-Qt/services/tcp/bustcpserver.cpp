@@ -1,7 +1,18 @@
 #include "bustcpserver.h"
 
+static BusTcpServer* server = NULL;
+BusTcpServer* getTcpServer()
+{
+    if(!server)
+    {
+        server = new BusTcpServer;
+    }
+    return server;
+}
+
 BusTcpServer::BusTcpServer()
 {
+    qDebug()<<tr("==============");
     isInconnected = false;
     int port = ANDROID_TCP_PORT;
     this->listen(QHostAddress::Any ,port); //監聽來自任何地址的port端口
@@ -13,6 +24,7 @@ BusTcpServer::BusTcpServer()
  */
 void BusTcpServer::incomingConnection(int socketDescriptor)
 {
+    qDebug()<<tr("contacting");
     socket = new TcpSocket;
     connect(socket,SIGNAL(socketDisconnected()),this,SLOT(disconnected())); //如果socket断开，那么发送信号
     connect(socket,SIGNAL(dataComing(QByteArray)),this,SLOT(readData(QByteArray)));
@@ -29,7 +41,7 @@ void BusTcpServer::disconnected()
 
 void BusTcpServer::readData(QByteArray str)
 {
-//    qDebug()<<"服务器中的数据："<<str.size();
+    //    qDebug()<<"服务器中的数据："<<str.size();
     mData = str;
 
 }
@@ -44,4 +56,16 @@ QByteArray BusTcpServer::getData()
 bool BusTcpServer::isConnecting()
 {
     return isInconnected;
+}
+
+int BusTcpServer::sendData(QByteArray &array)
+{
+    int ret = socket->write(array);
+    return ret;
+}
+
+int BusTcpServer::sendData(char *data)
+{
+    int ret = socket->write(data);
+    return ret;
 }

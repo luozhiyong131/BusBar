@@ -6,7 +6,7 @@
  */
 #include "android_tcp_server.h"
 
-#define ANDROID_TCP_PORT	11283  // 案桌TCP端口号
+//#define ANDROID_TCP_PORT	11283  // 案桌TCP端口号
 static int sock_fd=-1, gSocket=-1;
 static pthread_t threadId;
 
@@ -112,8 +112,6 @@ static void tcp_thread_entry(void)
     }
 
 }
-
-
 
 /**
  * 创建并启动心跳包线程
