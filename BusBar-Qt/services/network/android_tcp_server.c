@@ -10,7 +10,7 @@
 static int sock_fd=-1, gSocket=-1;
 static pthread_t threadId;
 
-int android_sent(uchar *buf, int len)
+int android_sent(void *buf, int len)
 {
     if(gSocket > 0) {
         len = send(gSocket, buf, len, 0);

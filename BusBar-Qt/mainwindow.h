@@ -8,7 +8,7 @@
 #include "branchwid.h"
 #include "logswid.h"
 #include "setparameters/settingwid.h"
-//#include "frminput.h"
+#include "network.h"
 
 namespace Ui {
 class MainWindow;
@@ -66,6 +66,9 @@ private:
     LogsWid *mLogsWid;
     SettingWid *mSettingWid;
      CheckPasswordDlg *mCheckDlg;
+
+     NetWork *mNetWork;
+
 };
 
 #endif // MAINWINDOW_H
