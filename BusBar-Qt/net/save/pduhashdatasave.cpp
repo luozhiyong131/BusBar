@@ -122,6 +122,9 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
  */
 void pdu_hashData_save(pdu_devData_packet *packet)
 {
+    static sDataPacket *dataPacket = share_mem_get();
+    static sBoxData  *boxDev = NULL;
+
     bool ret = pdu_netData_check(packet->code->type, packet->code->trans);   /*网络传输类型、传输方向验证*/
     if(ret)
     {
@@ -130,18 +133,15 @@ void pdu_hashData_save(pdu_devData_packet *packet)
         {
             int num = packet->data->num;
             int addr = packet->data->addr;
-
-            sDataPacket *dataPacket = share_mem_get();
-            sBoxData  *dev  = &(dataPacket->data[num].box[addr]);
+            boxDev  = &(dataPacket->data[num].box[addr]);
 
             if(packet->code->version == NET_DATA_VERSION) //版本号的验证
             {
-                //                dev->devType = devType; //设备型号
-                //                dev->devNum = packet->data->addr; // 设备地址
-                //                dev->ip->set(packet->ip); //设备IP
-                dev->offLine = OFF_LINE_TIME; //设备在线标识
-
-                pdu_hashData_function(dev, packet->data); //功能预处理
+                //    dev->devType = devType; //设备型号
+                //   dev->devNum = packet->data->addr; // 设备地址
+                //   dev->ip->set(packet->ip); //设备IP
+                boxDev->offLine = OFF_LINE_TIME; //设备在线标识
+                pdu_hashData_function(boxDev, packet->data); //功能预处理
             }
             else
                 qDebug() << "NET DATA VERSION err";

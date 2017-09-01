@@ -18,7 +18,7 @@ NetSendThread *NetSendThread::bulid()
 void NetSendThread::run()
 {
     while (1) {
-        sent_test();
+        sent_dev_data();
         sleep(1);
     }
 }

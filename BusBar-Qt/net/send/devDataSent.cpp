@@ -20,7 +20,7 @@ static int data_msg_packetSent(uchar *buf, ushort len)
 
 static int dev_code_data(void)
 {
-    return 0x01010101;
+    return 0x02010101;
 }
 
 static int data_packet_sent(dev_data_packet *msg)
@@ -342,7 +342,7 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
 /**
  * 发送测试数据， 测试用
  */
-void sent_test(void)
+void sent_dev_data(void)
 {
 	uchar id = 0;
 	pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData));
@@ -359,7 +359,7 @@ void sent_test(void)
 
 	char *str = "cleve; cleve";
 	int i;
-    for(i=0; i<6; ++i) {
+    for(i=0; i<7; ++i) {
 		sent_devData(i,devData);
 		//sent_str(i, 6, 0x11, strlen(str), str);
 	}

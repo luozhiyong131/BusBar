@@ -15,7 +15,7 @@ protected:
     void initFun(void);
     void run(void);
 
-    void recvData(void);
+    int recvData(void);
 
 protected slots:
     void timeoutDone();
@@ -24,7 +24,6 @@ private:
     UdpHeartBeat *mHeartBeat;
     UdpRecvSocket *mSocket;
     bool isRun;
-    UdpBaseData *mUdpData; /*UDP数据包*/
 
     QString mIP;
     uchar *mRecvBuf; //数据缓冲区

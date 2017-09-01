@@ -7,7 +7,84 @@
  */
 #include "udprecvsocket.h"
 #define UDP_RECV_PORT  28720  /* 接收套接字起始端口 */
-static int g_port = 0;
+#define UDP_BUF_SIZE 255
+
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <ctype.h>
+
+static int sock_fd=-1;
+
+/**
+ * 功能：创建UDP服务端套接字
+ * 返回 ：套接字
+ */
+static int udp_serviceSocket(int port)
+{
+    int sockfd;
+    struct sockaddr_in server_addr;/* 主机IP地址和端口号 */
+
+    /* 创建一个socket，类型是SOCK_DGRAM，UDP类型 */
+    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
+    {
+        qDebug("Socket error\n");
+        return -1;
+    }
+
+    /* 初始化服务端地址 */
+    server_addr.sin_family = AF_INET;		/*IPv4因特网域*/
+    server_addr.sin_port = htons(port);    /*端口号，这里进行网络字节序的转换 */
+//	server_addr.sin_addr.s_addr = INADDR_ANY;
+    server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
+    memset(&(server_addr.sin_zero), 0, sizeof(server_addr.sin_zero));
+
+    /* 绑定socket到服务端地址 */
+    if (bind(sockfd, (struct sockaddr *)&server_addr,
+            sizeof(struct sockaddr)) == -1)
+    {
+        /* 绑定地址失败 */
+        qDebug("Bind error\n");
+        return -1;
+    }
+//    qDebug("UDP Server Waiting for client on port %d...\n", port);
+
+    return sockfd;
+}
+
+
+
+/**
+ * 功  能：UDP 数据接收
+ * 出口参数：*recv_data -> 接收数据缓冲区
+ * 返  回: 数据长度
+ */
+static int udp_serviceRecvData(int sockfd,struct sockaddr_in *client_addr,uchar *recv_data)
+{
+    int ret=0;
+    uint addr_len = sizeof(struct sockaddr);
+
+    /*超时设置*/
+    //	struct timeval timeout={3,0};//3S
+    //	ret=setsockopt(sockfd,SOL_SOCKET,SO_RCVTIMEO,(const char*)&timeout,sizeof(timeout));
+    //	if(ret<0)
+    //		udp_printf("UDP setsockopt Err\n");
+
+    /* 从sock中收取最大BUF_SIZE - 1字节数据 */
+    /* UDP不同于TCP，它基本不会出现收取的数据失败的情况，除非设置了超时等待 */
+    ret = recvfrom(sockfd, recv_data, UDP_BUF_SIZE - 1, 0,
+            (struct sockaddr *)client_addr, &addr_len);
+//	udp_printf("UDP Recv Data len:%d %s\n",ret, recv_data);
+
+    return ret;
+}
 
 
 /**
@@ -16,93 +93,20 @@ static int g_port = 0;
  */
 UdpRecvSocket::UdpRecvSocket()
 {
-    mUdpSocket = NULL;
-    mUdpQueueData = new QQueue<UdpBaseData*>();
+    sock_fd = udp_serviceSocket(UDP_RECV_PORT);
 }
 
-UdpRecvSocket::~UdpRecvSocket()
+
+int UdpRecvSocket::recvData(QString &ip, uchar *buf)
 {
-    delete mUdpSocket;
-    delete mUdpQueueData;
-}
+    static struct sockaddr_in pin;
 
-/**
- * @brief 初始化套接字
- * @return 端口号
- */
-int UdpRecvSocket::initSocket(void)
-{
-    bool ret = true;
-    int port = -1;
-
-    mUdpSocket = new QUdpSocket(0);
-    do
-    {
-        port = UDP_RECV_PORT + g_port++;
-        ret = mUdpSocket->bind(port  /*, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint*/); //此处的bind是个重载函数，连接本机的port端口，采用ShareAddress模式(即允许其它的服务连接到相同的地址和端口，特别是 用在多客户端监听同一个服务器端口等时特别有效)，和ReuseAddressHint模式(重新连接服务器)
-        if(ret)
-        {
-            // connect(g_udpSocket,SIGNAL(readyRead()),this,SLOT(dataReceivedSlot())); // 数据接收
-            break; //退出
-        }
-        else
-            qDebug() << "udp socket create err" << port;
-    } while(ret == false);
-
-    return port;
-}
-
-
-
-/**
- * @brief 获取UDP数据包
- * @param data
- * @return
- */
-UdpBaseData *UdpRecvSocket::getData(void)
-{
-    UdpBaseData *data = NULL;
-
-    dataReceived();
-    int ret = mUdpQueueData->size();
-    if( ret > 0)
-        data = mUdpQueueData->dequeue();
-
-    return data;
-}
-
-
-
-
-/**
- * @brief 读取socket数据
- * @return
- */
-bool UdpRecvSocket::dataReceived(void)
-{   
-    if(mUdpSocket->hasPendingDatagrams()) // 是否有数据可读
-    {
-        UdpBaseData *data = new UdpBaseData();
-        if(data) {
-            data->datagram.resize(mUdpSocket->pendingDatagramSize()); //让datagram 的大小为等待处理的数据报的大小，这样才能接收到完整的数据
-
-            int rtn = mUdpSocket->readDatagram(data->datagram.data(),
-                                               data->datagram.size(),
-                                               &data->addr,
-                                               &data->port);
-            if(rtn > 0)
-            {
-                if(data->datagram.size() < 1024) /*数据最长不超过1024*/
-                {
-                    mUdpQueueData->enqueue(data);
-                }
-            }
-        } else {
-            qDebug() << "new UdpBaseData err";
-        }
+    int rtn = udp_serviceRecvData(sock_fd, &pin, buf);
+    if(rtn > 0) {
+        ip = inet_ntoa(pin.sin_addr);
     }
 
-    return mUdpSocket->hasPendingDatagrams();
+    return rtn;
 }
 
 

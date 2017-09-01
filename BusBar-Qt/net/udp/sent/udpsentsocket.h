@@ -25,6 +25,6 @@ private:
     QReadWriteLock  *sentLock;
 };
 
-void udp_sent_data(const QString &ip, int port, uchar *buf, ushort len);
-void udp_sent_data(const QString &ip, uchar *buf, ushort len);
+void udp_sent_data(const QString &ip, int port, uchar *buf, uint len);
+void udp_sent_data(const QString &ip, uchar *buf, uint len);
 #endif // UDPSENTSOCKET_H

@@ -192,7 +192,7 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
         break;
 
     default:
-        qDebug() << "pdu_hashDevData_save err" << fn;
+//        qDebug() << "pdu_hashDevData_save err" << fn;
         break;
     }
 }

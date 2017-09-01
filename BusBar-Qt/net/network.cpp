@@ -6,10 +6,11 @@ void set_hb_IP(const QStringList &ips);
 
 NetWork::NetWork()
 {
-//    mNetDataAnalyze = new NetDataAnalyze(0);
-//    NetSendThread::bulid()->start();
+    mNetDataAnalyze = new NetDataAnalyze(0); // 接收IP 模块数据
 
-//    QStringList ips;
-//    ips << "192.168.1.215";
-//    set_hb_IP(ips);
+    NetSendThread::bulid()->start(); //平板端连接
+
+    QStringList ips;
+    ips << "192.168.1.163";
+    set_hb_IP(ips); // 设置目标IP ，也就是把心跳1包发给住
 }
