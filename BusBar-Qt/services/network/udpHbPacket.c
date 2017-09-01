@@ -141,14 +141,10 @@ static void udp_thread_count(void)
  */
 void udp_count_thread(void)
 {
-    #if 0
 	pthread_t id;
 	int ret = pthread_create(&id, NULL, (void *)udp_thread_count, NULL);
 	if(ret != 0)
 		udp_printf("create count pthread err\n");
-#else
-    udp_thread_count();
-#endif
 }
 
 
@@ -157,16 +153,12 @@ void udp_count_thread(void)
  */
 void udp_hb_thread(void)
 {
-#if 0
 	pthread_t *id = &threadId;
 	int ret = pthread_create(id, NULL, (void *)udp_thread_entry, NULL);
 	if(ret != 0)
 		udp_printf("create hb pthread err\n");
 
 	udp_count_thread();
-#else
-    udp_thread_count();
-#endif
 }
 
 /**
@@ -175,10 +167,7 @@ void udp_hb_thread(void)
 void udp_hb_stop(void)
 {
 	close(sock_fd);
-
-#if 0
 	pthread_cancel(threadId);
-#endif
 }
 
 

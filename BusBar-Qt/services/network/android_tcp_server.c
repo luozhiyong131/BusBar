@@ -14,7 +14,7 @@ int android_sent(void *buf, int len)
 {
     if(gSocket > 0) {
         len = send(gSocket, buf, len, 0);
-        usleep(25*1000);  // 适当延时，等待 移动端数据处理完成
+        usleep(1*1000);  // 适当延时，等待 移动端数据处理完成
     }
     else
         len = -1;
