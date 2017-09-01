@@ -99,6 +99,6 @@ void NetDataAnalyze::run(void)
     while (isRun)
     {
         recvData();
-        msleep(1);
+        msleep(3);
     }
 }

@@ -2,10 +2,10 @@
 #define NETWORK_H
 #include "analyze/netdataanalyze.h"
 
-class NetWork
+class NetWork : public QObject
 {
 public:
-    NetWork();
+    NetWork(QObject *parent = 0);
 
 private:
     NetDataAnalyze *mNetDataAnalyze;

@@ -4,9 +4,9 @@
 void set_hb_IP(const QStringList &ips);
 
 
-NetWork::NetWork()
+NetWork::NetWork(QObject *parent) : QObject(parent)
 {
-    mNetDataAnalyze = new NetDataAnalyze(0); // 接收IP 模块数据
+    mNetDataAnalyze = new NetDataAnalyze(this); // 接收IP 模块数据
 
     NetSendThread::bulid()->start(); //平板端连接
 

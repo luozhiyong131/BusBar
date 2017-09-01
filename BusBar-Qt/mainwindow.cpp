@@ -103,13 +103,13 @@ void MainWindow::initFunSLot()
     updateTime();
 
     timer = new QTimer(this);
-    timer->start(1000);
+    timer->start(700);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 
     mCheckDlg = new CheckPasswordDlg(this);
     connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
 
-     mNetWork = new NetWork;
+     mNetWork = new NetWork(this);
 }
 
 void MainWindow::initWidget()
