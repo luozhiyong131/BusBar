@@ -12,5 +12,5 @@ NetWork::NetWork(QObject *parent) : QObject(parent)
 
     QStringList ips;
     ips << "192.168.1.163";
-    set_hb_IP(ips); // 设置目标IP ，也就是把心跳1包发给住
+//    set_hb_IP(ips); // 设置目标IP ，也就是把心跳1包发给住
 }
