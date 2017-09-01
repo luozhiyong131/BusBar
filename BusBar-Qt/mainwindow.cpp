@@ -103,7 +103,7 @@ void MainWindow::initFunSLot()
     updateTime();
 
     timer = new QTimer(this);
-    timer->start(700);
+    timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 
     mCheckDlg = new CheckPasswordDlg(this);
