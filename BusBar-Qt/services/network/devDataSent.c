@@ -330,7 +330,7 @@ void sent_test(void)
 
 	char *str = "cleve; cleve";
 	int i;
-	for(i=0; i<5; ++i) {
+    for(i=0; i<6; ++i) {
 		sent_devData(i,devData);
 		//sent_str(i, 6, 0x11, strlen(str), str);
 	}
