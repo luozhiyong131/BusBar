@@ -58,12 +58,12 @@ void MajorSetting::updateWidget(int index)
     ui->lineEdit_3->setText(QString::number(boxNum,10));
 
     sObjData  *objData = &(busData->data);
-    ui->label_1_cur->setText(QString(objData ->cur.value[0],10));
-    ui->label_1_vol->setText(QString(objData ->vol.value[0],10));
-    ui->label_2_cur->setText(QString(objData ->cur.value[1],10));
-    ui->label_2_vol->setText(QString(objData ->vol.value[1],10));
-    ui->label_3_cur->setText(QString(objData ->cur.value[2],10));
-    ui->label_3_vol->setText(QString(objData ->vol.value[2],10));
+    ui->label_1_cur->setText(QString::number(objData ->cur.value[0],10)+"A");
+    ui->label_1_vol->setText(QString::number(objData ->vol.value[0],10)+"V");
+    ui->label_2_cur->setText(QString::number(objData ->cur.value[1],10)+"A");
+    ui->label_2_vol->setText(QString::number(objData ->vol.value[1],10)+"V");
+    ui->label_3_cur->setText(QString::number(objData ->cur.value[2],10)+"A");
+    ui->label_3_vol->setText(QString::number(objData ->vol.value[2],10)+"V");
 
     setProgressbarValue(ui->progressBar,&(objData->cur),0);
     setProgressbarValue(ui->progressBar_2,&(objData->vol),0);

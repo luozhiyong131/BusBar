@@ -74,7 +74,6 @@ void SettingWid::on_pushButton_clicked()
 void SettingWid::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
-    //    mSubsettingWid->updateWid(0);
 }
 
 /**
@@ -82,12 +81,8 @@ void SettingWid::on_pushButton_2_clicked()
  */
 void SettingWid::on_pushButton_3_clicked()
 {   
-    //    if(ui->stackedWidget->currentWidget() != mSystemDlg)
-    //        mCheckDlg->show();
-
     ui->stackedWidget->setCurrentWidget(mSystemDlg);
 }
-
 
 /**
  * @brief SettingWid::on_pushButton_tem_clicked  温度阈值设置
