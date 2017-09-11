@@ -53,7 +53,6 @@ void BoxLoopTableWid::initTableWidget()
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-//    connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
     // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
     // ui->tableWidget->setColumnWidth(0,200);
 }
