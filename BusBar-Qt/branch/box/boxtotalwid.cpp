@@ -48,6 +48,6 @@ void BoxTotalWid::updateData()
     str =  QString::number(mTgBox->ele/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->tEleLab->setText(str);
 
-    str = QString::number(mEnvBox->tem.value[0]) + "°C";
-    //    ui->temlab->setText(str);
+    str = QString::number(mTgBox->vol) + "V";
+    ui->vollab->setText(str);
 }

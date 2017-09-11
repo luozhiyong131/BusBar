@@ -21,8 +21,9 @@ HomeWid::~HomeWid()
 
 void HomeWid::initFun()
 {
-    sDataPacket *shm = get_share_mem();
-    mBusData = &(shm->data[0]);
+    busChangedSlot(0);
+    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(busChangedSlot(int)));
+    mMaxNum = mBusData->boxNum;
 
     timer = new QTimer(this);
     timer->start(2*1000);
@@ -65,6 +66,11 @@ void HomeWid::timeoutDone()
     if(isRun) {
         ui->curLcd->display(mBusData->tgBus.cur/COM_RATE_CUR);
         ui->powLcd->display(mBusData->tgBus.pow/COM_RATE_POW);
+
+        if(mMaxNum != mBusData->boxNum) {
+            checkBoxBaseNum();
+            mMaxNum = mBusData->boxNum;
+        }
     }
 }
 
@@ -112,3 +118,8 @@ void HomeWid::on_downBtn_clicked()
     }
 }
 
+void HomeWid::busChangedSlot(int id)
+{
+    sDataPacket *shm = get_share_mem();
+    mBusData = &(shm->data[id]);
+}

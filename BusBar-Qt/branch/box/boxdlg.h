@@ -2,8 +2,8 @@
 #define BOXDLG_H
 
 #include <QDialog>
-#include "boxloopwid.h"
 #include "boxtotalwid.h"
+#include "boxlooptablewid.h"
 
 namespace Ui {
 class BoxDlg;
@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::BoxDlg *ui;
     BoxTotalWid *mTotalWid;
-    BoxLoopWid *mLine[3];
+    BoxLoopTableWid *mLineWid;
     sBoxData *mData;
 };
 
