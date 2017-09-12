@@ -36,10 +36,10 @@ void BoxTotalWid::updateData()
     QString str = QString::number(mTgBox->cur/COM_RATE_CUR, 'f', 1) + "A";
     ui->tCurLab->setText(str);
 
-    str =  QString::number(mTgBox->pow/COM_RATE_POW, 'f', 1) + "kW";
+    str =  QString::number(mTgBox->pow/COM_RATE_POW, 'f', 2) + "kW";
     ui->tPowLab->setText(str);
 
-    str =  QString::number(mTgBox->apPow/COM_RATE_POW, 'f', 1) + "kVA";
+    str =  QString::number(mTgBox->apPow/COM_RATE_POW, 'f', 2) + "kVA";
     ui->tApPowLab->setText(str);
 
     str =  QString::number(mTgBox->pf/COM_RATE_PF, 'f', 2);

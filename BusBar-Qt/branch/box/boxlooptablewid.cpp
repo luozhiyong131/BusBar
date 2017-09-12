@@ -84,7 +84,6 @@ void BoxLoopTableWid::addRowContent(QStringList &list)
     list.clear();
 }
 
-
 /**
  * @brief 初始化一行表格
  * @param str
@@ -111,7 +110,6 @@ void BoxLoopTableWid::initTableWid()
         initTable();
 }
 
-
 /**
  * @brief 表格检查 当输出位与表格行数不相等时，需要重新建立表
  * @return true 表示需要重新建立表格
@@ -130,7 +128,6 @@ bool BoxLoopTableWid::checkTable()
 
     return ret;
 }
-
 
 void BoxLoopTableWid::setTableItem(int id, int column, const QString &str)
 {
@@ -153,14 +150,11 @@ void BoxLoopTableWid::clearTable()
     }
 }
 
-
 void BoxLoopTableWid::setName(int id, int column)
 {
     QString name =tr("L%1").arg(id+1);
     setTableItem(id, column, name);
 }
-
-
 
 void BoxLoopTableWid::setAlarmStatus(int id, int column, int alarm, int crAlarm)
 {
@@ -219,7 +213,7 @@ void BoxLoopTableWid::setPow(int id, int column)
 
     double value = mData->pow[id] / COM_RATE_POW;
     if(value >= 0)
-        str = QString::number(value, 'f', 1) + "kW";
+        str = QString::number(value, 'f', 2) + "kW";
     setTableItem(id, column, str);
 }
 
@@ -255,7 +249,6 @@ void BoxLoopTableWid::setTemp(int id, int column)
 
     setAlarmStatus(id, column,unit->alarm[id], unit->crAlarm[id]);
 }
-
 
 /**
  * @brief 数据更新入口函数

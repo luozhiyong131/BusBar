@@ -66,7 +66,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->ele <<= 8; // 左移8位
     msg->ele +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
     msg->curAlarm =  (*ptr) * 256 + *(ptr+1);  ptr += 2;// 上限电流报警值
-    msg->pf =  *(ptr++);;// 功率因素
+    msg->pf =  *(ptr++);// 功率因素
     msg->sw =  *(ptr++);// 开关状态
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
 
