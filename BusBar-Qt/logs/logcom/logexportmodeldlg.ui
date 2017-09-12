@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>459</height>
+    <width>400</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="1">
+   <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>纪录导出</string>
@@ -105,14 +105,40 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="3">
+       <widget class="QPushButton" name="quitBtn">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>37</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>退出</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../images.qrc">
+          <normaloff>:/new/prefix1/image/cancel.png</normaloff>:/new/prefix1/image/cancel.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>45</width>
+          <height>45</height>
+         </size>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="minimumSize">
       <size>
-       <width>150</width>
+       <width>50</width>
        <height>0</height>
       </size>
      </property>
@@ -148,42 +174,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QWidget" name="widget" native="true">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>50</height>
-      </size>
-     </property>
-     <widget class="QPushButton" name="quitBtn">
-      <property name="geometry">
-       <rect>
-        <x>410</x>
-        <y>0</y>
-        <width>45</width>
-        <height>45</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../../images.qrc">
-        <normaloff>:/new/prefix1/image/cancel.png</normaloff>:/new/prefix1/image/cancel.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>45</width>
-        <height>45</height>
-       </size>
-      </property>
-     </widget>
     </widget>
    </item>
   </layout>

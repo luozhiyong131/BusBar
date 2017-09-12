@@ -46,7 +46,7 @@ void LogBranchEleWid::initFunSLot()
 void LogBranchEleWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
-//    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
+    //    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
     connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString)));
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
@@ -64,7 +64,7 @@ void LogBranchEleWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱")<< tr("回路1") << tr("回路2") << tr("回路3") << tr("合计");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱")<< tr("L1") << tr("L2") << tr("L3") << tr("合计");
     model->setHeaders(mHeadList);
 }
 
@@ -76,14 +76,21 @@ bool LogBranchEleWid::refreshTable(const QString &table)
         m_table = table;
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
         ui->tableView->setColumnHidden(0, true);
+        ui->tableView->resizeColumnsToContents();
     }
     return  ret;
 }
 
 void LogBranchEleWid::clearTableSlot()
 {
-    if(model->removeRow(0))
-        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+    model->model->setTable("markingtable");
+    DbBranchEle* db = db_branchEle_obj(mid);
+    db->clear();
+    db->createTable();
+    initTableSlot(mid);
+
+//    if(model->removeRow(0))
+//        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
 }
 
 void LogBranchEleWid::refreshSlot()

@@ -47,7 +47,7 @@ void BoxTableWidget::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("接插箱") << tr("状态") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能") << tr("温度");
+    header <<tr("接插箱") << tr("状态") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能") << tr("温度");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -57,7 +57,7 @@ void BoxTableWidget::initTableWidget()
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
-   // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
+    // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
     // ui->tableWidget->setColumnWidth(0,200);
 }
 
@@ -192,74 +192,82 @@ void BoxTableWidget::setAlarmStatus(int id, int column)
 void BoxTableWidget::setVol(int id, int column)
 {
     QString str = "---";
-    sTgObjData *unit = &(mBoxData->box[id].tgBox);
 
-    double value = unit->vol / COM_RATE_VOL;
-    if(value >= 0)
-        str = QString::number(value, 'f', 1) + "V";
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->vol;
+        if(value >= 0)
+            str = QString::number(value) + "V";
+    }
     setTableItem(id, column, str);
 }
 
 void BoxTableWidget::setCur(int id, int column)
 {
     QString str = "---";
-    sTgObjData *unit = &(mBoxData->box[id].tgBox);
-
-    double value = unit->cur / COM_RATE_CUR;
-    if(value >= 0)
-        str = QString::number(value, 'f', 1) + "A";
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->cur / COM_RATE_CUR;
+        if(value >= 0)
+            str = QString::number(value, 'f', 1) + "A";
+    }
     setTableItem(id, column, str);
 }
 
 void BoxTableWidget::setPow(int id, int column)
 {
     QString str = "---";
-    sTgObjData *unit = &(mBoxData->box[id].tgBox);
-
-    double value = unit->pow / COM_RATE_POW;
-    if(value >= 0)
-        str = QString::number(value, 'f', 1) + "kW";
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->pow / COM_RATE_POW;
+        if(value >= 0)
+            str = QString::number(value, 'f', 3) + "kW";
+    }
     setTableItem(id, column, str);
 }
 
 void BoxTableWidget::setPf(int id, int column)
 {
     QString str = "---";
-    sTgObjData *unit = &(mBoxData->box[id].tgBox);
 
-    double value = unit->pf / COM_RATE_PF;
-    if(value >= 0)
-        str = QString::number(value, 'f', 2);
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->pf / COM_RATE_PF;
+        if(value >= 0)
+            str = QString::number(value, 'f', 2);
+    }
     setTableItem(id, column, str);
 }
 
 void BoxTableWidget::setEle(int id, int column)
 {
     QString str = "---";
-    sTgObjData *unit = &(mBoxData->box[id].tgBox);
 
-    double value = unit->ele / COM_RATE_ELE;
-    if(value >= 0)
-        str = QString::number(value, 'f', 1) + "kWh";
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->ele / COM_RATE_ELE;
+        if(value >= 0)
+            str = QString::number(value, 'f', 1) + "kWh";
+    }
     setTableItem(id, column, str);
 }
 
 void BoxTableWidget::setTemp(int id, int column)
 {
     QString str = "---";
-    sDataUnit *unit = &(mBoxData->box[id].env.tem);
-
-    double value = unit->value[0]/COM_RATE_TEM;
-    if(value >= 0)
-        str = QString::number(value) + "°C";
+    if(mBoxData->box[id].offLine)
+    {
+        sTgObjData *unit = &(mBoxData->box[id].tgBox);
+        double value = unit->tem;
+        if(value >= 0)
+            str = QString::number(value) + "°C";
+    }
     setTableItem(id, column, str);
-
-    QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
-    int data = unit->alarm[0];
-    if(data > 0) // 报警
-        item->setTextColor(QColor(Qt::red));
-    else
-        item->setTextColor(QColor(Qt::black));
 }
 
 
@@ -279,7 +287,7 @@ void BoxTableWidget::updateData()
         setName(i, k++); // 设置输出位名称
         setAlarmStatus(i, k++);
 
-      // setVol(i, k++); // 设置电压
+        setVol(i, k++); // 设置电压
         setCur(i, k++); // 设置电流值
 
         setPow(i, k++); // 功率
@@ -308,7 +316,7 @@ void BoxTableWidget::timeoutDone()
 
 void BoxTableWidget::getItem(QTableWidgetItem*)
 {
-     BeepThread::bulid()->beep();
+    BeepThread::bulid()->beep();
     int row = ui->tableWidget->currentRow();
 
     BoxDlg dlg(0);

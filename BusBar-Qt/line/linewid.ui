@@ -42,35 +42,6 @@
     <string>50</string>
    </property>
   </widget>
-  <widget class="QLabel" name="temLab">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>20</y>
-     <width>41</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>25</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>20</y>
-     <width>61</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>温度:</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
   <widget class="QWidget" name="totalWid" native="true">
    <property name="geometry">
     <rect>
@@ -211,7 +182,7 @@ border-bottom:2px solid rgb(228,228,228);
       </property>
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>120</width>
         <height>16777215</height>
        </size>
       </property>
@@ -233,34 +204,12 @@ border-bottom:2px solid rgb(228,228,228);
       </property>
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>140</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="text">
        <string>过载电流</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_4">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>视在功率</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -277,7 +226,7 @@ border-bottom:2px solid rgb(228,228,228);
       </property>
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>140</width>
         <height>16777215</height>
        </size>
       </property>
@@ -321,12 +270,34 @@ border-bottom:2px solid rgb(228,228,228);
       </property>
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>160</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="text">
        <string>电能</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>温度</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

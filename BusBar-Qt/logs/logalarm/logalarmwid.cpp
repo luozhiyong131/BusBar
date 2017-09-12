@@ -31,12 +31,12 @@ void LogAlarmWid::initFunSLot()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);//
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView->resizeColumnsToContents();
+    // ui->tableView->resizeColumnsToContents();
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); //禁用编辑功能
 
     model = new SqlTableModel(ui->tableView);
     ui->tableView->setModel(model->model);
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+//    ui->tableView->horizontalHeader()->setStretchLastSection(true);
     connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex)));
 
     initBtnBar();
@@ -76,14 +76,21 @@ bool LogAlarmWid::refreshTable(const QString &table)
         m_table = table;
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
         ui->tableView->setColumnHidden(0, true);
+        ui->tableView->setColumnWidth(4,750);
     }
     return  ret;
 }
 
 void LogAlarmWid::clearTableSlot()
 {
-    if(model->removeRow(0))
-        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+    model->model->setTable("markingtable");
+    DbAlarm* db = db_alarm_obj(mid);
+    db->clear();
+    db->createTable();
+    initTableSlot(mid);
+
+//    if(model->removeRow(0))
+//        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
 }
 
 void LogAlarmWid::refreshSlot()

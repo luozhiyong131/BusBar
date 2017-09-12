@@ -160,9 +160,9 @@ void BoxLoopTableWid::setAlarmStatus(int id, int column, int alarm, int crAlarm)
 {
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
 
-    if(alarm == 1) { // 报警
+    if(alarm) { // 报警
         item->setTextColor(QColor(Qt::red));
-    } else  if(crAlarm == 1) { // 预警
+    } else  if(crAlarm) { // 预警
         item->setTextColor(QColor(Qt::yellow));
     } else {
         item->setTextColor(QColor(Qt::black));
@@ -213,7 +213,7 @@ void BoxLoopTableWid::setPow(int id, int column)
 
     double value = mData->pow[id] / COM_RATE_POW;
     if(value >= 0)
-        str = QString::number(value, 'f', 2) + "kW";
+        str = QString::number(value, 'f', 3) + "kW";
     setTableItem(id, column, str);
 }
 

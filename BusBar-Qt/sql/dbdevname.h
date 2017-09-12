@@ -23,6 +23,7 @@ public:
     QString getName(int busId, int typeId, int num);
 
 protected:
+    void createTable();
     bool insertItem(DbNameItem &item); // 插入
     bool updateItem(const DbNameItem &item);
 

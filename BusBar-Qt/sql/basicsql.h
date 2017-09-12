@@ -39,6 +39,7 @@ public:
     bool updateColumn(const QString& column_name, const QString& value, const QString &condition);
 
     bool clear(); // 清空 表
+    virtual void createTable()=0;
 
 signals:
     void itemChanged(int id,int type);

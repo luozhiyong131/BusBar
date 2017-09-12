@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>706</width>
+    <width>750</width>
     <height>91</height>
    </rect>
   </property>
@@ -75,7 +75,7 @@
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>459</x>
+     <x>509</x>
      <y>50</y>
      <width>85</width>
      <height>30</height>
@@ -103,7 +103,7 @@
   <widget class="QLabel" name="tEleLab">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>600</x>
      <y>50</y>
      <width>131</width>
      <height>30</height>
@@ -178,7 +178,7 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>459</x>
+     <x>509</x>
      <y>10</y>
      <width>85</width>
      <height>30</height>
@@ -206,7 +206,7 @@
   <widget class="QLabel" name="tPfLab">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>600</x>
      <y>10</y>
      <width>85</width>
      <height>30</height>
@@ -259,9 +259,9 @@
   <widget class="QLabel" name="tApPowLab">
    <property name="geometry">
     <rect>
-     <x>337</x>
+     <x>330</x>
      <y>50</y>
-     <width>85</width>
+     <width>160</width>
      <height>30</height>
     </rect>
    </property>
@@ -269,12 +269,6 @@
     <size>
      <width>85</width>
      <height>0</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>85</width>
-     <height>16777215</height>
     </size>
    </property>
    <property name="text">
@@ -314,7 +308,7 @@
     <rect>
      <x>331</x>
      <y>10</y>
-     <width>85</width>
+     <width>160</width>
      <height>30</height>
     </rect>
    </property>
@@ -322,12 +316,6 @@
     <size>
      <width>85</width>
      <height>0</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>85</width>
-     <height>16777215</height>
     </size>
    </property>
    <property name="text">

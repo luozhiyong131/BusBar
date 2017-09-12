@@ -81,8 +81,13 @@ bool LogMainEleWid::refreshTable(const QString &table)
 
 void LogMainEleWid::clearTableSlot()
 {
-    if(model->removeRow(0))
-        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+    model->model->setTable("markingtable");
+    DbMainEle* db = db_mainEle_obj(mid);
+    db->clear();
+    db->createTable();
+    initTableSlot(mid);
+//    if(model->removeRow(0))
+//        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
 }
 
 void LogMainEleWid::refreshSlot()

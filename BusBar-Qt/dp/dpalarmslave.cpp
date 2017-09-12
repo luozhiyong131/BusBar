@@ -82,10 +82,10 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
 {
     for(int i=0; i<3; ++i)
     {
-        QString str = msg;
+        QString str=msg, tempStr = typeStr;
         if(unit.alarm[i])
         {
-            typeStr += tr("报警");
+            tempStr = typeStr + tr("报警");
             str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(i+1)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.min[i]/rate).arg(sym)
@@ -98,7 +98,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
         }
         else if(unit.crAlarm[i])
         {
-            typeStr += tr("预警");
+            tempStr = typeStr +  tr("预警");
             str += tr("%1，当前值：%2%3, 临界下限值：%4%5, 临界上限值：%6%7").arg(i+1)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.crMin[i]/rate).arg(sym)
@@ -108,7 +108,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
         // 实时报警信息
         if((unit.alarm[i]) || (unit.crAlarm[i])) {
             mAlarmStr << shm->data[mBusId].busName;
-            mAlarmStr << typeStr;
+            mAlarmStr << tempStr;
             mAlarmStr << str;
         }
     }
@@ -121,7 +121,7 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
     {
         QString typeStr = tr("回路电流");
         if(box.boxCurAlarm) {
-            QString msg = tr("插接箱：%1，回路").arg(box.boxName);
+            QString msg = tr("插接箱：%1，L").arg(box.boxName);
             unitAlarm(typeStr, msg, box.data.cur, 10, "A");
         }
 
