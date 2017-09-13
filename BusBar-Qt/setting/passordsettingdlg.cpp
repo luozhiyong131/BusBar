@@ -27,13 +27,9 @@ void PassordSettingDlg::on_pushButton_2_clicked()
 
     if(ret)
     {
-        if(!newPassword.isEmpty())
-        {
-            sys_configFile_writeParam("password",newPassword);
-            QMessageBox::information(this,"information","密码设置成功，点击确定退出！","确定");
-            this->close();
-        }else
-            QMessageBox::information(this,"information","新密码不能为空，请重新输入！","确定");
+        sys_configFile_writeParam("password",newPassword);
+        QMessageBox::information(this,"information","密码设置成功，点击确定退出！","确定");
+        this->close();
     }
     else
         QMessageBox::information(this,"information","原密码输入错误，请重新输入！","确定");
@@ -42,7 +38,7 @@ void PassordSettingDlg::on_pushButton_2_clicked()
 bool PassordSettingDlg::checkJurisdiction()
 {
     QString old = ui->lineEdit->text();
-    if((!old.isEmpty()) && (old == getPassword()))
+    if(old == getPassword())
         return true;
 
     return false;
