@@ -18,22 +18,31 @@ OtherSettingDlg::~OtherSettingDlg()
 
 void OtherSettingDlg::on_updateBtn_clicked()
 {
-    ///// ========== 从U盘把文件复制出来
+    QuMsgBox box(this, tr("是否升级系统?"));
+    if(box.Exec()) {
+        QFileInfo fi("/mnt/sda1/busbar/app");                     // 目录存在
+        if(fi.exists()) {
+            int ret = system("rm -rf /mnt/mtdblock3/app");
+            if(ret < 0) {
+                qDebug() << "rm -rf /mnt/mtdblock3/app err ";
+            }
+            ret = system("mv /mnt/sda1/busbar/app /mnt/mtdblock3/app");
+            if(ret < 0) {
+                qDebug() << "mv /mnt/sda1/busbar/app /mnt/mtdblock3/app err ";
+            }
+             system("reboot");
+        } else {
+            CriticalMsgBox box(this, tr("升级文件未找到！\n 请插入U盘，把升级文件放入busbar目录下!"));
+        }
+    }
 
 }
 
 void OtherSettingDlg::on_resetBtn_clicked()
 {
-    int ret = QMessageBox::information(this,"waring","是否重启系统","确定","取消",0,1);
-    switch (ret) {
-    case 0:
+    QuMsgBox box(this, tr("是否重启系统?"));
+    if(box.Exec()) {
         system("reboot");
-        break;
-    case 1:
-
-        break;
-    default:
-        break;
     }
 }
 

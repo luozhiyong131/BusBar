@@ -13,6 +13,7 @@ DpThread::DpThread(QObject *parent) : QThread(parent)
     mAlarmThread = new DpAlarmThread(this);
     mEle = new DpEleSlaveThread(this);
     mAlarmSlave = new DpAlarmSlave(this);
+    mBeep = new DpBeepThread(this);
 }
 
 DpThread::~DpThread()
