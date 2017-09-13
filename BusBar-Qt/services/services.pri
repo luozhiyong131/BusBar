@@ -12,23 +12,7 @@ HEADERS += \
     $$PWD/excel/excelexportlogthread.h \
     $$PWD/excel/excelexportwid.h \
     $$PWD/excel/txtexportlogthread.h \
-    $$PWD/network/android_tcp_server.h \
-    $$PWD/network/devDataSent.h \
-    $$PWD/network/devDataType.h \
-    $$PWD/network/netDataPacket.h \
-    $$PWD/network/netDataSegment.h \
-    $$PWD/network/tcpserver.h \
-    $$PWD/network/udpdebug.h \
-    $$PWD/network/udpHbPacket.h \
-    $$PWD/network/udpsent.h \
-    $$PWD/network/udpservice.h \
-    $$PWD/datetime/timesettingdlg.h \
-    $$PWD/tcp/tcpsocket.h \
-    $$PWD/tcp/tcpthread.h \
-    $$PWD/tcp/bustcpserver.h \
-    $$PWD/tcp/devicerelatedfunction.h
-
-
+    $$PWD/datetime/timesettingdlg.h
     
    
 	
@@ -44,19 +28,7 @@ SOURCES += \
     $$PWD/excel/excelexportlogthread.cpp \
     $$PWD/excel/excelexportwid.cpp \
     $$PWD/excel/txtexportlogthread.cpp \
-    $$PWD/network/android_tcp_server.c \
-    $$PWD/network/devDataSent.c \
-    $$PWD/network/netDataPacket.c \
-    $$PWD/network/netDataSegment.c \
-    $$PWD/network/tcpserver.c \
-    $$PWD/network/udpHbPacket.c \
-    $$PWD/network/udpsent.c \
-    $$PWD/network/udpservice.c \
     $$PWD/datetime/timesettingdlg.cpp \
-    $$PWD/tcp/tcpsocket.cpp \
-    $$PWD/tcp/tcpthread.cpp \
-    $$PWD/tcp/bustcpserver.cpp \
-    $$PWD/tcp/devicerelatedfunction.cpp
 
 
     

@@ -34,6 +34,7 @@ private:
 
     int mID;
     sObjData *mData;
+    sEnvData *mEnv;
     QTimer *timer;
     bool isRun;
 };

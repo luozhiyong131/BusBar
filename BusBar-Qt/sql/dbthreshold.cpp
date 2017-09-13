@@ -10,6 +10,11 @@
 
 DbThreshold::DbThreshold()
 {
+    createTable();
+}
+
+void DbThreshold::createTable()
+{
     QString cmd =
             "create table if not exists %1("
             "id             INTEGER primary key autoincrement not null,"
@@ -26,7 +31,6 @@ DbThreshold::DbThreshold()
         throwError(query.lastError());
     }
 }
-
 
 
 DbThreshold *DbThreshold::bulid()

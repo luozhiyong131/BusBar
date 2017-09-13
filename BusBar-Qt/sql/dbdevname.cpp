@@ -2,6 +2,11 @@
 
 DbDevName::DbDevName()
 {
+    createTable();
+}
+
+void DbDevName::createTable()
+{
     QString cmd =
             "create table if not exists %1("
             "id             INTEGER primary key autoincrement not null,"

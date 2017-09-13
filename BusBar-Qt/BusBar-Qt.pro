@@ -27,7 +27,7 @@ DEFINES += QT_DEPRECATED_WARNINGSuntitled1
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-include(test/test.pri)
+#include(test/test.pri)
 include(common/common.pri)
 include(modbus/modbus.pri)
 include(sql/sql.pri)
@@ -42,6 +42,7 @@ include(shm/shm.pri)
 include(keyboard/keyboard.pri)
 include(customdialplot/customdialplot.pri)
 include(beep/beep.pri)
+include(net/net.pri)
 
 SOURCES += \
         main.cpp \
@@ -64,7 +65,7 @@ RESOURCES += \
 
 
 LIBS += -lts
-#LIBS += -lpthread
+LIBS += -lpthread
 
 target.path = /opt
 INSTALLS += target

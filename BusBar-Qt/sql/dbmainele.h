@@ -18,8 +18,8 @@ public:
     virtual QString tableName(){return QString("%1_%2").arg(DB_TABLE_MAINELE).arg(1) ;}
     bool insertItem(DbMainEleItem &item); // 插入
 
-protected:
     void createTable();
+protected:
     bool modifyItem(const DbMainEleItem& item,const QString& cmd);
     void selectItem(QSqlQuery &query,DbMainEleItem &item);
 };

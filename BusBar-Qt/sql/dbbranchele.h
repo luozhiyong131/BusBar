@@ -19,8 +19,8 @@ public:
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(1) ;}
     bool insertItem(DbBranchEleItem &item); // 插入
 
+    void createTable();
 protected:
-     void createTable();
     bool modifyItem(const DbBranchEleItem& item,const QString& cmd);
     void selectItem(QSqlQuery &query,DbBranchEleItem &item);
 };

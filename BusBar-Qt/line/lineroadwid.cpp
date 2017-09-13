@@ -41,6 +41,8 @@ void LineRoadWid::busChangeSlot(int id)
 {    
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[id].data);
+    mEnv = &(shm->data[id].env);
+
     updateData();
 }
 
@@ -85,10 +87,7 @@ void LineRoadWid::updateData()
     str =  QString::number(mData->cur.max[id]/COM_RATE_CUR,'f',1) + "A";
     ui->maxCur->setText(str);
 
-    str =  QString::number(mData->apPow[id]/COM_RATE_POW,'f',1) + "kVA";
-    ui->apPow->setText(str);
-
-    str =  QString::number(mData->pow[id]/COM_RATE_POW,'f',1) + "kW";
+    str =  QString::number(mData->pow[id]/COM_RATE_POW,'f',3) + "kW";
     ui->powLab->setText(str);
 
     str =  QString::number(mData->pf[id]/COM_RATE_PF, 'f',2);
@@ -96,4 +95,8 @@ void LineRoadWid::updateData()
 
     str =  QString::number(mData->ele[id]/COM_RATE_ELE,'f',1) + "kWh";
     ui->eleLab->setText(str);
+
+    str =  QString::number(mEnv->tem.value[id]) + "℃";
+    ui->temLab->setText(str);
+    updateAlarmStatus(ui->temLab, mEnv->tem);
 }

@@ -18,8 +18,8 @@ public:
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_ALARM).arg(1) ;}
     bool insertItem(DbAlarmItem &item); // 插入
 
-protected:
     void createTable();
+protected:
     bool modifyItem(const DbAlarmItem& item,const QString& cmd);
     void selectItem(QSqlQuery &query,DbAlarmItem &item);
 };

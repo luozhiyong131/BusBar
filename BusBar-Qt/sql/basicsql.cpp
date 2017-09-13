@@ -166,11 +166,14 @@ void BasicSql::throwError(const QSqlError &err)
 
 bool BasicSql::clear()
 {
-    QString cmd = QString("truncate table %1").arg(tableName());
+//    QString cmd = QString("truncate table %1").arg(tableName());
+    QString cmd = QString("DROP  table %1").arg(tableName());
     QSqlQuery query(cmd);
     bool ret = query.exec(cmd);
     if(!ret){
         qDebug()<< "sql clear :" << query.lastError();
+    } else {
+        createTable();
     }
 
     return ret;

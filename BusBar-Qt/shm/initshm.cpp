@@ -126,7 +126,7 @@ void InitShm::initBoxName()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
-        for(int j=1; j<=busData->boxNum; ++j)
+        for(int j=1; j<BOX_NUM/*busData->boxNum*/; ++j)
         {
             sBoxData *box = &(busData->box[j]);
             initNameUnit(i, 2, j, box->boxName, QString("iBox-%1").arg(j));

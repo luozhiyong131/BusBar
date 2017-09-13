@@ -6,10 +6,13 @@
  */
 #include "msgbox.h"
 
+extern void com_setBackColour(const QString &str,QWidget *target);
+
 QuMsgBox::QuMsgBox(QWidget *parent,QString strContext) : QMessageBox(parent)
 {
-//    setWindowFlags(Qt::WindowStaysOnTopHint);
-    setWindowTitle(tr("提示信息"));
+    //    setWindowFlags(Qt::WindowStaysOnTopHint);
+    //    setWindowTitle(tr("提示信息"));
+    com_setBackColour(tr("提示信息"),this);
     setWindowIcon(QIcon(":/images/logo.jpg"));
     resize(600, 400);
 
@@ -46,7 +49,8 @@ bool QuMsgBox::Exec(void)
 WaringMsgBox::WaringMsgBox(QWidget *parent,QString strContext) : QMessageBox(parent)
 {
     //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    setWindowTitle(tr("警告信息"));
+    //    setWindowTitle(tr("警告信息"));
+    com_setBackColour(tr("警告信息"),this);
     setWindowIcon(QIcon(":/images/logo.jpg"));
     resize(500, 400);
 
@@ -84,7 +88,8 @@ InfoMsgBox::InfoMsgBox(QWidget *parent,QString strContext) :
     QMessageBox(parent)
 {
     //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    setWindowTitle(tr("信息提示"));
+    //    setWindowTitle(tr("信息提示"));
+    com_setBackColour(tr("信息提示"),this);
     setWindowIcon(QIcon(":/images/logo.jpg"));
     resize(500, 400);
 
@@ -112,7 +117,8 @@ CriticalMsgBox::CriticalMsgBox(QWidget *parent,QString strContext) :
     QMessageBox(parent)
 {
     //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    setWindowTitle(tr("错误提示"));
+    //    setWindowTitle(tr("错误提示"));
+    com_setBackColour(tr("错误提示"),this);
     setWindowIcon(QIcon(":/images/logo.jpg"));
     resize(500, 400);
 

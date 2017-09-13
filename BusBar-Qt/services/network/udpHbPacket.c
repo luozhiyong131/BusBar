@@ -139,7 +139,7 @@ static void udp_thread_count(void)
 /**
  * 创建并启动计时线程
  */
-static void udp_count_thread(void)
+void udp_count_thread(void)
 {
 	pthread_t id;
 	int ret = pthread_create(&id, NULL, (void *)udp_thread_count, NULL);

@@ -30,6 +30,7 @@ public:
     void setAll(DbThresholdItem &item);
 
 protected:
+     void createTable();
     bool insertItem(DbThresholdItem &item); // 插入
     bool updateItem(const DbThresholdItem &item);
 

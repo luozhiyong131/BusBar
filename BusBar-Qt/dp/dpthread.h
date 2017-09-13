@@ -6,6 +6,7 @@
 #include "dpalarmthread.h"
 #include "dpeleslavethread.h"
 #include "dpalarmslave.h"
+#include "dpbeepthread.h"
 
 class DpThread : public QThread
 {
@@ -22,6 +23,7 @@ private:
      DpAlarmThread *mAlarmThread;
      DpEleSlaveThread *mEle;
      DpAlarmSlave *mAlarmSlave;
+     DpBeepThread *mBeep;
 };
 
 #endif // DPTHREAD_H

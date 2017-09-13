@@ -25,11 +25,11 @@
 extern void com_setBackColour(const QString &,QWidget *target);
 
 // 倍率定义
-#define COM_RATE_VOL	10.0    // 电压
+#define COM_RATE_VOL	1.0    // 电压
 #define COM_RATE_CUR	10.0    // 电流
 #define COM_RATE_POW	1000.0  // 功率
 #define COM_RATE_ELE	10.0    // 电能
-#define COM_RATE_PF	100.0   // 功率因素
+#define COM_RATE_PF     100.0   // 功率因素
 #define COM_RATE_TEM	1.0    // 温度
 #define COM_RATE_HUM	10.0    // 湿度
 

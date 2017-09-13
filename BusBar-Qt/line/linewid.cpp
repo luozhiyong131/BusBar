@@ -64,10 +64,6 @@ void LineWid::timeoutDone()
     if(isRun) {
         QString str = QString::number(mData->rate) + "Hz";
         ui->rateLab->setText(str);
-
-        str = QString::number(mData->env.tem.value[0]) + "°C";
-        ui->temLab->setText(str);
-
         updatePlot();
     }
 }

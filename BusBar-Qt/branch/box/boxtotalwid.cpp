@@ -36,10 +36,10 @@ void BoxTotalWid::updateData()
     QString str = QString::number(mTgBox->cur/COM_RATE_CUR, 'f', 1) + "A";
     ui->tCurLab->setText(str);
 
-    str =  QString::number(mTgBox->pow/COM_RATE_POW, 'f', 1) + "kW";
+    str =  QString::number(mTgBox->pow/COM_RATE_POW, 'f', 3) + "kW";
     ui->tPowLab->setText(str);
 
-    str =  QString::number(mTgBox->apPow/COM_RATE_POW, 'f', 1) + "kVA";
+    str =  QString::number(mTgBox->apPow/COM_RATE_POW, 'f', 3) + "kVA";
     ui->tApPowLab->setText(str);
 
     str =  QString::number(mTgBox->pf/COM_RATE_PF, 'f', 2);
@@ -48,6 +48,6 @@ void BoxTotalWid::updateData()
     str =  QString::number(mTgBox->ele/COM_RATE_ELE, 'f', 1) + "kWh";
     ui->tEleLab->setText(str);
 
-    str = QString::number(mEnvBox->tem.value[0]) + "°C";
-    //    ui->temlab->setText(str);
+    str = QString::number(mTgBox->vol) + "V";
+    ui->vollab->setText(str);
 }

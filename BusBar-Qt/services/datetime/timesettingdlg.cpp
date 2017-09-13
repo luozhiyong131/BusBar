@@ -6,6 +6,8 @@
 #include "ui_timesettingdlg.h"
 #include <QMessageBox>
 #include <QTextCharFormat>
+#include "msgbox.h"
+
 extern void com_setBackColour(const QString &str,QWidget *target);
 
 TimeSettingDlg::TimeSettingDlg(QWidget *parent) :
@@ -13,7 +15,7 @@ TimeSettingDlg::TimeSettingDlg(QWidget *parent) :
     ui(new Ui::TimeSettingDlg)
 {
     ui->setupUi(this);
-//    com_setBackColour(tr("时间设置"),this);
+    //    com_setBackColour(tr("时间设置"),this);
 
     QDate date = QDate::currentDate();
     ui->yearSpin->setValue(date.year());
@@ -92,7 +94,8 @@ SHOWMESSAGEBOX:
     ui->yearSpin->setValue(preYear);
     ui->monSpin->setValue(preMonth);
 
-    QMessageBox::critical(this, tr("信息提示"),tr("日期设置不合法，请重新输入"));
+    //    QMessageBox::critical(this, tr("信息提示"),tr("日期设置不合法，请重新输入"));
+    CriticalMsgBox dlg(this, tr("日期设置不合法，请重新输入"));
 }
 
 /**
@@ -156,12 +159,13 @@ void TimeSettingDlg::timeSetup(void)
         if (year_old != year_new || month_old != month_new
                 || day_old != day_new || hour_old != hour_new
                 || minute_old != minute_new)  {
-            str = tr("时间设置成功");           
+            str = tr("时间设置成功");
         }  else {
             str = tr("时间未修改");
             qDebug() << str;
         }
-        QMessageBox::information(this,tr("信息提示"),str);
+        //        QMessageBox::information(this,tr("信息提示"),str);
+        InfoMsgBox dlg(this,str);
         ui->timeSet_but->setEnabled(false);
     }
 }
@@ -349,7 +353,7 @@ void TimeSettingDlg::on_quitBtn_clicked()
     if(ret)
     {
         QMessageBox msgBox(this);
-         com_setBackColour(tr("信息提示"),&msgBox);
+        com_setBackColour(tr("信息提示"),&msgBox);
         msgBox.setText(tr("\n您已修改时间，是否要放弃修改？\n"));
         msgBox.setStandardButtons (QMessageBox::Ok|QMessageBox::Cancel);
         msgBox.setButtonText (QMessageBox::Ok,QString("确定"));

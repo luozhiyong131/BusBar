@@ -28,6 +28,7 @@ signals:
 public slots:
     void timeoutDone();
     void interfaceChangedSlot(int);
+     void busChangedSlot(int);
     void on_upBtn_clicked();
     void on_downBtn_clicked();
 
@@ -39,6 +40,7 @@ private:
     sBusData *mBusData;
     HomeBoxWid *mBoxWid[BOX_NUM];
     bool isRun;
+    int mMaxNum;
 };
 
 #endif // HOMEWID_H

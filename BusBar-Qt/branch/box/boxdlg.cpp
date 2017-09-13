@@ -31,18 +31,12 @@ void BoxDlg::initWid(int bus, int box)
     mTotalWid = new BoxTotalWid(ui->totalWid);
     mTotalWid->initFun(bus, box);
 
-    mLine[0] = new BoxLoopWid(ui->line1Wid);
-    mLine[1] = new BoxLoopWid(ui->line2Wid);
-    mLine[2] = new BoxLoopWid(ui->line3Wid);
-
-    for(int i=0; i<3; ++i) {
-        BoxLoopWid *line  = mLine[i];
-        line->initLine(bus, box, i);
-    }
+    mLineWid = new BoxLoopTableWid(ui->loopWid);
+    mLineWid->initLine(bus, box);
 }
 
 void BoxDlg::on_pushButton_clicked()
 {
-    BeepThread::bulid()->beep();
     this->close();
+    BeepThread::bulid()->beep();
 }

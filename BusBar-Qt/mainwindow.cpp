@@ -6,6 +6,9 @@
 #include "interfacechangesig.h"
 #include "beepthread.h"
 #include "datetime/timesettingdlg.h"
+#include "net/send/netsendthread.h"
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,9 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
     BeepThread::bulid()->longBeep();
-
-    // TestDlg *dlg = new TestDlg(this);
-    // dlg->exec();
 }
 
 MainWindow::~MainWindow()
@@ -100,7 +100,6 @@ void MainWindow::checkAlarm()
 void MainWindow::initFunSLot()
 {
     new DpThread(this); // 创建数据处理线程
-    new TcpThread(this); //創建TCP服務器端
     updateTime();
 
     timer = new QTimer(this);
@@ -109,6 +108,8 @@ void MainWindow::initFunSLot()
 
     mCheckDlg = new CheckPasswordDlg(this);
     connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
+
+     mNetWork = new NetWork(this);
 }
 
 void MainWindow::initWidget()

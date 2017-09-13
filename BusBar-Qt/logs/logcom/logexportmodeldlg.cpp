@@ -22,6 +22,10 @@ LogExportModelDlg::LogExportModelDlg(QWidget *parent) :
 
     ui->startDateEdit->setDate(QDate::currentDate());
     ui->endDateEdit->setDate(QDate::currentDate());
+
+    // 暂时不实现日表、月报表功能
+    ui->groupBox_2->setHidden(true);
+    this->setMaximumWidth(400);
 }
 
 LogExportModelDlg::~LogExportModelDlg()

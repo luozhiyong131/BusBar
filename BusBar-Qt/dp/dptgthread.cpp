@@ -68,7 +68,6 @@ void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
     }
     tg->vol = averData(obj->vol.value);
     tg->pf = averData(obj->pf);
-    tg->tem = averData(obj->pf);  ////===================
 }
 
 
@@ -77,8 +76,10 @@ void DpTgThread::tgBox(sBoxData *box)
     sObjData *loop = &(box->data);
     sTgObjData *tgBox = &(box->tgBox);
 
-    if(box->offLine)
-        tgObj(loop, tgBox);
+    if(box->offLine) {
+        tgObj(loop, tgBox);        
+        tgBox->tem = averData(box->env.tem.value);
+    }
 }
 
 /**
