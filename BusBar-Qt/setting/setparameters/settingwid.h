@@ -24,6 +24,9 @@ public:
 private:
     void initWidget();
 
+signals:
+    void indexChanged(int index);
+
 public slots:
     void busChangedSlot(int);
 

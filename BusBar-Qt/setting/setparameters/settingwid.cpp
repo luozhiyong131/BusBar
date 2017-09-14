@@ -18,6 +18,8 @@ SettingWid::SettingWid(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(updateWid()));
     timer->start(5*1000);
+
+    connect(this,SIGNAL(indexChanged(int)),majorSettingWidget,SLOT(indexChanged(int)));
 }
 
 SettingWid::~SettingWid()
@@ -50,6 +52,8 @@ void SettingWid::busChangedSlot(int index)
     majorSettingWidget->updateWidget(index);
     mSubsettingWid->updateWid(index);
     mTemWid->updateWid(index);
+
+    emit indexChanged(index);
 }
 
 void SettingWid::updateWid()

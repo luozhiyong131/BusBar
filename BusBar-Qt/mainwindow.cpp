@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm->start();
 
 
-//    initSerial();
+    //    initSerial();
 
     mIndex = 0;
     initWidget();
@@ -79,6 +79,10 @@ void MainWindow::setBusName(int index)
     QString str(name);
     ui->busNameLab->setText(str);
     mIndex = index;
+
+    sBusData *busData = &(shm->data[index]);
+    double rateCur = busData->ratedCur/COM_RATE_CUR;
+    ui->ratedLab->setText(QString::number(rateCur,'f',1));
 }
 
 void MainWindow::checkAlarm()
@@ -109,7 +113,7 @@ void MainWindow::initFunSLot()
     mCheckDlg = new CheckPasswordDlg(this);
     connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
 
-     mNetWork = new NetWork(this);
+    mNetWork = new NetWork(this);
 }
 
 void MainWindow::initWidget()
