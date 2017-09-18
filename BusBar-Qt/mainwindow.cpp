@@ -8,8 +8,6 @@
 #include "datetime/timesettingdlg.h"
 #include "net/send/netsendthread.h"
 
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -35,7 +33,6 @@ MainWindow::~MainWindow()
     delete ui;
     share_mem_del();
 }
-
 
 /**
  * @brief 初始化串口
@@ -138,7 +135,6 @@ void MainWindow::initWidget()
     ui->stackedWid->addWidget(mSettingWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
-
 
 void MainWindow::on_homeBtn_clicked()
 {
