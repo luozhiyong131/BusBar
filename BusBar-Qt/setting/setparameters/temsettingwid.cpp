@@ -113,7 +113,7 @@ void TemSettingWid::setTem(int row, int column ,int index)
 {
     mEnvData = &(mPacket->data[mIndex].box[row+1].env);
     QTableWidgetItem *item = mWidget->item(row,column);
-    QString str = QString::number(mEnvData->tem.value[index]/COM_RATE_TEM,'f',1) + "℃";
+    QString str = QString::number(mEnvData->tem.value[index]/COM_RATE_TEM,'f',0) + "℃";
     item->setText(str);
     item->setTextAlignment(Qt::AlignHCenter);
 }

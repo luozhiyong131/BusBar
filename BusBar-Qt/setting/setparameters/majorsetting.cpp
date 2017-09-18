@@ -61,11 +61,11 @@ void MajorSetting::updateWidget(int index)
 
     sObjData  *objData = &(busData->data);
     ui->label_1_cur->setText(QString::number(objData ->cur.value[0]/COM_RATE_CUR,'f', 1)+"A");
-    ui->label_1_vol->setText(QString::number(objData ->vol.value[0]/COM_RATE_VOL,'f', 1)+"V");
+    ui->label_1_vol->setText(QString::number(objData ->vol.value[0]/COM_RATE_VOL,'f', 0)+"V");
     ui->label_2_cur->setText(QString::number(objData ->cur.value[1]/COM_RATE_CUR,'f', 1)+"A");
-    ui->label_2_vol->setText(QString::number(objData ->vol.value[1]/COM_RATE_VOL,'f', 1)+"V");
+    ui->label_2_vol->setText(QString::number(objData ->vol.value[1]/COM_RATE_VOL,'f', 0)+"V");
     ui->label_3_cur->setText(QString::number(objData ->cur.value[2]/COM_RATE_CUR,'f', 1)+"A");
-    ui->label_3_vol->setText(QString::number(objData ->vol.value[2]/COM_RATE_VOL,'f', 1)+"V");
+    ui->label_3_vol->setText(QString::number(objData ->vol.value[2]/COM_RATE_VOL,'f', 0)+"V");
 
     setProgressbarValue(ui->progressBar,&(objData->cur),0);
     setProgressbarValue(ui->progressBar_2,&(objData->vol),0);
