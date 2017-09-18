@@ -29,8 +29,9 @@ SOURCES += \
     $$PWD/excel/excelexportwid.cpp \
     $$PWD/excel/txtexportlogthread.cpp \
     $$PWD/datetime/timesettingdlg.cpp \
-    
 
+
+    
 FORMS += \
     $$PWD/smtp/emailsetdlg.ui \
     $$PWD/smtp/emailwid.ui \

@@ -38,6 +38,8 @@ void MajorSetting::initWidget()
 
     ui->progressBar_6->setPacket(false,2);
     connect(ui->progressBar_6,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
+
+    indexChanged(0);
 }
 
 /**
@@ -49,21 +51,21 @@ void MajorSetting::updateWidget(int index)
     mIndex = index; //主路源编号
 
     sBusData *busData = &(mPacket->data[index]);
-    ui->lineEdit->setText(busData->busName);
+    //    ui->lineEdit->setText(busData->busName);
 
-    int boxNum = busData->boxNum;
-    double rateCur = busData->ratedCur/COM_RATE_CUR;
+    //    int boxNum = busData->boxNum;
+    //    double rateCur = busData->ratedCur/COM_RATE_CUR;
 
-    ui->lineEdit_2->setText(QString::number(rateCur));
-    ui->lineEdit_3->setText(QString::number(boxNum,10));
+    //    ui->lineEdit_2->setText(QString::number(rateCur));
+    //    ui->lineEdit_3->setText(QString::number(boxNum,10));
 
     sObjData  *objData = &(busData->data);
-    ui->label_1_cur->setText(QString(objData ->cur.value[0],10));
-    ui->label_1_vol->setText(QString(objData ->vol.value[0],10));
-    ui->label_2_cur->setText(QString(objData ->cur.value[1],10));
-    ui->label_2_vol->setText(QString(objData ->vol.value[1],10));
-    ui->label_3_cur->setText(QString(objData ->cur.value[2],10));
-    ui->label_3_vol->setText(QString(objData ->vol.value[2],10));
+    ui->label_1_cur->setText(QString::number(objData ->cur.value[0]/COM_RATE_CUR,'f', 1)+"A");
+    ui->label_1_vol->setText(QString::number(objData ->vol.value[0]/COM_RATE_VOL,'f', 1)+"V");
+    ui->label_2_cur->setText(QString::number(objData ->cur.value[1]/COM_RATE_CUR,'f', 1)+"A");
+    ui->label_2_vol->setText(QString::number(objData ->vol.value[1]/COM_RATE_VOL,'f', 1)+"V");
+    ui->label_3_cur->setText(QString::number(objData ->cur.value[2]/COM_RATE_CUR,'f', 1)+"A");
+    ui->label_3_vol->setText(QString::number(objData ->vol.value[2]/COM_RATE_VOL,'f', 1)+"V");
 
     setProgressbarValue(ui->progressBar,&(objData->cur),0);
     setProgressbarValue(ui->progressBar_2,&(objData->vol),0);
@@ -71,6 +73,22 @@ void MajorSetting::updateWidget(int index)
     setProgressbarValue(ui->progressBar_4,&(objData->vol),1);
     setProgressbarValue(ui->progressBar_5,&(objData->cur),2);
     setProgressbarValue(ui->progressBar_6,&(objData->vol),2);
+}
+
+/**
+ * @brief MajorSetting::indexChanged
+ * @param index  index 改变，刷新额定电流和插接箱数量
+ */
+void MajorSetting::indexChanged(int index)
+{
+    sBusData *busData = &(mPacket->data[index]);
+    ui->lineEdit->setText(busData->busName);
+
+    int boxNum = busData->boxNum;
+    double rateCur = busData->ratedCur/COM_RATE_CUR;
+
+    ui->lineEdit_2->setText(QString::number(rateCur));
+    ui->lineEdit_3->setText(QString::number(boxNum,10));
 }
 
 /**

@@ -29,6 +29,9 @@ private:
     void setProgressbarValue(QProgressBar *bar,sDataUnit  *data ,int index);
     void setProcessBarColor(QProgressBar *bar, QString color);
 
+public slots:
+    void indexChanged(int index);
+
 private slots:
     void barClicked(bool isCur,int index);
     void on_pushButton_clicked();

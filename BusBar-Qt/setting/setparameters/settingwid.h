@@ -2,6 +2,7 @@
 #define SETTINGWID_H
 
 #include <QWidget>
+#include <QTimer>
 #include "majorsetting.h"
 #include "subseeting.h"
 #include "setsystem/systemsettingdlg.h"
@@ -23,6 +24,9 @@ public:
 private:
     void initWidget();
 
+signals:
+    void indexChanged(int index);
+
 public slots:
     void busChangedSlot(int);
 
@@ -30,10 +34,8 @@ private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
-
-//    void dialogClosed(bool ret);
-
     void on_pushButton_tem_clicked();
+    void updateWid();
 
 private:
     Ui::SettingWid *ui;
@@ -41,6 +43,7 @@ private:
     SubSeeting *mSubsettingWid;
     TemSettingWid *mTemWid;
     SystemSettingDlg *mSystemDlg;
+    int mIndex;
 //     CheckPasswordDlg *mCheckDlg;
 };
 
