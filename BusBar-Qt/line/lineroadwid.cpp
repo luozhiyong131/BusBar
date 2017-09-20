@@ -40,8 +40,8 @@ void LineRoadWid::interfaceChangedSlot(int id)
 void LineRoadWid::busChangeSlot(int id)
 {    
     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[id].data);
-    mEnv = &(shm->data[id].env);
+    mData = &(shm->data[id].box[0].data);
+    mEnv = &(shm->data[id].box[0].env);
 
     updateData();
 }

@@ -19,7 +19,7 @@ void InitShm::initBoxNum()
 
         int rateCur = getRateCur(i);
         if(rateCur <= 0) rateCur = 2600;
-        shm->data[i].ratedCur = rateCur;
+        shm->data[i].box[0].ratedCur = rateCur;
     }
 }
 
@@ -82,7 +82,7 @@ void InitShm::initBusThreshold()
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        sBusData *bus = &(shm->data[i]);
+        sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
             initThresholdUnit(i, 1, k, bus->data.vol, 255);

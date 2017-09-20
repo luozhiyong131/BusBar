@@ -78,28 +78,20 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
     alarmDataUnit(box.data.cur); // 回路是否有报警
     box.boxCurAlarm = alarmFlag(box.data.cur);
 
+    alarmDataUnit(box.data.vol); // 回路是否有报警
+    box.boxVolAlarm = alarmFlag(box.data.vol);
+
     alarmDataUnit(box.env.tem);
     box.boxEnvAlarm =  alarmFlag(box.env.tem);
 
-    box.boxAlarm = box.boxCurAlarm + box.boxEnvAlarm;
+    box.boxAlarm = box.boxCurAlarm + box.boxVolAlarm + box.boxEnvAlarm;
 }
 
 void DpAlarmThread::busAlarm(sBusData &bus)
 {
-    for(int i=1; i<=bus.boxNum; ++i) {
+    for(int i=0; i<=bus.boxNum; ++i) {
         boxAlarm(bus.box[i]);
     }
-
-    alarmDataUnit(bus.data.cur);
-    bus.busCurAlarm = alarmFlag(bus.data.cur);
-
-    alarmDataUnit(bus.data.vol);
-    bus.busVolAlarm = alarmFlag(bus.data.vol);
-
-    alarmDataUnit(bus.env.tem);
-    bus.busEnvAlarm = alarmFlag(bus.env.tem);
-
-    bus.busAlarm = bus.busCurAlarm + bus.busVolAlarm + bus.busEnvAlarm;
 }
 
 

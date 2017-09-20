@@ -37,7 +37,7 @@ void SetShm::setLineVolAll(DbThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        sBusData *bus = &(shm->data[i]);
+        sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
             setThresholdUnit(k, item, bus->data.vol);
@@ -51,7 +51,7 @@ void SetShm::setLineCurAll(DbThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        sBusData *bus = &(shm->data[i]);
+        sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
             setThresholdUnit(k, item, bus->data.cur);
@@ -64,7 +64,7 @@ void SetShm::setTempAll(DbThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        sBusData *bus = &(shm->data[i]);
+         sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
             setThresholdUnit(k, item, bus->env.tem);
@@ -90,7 +90,9 @@ bool SetShm::saveItem(DbThresholdItem &item)
     bool ret = false;
     sDataUnit *unit=NULL;
     int boxNum=0, num = item.num;
-    sBusData *bus = &(shm->data[item.bus]);
+
+    sBusData *box = &(shm->data[item.bus]);
+     sBoxData *bus = &(box->box[0]);
     switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
     {
     case 1:
@@ -104,7 +106,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     case 3:
         boxNum = num / LINE_NUM + 1;
         num = num % LINE_NUM ;
-        unit = &(bus->box[boxNum].data.cur);
+        unit = &(box->box[boxNum].data.cur);
         break;
 
     case 4:
@@ -114,7 +116,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     case 5:
         boxNum = num / SENSOR_NUM + 1;
         num = num % SENSOR_NUM ;
-        unit = &(bus->box[boxNum].env.tem);
+        unit = &(box->box[boxNum].env.tem);
         break;
     }
 
@@ -164,8 +166,8 @@ void SetShm::setName(DbNameItem &item)
 void SetShm::setLineRatedCur(int index, int data)
 {
     sBusData *bus = &(shm->data[index]);
-    bus->ratedCur = data;
-    QString str = QString::number(bus->ratedCur,10);
+    bus->box[0].ratedCur = data;
+    QString str = QString::number(bus->box[0].ratedCur,10);
     QString groupStr = QString("Line%1").arg(index+1);
     sys_configFile_writeParam("rateCur",str,groupStr);
 }

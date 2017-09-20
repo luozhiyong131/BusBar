@@ -59,7 +59,7 @@ void MajorSetting::updateWidget(int index)
     //    ui->lineEdit_2->setText(QString::number(rateCur));
     //    ui->lineEdit_3->setText(QString::number(boxNum,10));
 
-    sObjData  *objData = &(busData->data);
+    sObjData  *objData = &(busData->box[0].data);
     ui->label_1_cur->setText(QString::number(objData ->cur.value[0]/COM_RATE_CUR,'f', 1)+"A");
     ui->label_1_vol->setText(QString::number(objData ->vol.value[0]/COM_RATE_VOL,'f', 1)+"V");
     ui->label_2_cur->setText(QString::number(objData ->cur.value[1]/COM_RATE_CUR,'f', 1)+"A");
@@ -85,7 +85,7 @@ void MajorSetting::indexChanged(int index)
     ui->lineEdit->setText(busData->busName);
 
     int boxNum = busData->boxNum;
-    double rateCur = busData->ratedCur/COM_RATE_CUR;
+    double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
 
     ui->lineEdit_2->setText(QString::number(rateCur));
     ui->lineEdit_3->setText(QString::number(boxNum,10));
