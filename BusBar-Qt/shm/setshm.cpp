@@ -23,7 +23,7 @@ void SetShm::setLoopCurAll(DbThresholdItem &item)
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<3; ++k) {
+            for(int k=0; k<LINE_NUM; ++k) {
                 setThresholdUnit( k, item, box->data.cur);
             }
         }
@@ -77,7 +77,7 @@ void SetShm::setTempAll(DbThresholdItem &item)
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<3; ++k) {
+            for(int k=0; k<LINE_NUM; ++k) {
                 setThresholdUnit( k, item, box->env.tem);
             }
         }
@@ -102,8 +102,8 @@ bool SetShm::saveItem(DbThresholdItem &item)
         break;
 
     case 3:
-        boxNum = num / 3 + 1;
-        num = num % 3 ;
+        boxNum = num / LINE_NUM + 1;
+        num = num % LINE_NUM ;
         unit = &(bus->box[boxNum].data.cur);
         break;
 
@@ -112,9 +112,8 @@ bool SetShm::saveItem(DbThresholdItem &item)
         break;
 
     case 5:
-        boxNum = num / 3 + 1;
-        num = num % 3 ;
-        //        qDebug() << "---boxNum---" << boxNum;
+        boxNum = num / SENSOR_NUM + 1;
+        num = num % SENSOR_NUM ;
         unit = &(bus->box[boxNum].env.tem);
         break;
     }
@@ -143,8 +142,8 @@ void SetShm::setName(DbNameItem &item)
         break;
 
     case 3:
-        boxNum = num / 3 + 1;
-        num = (num-1) % 3 ;
+        boxNum = num / LINE_NUM + 1;
+        num = (num-1) % LINE_NUM ;
         name = bus->box[boxNum].loopName[num];
         break;
     }

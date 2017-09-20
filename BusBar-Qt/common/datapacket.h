@@ -5,7 +5,7 @@
  * 数据包结构体定义思路
  * 	1、数据包中包含四条母线数据
  * 	2、一条母线包括最多20个插接箱数据
- * 	3、一个插接箱包括最多3个输出位
+ * 	LINE_NUM、一个插接箱包括最多3个输出位
  * 	4、一个输出位包括基本的数据结体
  *
  *  Created on: 2017年5月24日
@@ -18,7 +18,7 @@
 
 #define LINE_NUM 3 // 三相
 #define BOX_NUM 32 // 插接箱数量
-#define BUS_NUM 4  // 四条母线
+#define BUS_NUM 2  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 
@@ -41,14 +41,14 @@ typedef struct _sTgObjData {
  * 数据单元：包括当前值，阈值，临界值，报警状态等
  */
 typedef struct _sDataUnit {
-    int value[3]; // 值
-    int min[3]; // 最小值
-    int max[3]; // 最大值
-    int alarm[3]; // 报警值 0表示未报警  1表示已报警 2表示已纪录
+    int value[LINE_NUM]; // 值
+    int min[LINE_NUM]; // 最小值
+    int max[LINE_NUM]; // 最大值
+    int alarm[LINE_NUM]; // 报警值 0表示未报警  1表示已报警 2表示已纪录
 
-    int crMin[3]; // 临界最小值
-    int crMax[3]; // 临界最大值
-    int crAlarm[3]; // 临界报警值
+    int crMin[LINE_NUM]; // 临界最小值
+    int crMax[LINE_NUM]; // 临界最大值
+    int crAlarm[LINE_NUM]; // 临界报警值
 }sDataUnit;
 
 /**
@@ -59,13 +59,13 @@ typedef struct _sObjData {
     sDataUnit vol; // 电压
     sDataUnit cur;  // 电流
 
-    int pow[3]; // 功率
-    int ele[3]; // 电能
-    int pf[3]; // 功率因素
-    int sw[3]; // 开关状态
-    int apPow[3]; // 视在功率
-    int ratedCur[3]; // 额定电流
-    int wave[3]; // 谐波值
+    int pow[LINE_NUM]; // 功率
+    int ele[LINE_NUM]; // 电能
+    int pf[LINE_NUM]; // 功率因素
+    int sw[LINE_NUM]; // 开关状态
+    int apPow[LINE_NUM]; // 视在功率
+    int ratedCur[LINE_NUM]; // 额定电流
+    int wave[LINE_NUM]; // 谐波值
 }sObjData;
 
 
@@ -85,7 +85,7 @@ typedef struct _sBoxData {
     int loopNum; // 回路数量
 
     sObjData data; // 回路数据
-    char loopName[3][NAME_LEN]; // 回路名称
+    char loopName[LINE_NUM][NAME_LEN]; // 回路名称
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 插接箱统计信息
