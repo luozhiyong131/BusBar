@@ -16,7 +16,7 @@ signals:
 protected:
     void run();
 
-    int averData(int *data, int len=3);
+    int averData(int *data, int len=LINE_NUM);
     void tgObj(sObjData *obj, sTgObjData *tg);
 
     void tgBox(sBoxData *box);

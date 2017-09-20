@@ -61,10 +61,16 @@ void InitShm::initBoxThreshold()
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<3; ++k)
+            for(int k=0; k<LINE_NUM; ++k)
             {
-                int num = (j-1)*3 + k; // 回路编号规划
+                int num = (j-1)*LINE_NUM + k; // 回路编号规划
                 initThresholdUnit(i, 3, num, k, box->data.cur, 320);
+                num++;
+            }
+
+            for(int k=0; k<SENSOR_NUM; ++k)
+            {
+                int num = (j-1)*SENSOR_NUM + k; // 回路编号规划
                 initThresholdUnit(i, 5, num, k, box->env.tem, 99);
                 num++;
             }
@@ -142,9 +148,9 @@ void InitShm::initLoopName()
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<3; ++k) {
+            for(int k=0; k<LINE_NUM; ++k) {
                 char *loop = box->loopName[k];
-                int num = j*3 + k;
+                int num = j*LINE_NUM + k;
                 initNameUnit(i, 3, num, loop, QString("loop-%1").arg(k+1));
             }
         }

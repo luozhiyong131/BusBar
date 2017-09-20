@@ -80,7 +80,7 @@ void DpAlarmSlave::saveMsg(const QString &typeStr, const QString &str)
 
 void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, double rate, const QString &sym)
 {
-    for(int i=0; i<3; ++i)
+    for(int i=0; i<LINE_NUM; ++i)
     {
         QString str=msg, tempStr = typeStr;
         if(unit.alarm[i])

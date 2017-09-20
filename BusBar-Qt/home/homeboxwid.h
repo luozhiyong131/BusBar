@@ -23,7 +23,7 @@ public:
 protected:
     void updateData();
     void updateAlarmStatus();
-    void updateAlarmIcon(QLabel *lab, sDataUnit &unit, int id);
+    void updateAlarmIcon(QLabel *lab, int curALarm, int envALarm);
     void initWid();
     void setBackgroundImage(QLabel *lab,QString name);
 

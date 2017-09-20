@@ -221,12 +221,12 @@ void SettingThreshold::saveLoopData()
         if(mLineNum !=3)
         {
             item.type = 3; //插接箱电流
-            item.num = (mBoxNum - 1)*3 + mLineNum;
+            item.num = (mBoxNum - 1)*LINE_NUM + mLineNum;
         }
         else
         {
             item.type = 5; //插接箱温度
-            item.num = (mBoxNum - 1)*3 + (mTemNum-1) ;
+            item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
         }
         mShm->saveItem(item);
     }
