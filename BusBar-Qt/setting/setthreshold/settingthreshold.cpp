@@ -58,13 +58,13 @@ void SettingThreshold::initWidget()
 
     if(mIsCur)
     {
-        unit = &(data->data[mBus].data.cur);
+        unit = &(data->data[mBus].box[0].data.cur);
         str = "A";
         aret = COM_RATE_CUR;
     }
     else
     {
-        unit = &(data->data[mBus].data.vol);
+        unit = &(data->data[mBus].box[0].data.vol);
         str = "V";
         aret = COM_RATE_VOL;
     }

@@ -20,8 +20,6 @@ protected:
     void tgObj(sObjData *obj, sTgObjData *tg);
 
     void tgBox(sBoxData *box);
-
-    void tgBusLine(sBusData *bus);
     void tgBus(sBusData *bus);
 
 

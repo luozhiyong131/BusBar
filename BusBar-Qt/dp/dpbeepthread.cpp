@@ -28,7 +28,7 @@ void DpBeepThread::timeoutDone()
 
 void DpBeepThread::boxAlarm(sBoxData &box)
 {
-    if((box.boxCurAlarm == 1)  || (box.boxEnvAlarm ==1))
+    if((box.boxVolAlarm == 1)  || (box.boxCurAlarm == 1)  || (box.boxEnvAlarm ==1))
     {
         BeepThread::bulid()->beep();
     }
@@ -37,14 +37,9 @@ void DpBeepThread::boxAlarm(sBoxData &box)
 
 void DpBeepThread::busAlarm(sBusData &bus)
 {
-    for(int i=1; i<=bus.boxNum; ++i) {
+    for(int i=0; i<=bus.boxNum; ++i) {
         boxAlarm(bus.box[i]);
-    }
-
-    if((bus.busCurAlarm == 1) || (bus.busVolAlarm ==1 ) || (bus.busEnvAlarm ==1))
-    {
-        BeepThread::bulid()->beep();
-    }
+    }   
 }
 
 void DpBeepThread::run()

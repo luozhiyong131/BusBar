@@ -8,10 +8,10 @@ LineWid::LineWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mIndex = 0;
     initFun();
     initWid();
 
-    mIndex = 0;
     connect(this, SIGNAL(busChangedSig(int)), this, SLOT(indexChanged(int)));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
@@ -24,7 +24,7 @@ LineWid::~LineWid()
 void LineWid::initFun()
 {
     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[0]);
+    mData = &(shm->data[mIndex]);
 
     isRun = false;
     timer = new QTimer(this);
@@ -62,7 +62,7 @@ void LineWid::interfaceChangedSlot(int id)
 void LineWid::timeoutDone()
 {
     if(isRun) {
-        QString str = QString::number(mData->rate) + "Hz";
+        QString str = QString::number(mData->box[0].rate) + "Hz";
         ui->rateLab->setText(str);
         updatePlot();
     }
@@ -88,7 +88,7 @@ void LineWid::initTotalWid()
 
     mCurPlot->setUnit("A");
     int max = 0;
-    for(int i=0; i<3; ++i) max += mData->data.cur.max[i];
+    for(int i=0; i<3; ++i) max += mData->box[0].data.cur.max[i];
     mCurPlot->setRange(0,max/COM_RATE_CUR + 1);
 
     mPwPlot->setUnit("kW");
@@ -103,7 +103,7 @@ void LineWid::initTotalWid()
 void LineWid::updatePlot()
 {    
     sDataPacket *shm = get_share_mem();
-    sTgObjData *tgBusData = &(shm->data[mIndex].tgBus);
+    sTgObjData *tgBusData = &(shm->data[mIndex].box[0].tgBox);
     mVolPlot->setValue(tgBusData->vol);
     mCurPlot->setValue(tgBusData->cur/COM_RATE_CUR);
     mPwPlot->setValue(tgBusData->pow/COM_RATE_POW);

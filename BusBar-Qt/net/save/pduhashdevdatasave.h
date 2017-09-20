@@ -13,19 +13,18 @@ typedef enum {
     PDU_CDM_CRMIN,//临界最小值
     PDU_CMD_CRMAX, //临界最大值
     PDU_CMD_CRALARM, //临界报警
-    PDU_CMD_NUM_SIZE, //数量
 }PDU_CMD_DATA_TYPE;
 
 
 typedef enum {
-    PDU_CMD_CUR = 1, //电流
+    PDU_CMD_NUM_SIZE, //数量
+    PDU_CMD_CUR, //电流
     PDU_CMD_VOL, // 电压
     PDU_CMD_POW, // 功率
     PDU_CMD_ELE, // 电能
     PDU_CMD_PF, // 功率因素
     PDU_CMD_SW, // 开关状态 0 表示未启用    
     PDU_CMD_CA, // 排碳量
-    PDU_CMD_RATE //电压频率
 }PDU_CMD_OBJ;
 
 
@@ -40,7 +39,7 @@ typedef enum {
 // 设备数据主功能码
 typedef enum {
     PDU_CMD_STATUS=0,  //设备状态
-    PDU_CMD_LOOP, // 回路数据
+    PDU_CMD_RATE, // 电压频率
     PDU_CMD_LINE, //相电参数
     PDU_CMD_OUTPUT,//输出位
     PDU_CMD_ENV, //环境数据

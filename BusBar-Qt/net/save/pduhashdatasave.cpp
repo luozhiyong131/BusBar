@@ -34,11 +34,14 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
     switch (fc)
     {
     case PDU_CMD_STATUS: //设备工作状态
-        //        dev->devSpec = data->fn[1]; // 设备类型
-        //        dev->state = data->data[0]; //0正常 >0不正常
+        dev->boxSpec = data->fn[1]; // 设备类型
+        dev->boxStatus = data->data[0]; //0正常 >0不正常
         break;
 
-    case PDU_CMD_LOOP:
+    case PDU_CMD_RATE:
+        dev->rate = data->data[0];
+        break;
+
     case PDU_CMD_LINE: // 设备相参数
     case PDU_CMD_OUTPUT: // 设备输出位
     case PDU_CMD_ENV: //环境数据

@@ -78,7 +78,7 @@ void MainWindow::setBusName(int index)
     mIndex = index;
 
     sBusData *busData = &(shm->data[index]);
-    double rateCur = busData->ratedCur/COM_RATE_CUR;
+    double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->ratedLab->setText(QString::number(rateCur,'f',1));
 }
 
@@ -87,7 +87,7 @@ void MainWindow::checkAlarm()
     int alarm = 0;
     sDataPacket *shm = get_share_mem();
     for(int i=0; i>BUS_NUM; ++i) {
-        alarm += shm->data[i].busAlarm;
+        alarm += shm->data[i].box[0].boxAlarm;
     }
 
     alarm = 1;  /////========= 特意显示出来

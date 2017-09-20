@@ -266,8 +266,8 @@ void BoxLoopTableWid::updateData()
             int k=0;
             setName(i, k++); // 设置输出位名称
 
-            setVol(i, k++); // 设置电压
             setSw(i, k++);
+            setVol(i, k++); // 设置电压
             setCur(i, k++); // 设置电流值
 
             setPow(i, k++); // 功率

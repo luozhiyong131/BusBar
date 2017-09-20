@@ -82,69 +82,11 @@ void DpTgThread::tgBox(sBoxData *box)
     }
 }
 
-/**
- * @brief 工业母线相统计 *
- * @param bus
- */
-void DpTgThread::tgBusLine(sBusData *bus)
-{
-#if 0
-    static int vol[BOX_NUM], pf[BOX_NUM];
-    sObjData *tg = &(bus->data);
-
-    // A\B\C三相分别从输出位1、2、3统计
-    memset(tg, 0, sizeof(sTgObjData));
-    for(int i=0; i<3; ++i)
-    {
-        int len = 0;
-        for(int k=0; k<bus->boxNum; ++k)
-        {
-            sBoxData *box = &(bus->box[k]);
-            if(box->offLine <= 0) continue;
-            len++;
-
-            sObjData *obj = &(bus->box[k].data);
-            tg->cur.value[i] += obj->cur.value[i];
-            tg->pow[i] += obj->pow[i];
-            tg->ele[i] += obj->ele[i];
-            tg->apPow[i] += obj->apPow[i];
-
-            vol[k] = obj->vol.value[i];
-            pf[k] = obj->pf[i];
-        }
-        tg->vol.value[i] = averData(vol, len);
-        tg->pf[i] = averData(pf, len);
-    }
-
-#else
-
-   sBoxData *box = &(bus->box[0]);
-    for(int i=0; i<3; ++i)
-    {
-        bus->data.cur.value[i] = box->data.cur.value[i];
-        bus->data.vol.value[i] = box->data.vol.value[i];
-        bus->data.pow[i] = box->data.pow[i];
-        bus->data.ele[i] = box->data.ele[i];
-        bus->data.apPow[i] = box->data.apPow[i];
-        bus->data.pf[i] = box->data.pf[i];
-        bus->data.sw[i] = box->data.sw[i];
-        bus->data.ratedCur[i] = box->data.ratedCur[i];
-
-        bus->rate =  box->rate;
-        bus->env.tem.value[i] = box->env.tem.value[i];
-    }
-
-#endif
-}
-
 void DpTgThread::tgBus(sBusData *bus)
 {
     for(int i=0; i<=bus->boxNum; ++i) { // 插接箱统计
         tgBox(&(bus->box[i]));
     }
-    tgBusLine(bus);
-
-    tgObj(&(bus->data), &(bus->tgBus));
 }
 
 

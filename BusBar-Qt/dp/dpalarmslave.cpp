@@ -139,23 +139,25 @@ void DpAlarmSlave::busAlarm(int id)
 {
     mBusId = id;
     sBusData *bus = &(shm->data[id]);
-    if(bus->busAlarm) {
-        if(bus->busCurAlarm) { // 总线电流报警
+
+    sBoxData *busBox = &(bus->box[0]);
+    if(busBox->boxAlarm) {
+        if(busBox->boxCurAlarm) { // 总线电流报警
             QString typeStr = tr("主路电流");
             QString msg = tr("母线：%1，Line ").arg(bus->busName);
-            unitAlarm(typeStr, msg, bus->data.cur, 10, "A");
+            unitAlarm(typeStr, msg, busBox->data.cur, 10, "A");
         }
 
-        if(bus->busVolAlarm) { // 总线电压报警
+        if(busBox->boxVolAlarm) { // 总线电压报警
             QString typeStr = tr("主路电压");
             QString msg = tr("母线：%1，Line ").arg(bus->busName);
-            unitAlarm(typeStr, msg, bus->data.vol, 10, "V");
+            unitAlarm(typeStr, msg, busBox->data.vol, 10, "V");
         }
 
-        if(bus->busEnvAlarm) { // 温度
+        if(busBox->boxEnvAlarm) { // 温度
             QString typeStr = tr("主路湿度");
             QString msg = tr("母线：%1，温度").arg(bus->busName);
-            unitAlarm(typeStr, msg, bus->env.tem, 10, "C");
+            unitAlarm(typeStr, msg, busBox->env.tem, 10, "C");
         }
     }
 

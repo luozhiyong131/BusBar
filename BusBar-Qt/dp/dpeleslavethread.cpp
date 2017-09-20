@@ -56,14 +56,17 @@ void DpEleSlaveThread::saveBus(int id)
 {
     int line = 0;
     double rate = 10;
+
     sBusData *bus = &(shm->data[id]);
-    if(bus->tgBus.vol == 0) return; //不保存
+    sBoxData *busBox = &(bus->box[0]);
+    if(busBox->tgBox.vol == 0) return; //不保存
+    sObjData *data = &(busBox->data);
 
     DbMainEleItem item;
-    item.line_1 = bus->data.ele[line++]/rate;
-    item.line_2 = bus->data.ele[line++]/rate;
-    item.line_3 = bus->data.ele[line++]/rate;
-    item.line = bus->tgBus.ele/rate;
+    item.line_1 = data->ele[line++]/rate;
+    item.line_2 = data->ele[line++]/rate;
+    item.line_3 = data->ele[line++]/rate;
+    item.line = busBox->tgBox.ele/rate;
     db_mainEle_obj(id)->insertItem(item);
     msleep(5);
 

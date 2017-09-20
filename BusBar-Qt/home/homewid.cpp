@@ -64,8 +64,8 @@ void HomeWid::interfaceChangedSlot(int id)
 void HomeWid::timeoutDone()
 {
     if(isRun) {
-        ui->curLcd->display(mBusData->tgBus.cur/COM_RATE_CUR);
-        ui->powLcd->display(mBusData->tgBus.pow/COM_RATE_POW);
+        ui->curLcd->display(mBusData->box[0].tgBox.cur/COM_RATE_CUR);
+        ui->powLcd->display(mBusData->box[0].tgBox.pow/COM_RATE_POW);
 
         if(mMaxNum != mBusData->boxNum) {
             checkBoxBaseNum();
