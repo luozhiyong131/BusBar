@@ -91,6 +91,7 @@ typedef struct _sBoxData {
     sTgObjData tgBox; // 插接箱统计信息
     char boxAlarm, boxCurAlarm, boxEnvAlarm; // 插接箱报警
     char boxStatus; // 插接箱状态
+    char boxSpec; //  0 表示 SI  1 表示 IP
     char boxName[NAME_LEN]; // 插接箱名称
     int rate; // 电压频率
 }sBoxData;
@@ -112,6 +113,7 @@ typedef struct _sBusData{
     char busEnvAlarm;
     char busAlarm; // 总线报警
     char busStatus; // 母线状态
+    char busSpec; // 0 表示 SI  1 表示 IP
 
     char busName[NAME_LEN]; // 母线名称
 }sBusData;

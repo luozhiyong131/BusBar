@@ -8,6 +8,8 @@
  */
 #include "pduhashdevdatasave.h"
 
+static sBoxData *gDev=NULL;
+
 /**
  * @brief 数据单元处理 主要针对 当前值、最大、小值等数据的处理
  * @param unit
@@ -51,10 +53,6 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
         ptr = unit->crAlarm;
         break;
 
-//    case PDU_CMD_NUM_SIZE:
-//        unit->num = data->data[0];
-//        return;
-
     default:
         qDebug() << "pdu_hashUnitData err" << fc;
         break;
@@ -78,6 +76,10 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
     int fc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
     switch (fc)
     {
+    case PDU_CMD_NUM_SIZE: // 回路数量
+        gDev->loopNum = data->data[0];
+        return;
+
     case PDU_CMD_CUR: // 电流
         pdu_hash_unitData(&(obj->cur), data);
         break;
@@ -172,20 +174,17 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
  */
 void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
 {
+    gDev = dev;
     int fn = data->fn[0]; // 处理功能码第一位数据
     switch (fn)
     {
-    case PDU_CMD_LOOP: // 回路数据
-//        pdu_hash_objData(dev->loop, data);
-        break;
-
     case PDU_CMD_LINE: //相电气参数
         pdu_hash_objData(&(dev->data), data);
         break;
 
-//    case PDU_CMD_OUTPUT: // 输出位电气参数
+    case PDU_CMD_OUTPUT: // 输出位电气参数
 //        pdu_hash_objData(dev->output, data);
-//        break;
+        break;
 
     case PDU_CMD_ENV: //环境数据
         pdu_hash_envData(&(dev->env), data);

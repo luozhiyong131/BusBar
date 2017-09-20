@@ -129,10 +129,11 @@ void DpTgThread::tgBusLine(sBusData *bus)
         bus->data.pf[i] = box->data.pf[i];
         bus->data.sw[i] = box->data.sw[i];
         bus->data.ratedCur[i] = box->data.ratedCur[i];
-
-        bus->rate =  box->rate;
         bus->env.tem.value[i] = box->env.tem.value[i];
+
     }
+    bus->busSpec =  box->boxSpec;
+    bus->rate =  box->rate;
 
 #endif
 }

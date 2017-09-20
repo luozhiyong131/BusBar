@@ -41,7 +41,7 @@ void UdpHeartBeat::startSent(void)
 
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    timer->start(1500);
+    timer->start(2500);
 }
 
 void UdpHeartBeat::timeoutDone(void)
