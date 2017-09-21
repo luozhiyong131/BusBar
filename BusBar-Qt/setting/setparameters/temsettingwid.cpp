@@ -7,6 +7,7 @@ TemSettingWid::TemSettingWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mIndex = 0xff;
     initWidget();
 }
 
@@ -17,6 +18,7 @@ TemSettingWid::~TemSettingWid()
 
 void TemSettingWid::initWidget()
 {
+    mWidget = new QTableWidget(this);
     initTableWidget();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
@@ -25,63 +27,40 @@ void TemSettingWid::initWidget()
 
 void TemSettingWid::initTableWidget()
 {
-    mWidget = new QTableWidget(this);
+    mWidget->clear();
     mWidget->setRowCount(0);
 
     QStringList horHead;
-    horHead<< "插接箱名称" << "温度1"<< "温度2"<< "温度3";
+    horHead<< tr("插接箱");
+    for(int i=0; i<SENSOR_NUM; ++i)
+        horHead << tr("温度") + QString::number(i+1);
+
     mWidget->setColumnCount(horHead.size());
     mWidget->setHorizontalHeaderLabels(horHead);
 
     mWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     mWidget->horizontalHeader()->setStretchLastSection(true);
     mWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);  //设置不可编辑
-    //    mWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
 
 void TemSettingWid::resetWidget()
 {
-    int boxNum = mPacket->data[mIndex].boxNum;
+    initTableWidget();
+    int boxNum = mPacket->boxNum;
 
-    for(int i = 0 ;  i < boxNum ; i++)
+    for(int i=0; i<boxNum; i++)
     {
         mWidget->insertRow(i);
-        for(int j = 0 ;  j < 4 ; j++)
+        for(int j=0;  j<=SENSOR_NUM; j++)
         {
             QTableWidgetItem * item = new QTableWidgetItem("---");
-            item->setTextAlignment(Qt::AlignHCenter);
+            item->setTextAlignment(Qt::AlignCenter);
             mWidget->setItem(i, j ,item);
         }
     }
 }
 
-/**
- * @brief 刷新界面
- * @param index 主路源编号
- */
-void TemSettingWid::updateWid(int index)
-{
-    mIndex = index;
-
-    mPacket = get_share_mem();
-    //    mEnvData = &(mPacket->data[bus].box[box].env);
-
-    clearWidget();
-    resetWidget();
-
-    int row = mWidget->rowCount();
-    for(int i = 0 ; i < row ; i++)
-    {
-        int column = 0 ;
-        int index = 0;
-
-        setName(i,column++);
-        setTem(i,column++,index++);
-        setTem(i,column++,index++);
-        setTem(i,column++,index++);
-    }
-}
 
 void TemSettingWid::clearWidget()
 {
@@ -89,6 +68,41 @@ void TemSettingWid::clearWidget()
     for(int i = 0 ; i < row ; i++)
         mWidget->removeRow(0);
 }
+
+
+void TemSettingWid::checkBus(int index)
+{
+    if(mIndex != index) {
+        mIndex = index;
+        mPacket = &(get_share_mem()->data[index]);
+    }
+
+    int row = mWidget->rowCount();
+    if(mPacket->boxNum != row) {
+        clearWidget();
+        resetWidget();
+    }
+}
+
+
+/**
+ * @brief 刷新界面
+ * @param index 主路源编号
+ */
+void TemSettingWid::updateWid(int index)
+{
+    checkBus(index);
+
+    int row = mWidget->rowCount();
+    for(int i = 0 ; i < row ; i++)
+    {
+        setName(i,0);
+        for(int j=1; j<(mWidget->columnCount()); ++j) {
+            setTem(i, j);
+        }
+    }
+}
+
 
 /**
  * @brief 设置插接箱名称
@@ -98,10 +112,21 @@ void TemSettingWid::clearWidget()
 void TemSettingWid::setName(int row, int column)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
-    QString str = mPacket->data[mIndex].box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
+    QString str = mPacket->box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
     item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
+}
 
+
+
+void TemSettingWid::setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int id)
+{
+    if(unit->alarm[id] > 0) { // 报警
+        item->setTextColor(QColor(Qt::red));
+    } else  if(unit->crAlarm[id] > 0) { // 预警
+        item->setTextColor(QColor(Qt::yellow));
+    } else {
+        item->setTextColor(QColor(Qt::black));
+    }
 }
 
 /**
@@ -109,28 +134,32 @@ void TemSettingWid::setName(int row, int column)
  * @param row
  * @param column
  */
-void TemSettingWid::setTem(int row, int column ,int index)
+void TemSettingWid::setTem(int row, int column)
 {
-    mEnvData = &(mPacket->data[mIndex].box[row+1].env);
+    QString str = "---";
     QTableWidgetItem *item = mWidget->item(row,column);
-    QString str = QString::number(mEnvData->tem.value[index]/COM_RATE_TEM,'f',0) + "℃";
+
+    sBoxData *box = &(mPacket->box[row+1]);
+    if(box->offLine > 0) {
+        sDataUnit *unit = &(box->env.tem);
+        str = QString::number(unit->value[column-1] / COM_RATE_TEM) + "℃";
+        setAlarmStatus(item, unit, column-1);
+    }
+
     item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
 }
 
 void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
 {
-    int index = mIndex ;
+    int index = mIndex;
     int boxNum = item->row() +1 ;
     int lineNum = 3;
-    int temNum = 0;
 
     int column = item->column();
-    if(column != 0)
+    if(column > 0)
     {
-        temNum = column ;
-        SettingThreshold settingWid(0);
-        settingWid.initWidget(index,boxNum,lineNum ,temNum); //初始化界面
+        SettingThreshold settingWid(this);
+        settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();
     }
 }

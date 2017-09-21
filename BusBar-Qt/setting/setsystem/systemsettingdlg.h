@@ -23,9 +23,6 @@ public:
     ~SystemSettingDlg();
 
 private slots:
-//    void on_pushButton_7_clicked();
-
-//    void on_pushButton_clicked();
 
 private:
     Ui::SystemSettingDlg *ui;

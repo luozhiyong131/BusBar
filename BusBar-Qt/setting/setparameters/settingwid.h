@@ -35,7 +35,10 @@ private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
     void on_pushButton_tem_clicked();
+
     void updateWid();
+    void interfaceChangedSlot(int id);
+    void initFunSLot();
 
 private:
     Ui::SettingWid *ui;
@@ -44,7 +47,7 @@ private:
     TemSettingWid *mTemWid;
     SystemSettingDlg *mSystemDlg;
     int mIndex;
-//     CheckPasswordDlg *mCheckDlg;
+    bool isRun;
 };
 
 #endif // SETTINGWID_H

@@ -60,6 +60,23 @@ void SetShm::setLineCurAll(DbThresholdItem &item)
     DbThreshold::bulid()->setLineCurAll(item);
 }
 
+
+
+void SetShm::setLineTempAll(DbThresholdItem &item)
+{
+    for(int i=0; i<BUS_NUM; ++i)
+    {
+         sBoxData *bus = &(shm->data[i].box[0]);
+        for(int k=0; k<3; ++k)
+        {
+            setThresholdUnit(k, item, bus->env.tem);
+        }
+    }
+
+    DbThreshold::bulid()->setLineTempAll(item);
+}
+
+
 void SetShm::setTempAll(DbThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)

@@ -35,17 +35,6 @@ SettingThreshold::~SettingThreshold()
     delete ui;
 }
 
-/**
- * @brief 点击保存按钮
- */
-void SettingThreshold::on_pushButton_clicked()
-{
-    if(!isBox)
-        saveData();
-    else
-        saveLoopData();
-    this->close();
-}
 
 void SettingThreshold::initWidget()
 {
@@ -100,7 +89,7 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
     {
         str = "A";
         rate = COM_RATE_CUR;
-        title = QString("母线%1插接箱%2相电流%3阈值设置").arg(index+1).arg(boxNUm).arg(lineNum+1);
+        title = tr("母线%1 接插箱%2 L%3 电流设置").arg(index+1).arg(boxNUm).arg(lineNum+1);
         unit = &(data->data[index].box[boxNUm].data.cur);
         initData(unit , lineNum ,rate);
     }
@@ -108,7 +97,7 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
     {
         str = "℃";
         rate = COM_RATE_TEM;
-        title = QString("母线%1插接箱%2温度%3阈值设置").arg(index+1).arg(boxNUm).arg(temNum);
+        title = tr("母线%1 接插箱%2 温度%3设置").arg(index+1).arg(boxNUm).arg(temNum);
         unit = &(data->data[index].box[boxNUm].env.tem);
         initData(unit , temNum-1 ,rate);
     }
@@ -232,10 +221,19 @@ void SettingThreshold::saveLoopData()
     }
 }
 
-/**
- * @brief SettingThreshold::on_pushButton_cancel_clicked 取消按钮
- */
-void SettingThreshold::on_pushButton_cancel_clicked()
+
+void SettingThreshold::on_cancelBtn_clicked()
 {
     this->close();
+    this->close();
+}
+
+void SettingThreshold::on_saveBtn_clicked()
+{
+    if(!isBox)
+        saveData();
+    else
+        saveLoopData();
+
+    on_cancelBtn_clicked();
 }

@@ -26,11 +26,11 @@ private:
     void resetWidget();
     void clearWidget();
     void initTableWidget();
+
     void setName(int row , int column );
-    void setFirstPhrase(int row , int column );
-    void setSecondPhrase(int row , int column );
-    void setThreePhrase(int row , int column );
-    void setTem(int row , int column );
+    void setTableItem(int row, int column);
+    void checkBus(int index);
+    void setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int id);
 
 private slots:
     void itemDoubleClicked(QTableWidgetItem* item);
@@ -38,7 +38,7 @@ private slots:
 private:
     Ui::SubSeeting *ui;
     QTableWidget *mWidget;
-    sDataPacket *mPacket ;
+    sBusData *mPacket ;
     int mIndex;
 };
 

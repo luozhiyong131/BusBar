@@ -23,9 +23,8 @@ public:
     void initWidget(int index ,int boxNUm ,int lineNum,int temNum = 0);
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_cancel_clicked();
+    void on_cancelBtn_clicked();
+    void on_saveBtn_clicked();
 
 private:
     void initWidget();
@@ -33,8 +32,6 @@ private:
     void saveData();
     void saveLoopData();
     void setSuffex(QString str);
-
-
 
 private:
     Ui::SettingThreshold *ui;
