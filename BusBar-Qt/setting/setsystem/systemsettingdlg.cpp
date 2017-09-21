@@ -19,9 +19,3 @@ SystemSettingDlg::~SystemSettingDlg()
 
 
 
-
-
-//void SystemSettingDlg::on_pushButton_clicked()
-//{
-//    system("reboot");
-//}

@@ -225,6 +225,7 @@ void SettingThreshold::saveLoopData()
 void SettingThreshold::on_cancelBtn_clicked()
 {
     this->close();
+    this->close();
 }
 
 void SettingThreshold::on_saveBtn_clicked()
@@ -233,5 +234,6 @@ void SettingThreshold::on_saveBtn_clicked()
         saveData();
     else
         saveLoopData();
-    this->close();
+
+    on_cancelBtn_clicked();
 }
