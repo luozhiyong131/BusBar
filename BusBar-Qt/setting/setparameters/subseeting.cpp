@@ -96,7 +96,7 @@ void SubSeeting::updateWid(int index)
     for(int i = 0 ; i < row ; i++)
     {
         setName(i,0);
-        for(int j=1; j<(mWidget->columnCount()-1); ++j) {
+        for(int j=1; j<mWidget->columnCount(); ++j) {
             setTableItem(i, j);
         }
     }

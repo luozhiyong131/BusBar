@@ -35,17 +35,6 @@ SettingThreshold::~SettingThreshold()
     delete ui;
 }
 
-/**
- * @brief 点击保存按钮
- */
-void SettingThreshold::on_pushButton_clicked()
-{
-    if(!isBox)
-        saveData();
-    else
-        saveLoopData();
-    this->close();
-}
 
 void SettingThreshold::initWidget()
 {
@@ -232,10 +221,17 @@ void SettingThreshold::saveLoopData()
     }
 }
 
-/**
- * @brief SettingThreshold::on_pushButton_cancel_clicked 取消按钮
- */
-void SettingThreshold::on_pushButton_cancel_clicked()
+
+void SettingThreshold::on_cancelBtn_clicked()
 {
+    this->close();
+}
+
+void SettingThreshold::on_saveBtn_clicked()
+{
+    if(!isBox)
+        saveData();
+    else
+        saveLoopData();
     this->close();
 }

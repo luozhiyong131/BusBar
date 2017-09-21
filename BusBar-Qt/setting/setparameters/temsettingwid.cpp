@@ -97,7 +97,7 @@ void TemSettingWid::updateWid(int index)
     for(int i = 0 ; i < row ; i++)
     {
         setName(i,0);
-        for(int j=1; j<(mWidget->columnCount()-1); ++j) {
+        for(int j=1; j<(mWidget->columnCount()); ++j) {
             setTem(i, j);
         }
     }
@@ -136,7 +136,7 @@ void TemSettingWid::setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int i
  */
 void TemSettingWid::setTem(int row, int column)
 {
-    QString str = "===";
+    QString str = "---";
     QTableWidgetItem *item = mWidget->item(row,column);
 
     sBoxData *box = &(mPacket->box[row+1]);
