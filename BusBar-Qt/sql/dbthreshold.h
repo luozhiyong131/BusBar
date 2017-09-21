@@ -23,10 +23,11 @@ public:
     bool getItem(DbThresholdItem &item);
 
     void setLoopCurAll(DbThresholdItem &item); // 设置所有回路电流
-    void setTempAll(DbThresholdItem &item); // 设置所有温度
+    void setTempAll(DbThresholdItem &item); // 设置所有回路温度
 
     void setLineVolAll(DbThresholdItem &item); // 设置成有主路电压
     void setLineCurAll(DbThresholdItem &item); // 设置成有主路电流
+    void setLineTempAll(DbThresholdItem &item); // 设置所有温度
     void setAll(DbThresholdItem &item);
 
 protected:

@@ -142,6 +142,13 @@ void DbThreshold::setLoopCurAll(DbThresholdItem &item)
     setAll(item);
 }
 
+void DbThreshold::setLineTempAll(DbThresholdItem &item)
+{
+    item.type = 4;
+    QString condition = QString("where type=%1 OR type=%2").arg(item.type).arg(4);
+    updateThreshold(item, condition);
+}
+
 void DbThreshold::setTempAll(DbThresholdItem &item)
 {
     item.type = 5;
