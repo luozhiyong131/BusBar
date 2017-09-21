@@ -1,25 +1,16 @@
 ﻿#include "settingwid.h"
 #include "ui_settingwid.h"
+#include "interfacechangesig.h"
 
 SettingWid::SettingWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingWid)
 {
     ui->setupUi(this);
-    initWidget();
 
+    isRun = false;
     mIndex = 0;
-
-    ui->stackedWidget->setCurrentWidget(majorSettingWidget);
-    majorSettingWidget->updateWidget(0);
-    mSubsettingWid->updateWid(0);
-    mTemWid->updateWid(0);
-
-    QTimer *timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(updateWid()));
-    timer->start(5*1000);
-
-    connect(this,SIGNAL(indexChanged(int)),majorSettingWidget,SLOT(indexChanged(int)));
+    QTimer::singleShot(10,this,SLOT(initFunSLot())); //延时初始化
 }
 
 SettingWid::~SettingWid()
@@ -42,6 +33,23 @@ void SettingWid::initWidget()
     ui->stackedWidget->addWidget(mSystemDlg);
 }
 
+void SettingWid::initFunSLot()
+{
+    initWidget();
+
+    ui->stackedWidget->setCurrentWidget(majorSettingWidget);
+    majorSettingWidget->updateWidget(0);
+    mSubsettingWid->updateWid(0);
+    mTemWid->updateWid(0);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(updateWid()));
+    timer->start(5*1000);
+
+    connect(this,SIGNAL(indexChanged(int)),majorSettingWidget,SLOT(indexChanged(int)));
+    connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
+}
+
 /**
  * @brief 主路源发生变化，即母线切换
  * @param index
@@ -58,10 +66,22 @@ void SettingWid::busChangedSlot(int index)
 
 void SettingWid::updateWid()
 {
-    int index = mIndex;
-    majorSettingWidget->updateWidget(index);
-    mSubsettingWid->updateWid(index);
-    mTemWid->updateWid(index);
+    if(isRun) {
+        int index = mIndex;
+        majorSettingWidget->updateWidget(index);
+        mSubsettingWid->updateWid(index);
+        mTemWid->updateWid(index);
+    }
+}
+
+
+void SettingWid::interfaceChangedSlot(int id)
+{
+    if(id == 5) {
+        isRun = true;
+    } else {
+        isRun = false;
+    }
 }
 
 /**

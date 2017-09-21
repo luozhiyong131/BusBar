@@ -24,8 +24,7 @@ public:
 private:
     Ui::TemSettingWid *ui;
     QTableWidget *mWidget;
-    sDataPacket *mPacket;
-    sEnvData *mEnvData;
+    sBusData *mPacket;
     int mIndex;
 
 private:
@@ -33,9 +32,11 @@ private:
     void initTableWidget();
     void resetWidget();
     void clearWidget();
+    void checkBus(int index);
 
     void setName(int row, int column);
-    void setTem(int row, int column ,int index);
+    void setTem(int row, int column );
+    void setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int id);
 
 private slots:
     void itemDoubleClicked(QTableWidgetItem* item);

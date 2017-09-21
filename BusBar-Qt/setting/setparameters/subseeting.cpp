@@ -7,6 +7,7 @@ SubSeeting::SubSeeting(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mIndex = 0xff;
     initWidget();
 }
 
@@ -17,6 +18,7 @@ SubSeeting::~SubSeeting()
 
 void SubSeeting::initWidget()
 {
+    mWidget = new QTableWidget(this);
     initTableWidget();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
@@ -25,11 +27,14 @@ void SubSeeting::initWidget()
 
 void SubSeeting::initTableWidget()
 {
-    mWidget = new QTableWidget(this);
+    mWidget->clear();
     mWidget->setRowCount(0);
 
     QStringList horHead;
-    horHead<< "插接箱名称" << "相电流1"<< "相电流2"<< "相电流3";
+    horHead<< tr("接插箱");
+    for(int i=0; i<LINE_NUM; ++i)
+        horHead << "L" + QString::number(i+1);
+
     mWidget->setColumnCount(horHead.size());
     mWidget->setHorizontalHeaderLabels(horHead);
 
@@ -40,19 +45,42 @@ void SubSeeting::initTableWidget()
     connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
 
+
+void SubSeeting::clearWidget()
+{
+    int row = mWidget->rowCount();
+    for(int i = 0 ; i < row ; i++)
+        mWidget->removeRow(0);
+}
+
 void SubSeeting::resetWidget()
 {
-    int boxNum = mPacket->data[mIndex].boxNum;
+    initTableWidget();
+    int boxNum = mPacket->boxNum;
 
     for(int i = 0 ;  i < boxNum ; i++)
     {
         mWidget->insertRow(i);
-        for(int j = 0 ;  j < 4 ; j++)
+        for(int j = 0 ;  j <= LINE_NUM; j++)
         {
             QTableWidgetItem * item = new QTableWidgetItem("---");
-            item->setTextAlignment(Qt::AlignHCenter);
+            item->setTextAlignment(Qt::AlignCenter);
             mWidget->setItem(i, j ,item);
         }
+    }
+}
+
+void SubSeeting::checkBus(int index)
+{
+    if(mIndex != index) {
+        mIndex = index;
+        mPacket = &(get_share_mem()->data[index]);
+    }
+
+    int row = mWidget->rowCount();
+    if(mPacket->boxNum != row) {
+        clearWidget();
+        resetWidget();
     }
 }
 
@@ -62,30 +90,18 @@ void SubSeeting::resetWidget()
  */
 void SubSeeting::updateWid(int index)
 {
-    mIndex = index;
-
-    mPacket = get_share_mem();
-    clearWidget();
-    resetWidget();
+    checkBus(index);
 
     int row = mWidget->rowCount();
     for(int i = 0 ; i < row ; i++)
     {
-        int column = 0 ;
-        setName(i,column++);
-        setFirstPhrase(i,column++);
-        setSecondPhrase(i,column++);
-        setThreePhrase(i,column++);
-        //        setTem(i,column++);
+        setName(i,0);
+        for(int j=1; j<(mWidget->columnCount()-1); ++j) {
+            setTableItem(i, j);
+        }
     }
 }
 
-void SubSeeting::clearWidget()
-{
-    int row = mWidget->rowCount();
-    for(int i = 0 ; i < row ; i++)
-        mWidget->removeRow(0);
-}
 
 /**
  * @brief 设置插接箱名称
@@ -95,83 +111,49 @@ void SubSeeting::clearWidget()
 void SubSeeting::setName(int row, int column)
 {
     QTableWidgetItem *item = mWidget->item(row,column);
-    QString str = mPacket->data[mIndex].box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
+    QString str = mPacket->box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
     item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
 }
 
-/**
- * @brief 设置L1
- * @param row
- * @param column
- */
-void SubSeeting::setFirstPhrase(int row, int column)
+
+void SubSeeting::setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int id)
 {
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[0];
-    QString str = QString::number(value,10) + "A";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
+    if(unit->alarm[id] > 0) { // 报警
+        item->setTextColor(QColor(Qt::red));
+    } else  if(unit->crAlarm[id] > 0) { // 预警
+        item->setTextColor(QColor(Qt::yellow));
+    } else {
+        item->setTextColor(QColor(Qt::black));
+    }
 }
 
-/**
- * @brief 设置L2
- * @param row
- * @param column
- */
-void SubSeeting::setSecondPhrase(int row, int column)
+void SubSeeting::setTableItem(int row, int column)
 {
+    QString str = "---";
     QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[1];
-    QString str = QString::number(value,10) + "A";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
 
+    sBoxData *box = &(mPacket->box[row+1]);
+    if(box->offLine > 0) {
+
+        sDataUnit *unit = &(box->data.cur);
+        double value = unit->value[column-1] / COM_RATE_CUR;
+        str = QString::number(value,'f', 1) + "A";
+        setAlarmStatus(item, unit, column-1);
+    }
+    item->setText(str);
 }
 
-/**
- * @brief 设置L3
- * @param row
- * @param column
- */
-void SubSeeting::setThreePhrase(int row, int column)
-{
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].data.cur.value[2];
-    QString str = QString::number(value,10) + "A";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-
-}
-
-/**
- * @brief 设置温度
- * @param row
- * @param column
- */
-void SubSeeting::setTem(int row, int column)
-{
-    QTableWidgetItem *item = mWidget->item(row,column);
-    int value = mPacket->data[mIndex].box[row+1].env.tem.value[0];
-    QString str = QString::number(value,10) + "℃";
-    item->setText(str);
-    item->setTextAlignment(Qt::AlignHCenter);
-}
 
 void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
 {
     int index = mIndex ;
     int boxNum = item->row() +1 ;
-    int lineNum ;
 
     int column = item->column();
-    if(column != 0)
+    if(column > 0)
     {
-        lineNum = column -1 ;
         SettingThreshold settingWid(0);
-        settingWid.initWidget(index,boxNum,lineNum); //初始化界面
+        settingWid.initWidget(index, boxNum, column-1); //初始化界面
         settingWid.exec();
     }
 }
