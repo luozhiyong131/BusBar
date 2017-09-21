@@ -21,6 +21,8 @@ protected:
     void initBtnBar();
     QString getTableName(int id);
     bool refreshTable(const QString &table);
+    void updateColumnHidden();
+
 
 public slots:
     void initTableSlot(int id);

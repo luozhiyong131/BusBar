@@ -118,10 +118,15 @@ bool BoxLoopTableWid::checkTable()
 {
     bool ret = false;
 
+#if 0
     int size = mData->lineNum;
     if(size <= 0 || size > 9) {
         mData->lineNum = size = 3;
     }
+#else
+    int size = LINE_NUM;
+#endif
+
     int row = ui->tableWidget->rowCount();
     if(size != row)
         ret = true;
@@ -259,7 +264,8 @@ void BoxLoopTableWid::updateData()
     if(ret)
         initTableWid(); // 重新建立表格
 
-    if(mBoxData->offLine) {
+    if(mBoxData->offLine)
+    {
         int row = ui->tableWidget->rowCount();
         for(int i=0; i<row; ++i)
         {
