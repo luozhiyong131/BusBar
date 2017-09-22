@@ -36,16 +36,14 @@ void DpEleSlaveThread::timeoutDone()
 
 void DpEleSlaveThread::saveBox(int bus, sBoxData  &box)
 {
-    int line = 0;
     double rate = 10;
     if(box.offLine == 0) return; //不保存
     sObjData *data = &(box.data);
 
     DbBranchEleItem item;
     item.name = box.boxName;
-    item.loop_1 = data->ele[line++]/rate;
-    item.loop_2 = data->ele[line++]/rate;
-    item.loop_3 = data->ele[line++]/rate;
+    for(int i=0; i<9; ++i)
+        item.loops[i] = data->ele[i]/rate;
     item.loop = box.tgBox.ele/rate;
     db_branchEle_obj(bus)->insertItem(item);
     msleep(5);

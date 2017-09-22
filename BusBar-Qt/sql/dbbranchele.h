@@ -7,7 +7,7 @@
 
 struct DbBranchEleItem : public DbBasicItem{
     QString name;
-    double loop_1, loop_2, loop_3, loop;
+    double loops[10], loop;
 };
 
 
@@ -29,7 +29,7 @@ protected:
 class DbBranchEle2 : public DbBranchEle
 {
 public:
-     DbBranchEle2(){ createTable(); }
+    DbBranchEle2(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(2) ;}
 };
 
@@ -37,14 +37,14 @@ public:
 class DbBranchEle3 : public DbBranchEle
 {
 public:
-     DbBranchEle3(){ createTable(); }
+    DbBranchEle3(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(3) ;}
 };
 
 class DbBranchEle4 : public DbBranchEle
 {
 public:
-     DbBranchEle4(){ createTable(); }
+    DbBranchEle4(){ createTable(); }
     QString tableName(){return QString("%1_%2").arg(DB_TABLE_BRANCHELE).arg(4) ;}
 };
 

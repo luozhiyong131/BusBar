@@ -58,13 +58,39 @@ QString LogBranchEleWid::getTableName(int id)
     return db_branchEle_obj(id)->tableName();
 }
 
+/**
+ * @brief 隐藏列
+ */
+void LogBranchEleWid::updateColumnHidden()
+{
+    switch (LINE_NUM) {
+    case 3:
+        ui->tableView->setColumnHidden(7, true);
+        ui->tableView->setColumnHidden(8, true);
+        ui->tableView->setColumnHidden(9, true);
+    case 6:
+        ui->tableView->setColumnHidden(10, true);
+        ui->tableView->setColumnHidden(11, true);
+        ui->tableView->setColumnHidden(12, true);
+        break;
+    default:
+        break;
+    }
+    ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
+    ui->tableView->setColumnHidden(0, true);
+//        ui->tableView->resizeColumnsToContents();
+}
+
 void LogBranchEleWid::initTableSlot(int id)
 {
     mid = id;
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱")<< tr("L1") << tr("L2") << tr("L3") << tr("合计");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱");
+    for(int i=0; i<9; ++i)
+        mHeadList << "L" + QString::number(i+1);
+    mHeadList << tr("合计");
     model->setHeaders(mHeadList);
 }
 
@@ -74,9 +100,7 @@ bool LogBranchEleWid::refreshTable(const QString &table)
     bool ret = model->refreshTable(table);
     if(ret) {
         m_table = table;
-        ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
-        ui->tableView->setColumnHidden(0, true);
-        ui->tableView->resizeColumnsToContents();
+        updateColumnHidden();
     }
     return  ret;
 }
@@ -89,8 +113,8 @@ void LogBranchEleWid::clearTableSlot()
     db->createTable();
     initTableSlot(mid);
 
-//    if(model->removeRow(0))
-//        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+    //    if(model->removeRow(0))
+    //        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
 }
 
 void LogBranchEleWid::refreshSlot()

@@ -31,9 +31,13 @@ bool LogBranchEleExportThread::readDb()
     emit readDbSig(msg);
 
     QStringList heads;
-    heads << "No." << "Date" << "Time" << "i-Box" << "Loop 1(kWh)" << "Loop 2(kWh)" << "Loop 3(kWh)" << "Loop(kWh)";
-    mList << heads;
+    heads << "No." << "Date" << "Time" << "i-Box";
 
+    for(int i=0; i<LINE_NUM; ++i)
+        heads << "L" + QString::number(i+1) + "(kWh)";
+     heads << "Loop(kWh)";
+
+     mList << heads;
     QVector<DbBranchEleItem> items = mEle->selectByDate(mExcelStr->start, mExcelStr->end);
     if(items.size() > 0)
     {
@@ -43,9 +47,8 @@ bool LogBranchEleExportThread::readDb()
             str << items.at(i).date;
             str << items.at(i).time;
             str << items.at(i).name;
-            str << QString::number(items.at(i).loop_1);
-            str << QString::number(items.at(i).loop_2);
-            str << QString::number(items.at(i).loop_3);
+            for(int j=0; j<LINE_NUM; ++j)
+                str << QString::number(items.at(i).loops[j]);
             str << QString::number(items.at(i).loop);
             mList << str;
 

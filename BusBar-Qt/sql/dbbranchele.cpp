@@ -24,6 +24,15 @@ void DbBranchEle::createTable()
             "loop_1        DOUBLE,"
             "loop_2        DOUBLE,"
             "loop_3        DOUBLE,"
+
+            "loop_4        DOUBLE,"
+            "loop_5        DOUBLE,"
+            "loop_6        DOUBLE,"
+
+            "loop_7        DOUBLE,"
+            "loop_8        DOUBLE,"
+            "loop_9        DOUBLE,"
+
             "loop          DOUBLE);";
     QSqlQuery query;
     if(!query.exec(cmd.arg(tableName())))
@@ -36,8 +45,8 @@ bool DbBranchEle::insertItem(DbBranchEleItem& item)
 {
     bool ret = false;
     item.id = maxId()+1;
-    QString cmd = "insert into %1 (id, date, time, name, loop_1, loop_2, loop_3, loop) "
-            "values(:id,:date,:time,:name,:loop_1,:loop_2,:loop_3,:loop)";
+    QString cmd = "insert into %1 (id, date, time, name, loop_1, loop_2, loop_3, loop_4, loop_5, loop_6, loop_7, loop_8, loop_9, loop) "
+            "values(:id,:date,:time,:name,:loop_1,:loop_2,:loop_3,:loop_4,:loop_5,:loop_6,:loop_7,:loop_8,:loop_9,:loop)";
     ret = modifyItem(item,cmd.arg(tableName()));
     if(ret)
         emit itemChanged(item.id,Insert);
@@ -54,9 +63,9 @@ bool DbBranchEle::modifyItem(const DbBranchEleItem &item, const QString &cmd)
     query.bindValue(":date",item.date);
     query.bindValue(":time",item.time);
     query.bindValue(":name",item.name);
-    query.bindValue(":loop_1",item.loop_1);
-    query.bindValue(":loop_2",item.loop_2);
-    query.bindValue(":loop_3",item.loop_3);
+
+    for(int i=0; i<9; ++i)
+        query.bindValue(QString(":loop_%d").arg(i+1),item.loops[i]);
     query.bindValue(":loop",item.loop);
     ret = query.exec();
     if(!ret)
@@ -70,9 +79,9 @@ void DbBranchEle::selectItem(QSqlQuery &query,DbBranchEleItem &item)
     item.date = query.value("date").toString();
     item.time = query.value("time").toString();
     item.name = query.value("name").toString();
-    item.loop_1 = query.value("loop_1").toDouble();
-    item.loop_2 = query.value("loop_2").toDouble();
-    item.loop_3 = query.value("loop_3").toDouble();
+
+    for(int i=0; i<9; ++i)
+         item.loops[i] = query.value(QString("loop_%d").arg(i+1)).toDouble();
     item.loop = query.value("loop").toDouble();
 }
 
