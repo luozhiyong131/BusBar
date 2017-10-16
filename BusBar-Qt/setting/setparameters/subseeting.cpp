@@ -153,7 +153,7 @@ void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
     if(column > 0)
     {
         SettingThreshold settingWid(this);
-        settingWid.initWidget(index, boxNum, column-1); //初始化界面
+        settingWid.initWidget(index, boxNum, column,0); //初始化界面
         settingWid.exec();
     }
 }

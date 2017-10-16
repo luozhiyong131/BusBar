@@ -20,7 +20,7 @@ public:
     explicit SettingThreshold(QWidget *parent = 0);
     ~SettingThreshold();
 
-    void initWidget(int index ,int boxNUm ,int lineNum,int temNum = 0);
+    void initWidget(int index , int boxNUm , int lineNum, int temNum, bool isStartBox = false);
 
 private slots:
     void on_cancelBtn_clicked();
@@ -32,6 +32,7 @@ private:
     void saveData();
     void saveLoopData();
     void setSuffex(QString str);
+    bool checkData(int min,int crmin,int crmax,int max);
 
 private:
     Ui::SettingThreshold *ui;
@@ -46,7 +47,7 @@ private:
     int mLineNum;
     int mTemNum;
     bool isBox;
-
+    bool isStart; //是否为始端葙
 
 };
 

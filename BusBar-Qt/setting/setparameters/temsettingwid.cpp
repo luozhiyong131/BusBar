@@ -21,8 +21,12 @@ void TemSettingWid::initWidget()
     mWidget = new QTableWidget(this);
     initTableWidget();
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mBoxTemWid = new startBoxWid(this);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(mBoxTemWid);
     mainLayout->addWidget(mWidget);
+
 }
 
 void TemSettingWid::initTableWidget()
@@ -101,6 +105,8 @@ void TemSettingWid::updateWid(int index)
             setTem(i, j);
         }
     }
+
+    mBoxTemWid->indexChanged(index);
 }
 
 
@@ -153,7 +159,7 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
 {
     int index = mIndex;
     int boxNum = item->row() +1 ;
-    int lineNum = 3;
+    int lineNum = 0;
 
     int column = item->column();
     if(column > 0)

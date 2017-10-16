@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/setsystem/othersettingdlg.h \
     $$PWD/passordsettingdlg.h \
     $$PWD/setsystem/checkpassworddlg.h \
-    $$PWD/setparameters/temsettingwid.h
+    $$PWD/setparameters/temsettingwid.h \
+    $$PWD/setparameters/startboxwid.h
     
     
    
@@ -27,7 +28,8 @@ SOURCES += \
     $$PWD/setsystem/othersettingdlg.cpp \
     $$PWD/passordsettingdlg.cpp \
     $$PWD/setsystem/checkpassworddlg.cpp \
-    $$PWD/setparameters/temsettingwid.cpp
+    $$PWD/setparameters/temsettingwid.cpp \
+    $$PWD/setparameters/startboxwid.cpp
     
     
 
@@ -42,7 +44,8 @@ FORMS += \
     $$PWD/setsystem/othersettingdlg.ui \
     $$PWD/passordsettingdlg.ui \
     $$PWD/setsystem/checkpassworddlg.ui \
-    $$PWD/setparameters/temsettingwid.ui
+    $$PWD/setparameters/temsettingwid.ui \
+    $$PWD/setparameters/startboxwid.ui
 
 
 

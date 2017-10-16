@@ -2,10 +2,11 @@
 #define TEMSETTINGWID_H
 
 #include <QWidget>
-#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QTableWidget>
 #include "common.h"
 #include "setthreshold/settingthreshold.h"
+#include "startboxwid.h"
 
 namespace Ui {
 class TemSettingWid;
@@ -26,6 +27,7 @@ private:
     QTableWidget *mWidget;
     sBusData *mPacket;
     int mIndex;
+    startBoxWid *mBoxTemWid;
 
 private:
     void initWidget();

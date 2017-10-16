@@ -73,27 +73,28 @@ void SettingThreshold::initWidget()
  * @param boxNUm 插接箱编号
  * @param lineNum 相数  0-2,为3则表示当前点击为温度
  */
-void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temNum)
+void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temNum ,bool isStartBox)
 {
     mBusNum = index;
     mBoxNum = boxNUm;
     mLineNum = lineNum; //保存必要信息，为保存数据到共享内存做准备
     mTemNum = temNum;
+    isStart = isStartBox;
 
     sDataPacket *data = share_mem_get();
     sDataUnit *unit;
     int rate;
     QString str,title;
 
-    if((lineNum >= 0) && (lineNum < 3))
+    if((lineNum > 0) && (lineNum < 10) && (temNum == 0))
     {
         str = "A";
         rate = COM_RATE_CUR;
-        title = tr("母线%1 接插箱%2 L%3 电流设置").arg(index+1).arg(boxNUm).arg(lineNum+1);
+        title = tr("母线%1 接插箱%2 L%3 电流设置").arg(index+1).arg(boxNUm).arg(lineNum);
         unit = &(data->data[index].box[boxNUm].data.cur);
-        initData(unit , lineNum ,rate);
+        initData(unit , lineNum -1,rate);
     }
-    else if ((lineNum == 3) && (temNum != 0))
+    else if ((temNum > 0) && (temNum < 10) && (lineNum == 0))
     {
         str = "℃";
         rate = COM_RATE_TEM;
@@ -147,6 +148,8 @@ void SettingThreshold::saveData()
     item.crmin = ui->spinBox_3->value()*aret;
     item.crmax = ui->spinBox_4->value()*aret;
 
+    if(!checkData(item.min,item.crmin,item.crmax,item.max))
+        return;
 
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
@@ -181,9 +184,9 @@ void SettingThreshold::saveLoopData()
     DbThresholdItem item;
     int rate;
 
-    if(mLineNum !=3)
+    if((mLineNum != 0) && (mTemNum == 0))
         rate = COM_RATE_CUR;
-    else
+    else if((mLineNum == 0) && (mTemNum != 0))
         rate = COM_RATE_TEM;
 
     item.min = ui->spinBox->value()*rate;
@@ -191,15 +194,17 @@ void SettingThreshold::saveLoopData()
     item.crmin = ui->spinBox_3->value()*rate;
     item.crmax = ui->spinBox_4->value()*rate;
 
+    if(!checkData(item.min,item.crmin,item.crmax,item.max))
+        return;
 
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
         qDebug() << "统一设置";
         //        mShm->setLineCurAll(item);
-        if(mLineNum !=3)
+        if((mLineNum != 0) && (mTemNum == 0))
             mShm->setLoopCurAll(item); //电流统一设置
-        else
+        else if((mLineNum == 0) && (mTemNum != 0))
             mShm->setTempAll(item);  //温度统一设置
 
     }else //单独设置
@@ -207,15 +212,23 @@ void SettingThreshold::saveLoopData()
         qDebug() << "单一设置";
         item.bus = mBusNum;
 
-        if(mLineNum !=3)
+        if((mLineNum != 0) && (mTemNum == 0))
         {
             item.type = 3; //插接箱电流
-            item.num = (mBoxNum - 1)*LINE_NUM + mLineNum;
+            item.num = (mBoxNum - 1)*LINE_NUM + (mLineNum -1);
         }
-        else
+        else if((mLineNum == 0) && (mTemNum != 0))
         {
-            item.type = 5; //插接箱温度
-            item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
+            if(isStart)
+            {
+                item.type = 4;
+                item.num =  mTemNum-1;
+            }
+            else
+            {
+                item.type = 5; //插接箱温度
+                item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
+            }
         }
         mShm->saveItem(item);
     }
@@ -235,4 +248,37 @@ void SettingThreshold::on_saveBtn_clicked()
         saveLoopData();
 
     on_cancelBtn_clicked();
+}
+
+bool SettingThreshold::checkData(int min, int crmin, int crmax, int max)
+{
+
+//    qDebug() << "checkdata-------------";
+    if(min > crmin )
+    {
+        QMessageBox::warning(this,tr("waring"),tr("最小值大于临界下限！"),tr("OK"));
+        return false;
+    }else if(min > crmax)
+    {
+        QMessageBox::warning(this,tr("waring"),tr("最小值大于临界上限！"),tr("OK"));
+        return false;
+    }else if(min > max)
+    {
+        QMessageBox::warning(this,tr("waring"),tr("最小值大于最大值！"),tr("OK"));
+        return false;
+    }else if(crmin > crmax)
+    {
+        QMessageBox::warning(this,tr("waring"),tr("临界下限大于临界上限！"),tr("OK"));
+        return false;
+    }else if(crmin > max)
+    {
+        QMessageBox::warning(this,tr("waring"),tr("临界下限大于最大值！"),tr("OK"));
+        return false;
+    }else if(crmax > max)
+    {
+        QMessageBox::warning(this,tr("waring"),tr("临界上限大于最大值！！"),tr("OK"));
+        return false;
+    }
+
+    return true;
 }
