@@ -20,7 +20,7 @@ MDB_ReadThread::~MDB_ReadThread()
 {
     runFlag = false;
     wait();
-   // delete m_trans;
+    // delete m_trans;
 }
 
 /**
@@ -141,13 +141,6 @@ int MDB_ReadThread::updateCKSData(NPM_sCurKwh  &data ,uchar addr)
         return ret;
     }
 
-        m_sentData.reg = NPMV_SWICTH;
-        ret = updateData(m_sentData, data.swicth); // 输出单元的开关状态
-        if(ret <= 0){
-            qDebug() << "update switch err";
-            return ret;
-        }
-
     m_sentData.reg = NPMV_KWH;
     m_sentData.num = NPMV_OUT_COUNT*2;
     ret = updateData(m_sentData, data.kwh); // 更新电能
@@ -161,6 +154,16 @@ int MDB_ReadThread::updateCKSData(NPM_sCurKwh  &data ,uchar addr)
         for(int i=0; i<data.kwh.size(); ++i)
             toalElec += data.kwh.at(i);
     }
+
+
+#if 0 // 开关控制
+    m_sentData.reg = NPMV_SWICTH;
+    ret = updateData(m_sentData, data.swicth); // 输出单元的开关状态
+    if(ret <= 0){
+        qDebug() << "update switch err";
+        return ret;
+    }
+#endif
 
     return ret;
 }
@@ -236,7 +239,7 @@ int MDB_ReadThread::updateTotalCur(NPM_sTotalData  &data, uchar addr)
     }
     else
         data.TKwh[0] =  toalElec; // 总电能
-//     qDebug() << data.Tvol[0]<< data.Tvol[1]<< data.Tvol[2] ;
+    //     qDebug() << data.Tvol[0]<< data.Tvol[1]<< data.Tvol[2] ;
 
     return ret;
 }
@@ -412,8 +415,8 @@ int MDB_ReadThread::updateAlarm(NPM_sAlarm  &data, uchar addr)
             data.alarmflag[24] = 1;
     }
 
-//     qDebug() << data.alarmflag.size();
-//    qDebug() << data.alarmflag[24]<< data.alarmflag[25]<< data.alarmflag[26] ;
+    //     qDebug() << data.alarmflag.size();
+    //    qDebug() << data.alarmflag[24]<< data.alarmflag[25]<< data.alarmflag[26] ;
 
     return ret;
 }
@@ -499,7 +502,7 @@ bool MDB_ReadThread::autoUpdate(NPM_sPDUData &pduData, uchar addr)
     switch(++m_step)
     {
     case 1:
-       ret += updateTotalCur(pduData.totalData, addr);// 更新总电流、电压、电能、功率因素、
+        ret += updateTotalCur(pduData.totalData, addr);// 更新总电流、电压、电能、功率因素、
         break;
 
     case 2:
@@ -524,23 +527,23 @@ void MDB_ReadThread::autoUpdateThread(NPM_sPDUData &pduData, uchar addr)
     switch( ++m_stepThreshold)
     {
     case  1: // 更新电流阀值
-          updateCurThreshold(pduData.curKwh, addr);
+        updateCurThreshold(pduData.curKwh, addr);
         break;
 
     case 2: // 更新总阀值
-          updateTotalCurThreshold(pduData.totalData, addr);
+        updateTotalCurThreshold(pduData.totalData, addr);
         break;
 
     case 3: // 更新环境数据
-        updateEnv(pduData.alarm, addr);
+//        updateEnv(pduData.alarm, addr);
         break;
 
     case 4: // 更新阀值
-          updateEnvThreshold(pduData.alarm, addr);
+        updateEnvThreshold(pduData.alarm, addr);
         break;
 
     case 5:  // 更新设备信息
-        updateDev(pduData.dev, addr);
+//        updateDev(pduData.dev, addr);
         break;
 
     case 6: // 更新IP
@@ -561,7 +564,7 @@ void MDB_ReadThread::readDataSlot()
 
 bool MDB_ReadThread::readData(void)
 {
-     return autoUpdate(m_PDUData,m_sentData.addr);
+    return autoUpdate(m_PDUData,m_sentData.addr);
 }
 
 
@@ -588,11 +591,11 @@ bool MDB_ReadThread::startThread(Serial_Trans *trans, uchar addr)
     m_sentData.addr = addr;
 
     bool ret =  loopbackTest(addr);
-    if(ret) {        
+    if(ret) {
         //start();  这里不单独开启线程
     }
-   // else
-   //     m_trans->closeSerial();
+    // else
+    //     m_trans->closeSerial();
 
     return ret;
 }

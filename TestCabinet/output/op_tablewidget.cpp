@@ -137,7 +137,7 @@ void OP_TableWidget::updateWidget(void)
 
 void OP_TableWidget::timeoutDone(void)
 {
-    if((m_alarmflag.size() > 0) &&(m_data.swicth.size() > 0))
+    if((m_alarmflag.size() > 0) /*&&(m_data.swicth.size() > 0)*/)
         updateWidget();
 }
 
