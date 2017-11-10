@@ -13,12 +13,14 @@
  */
 #include "netdataanalyze.h"
 
+#define IP_ADDR     "192.168.1.163"
+
 
 NetDataAnalyze::NetDataAnalyze(QObject *parent) : QThread(parent)
 {
     isRun = true;
     mSocket = new UdpRecvSocket();
-    mHeartBeat = new UdpHeartBeat(this); //初始化心跳包
+    mHeartBeat = new UdpHeartBeat(); //初始化心跳包
 
     mPacket = new net_data_packet;
     mDevData = new net_dev_data;
@@ -46,8 +48,6 @@ NetDataAnalyze::~NetDataAnalyze()
  */
 void NetDataAnalyze::initFun(void)
 {
-    mHeartBeat->startSent(); // 启动心跳
-
     start(); // 自动启动线程
 }
 
@@ -61,9 +61,9 @@ void NetDataAnalyze::timeoutDone()
  * @brief 读取接收到的UDP数据、进行解析、保存至Hash中
  * @return
  */
-int NetDataAnalyze::recvData(void)
+int NetDataAnalyze::recvData(int id)
 {
-    int rtn = mSocket->recvData(mIP, mRecvBuf);
+    int rtn = mSocket->recvData(id, mRecvBuf);
     if(rtn > 0)
     {
         rtn = net_data_analytic(mRecvBuf, rtn, mPacket); //网络数据包解包
@@ -75,24 +75,22 @@ int NetDataAnalyze::recvData(void)
                 rtn = dev_data_analytic(mPacket->data,rtn, mDevData); // 解析设备数据
                 if(rtn>0) /*获取到完整的设备数据包*/
                 {
-                    mIP.remove("::ffff:"); // IPV4删除这个字符串
-                    mPduData->ip = mIP;
-
+                    mPduData->ip = QString::number(id);
                     mPduData->code = &mPacket->code;
                     mPduData->data = mDevData;
-//                    pdu_hashData_save(mPduData); // 进行数据的保存
+                    //                    pdu_hashData_save(mPduData); // 进行数据的保存
 
 
 
                 }
                 else
-                     qDebug() << "dev data analytic err";
+                    qDebug() << "dev data analytic err";
             }
             else
-                 qDebug() << "Net Data len err";
+                qDebug() << "Net Data len err";
         }
         else
-            qDebug() << "Net Data Analyze err" << rtn << mIP;
+            qDebug() << "Net Data Analyze err" << rtn << id;
     }
     return rtn;
 }
@@ -101,7 +99,10 @@ void NetDataAnalyze::run(void)
 {
     while (isRun)
     {
-        recvData();
-        msleep(3);
+        for(int i=0; i<IF_ETH_NUM; ++i) {
+            mHeartBeat->heartbeatPacket(i, IP_ADDR);
+            recvData(i);
+            msleep(1500);
+        }
     }
 }

@@ -17,33 +17,23 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <net/if.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <ctype.h>
 
-static int sock_fd=-1;
 
 
-//struct ifreq interface;
-//struct socket sock;
-///* Management net interface name */
-//#define IFNAME "eth1"
+static int sock_fd[]={-1, -1};
+static char *ifName[] ={ETH_ONE, ETH_TWO};
 
-///* Acquire socket here ... */
 
-//strncpy(interface.ifr_ifrn.ifrn_name, IFNAME, \
-//  IFNAMSIZ);
-//if (setsockopt(sock, SOL_SOCKET, SO_BINDTODEVICE, \
-//  (char *)&interface, sizeof(interface))  < 0) {
-//       perror("SO_BINDTODEVICE failed");
-//      /* Deal with error... */
-//}
 
 /**
  * 功能：创建UDP服务端套接字
  * 返回 ：套接字
  */
-static int udp_serviceSocket(int port)
+static int udp_serviceSocket(int port, int i)
 {
     int sockfd;
     struct sockaddr_in server_addr;/* 主机IP地址和端口号 */
@@ -61,6 +51,13 @@ static int udp_serviceSocket(int port)
 //	server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
     memset(&(server_addr.sin_zero), 0, sizeof(server_addr.sin_zero));
+
+    struct ifreq interface;
+    strncpy(interface.ifr_ifrn.ifrn_name, ifName[i], strlen(ifName[i])+1);
+    int ret = setsockopt(sockfd, SOL_SOCKET, SO_BINDTODEVICE,(char *)&interface, sizeof(interface));
+    if (ret < 0) {
+           qDebug() << "udp_serviceSocket SO_BINDTODEVICE failed " << ifName[i];
+    }
 
     /* 绑定socket到服务端地址 */
     if (bind(sockfd, (struct sockaddr *)&server_addr,
@@ -88,10 +85,11 @@ static int udp_serviceRecvData(int sockfd,struct sockaddr_in *client_addr,uchar 
     uint addr_len = sizeof(struct sockaddr);
 
     /*超时设置*/
-    //	struct timeval timeout={3,0};//3S
-    //	ret=setsockopt(sockfd,SOL_SOCKET,SO_RCVTIMEO,(const char*)&timeout,sizeof(timeout));
-    //	if(ret<0)
-    //		udp_printf("UDP setsockopt Err\n");
+    struct timeval timeout={1,0};//3S
+    ret=setsockopt(sockfd,SOL_SOCKET,SO_RCVTIMEO,(const char*)&timeout,sizeof(timeout));
+    if(ret<0)
+        qDebug("UDP setsockopt Err\n");
+
 
     /* 从sock中收取最大BUF_SIZE - 1字节数据 */
     /* UDP不同于TCP，它基本不会出现收取的数据失败的情况，除非设置了超时等待 */
@@ -109,15 +107,16 @@ static int udp_serviceRecvData(int sockfd,struct sockaddr_in *client_addr,uchar 
  */
 UdpRecvSocket::UdpRecvSocket()
 {
-    sock_fd = udp_serviceSocket(UDP_RECV_PORT);
+    for(int i=0; i<IF_ETH_NUM; ++i)
+        sock_fd[i] = udp_serviceSocket(UDP_RECV_PORT, i);
 }
 
 
-int UdpRecvSocket::recvData(QString &ip, uchar *buf)
+int UdpRecvSocket::recvData(int id, QString &ip, uchar *buf)
 {
     static struct sockaddr_in pin;
 
-    int rtn = udp_serviceRecvData(sock_fd, &pin, buf);
+    int rtn = udp_serviceRecvData(sock_fd[id], &pin, buf);
     if(rtn > 0) {
         ip = inet_ntoa(pin.sin_addr);
     }
@@ -126,3 +125,9 @@ int UdpRecvSocket::recvData(QString &ip, uchar *buf)
 }
 
 
+int UdpRecvSocket::recvData(int id, uchar *buf)
+{
+    static QString ip;
+
+    return recvData(id, ip, buf);
+}

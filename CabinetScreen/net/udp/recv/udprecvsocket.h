@@ -1,9 +1,7 @@
 ﻿#ifndef UDPRECVSOCKET_H
 #define UDPRECVSOCKET_H
 
-#include <QObject>
-#include <QtCore>
-#include <QtNetwork>
+#include "udp/sent/udpsentsocket.h"
 
 
 class UdpRecvSocket
@@ -11,7 +9,8 @@ class UdpRecvSocket
 public:
     explicit UdpRecvSocket();
 
-    int recvData(QString &ip, uchar *buf);
+    int recvData(int id, uchar *buf);
+    int recvData(int id, QString &ip, uchar *buf);
 };
 
 #endif // UDPRECVSOCKET_H

@@ -49,10 +49,10 @@ void FV_ThresholdDlg::setSlot(int bit)
             short curMin = m_curMin.at(bit-1);
             short curMax = m_curMax.at(bit-1);
 
-            if(bit<12)
+            if(bit<OUTPUT_NUM)
                 m_table_1->updateThreshold(bit, curMin, curMax);
             else
-                m_table_2->updateThreshold(bit-12, curMin, curMax);
+                m_table_2->updateThreshold(bit-OUTPUT_NUM, curMin, curMax);
 
             ui->okBtn->setEnabled( true);
         }
@@ -83,7 +83,7 @@ void FV_ThresholdDlg::InitFunction(void)
     connect(m_table_2,SIGNAL(editBtnSig(int)), this, SLOT(setSlot(int)));
 
     m_table_1->initTable(0,OUTPUT_NUM);
-    m_table_2->initTable(OUTPUT_NUM);
+    m_table_2->initTable(OUTPUT_NUM, OUTPUT_NUM);
 
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));

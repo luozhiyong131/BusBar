@@ -15,7 +15,7 @@ protected:
     void initFun(void);
     void run(void);
 
-    int recvData(void);
+    int recvData(int id);
 
 protected slots:
     void timeoutDone();
@@ -25,7 +25,6 @@ private:
     UdpRecvSocket *mSocket;
     bool isRun;
 
-    QString mIP;
     uchar *mRecvBuf; //数据缓冲区
     net_data_packet *mPacket; //网络数据包
     net_dev_data *mDevData; //设备数据结构体

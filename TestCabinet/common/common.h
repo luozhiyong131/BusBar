@@ -4,7 +4,7 @@
 #include <QWidget>
 
 #define ARM_LINUX  1
-#define OUTPUT_NUM 24/2
+#define OUTPUT_NUM 16/2
 
 /* 窗口背景色 */
 #define     WIDGET_BACK_COLOR   232,249,255

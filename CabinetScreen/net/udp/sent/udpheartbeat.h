@@ -3,30 +3,10 @@
 
 #include "udpsentsocket.h"
 
-class UdpHeartBeat : public QThread
+class UdpHeartBeat
 {
-    Q_OBJECT
 public:
-    explicit UdpHeartBeat(QObject *parent = 0);
-    ~UdpHeartBeat();
-
-    void startSent(void);
-
-protected:
-    void run(void);
-     void heartbeatPacket(void);
-
-signals:
-
-public slots:
-    void timeoutDone(void);
-
-private:
-    bool isRun;
-    QTimer *timer;
-
-    UdpSentSocket *mSocket;
+    void heartbeatPacket(int id, const QString &ip);
 };
-void set_hb_IP(const QStringList &ips);
 
 #endif // UDPHEARTBEAT_H

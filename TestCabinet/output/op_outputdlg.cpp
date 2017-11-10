@@ -20,7 +20,7 @@ OP_OutputDlg::OP_OutputDlg(QWidget *parent) :
     m_table_2 = new OP_TableWidget(ui->groupBox_2);
 
     m_table_1->initTable(0,OUTPUT_NUM);
-    m_table_2->initTable(OUTPUT_NUM);
+    m_table_2->initTable(OUTPUT_NUM, OUTPUT_NUM);
 
     QTimer::singleShot(5,this,SLOT(InitFunction()));  // 延时初始化
 }
@@ -53,5 +53,5 @@ void OP_OutputDlg::timeoutDone(void)
 {
     NPM_sPDUData *pduData = npm_get_pduData();
     m_table_1->updateData(0,pduData->curKwh, pduData->alarm.alarmflag);
-    m_table_2->updateData(12,pduData->curKwh, pduData->alarm.alarmflag);
+    m_table_2->updateData(OUTPUT_NUM,pduData->curKwh, pduData->alarm.alarmflag);
 }
