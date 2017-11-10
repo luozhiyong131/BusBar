@@ -13,7 +13,7 @@
  */
 #include "netdataanalyze.h"
 
-#define IP_ADDR     "192.168.1.163"
+#define IP_ADDR     "192.168.1.193"
 
 
 NetDataAnalyze::NetDataAnalyze(QObject *parent) : QThread(parent)
@@ -61,9 +61,9 @@ void NetDataAnalyze::timeoutDone()
  * @brief 读取接收到的UDP数据、进行解析、保存至Hash中
  * @return
  */
-int NetDataAnalyze::recvData(int id)
+int NetDataAnalyze::recvData(int id, int portNum)
 {
-    int rtn = mSocket->recvData(id, mRecvBuf);
+    int rtn = mSocket->recvData(id, portNum, mIp, mRecvBuf);
     if(rtn > 0)
     {
         rtn = net_data_analytic(mRecvBuf, rtn, mPacket); //网络数据包解包
@@ -75,11 +75,12 @@ int NetDataAnalyze::recvData(int id)
                 rtn = dev_data_analytic(mPacket->data,rtn, mDevData); // 解析设备数据
                 if(rtn>0) /*获取到完整的设备数据包*/
                 {
-                    mPduData->ip = QString::number(id);
+                    mPduData->ip = mIp;
                     mPduData->code = &mPacket->code;
                     mPduData->data = mDevData;
-                    //                    pdu_hashData_save(mPduData); // 进行数据的保存
+                    pdu_hashData_save(mPduData, id); // 进行数据的保存
 
+                    qDebug() << "#######" << rtn;
 
 
                 } else
@@ -88,20 +89,27 @@ int NetDataAnalyze::recvData(int id)
                 qDebug() << "Net Data len err";
         } else
             qDebug() << "Net Data Analyze err" << rtn << id;
-    } else
-         qDebug() << "dev recv Data  err";
+    }
 
     return rtn;
 }
 
 void NetDataAnalyze::run(void)
 {
+    int rtn = 0;
     while (isRun)
     {
         for(int i=0; i<IF_ETH_NUM; ++i) {
             mHeartBeat->heartbeatPacket(i, IP_ADDR);
-            recvData(i);
             msleep(1500);
+
+            qDebug() <<"AAAAAAAAAA";
+
+            for(int k=0; k<UDP_PORT_NUM; k++) {
+                do {
+                    rtn = recvData(i, k);
+                } while(rtn >0);
+            }
         }
     }
 }

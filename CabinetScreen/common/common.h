@@ -3,6 +3,7 @@
 #include <QtCore>
 #include "msgbox.h"
 #include "sysconfigfile.h"
+#include "datapacket.h"
 
 //const QColor gray(174,225,254);//空设备,原为灰色，现为天蓝色
 //const QColor green(97,202,40);//正常

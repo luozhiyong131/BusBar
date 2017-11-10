@@ -15,7 +15,7 @@ protected:
     void initFun(void);
     void run(void);
 
-    int recvData(int id);
+    int recvData(int id, int portNum);
 
 protected slots:
     void timeoutDone();
@@ -25,6 +25,7 @@ private:
     UdpRecvSocket *mSocket;
     bool isRun;
 
+    QString mIp;
     uchar *mRecvBuf; //数据缓冲区
     net_data_packet *mPacket; //网络数据包
     net_dev_data *mDevData; //设备数据结构体
@@ -32,6 +33,6 @@ private:
     pdu_devData_packet *mPduData; //设备数据包结构体
 };
 
-extern void pdu_hashData_save(pdu_devData_packet *packet);
+extern void pdu_hashData_save(pdu_devData_packet *packet, int num);
 
 #endif // NETDATAANALYZE_H

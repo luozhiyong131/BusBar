@@ -46,7 +46,7 @@ typedef enum {
 }PDU_CMD_ID_DEV_DATA;
 
 
-void pdu_hashDevData_save(sBoxData *dev, pdu_dev_data *data);
+void pdu_hashDevData_save(sDevData *dev, pdu_dev_data *data);
 
 
 

@@ -8,7 +8,7 @@
  */
 #include "pduhashdevdatasave.h"
 
-static sBoxData *gDev=NULL;
+static sDevData *gDev=NULL;
 
 /**
  * @brief 数据单元处理 主要针对 当前值、最大、小值等数据的处理
@@ -77,7 +77,7 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
     switch (fc)
     {
     case PDU_CMD_NUM_SIZE: // 回路数量
-        gDev->loopNum = data->data[0];
+        gDev->lineNum = data->data[0];
         return;
 
     case PDU_CMD_CUR: // 电流
@@ -172,7 +172,7 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
  * @param dev
  * @param data
  */
-void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
+void pdu_hashDevData_save(sDevData *dev, pdu_dev_data *data)
 {
     gDev = dev;
     int fn = data->fn[0]; // 处理功能码第一位数据

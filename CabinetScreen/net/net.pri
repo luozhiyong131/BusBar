@@ -17,7 +17,10 @@ HEADERS += \
     $$PWD/datadone/netanalyzedata.h \
     $$PWD/datadone/netdataformat.h \
     $$PWD/datadone/netpackdata.h \
-    $$PWD/network.h
+    $$PWD/network.h \
+    $$PWD/save/pduhashcom.h \
+    $$PWD/save/pduhashdevdatasave.h \
+    $$PWD/save/pduhashdatasave.h
     
 	
 SOURCES += \
@@ -30,7 +33,10 @@ SOURCES += \
     $$PWD/analyze/netdataanalyze.cpp \
     $$PWD/datadone/netanalyzedata.cpp \
     $$PWD/datadone/netpackdata.cpp \
-    $$PWD/network.cpp
+    $$PWD/network.cpp \
+    $$PWD/save/pduhashcom.cpp \
+    $$PWD/save/pduhashdevdatasave.cpp \
+    $$PWD/save/pduhashdatasave.cpp
     
 
 

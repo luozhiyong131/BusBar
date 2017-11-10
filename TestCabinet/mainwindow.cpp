@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    this->setWindowFlags(Qt::FramelessWindowHint);
 //     sleep(5);  //  延时启动
 #endif
-
     db_connection(); // 连接数据库
 
     mdb = new MDB_CoreThread(this);

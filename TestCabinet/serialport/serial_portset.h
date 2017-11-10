@@ -7,7 +7,7 @@
 #include "Serial_PortData.h"
 
 #if defined(ARM_LINUX)
-#define SERIAL_COM1     "ttyS8"
+#define SERIAL_COM1     "ttyS8"    //  "ttyS2"
 #else
 #define SERIAL_COM1     "ttyUSB0"
 #endif

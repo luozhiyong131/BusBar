@@ -23,8 +23,7 @@
 #include <ctype.h>
 
 
-
-static int sock_fd[]={-1, -1};
+static int sock_fd[IF_ETH_NUM][UDP_PORT_NUM]={-1, -1};
 static char *ifName[] ={ETH_ONE, ETH_TWO};
 
 
@@ -38,7 +37,7 @@ static void set_socket(int sockfd, int i)
     }
 
     /*超时设置*/
-    struct timeval timeout={1,0};//3S
+    struct timeval timeout={0,10};//3S
     ret=setsockopt(sockfd,SOL_SOCKET,SO_RCVTIMEO,(const char*)&timeout,sizeof(timeout));
     if(ret<0)
         qDebug("UDP setsockopt Err\n");
@@ -51,7 +50,7 @@ static void set_socket(int sockfd, int i)
  * 功能：创建UDP服务端套接字
  * 返回 ：套接字
  */
-static int udp_serviceSocket(int port, int i)
+static int udp_serviceSocket(int port)
 {
     int sockfd;
     struct sockaddr_in server_addr;/* 主机IP地址和端口号 */
@@ -70,7 +69,6 @@ static int udp_serviceSocket(int port, int i)
     server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
     memset(&(server_addr.sin_zero), 0, sizeof(server_addr.sin_zero));
 
-    set_socket(sockfd, i);
 
     /* 绑定socket到服务端地址 */
     if (bind(sockfd, (struct sockaddr *)&server_addr,
@@ -97,12 +95,12 @@ static int udp_serviceRecvData(int sockfd,struct sockaddr_in *client_addr,uchar 
     int ret=0;
     uint addr_len = sizeof(struct sockaddr);
 
+
     /* 从sock中收取最大BUF_SIZE - 1字节数据 */
     /* UDP不同于TCP，它基本不会出现收取的数据失败的情况，除非设置了超时等待 */
     ret = recvfrom(sockfd, recv_data, UDP_BUF_SIZE - 1, 0,
                    (struct sockaddr *)client_addr, &addr_len);
     //	udp_printf("UDP Recv Data len:%d %s\n",ret, recv_data);
-
     return ret;
 }
 
@@ -114,15 +112,30 @@ static int udp_serviceRecvData(int sockfd,struct sockaddr_in *client_addr,uchar 
 UdpRecvSocket::UdpRecvSocket()
 {
     for(int i=0; i<IF_ETH_NUM; ++i)
-        sock_fd[i] = udp_serviceSocket(UDP_RECV_PORT, i);
+    {
+        for(int k=0; k<UDP_PORT_NUM; ++k) {
+            sock_fd[i][k] = udp_serviceSocket(UDP_RECV_PORT + k);
+            set_socket(sock_fd[i][k], i);
+        }
+    }
+}
+
+UdpRecvSocket::~UdpRecvSocket()
+{
+    for(int i=0; i<IF_ETH_NUM; ++i)
+    {
+        for(int k=0; k<UDP_PORT_NUM; ++k) {
+            close(sock_fd[i][k]);
+        }
+    }
 }
 
 
-int UdpRecvSocket::recvData(int id, QString &ip, uchar *buf)
+int UdpRecvSocket::recvData(int id, int portNum, QString &ip, uchar *buf)
 {
     static struct sockaddr_in pin;
 
-    int rtn = udp_serviceRecvData(sock_fd[id], &pin, buf);
+    int rtn = udp_serviceRecvData(sock_fd[id][portNum], &pin, buf);
     if(rtn > 0) {
         ip = inet_ntoa(pin.sin_addr);
     }
@@ -131,9 +144,9 @@ int UdpRecvSocket::recvData(int id, QString &ip, uchar *buf)
 }
 
 
-int UdpRecvSocket::recvData(int id, uchar *buf)
+int UdpRecvSocket::recvData(int id, int portNum, uchar *buf)
 {
     static QString ip;
 
-    return recvData(id, ip, buf);
+    return recvData(id, portNum, ip, buf);
 }

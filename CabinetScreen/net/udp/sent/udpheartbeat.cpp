@@ -7,7 +7,7 @@
  */
 #include "udpheartbeat.h"
 
-#define UDP_HEARTBEAT_MSG   "Clever IDC-BUSBAR Server OK!" // 心跳包
+#define UDP_HEARTBEAT_MSG   "Clever-Manager PDU PC Server OK!" // 心跳包
 
 
 void UdpHeartBeat::heartbeatPacket(int id, const QString &ip)

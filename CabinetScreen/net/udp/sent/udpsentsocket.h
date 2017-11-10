@@ -7,7 +7,7 @@
 #define UDP_HB_PORT     18725 /*UDP心跳端口*/
 #define UDP_SENT_PORT   18750 /*UDP发送端口*/
 
-#define IF_ETH_NUM 2
+#define IF_ETH_NUM  1
 #define ETH_ONE     "eth0"
 #define ETH_TWO     "eth1"
 

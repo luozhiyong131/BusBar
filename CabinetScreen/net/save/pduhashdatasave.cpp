@@ -27,15 +27,15 @@
  * @param dev
  * @param data
  */
-static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
+static void pdu_hashData_function(sDevData *dev,pdu_dev_data *data)
 {
     int fc = data->fn[0]; //根据功能码，进行分支处理
 
     switch (fc)
     {
     case PDU_CMD_STATUS: //设备工作状态
-        dev->boxSpec = data->fn[1]; // 设备类型
-        dev->boxStatus = data->data[0]; //0正常 >0不正常
+        dev->devSpec = data->fn[1]; // 设备类型
+        dev->status = data->data[0]; //0正常 >0不正常
         break;
 
     case PDU_CMD_RATE:
@@ -123,10 +123,10 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
  *      根据IP、代号段中的设备类型、设备号来查找对应的设备数据节点
  * @param packet
  */
-void pdu_hashData_save(pdu_devData_packet *packet)
+void pdu_hashData_save(pdu_devData_packet *packet, int num)
 {
-    static sDataPacket *dataPacket = share_mem_get();
-    static sBoxData  *boxDev = NULL;
+    static sDataPacket *dataPacket = get_dev_dataPacket();
+    static sDevData  *dev = NULL;
 
     bool ret = pdu_netData_check(packet->code->type, packet->code->trans);   /*网络传输类型、传输方向验证*/
     if(ret)
@@ -134,25 +134,23 @@ void pdu_hashData_save(pdu_devData_packet *packet)
         int devType = get_pdu_devCode(packet->code->devCode); // 获取设备类型码
         if(devType > 0)
         {
-            int num = packet->data->num;
             int addr = packet->data->addr;
-            boxDev  = &(dataPacket->data[num].box[addr]);
+            dev  = &(dataPacket->dev[num]);
 
             if(packet->code->version == NET_DATA_VERSION) //版本号的验证
             {
-                //    dev->devType = devType; //设备型号
-                //   dev->devNum = packet->data->addr; // 设备地址
-                //   dev->ip->set(packet->ip); //设备IP
-                boxDev->offLine = OFF_LINE_TIME; //设备在线标识
-                pdu_hashData_function(boxDev, packet->data); //功能预处理
-            }
-            else
+                dev->addr = addr;
+                dev->devType = devType; //设备型号
+                dev->devNum = packet->data->addr; // 设备地址
+                strcpy(dev->ip, packet->ip.toLatin1().data()); //设备IP
+
+                dev->offLine = OFF_LINE_TIME; //设备在线标识
+                pdu_hashData_function(dev, packet->data); //功能预处理
+            } else
                 qDebug() << "NET DATA VERSION err";
-        }
-        else
+        } else
             qDebug() << "get pdu dev Code err";
-    }
-    else
+    } else
         qDebug() << "pdu netData check err";
 }
 

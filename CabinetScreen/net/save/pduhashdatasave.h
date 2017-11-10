@@ -5,6 +5,6 @@
 
 
 
-void pdu_hashData_save(pdu_devData_packet *packet);
+void pdu_hashData_save(pdu_devData_packet *packet, int num);
 
 #endif // PDUHASHDATASAVE_H
