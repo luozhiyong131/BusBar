@@ -82,16 +82,15 @@ int NetDataAnalyze::recvData(int id)
 
 
 
-                }
-                else
+                } else
                     qDebug() << "dev data analytic err";
-            }
-            else
+            } else
                 qDebug() << "Net Data len err";
-        }
-        else
+        } else
             qDebug() << "Net Data Analyze err" << rtn << id;
-    }
+    } else
+         qDebug() << "dev recv Data  err";
+
     return rtn;
 }
 

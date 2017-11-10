@@ -27,25 +27,35 @@ static char *ifName[] ={ETH_ONE, ETH_TWO};
 
 static struct sockaddr_in server_addr[IF_ETH_NUM];
 
+
+static void setSocket(int sockfd, int i)
+{
+    struct ifreq interface;
+    strncpy(interface.ifr_ifrn.ifrn_name, ifName[i], strlen(ifName[i]) +1 );
+    if (setsockopt(sockfd, SOL_SOCKET, SO_BINDTODEVICE, (char *)&interface, sizeof(interface))  < 0) {
+//            perror("udp_creatSocket SO_BINDTODEVICE failed %s", ifName[i]);
+        qDebug() << "udp_creatSocket SO_BINDTODEVICE failed " << ifName[i];
+    }
+}
+
 /* 创建一个socket，类型是SOCK_DGRAM，udp类型*/
 static int udp_creatSocket(int i)
 {
-    int sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock == -1) {
-        qDebug("udp Client Creat Socket Err\n");        
+    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockfd == -1) {
+        qDebug("udp Client Creat Socket Err\n");
     } else {
-
-
+        setSocket(sockfd , i);
     }
 
-    return sock;
+    return sockfd;
 }
 
 /* 初始化预连接的服务端地址*/
 static void udp_initServerAddr(int i, char *server_ip, int port)
 {
     char* url = server_ip;
-//	printf("%s\n",url);
+    //	printf("%s\n",url);
 
     struct hostent *host= (struct hostent *) gethostbyname(url); /* 通过函数入口参数url获得host地址（如果是域名，会做域名解析）*/
 
@@ -77,24 +87,6 @@ static int udp_clientSentData(int i, char *ip, int port, uchar *send_data, uint 
     udp_initSocket(i);	/*服务端检查*/
     udp_initServerAddr(i, ip, port);
 
-//    struct ifreq interface;
-//    strncpy(interface.ifr_ifrn.ifrn_name, ifName[i], strlen(ifName[i]));
-//    if (setsockopt(sockfd, SOL_SOCKET, SO_BINDTODEVICE,
-//                   (char *)&interface, sizeof(interface))  < 0) {
-//           qDebug() << " udp_creatSocket SO_BINDTODEVICE failed " << ifName[i];
-//    } else {
-//        qDebug() << "OK";
-//    }
-
-    struct ifreq interface;
-       strncpy(interface.ifr_ifrn.ifrn_name, ifName[i], strlen(ifName[i]) +1 );
-       if (setsockopt(sockfd, SOL_SOCKET, SO_BINDTODEVICE, (char *)&interface, sizeof(interface))  < 0) {
-              perror("SO_BINDTODEVICE failed");
-       } else {
-           qDebug() << "AAAAAAAAA";
-       }
-
-
     /* 发送数据到服务远端 */
     ret = sendto(sockfd, send_data, len, 0,
                  (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
@@ -109,5 +101,5 @@ void udp_sent_data(int i, const QString &ip, int port, uchar *buf, uint len)
 
 void udp_sent_data(int i, const QString &ip, uchar *buf, uint len)
 {
-   udp_sent_data(i, ip, UDP_SENT_PORT, buf, len);
+    udp_sent_data(i, ip, UDP_SENT_PORT, buf, len);
 }
