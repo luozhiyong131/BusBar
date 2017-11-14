@@ -35,7 +35,7 @@ void DpEleSlaveThread::timeoutDone()
 
 void DpEleSlaveThread::saveDev(int id, sDevData  &dev)
 {
-    if(dev.offLine == 0) return; //不保存
+    if(dev.offLine <= 0) return; //不保存
     sTgObjData *tg = &(dev.tg);
 
     DbDevEleItem item;

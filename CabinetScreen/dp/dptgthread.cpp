@@ -75,7 +75,7 @@ void DpTgThread::tgDev(sDevData *dev)
     sObjData *data = &(dev->data);
     sTgObjData *tg = &(dev->tg);
 
-    if(dev->offLine) {
+    if(dev->offLine > 0) {
         tgObj(data, tg);
     } else {
         memset(data, 0, sizeof(sObjData));
