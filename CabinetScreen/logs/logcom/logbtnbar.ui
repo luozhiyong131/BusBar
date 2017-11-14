@@ -33,12 +33,12 @@ border-radius:15px
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
-          <string>主路电量</string>
+          <string>机柜统计</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>支路电量</string>
+          <string>设备纪录</string>
          </property>
         </item>
         <item>
@@ -66,13 +66,6 @@ border-radius:15px
        <widget class="QPushButton" name="queryBtn">
         <property name="text">
          <string>查询</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="exportBtn">
-        <property name="text">
-         <string>导出</string>
         </property>
        </widget>
       </item>

@@ -18,9 +18,6 @@ LogBtnBar::LogBtnBar(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
     connect(ui->refreshBtn, SIGNAL(clicked()),this,SIGNAL(refreshSig()));
     connect(LogSignal::get(), SIGNAL(logTypeSig(int)), ui->comboBox,SLOT(setCurrentIndex(int)));
-
-    mExportDlg = new LogExportModelDlg(this);
-    connect(mExportDlg, SIGNAL(exportSig(int)),this,SIGNAL(exportSig(int))); // 导出信号
 }
 
 LogBtnBar::~LogBtnBar()
@@ -42,11 +39,6 @@ void LogBtnBar::on_queryBtn_clicked()
     QString date = ui->dateEdit->date().toString("yyyy-MM-dd");
     QString str = tr("date like '%%1%'").arg(date);
     emit querySig(str);
-}
-
-void LogBtnBar::on_exportBtn_clicked()
-{
-    mExportDlg->show();
 }
 
 void LogBtnBar::on_clearBtn_clicked()

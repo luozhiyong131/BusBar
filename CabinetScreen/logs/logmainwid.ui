@@ -6,24 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>427</height>
+    <width>989</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QStackedWidget" name="stackedWid">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>90</y>
-     <width>141</width>
-     <height>101</height>
+     <x>10</x>
+     <y>10</y>
+     <width>971</width>
+     <height>436</height>
     </rect>
-   </property>
-   <property name="text">
-    <string>logs</string>
    </property>
   </widget>
  </widget>
