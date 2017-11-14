@@ -126,7 +126,7 @@ void OP_TableWidget::updateWidget(void)
         checkAlarm(m_base + i, m_itemVec.at(k-1));
 
         temp = m_data.cur.at(m_base + i) * vol / 10000.0; //功率值
-        str = QString::number(temp,'f', 1);
+        str = QString::number(temp,'f', 3);
         m_itemVec.at(k++)->setText(str);
 
         temp = m_data.kwh.at(m_base + i) / 10.0; // 电能
@@ -140,7 +140,6 @@ void OP_TableWidget::timeoutDone(void)
     if((m_alarmflag.size() > 0) /*&&(m_data.swicth.size() > 0)*/)
         updateWidget();
 }
-
 
 /**
   * 功　能：更新数据

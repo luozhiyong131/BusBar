@@ -27,10 +27,7 @@ struct sTgObjData {
     int pow; // 功率
     int ele; // 电能
     int pf; // 功率因素
-    int apPow; // 袖在功率
-    int tem;
 };
-
 
 /**
  * 数据单元：包括当前值，阈值，临界值，报警状态等
@@ -83,11 +80,11 @@ struct sDevData {
 
     sObjData data; // 数据
     sEnvData env; // 环境状态
+    sTgObjData tg; // 统计信息
 
-    sTgObjData tgBox; // 插接箱统计信息
-    char status; // 插接箱状态
+    char status; // 设备状态
     char devSpec;
-    char name[NAME_LEN]; // 插接箱名称
+    char name[NAME_LEN]; // 设备名称
 
     int lineNum; // 回路数量
     int ratedCur; // 额定电流
@@ -98,6 +95,7 @@ struct sDevData {
 struct sDataPacket
 {
     sDevData dev[DEV_NUM];  // 四条母线数据
+    sTgObjData tg; // 统计信息
 };
 
 sDataPacket *get_dev_dataPacket();

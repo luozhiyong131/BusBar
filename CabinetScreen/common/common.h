@@ -24,7 +24,7 @@
 extern void com_setBackColour(const QString &,QWidget *target);
 
 // 倍率定义
-#define COM_RATE_VOL	1.0    // 电压
+#define COM_RATE_VOL	10.0    // 电压
 #define COM_RATE_CUR	10.0    // 电流
 #define COM_RATE_POW	1000.0  // 功率
 #define COM_RATE_ELE	10.0    // 电能

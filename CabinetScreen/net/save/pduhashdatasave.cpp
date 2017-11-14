@@ -109,7 +109,7 @@ static void pdu_hashData_function(sDevData *dev,pdu_dev_data *data)
         //        break;
 
     default:
-        qDebug() << "pdu_hashData_function err" << fc;
+//        qDebug() << "pdu_hashData_function err" << fc;
         break;
     }
 }

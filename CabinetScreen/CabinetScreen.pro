@@ -27,6 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(common/common.pri)
 include(net/net.pri)
+include(services/services.pri)
+include(home/home.pri)
+include(logs/logs.pri)
+include(setting/setting.pri)
+include(dp/dp.pri)
+include(sql/sql.pri)
 
 SOURCES += \
         main.cpp \

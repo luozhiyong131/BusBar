@@ -80,9 +80,8 @@ int NetDataAnalyze::recvData(int id, int portNum)
                     mPduData->data = mDevData;
                     pdu_hashData_save(mPduData, id); // 进行数据的保存
 
-                    qDebug() << "#######" << rtn;
-
-
+                    // qDebug() << "#######" << rtn;
+                    // qDebug() << mIp;
                 } else
                     qDebug() << "dev data analytic err";
             } else
@@ -102,8 +101,6 @@ void NetDataAnalyze::run(void)
         for(int i=0; i<IF_ETH_NUM; ++i) {
             mHeartBeat->heartbeatPacket(i, IP_ADDR);
             msleep(1500);
-
-            qDebug() <<"AAAAAAAAAA";
 
             for(int k=0; k<UDP_PORT_NUM; k++) {
                 do {
