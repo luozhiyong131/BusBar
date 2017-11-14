@@ -12,7 +12,12 @@ struct RtuRecvLine {
     ushort pow; // 功率值
     ushort apPow; // 视在功率
     uint ele; // 电能值
-    ushort curAlarm; // 上限电流报警值
+
+    ushort minVol; // 最小电压
+    ushort maxVol; // 最大电压
+    ushort minCur; // 最小电流
+    ushort maxCur; // 最大电流
+
     ushort wave; // 谐波值
     uchar pf; // 功率因素
     uchar sw; // 开关

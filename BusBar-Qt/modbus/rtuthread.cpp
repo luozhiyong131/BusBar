@@ -48,14 +48,20 @@ bool RtuThread::init(const QString& name, int id)
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
     loop->vol.value[id] = data->vol;
+    loop->vol.min[id] = data->minVol;
+    loop->vol.max[id] = data->maxVol;
+
     loop->cur.value[id] = data->cur;
+    loop->cur.min[id] = data->minCur;
+    loop->cur.max[id] = data->maxCur;
 
     loop->pow[id] = data->pow;
     loop->ele[id] = data->ele;
     loop->pf[id] = data->pf;
     loop->sw[id] = data->sw;
     loop->apPow[id] = data->apPow;
-    loop->ratedCur[id] = data->curAlarm;
+//    loop->ratedCur[id] = data->curAlarm; ////
+
     loop->wave[id] = data->wave;
 }
 
