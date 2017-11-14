@@ -13,6 +13,14 @@ DbDevEle::DbDevEle()
     createTable();
 }
 
+DbDevEle *DbDevEle::bulid()
+{
+    static DbDevEle* sington = nullptr;
+    if(sington == nullptr)
+        sington = new DbDevEle();
+    return sington;
+}
+
 void DbDevEle::createTable()
 {
     QString cmd =

@@ -13,6 +13,16 @@ DbAlarm::DbAlarm()
     createTable();
 }
 
+
+DbAlarm *DbAlarm::bulid()
+{
+    static DbAlarm* sington = nullptr;
+    if(sington == nullptr)
+        sington = new DbAlarm();
+    return sington;
+}
+
+
 void DbAlarm::createTable()
 {
     QString cmd =

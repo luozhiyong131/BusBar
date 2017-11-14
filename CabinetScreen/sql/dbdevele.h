@@ -12,14 +12,14 @@ struct DbDevEleItem : public DbCabEleItem{
 
 class DbDevEle : public SqlBasic<DbDevEleItem>
 {
-public:
     DbDevEle();
-
+public:
+    static DbDevEle *bulid();
     QString tableName(){return QString("%1").arg(DB_TABLE_DEVELE) ;}
     bool insertItem(DbDevEleItem &item); // 插入
 
-    void createTable();
 protected:
+    void createTable();
     bool modifyItem(const DbDevEleItem& item,const QString& cmd);
     void selectItem(QSqlQuery &query,DbDevEleItem &item);
 };
