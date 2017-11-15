@@ -1,7 +1,7 @@
 #ifndef SETMAINWID_H
 #define SETMAINWID_H
 
-#include <QWidget>
+#include "devthresholdwid.h"
 
 namespace Ui {
 class SetMainWid;
@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::SetMainWid *ui;
+    DevThresholdWid *mDevWid[DEV_NUM];
 };
 
 #endif // SETMAINWID_H

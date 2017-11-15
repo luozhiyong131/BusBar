@@ -4,7 +4,8 @@ INCLUDEPATH += $$PWD
 HEADERS += \
     $$PWD/setmainwid.h \
     $$PWD/devthresholdwid.h \
-    $$PWD/inputdlg.h
+    $$PWD/inputdlg.h \
+    $$PWD/thresholdunitwid.h
    
     
    
@@ -12,7 +13,8 @@ HEADERS += \
 SOURCES += \
     $$PWD/setmainwid.cpp \
     $$PWD/devthresholdwid.cpp \
-    $$PWD/inputdlg.cpp
+    $$PWD/inputdlg.cpp \
+    $$PWD/thresholdunitwid.cpp
     
 
 
@@ -20,7 +22,8 @@ SOURCES += \
 FORMS += \
     $$PWD/setmainwid.ui \
     $$PWD/devthresholdwid.ui \
-    $$PWD/inputdlg.ui
+    $$PWD/inputdlg.ui \
+    $$PWD/thresholdunitwid.ui
    
 
 

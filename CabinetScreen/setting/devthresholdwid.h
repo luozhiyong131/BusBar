@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "common.h"
+#include "thresholdunitwid.h"
 
 namespace Ui {
 class DevThresholdWid;
@@ -18,22 +19,12 @@ public:
 
     void init(int id);
 
-protected:
-    void initWid();
-    void enabledSpinBox(bool en);
-    void updateWid(int line);
-
-
-private slots:
-    void timeoutDone();
-    void on_saveBtn_clicked();
 
 private:
     Ui::DevThresholdWid *ui;
 
     int mLine;
-    QTimer *timer;
-    sDevData *mDevData;
+    ThresholdUnitWid *mUnitWid[4];
 };
 
 #endif // DEVTHRESHOLDWID_H

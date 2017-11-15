@@ -8,12 +8,10 @@ DevThresholdWid::DevThresholdWid(QWidget *parent) :
     ui->setupUi(this);
 
     mLine = 0;
-    init(0);
-    initWid();
-
-    timer = new QTimer(this);
-    timer->start(5*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    mUnitWid[0] = new ThresholdUnitWid(ui->volWid);
+    mUnitWid[1] = new ThresholdUnitWid(ui->curWid);
+    mUnitWid[2] = new ThresholdUnitWid(ui->temWid);
+    mUnitWid[3] = new ThresholdUnitWid(ui->humWid);
 }
 
 DevThresholdWid::~DevThresholdWid()
@@ -21,54 +19,10 @@ DevThresholdWid::~DevThresholdWid()
     delete ui;
 }
 
+
 void DevThresholdWid::init(int id)
 {
-    sDataPacket *packet = get_dev_dataPacket();
-    mDevData = &(packet->dev[id]);
-}
-
-void DevThresholdWid::initWid()
-{
-    QString str = "---";
-
-    ui->volLab->setText(str);
-    ui->curLab->setText(str);
-
-    ui->volMinSpinBox->setValue(0);
-    ui->volMaxSpinBox->setValue(0);
-
-    ui->curMinSpinBox->setValue(0);
-    ui->curMaxSpinBox->setValue(0);
-
-    enabledSpinBox(false);
-}
-
-void DevThresholdWid::enabledSpinBox(bool en)
-{
-    ui->volMinSpinBox->setEnabled(en);
-    ui->volMaxSpinBox->setEnabled(en);
-    ui->curMinSpinBox->setEnabled(en);
-    ui->curMaxSpinBox->setEnabled(en);
-}
-
-
-
-void DevThresholdWid::updateWid(int line)
-{
-    if(mDevData->offLine > 0) {
-
-    } else {
-        initWid();
+    for(int i=0; i<4; ++i) {
+        mUnitWid[i]->init(id, i, mLine);
     }
-}
-
-void DevThresholdWid::timeoutDone()
-{
-
-}
-
-
-void DevThresholdWid::on_saveBtn_clicked()
-{
-
 }
