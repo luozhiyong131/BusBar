@@ -64,8 +64,8 @@ RESOURCES += \
     images.qrc
 
 
-LIBS += -lts
-LIBS += -lpthread
+#LIBS += -lts
+#LIBS += -lpthread
 
 target.path = /opt
 INSTALLS += target

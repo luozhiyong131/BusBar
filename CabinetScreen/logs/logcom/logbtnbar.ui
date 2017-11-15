@@ -43,7 +43,7 @@ border-radius:15px
         </item>
         <item>
          <property name="text">
-          <string>报警日志</string>
+          <string>日志纪录</string>
          </property>
         </item>
        </widget>
