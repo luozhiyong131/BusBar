@@ -3,7 +3,7 @@
  * Tcp客户端 主要用于配置PDU设备
  *      1、与设备连接
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "tcpclient.h"

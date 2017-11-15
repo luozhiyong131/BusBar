@@ -1,7 +1,7 @@
 ﻿/*
  * msgbox.cpp
  * 信息提示框
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "msgbox.h"

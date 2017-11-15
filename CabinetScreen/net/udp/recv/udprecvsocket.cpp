@@ -2,7 +2,7 @@
  * UdpRecvSocket.cpp
  * UDP 接收套接字
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "udprecvsocket.h"

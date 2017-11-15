@@ -2,7 +2,7 @@
  * 网络数据格式结构体
  * 按照网络传输数据格式，定义结构体
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #ifndef NETDATAFORMAT_H

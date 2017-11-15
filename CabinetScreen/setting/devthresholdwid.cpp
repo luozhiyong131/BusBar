@@ -1,7 +1,7 @@
 /*
  * 设备阈值界面
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "devthresholdwid.h"

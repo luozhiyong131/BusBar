@@ -2,7 +2,7 @@
  * netpackdata.cpp
  * 把结构体数据打包成网络数据包
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "netpackdata.h"
