@@ -1,5 +1,6 @@
 #include "thresholdunitwid.h"
 #include "ui_thresholdunitwid.h"
+#include "inputdlg.h"
 
 ThresholdUnitWid::ThresholdUnitWid(QWidget *parent) :
     QWidget(parent),
@@ -105,10 +106,20 @@ void ThresholdUnitWid::updateDataUnit()
 
 void ThresholdUnitWid::timeoutDone()
 {
+    bool ret = true;
     if(mDev->offLine > 0) {
         updateDataUnit();
         checkAlarm();
     } else {
         initWid();
+        ret = false;
     }
+    ui->setBtn->setEnabled(ret);
+}
+
+void ThresholdUnitWid::on_setBtn_clicked()
+{
+    InputDlg dlg(this);
+    dlg.init(mDevId, mMode, mLine);
+    dlg.exec();
 }

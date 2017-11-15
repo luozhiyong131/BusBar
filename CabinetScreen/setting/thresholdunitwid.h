@@ -2,14 +2,8 @@
 #define THRESHOLDUNITWID_H
 
 #include <QWidget>
-#include "common.h"
+#include "inputdlg.h"
 
-enum {
-    VolMode,
-    CurMode,
-    TemMode,
-    HumMode,
-};
 
 namespace Ui {
 class ThresholdUnitWid;
@@ -24,6 +18,7 @@ public:
     ~ThresholdUnitWid();
 
     void init(int id, int mode, int line);
+    void setLine(int line) {mLine=line;}
 
 protected:
     void initWid();
@@ -32,6 +27,9 @@ protected:
 
 protected slots:
     void timeoutDone();
+
+private slots:
+    void on_setBtn_clicked();
 
 private:
     Ui::ThresholdUnitWid *ui;

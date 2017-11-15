@@ -109,19 +109,6 @@
     <string>最大值</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="saveBtn">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>340</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>保存 </string>
-   </property>
-  </widget>
   <widget class="QWidget" name="volWid" native="true">
    <property name="geometry">
     <rect>

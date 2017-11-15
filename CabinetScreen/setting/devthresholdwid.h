@@ -2,7 +2,6 @@
 #define DEVTHRESHOLDWID_H
 
 #include <QWidget>
-#include "common.h"
 #include "thresholdunitwid.h"
 
 namespace Ui {
@@ -20,10 +19,14 @@ public:
     void init(int id);
 
 
+private slots:
+
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     Ui::DevThresholdWid *ui;
 
-    int mLine;
+    int mDevId, mLine;
     ThresholdUnitWid *mUnitWid[4];
 };
 

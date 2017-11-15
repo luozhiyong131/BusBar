@@ -26,7 +26,7 @@ void DpDevSpied::devOffLine(int id)
 {
     DbAlarmItem item;
     item.type = tr("PDU离线");
-    item.msg = tr("PDU %1 离线").arg(id);
+    item.msg = tr("PDU %1 离线").arg(id+1);
     DbAlarm::bulid()->insertItem(item);
     msleep(5);
 }
