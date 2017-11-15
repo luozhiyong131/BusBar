@@ -1,3 +1,9 @@
+/*
+ * TCP服务
+ *
+ *  Created on: 2016年10月11日
+ *      Author: Lzy
+ */
 #include "tcpserver.h"
 
 #define ANDROID_TCP_PORT	11283  // 案桌TCP端口号

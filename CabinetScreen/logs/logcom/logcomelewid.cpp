@@ -1,3 +1,9 @@
+/*
+ * 日志电能纪录基类
+ *
+ *  Created on: 2016年10月11日
+ *      Author: Lzy
+ */
 #include "logcomelewid.h"
 #include "ui_logcomelewid.h"
 

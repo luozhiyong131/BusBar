@@ -1,3 +1,9 @@
+/*
+ * 设备设备主界面
+ *
+ *  Created on: 2016年10月11日
+ *      Author: Lzy
+ */
 #include "setmainwid.h"
 #include "ui_setmainwid.h"
 
