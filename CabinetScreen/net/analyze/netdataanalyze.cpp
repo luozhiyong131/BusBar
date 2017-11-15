@@ -12,9 +12,7 @@
  *      Author: Lzy
  */
 #include "netdataanalyze.h"
-
-#define IP_ADDR     "192.168.1.193"
-
+#include "common.h"
 
 NetDataAnalyze::NetDataAnalyze(QObject *parent) : QThread(parent)
 {

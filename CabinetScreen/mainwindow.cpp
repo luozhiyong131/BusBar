@@ -8,6 +8,7 @@
 #include "ui_mainwindow.h"
 #include "datetime/timesettingdlg.h"
 #include "netdataanalyze.h"
+#include "dpthread.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,13 +39,15 @@ void MainWindow::initWidget()
 
 void MainWindow::initFunSLot()
 {
-    new NetDataAnalyze(this);
     updateTime();
     initWidget();
 
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
+    new NetDataAnalyze(this);
+    new DpThread(this);
 }
 
 

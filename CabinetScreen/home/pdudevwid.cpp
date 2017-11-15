@@ -94,7 +94,7 @@ void PduDevWid::updateWid(int line)
     ui->eleLab->setText(str);
 
     value = mDevData->env.tem.value[line] / COM_RATE_TEM;
-    str = QString::number(value) + " C";
+    str = QString::number(value) + " ℃";
     ui->tmpLab->setText(str);
 
     value = mDevData->env.hum.value[line] / COM_RATE_HUM;

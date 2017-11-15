@@ -13,8 +13,9 @@ struct DbAlarmItem : public DbBasicItem{
 
 class DbAlarm : public SqlBasic<DbAlarmItem>
 {    
-public:
     DbAlarm();
+public:
+    static DbAlarm *bulid();
     QString tableName(){return QString("%1").arg(DB_TABLE_ALARM);}
     bool insertItem(DbAlarmItem &item); // 插入
 

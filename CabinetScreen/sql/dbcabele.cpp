@@ -13,6 +13,15 @@ DbCabEle::DbCabEle()
     createTable();
 }
 
+
+DbCabEle *DbCabEle::bulid()
+{
+    static DbCabEle* sington = nullptr;
+    if(sington == nullptr)
+        sington = new DbCabEle();
+    return sington;
+}
+
 void DbCabEle::createTable()
 {
     QString cmd =

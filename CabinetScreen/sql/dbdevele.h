@@ -12,9 +12,9 @@ struct DbDevEleItem : public DbCabEleItem{
 
 class DbDevEle : public SqlBasic<DbDevEleItem>
 {
-public:
     DbDevEle();
-
+public:
+    static DbDevEle *bulid();
     QString tableName(){return QString("%1").arg(DB_TABLE_DEVELE) ;}
     bool insertItem(DbDevEleItem &item); // 插入
 

@@ -17,6 +17,8 @@
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 
+#define IP_ADDR     "192.168.1.193"
+
 /**
  * 统计数据结构体
  */
@@ -71,7 +73,7 @@ typedef struct _sEnvData {
  * 设备数据结构体：包括最多三个插接位，插接箱名称
  */
 struct sDevData {
-    char offLine; // 离线标识
+    int offLine; // 离线标识
     int devType;  //设备型号
     int devNum;  // 级联地址
 
@@ -83,6 +85,7 @@ struct sDevData {
     sTgObjData tg; // 统计信息
 
     char status; // 设备状态
+    char alarm, volAlarm, curAlarm, temAlarm, humAlarm; // 插接箱报警
     char devSpec;
     char name[NAME_LEN]; // 设备名称
 
