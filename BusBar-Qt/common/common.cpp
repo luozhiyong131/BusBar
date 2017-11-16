@@ -26,7 +26,7 @@ void com_setBackColour(const QString &str,QWidget *target)
     target->setPalette(paletteTool) ;
 
     target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
-    target->setWindowIcon(QIcon(":/image/logo.jpg"));
+    target->setWindowIcon(QIcon(":/image/logo.jpg")); //
 }
 
 

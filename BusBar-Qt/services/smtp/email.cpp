@@ -38,9 +38,11 @@ void Email::sentMessageSsl(QStringList &to, QString &subject, QString &body)
 {
     QString from = mSet->usr;
 
+#if SSL_EN
     /* 简单加密传输 */
     SmtpSsl* smtp = new SmtpSsl(mSet->usr, mSet->pwd, mSet->server, mSet->port);
     smtp->sendMail(from, to, subject,body);
+#endif
 }
 
 
