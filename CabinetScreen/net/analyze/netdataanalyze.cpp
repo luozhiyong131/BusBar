@@ -86,7 +86,7 @@ int NetDataAnalyze::recvData(int id, int portNum)
                 qDebug() << "Net Data len err";
         } else
             qDebug() << "Net Data Analyze err" << rtn << id;
-    }
+    } else rtn = 0;
 
     return rtn;
 }
@@ -98,12 +98,12 @@ void NetDataAnalyze::run(void)
     {
         for(int i=0; i<IF_ETH_NUM; ++i) {
             mHeartBeat->heartbeatPacket(i, IP_ADDR);
-            msleep(1500);
+            msleep(1800);
 
             for(int k=0; k<UDP_PORT_NUM; k++) {
                 do {
                     rtn = recvData(i, k);
-                } while(rtn >0);
+                } while(rtn != 0);
             }
         }
     }

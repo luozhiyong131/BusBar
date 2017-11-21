@@ -50,7 +50,7 @@ static void set_socket(int sockfd, int i)
  * 功能：创建UDP服务端套接字
  * 返回 ：套接字
  */
-static int udp_serviceSocket(int port)
+static int udp_serviceSocket(int port, int id)
 {
     int sockfd;
     struct sockaddr_in server_addr;/* 主机IP地址和端口号 */
@@ -61,6 +61,7 @@ static int udp_serviceSocket(int port)
         qDebug("Socket error\n");
         return -1;
     }
+    set_socket(sockfd, id);
 
     /* 初始化服务端地址 */
     server_addr.sin_family = AF_INET;		/*IPv4因特网域*/
@@ -68,7 +69,6 @@ static int udp_serviceSocket(int port)
     //	server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
     memset(&(server_addr.sin_zero), 0, sizeof(server_addr.sin_zero));
-
 
     /* 绑定socket到服务端地址 */
     if (bind(sockfd, (struct sockaddr *)&server_addr,
@@ -114,8 +114,7 @@ UdpRecvSocket::UdpRecvSocket()
     for(int i=0; i<IF_ETH_NUM; ++i)
     {
         for(int k=0; k<UDP_PORT_NUM; ++k) {
-            sock_fd[i][k] = udp_serviceSocket(UDP_RECV_PORT + k);
-            set_socket(sock_fd[i][k], i);
+            sock_fd[i][k] = udp_serviceSocket(UDP_RECV_PORT + k, i);
         }
     }
 }
