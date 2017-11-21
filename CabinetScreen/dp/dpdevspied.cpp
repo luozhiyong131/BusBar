@@ -8,7 +8,7 @@ DpDevSpied::DpDevSpied(QObject *parent) : QThread(parent)
 
     mTimer = new QTimer(this);
     connect(mTimer, SIGNAL(timeout()), this, SLOT(timeoutDone()));
-    mTimer->start(15500);
+    mTimer->start(1550);
 }
 
 
