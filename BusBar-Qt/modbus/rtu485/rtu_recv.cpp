@@ -20,15 +20,15 @@ static int rtu_recv_len(uchar *buf, int len)
 
     if(len < rtn) {
         ret = -1;
-        qDebug() << "rtu recv Err: len too short!!";
+//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
         ret = -2;
-        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
         len = buf[2]*256 + buf[3];
         if(len != RTU_SENT_LEN) {
             ret = -3;
-            qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_LEN;
+//            qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_LEN;
         }
     }
 
@@ -77,7 +77,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
 
     msg->apPow = msg->vol * msg->cur / 10; // 视在功率
 
-    return 24;   ////============ 加上开关，功率因素之后，是为14
+    return 22;   ////============ 加上开关，功率因素之后，是为14
 }
 
 /**

@@ -3,7 +3,7 @@
 
 #include <QtCore>
 
-#define RTU_SENT_LEN (24*3+1+3*3+1)  ////=============  长度需要改变 ////============ 加上开关，功率因素之后，是为14
+#define RTU_SENT_LEN (22*3+1+3*3+1)  ////=============  长度需要改变 ////============ 加上开关，功率因素之后，是为14
 
 struct Rtu_Sent {
     Rtu_Sent():fn(3),reg(0),len(RTU_SENT_LEN){} // 下位机有问题
