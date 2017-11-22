@@ -80,8 +80,11 @@ void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
 {
     for(int i=0; i<SENSOR_NUM; ++i)
     {
-        env->tem.value[i] = pkt->env[i].tem;
-        env->hum.value[i] = pkt->env[i].hum;
+        env->tem.value[i] = pkt->env[i].tem.value;
+        env->tem.min[i] = pkt->env[i].tem.min;
+        env->tem.max[i] = pkt->env[i].tem.max;
+
+        env->hum.value[i] = pkt->env[i].hum.value;
     }
 }
 
@@ -119,6 +122,7 @@ void RtuThread::run()
         {
             transData(i);
             msleep(50);
+            break;
         }
         msleep(100);
     }

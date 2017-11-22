@@ -66,10 +66,10 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->ele <<= 8; // 左移8位
     msg->ele +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
 
-    msg->minVol =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     msg->maxVol =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
-    msg->minCur =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    msg->minVol =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     msg->maxCur =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    msg->minCur =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
 
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
     msg->pf =  *(ptr++);// 功率因素
@@ -86,11 +86,13 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
   * 出口参数：pkt -> 结构体
   * 返回值：12 正确
   */
-static int rtu_recv_env(uchar *ptr, RtuRecvEnv *msg)
+static int rtu_recv_env(uchar *ptr, RtuEnvUnit *msg)
 {
-    msg->tem = *(ptr++); /*温度*/
-    //    msg->hum = *(ptr++); // 湿度
-    return 1;
+    msg->value = *(ptr++);
+    msg->min = *(ptr++);
+    msg->max = *(ptr++);
+
+    return 3;
 }
 
 /**
@@ -136,7 +138,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 
         pkt->rate = *(ptr++);
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
-            ptr += rtu_recv_env(ptr, &(pkt->env[i]));
+            ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
         pkt->lineNum = *ptr;
 
         ret = rtu_recv_crc(buf, len, pkt);
