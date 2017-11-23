@@ -7,7 +7,7 @@
  *  功能处理函数：void pdu_hashData_function(PduDataPacket *dev,pdu_dev_data *data)
  *      此函数，会根据功能码调用相应的子模块接口函数进入数据处理
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "pduhashdatasave.h"

@@ -3,7 +3,7 @@
  *  配置文件的操作接口
  *  配置参数的保存与读取
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "sysconfigfile.h"

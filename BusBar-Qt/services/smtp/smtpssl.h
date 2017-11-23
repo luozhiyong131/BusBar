@@ -8,7 +8,11 @@
 #include <QDebug>
 #include <QtWidgets/QMessageBox>
 #include <QByteArray>
+#include <QTcpSocket>
 
+#define SSL_EN  0  // 开发板QT不支持SSL
+
+#if  SSL_EN
 
 class SmtpSsl : public QObject
 {
@@ -36,7 +40,9 @@ private:
     int timeout;
     QString message;
     QTextStream *t;
+
     QSslSocket *socket;
+
     QString from;
     QString rcpt;
     QStringList recips;
@@ -50,5 +56,7 @@ private:
     int state;
 
 };
+
+#endif
 
 #endif // SMTPSSL_H

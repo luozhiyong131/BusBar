@@ -8,7 +8,7 @@
  *      2、解析数据包：先还原网络数据，再解析设备数据
  *      3、把解析出来的设备数据保存至Hash表中
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "netdataanalyze.h"
@@ -86,7 +86,7 @@ int NetDataAnalyze::recvData(int id, int portNum)
                 qDebug() << "Net Data len err";
         } else
             qDebug() << "Net Data Analyze err" << rtn << id;
-    }
+    } else rtn = 0;
 
     return rtn;
 }
@@ -98,12 +98,12 @@ void NetDataAnalyze::run(void)
     {
         for(int i=0; i<IF_ETH_NUM; ++i) {
             mHeartBeat->heartbeatPacket(i, IP_ADDR);
-            msleep(1500);
+            msleep(1800);
 
             for(int k=0; k<UDP_PORT_NUM; k++) {
                 do {
                     rtn = recvData(i, k);
-                } while(rtn >0);
+                } while(rtn != 0);
             }
         }
     }

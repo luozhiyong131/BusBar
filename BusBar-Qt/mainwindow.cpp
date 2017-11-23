@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
-    BeepThread::bulid()->longBeep();
+    BeepThread::bulid()->longBeep(); //
 }
 
 MainWindow::~MainWindow()

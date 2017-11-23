@@ -23,9 +23,15 @@ struct RtuRecvLine {
     uchar sw; // 开关
 };
 
+struct RtuEnvUnit {
+    uchar value;
+    uchar min;
+    uchar max;
+};
+
 struct RtuRecvEnv {
-    uchar tem; // 温度
-    uchar hum; // 湿度
+    RtuEnvUnit tem; // 温度
+    RtuEnvUnit hum; // 湿度
 };
 
 struct Rtu_recv {

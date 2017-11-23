@@ -1,3 +1,9 @@
+/*
+ * 设备阈值显示界面
+ *
+ *  Created on: 2017年10月11日
+ *      Author: Lzy
+ */
 #include "thresholdunitwid.h"
 #include "ui_thresholdunitwid.h"
 #include "inputdlg.h"

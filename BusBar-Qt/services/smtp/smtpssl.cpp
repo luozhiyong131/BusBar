@@ -2,6 +2,8 @@
 
 //#define SMTP_SSL_DEBUG
 
+#if  SSL_EN
+
 SmtpSsl::SmtpSsl( const QString &user, const QString &pass, const QString &host, int port, int timeout )
 {
     socket = new QSslSocket(this);
@@ -27,12 +29,12 @@ void SmtpSsl::sendMail(const QString &from, const QStringList &to, const QString
     message.append("From: " + from + "\n");
     message.append("Subject: " + subject + "\n");
     message.append("Mime-Version: 1.0;\n");
-//    message.append("Content-Type: text/html; charset=\"utf-8\";\n");
-//    message.append("Content-Transfer-Encoding: base64;\n");
+    //    message.append("Content-Type: text/html; charset=\"utf-8\";\n");
+    //    message.append("Content-Transfer-Encoding: base64;\n");
     message.append("\n");
 
     message.append(body);
-//    message.append(body.toUtf8().toBase64());
+    //    message.append(body.toUtf8().toBase64());
     message.replace( QString::fromLatin1( "\n" ), QString::fromLatin1( "\r\n" ) );
     message.replace( QString::fromLatin1( "\r\n.\r\n" ),
                      QString::fromLatin1( "\r\n..\r\n" ) );
@@ -235,3 +237,5 @@ void SmtpSsl::readyRead()
     }
     response = "";
 }
+
+#endif

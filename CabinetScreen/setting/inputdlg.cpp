@@ -1,3 +1,9 @@
+/*
+ * 设备阈值修改界面
+ *
+ *  Created on: 2017年10月11日
+ *      Author: Lzy
+ */
 #include "inputdlg.h"
 #include "ui_inputdlg.h"
 #include "netdataanalyze.h"

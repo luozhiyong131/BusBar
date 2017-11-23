@@ -1,7 +1,7 @@
 /*
  * 设备显示界面
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "pdudevwid.h"

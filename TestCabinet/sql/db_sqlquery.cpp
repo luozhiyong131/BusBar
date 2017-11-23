@@ -22,6 +22,19 @@ bool db_createRecordTable(void)
 }
 
 
+/***
+  * 获取程序数据目录
+  */
+QString cm_pathOfData(const QString& name)
+{
+    QDir dataDir("/root/");// = QDir::home();
+    QString dirName = ".Clever/TestCabinet";
+    if(!dataDir.exists(dirName))
+        dataDir.mkdir(dirName);
+    dataDir.cd(dirName);
+    return dataDir.absoluteFilePath(name);
+}
+
 /**
  * @brief 数据库连接
  * @return
@@ -29,7 +42,7 @@ bool db_createRecordTable(void)
 bool db_connection(void)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("database.db");
+    db.setDatabaseName(cm_pathOfData("database.db"));
     if(!db.open())
         return false;
 

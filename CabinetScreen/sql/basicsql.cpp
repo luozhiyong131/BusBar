@@ -217,7 +217,7 @@ void BasicSql::initDb()
     static bool s_initDbFinshed = false;
     if(s_initDbFinshed == false){
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(cm_pathOfData("cleverManager.db"));
+        db.setDatabaseName(cm_pathOfData("screen.db"));
         if (!db.open()) { //打开数据库
             qDebug() << "init Db error !!!";
         }

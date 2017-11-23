@@ -4,7 +4,7 @@
  *      1、建立连接 newConnect()
  *      2、增加要发送的数据 tcp_queue_append()
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2017年10月11日
  *      Author: Lzy
  */
 #include "tcpsent.h"
