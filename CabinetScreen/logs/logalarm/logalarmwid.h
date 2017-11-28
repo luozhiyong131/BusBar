@@ -12,6 +12,9 @@ public:
 protected:
     void initTable();
     QString getTableName();
+
+protected slots:
+    virtual void clearTableSlot();
 };
 
 #endif // LOGALARMWID_H

@@ -60,16 +60,6 @@ bool LogComEleWid::refreshTable(const QString &table)
     return  ret;
 }
 
-void LogComEleWid::clearTableSlot()
-{
-    model->model->setTable("markingtable");
-    DbCabEle* db = DbCabEle::bulid();
-    db->clear();
-    db->createTable();
-    initTable();
-//    if(model->removeRow(0))
-//        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
-}
 
 void LogComEleWid::refreshSlot()
 {

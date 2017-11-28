@@ -26,7 +26,7 @@ protected:
 protected slots:
     void initFunSLot();
     void doubleSlot(QModelIndex);
-    void clearTableSlot();
+    virtual void clearTableSlot()=0;
     void refreshSlot();
 
 protected:

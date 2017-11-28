@@ -13,6 +13,8 @@ protected:
     void initTable();
     QString getTableName();
 
+protected slots:
+    virtual void clearTableSlot();
 };
 
 #endif // LOGDEVWID_H
