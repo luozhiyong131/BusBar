@@ -29,7 +29,7 @@ bool Serial_Trans::openSerial(const QString serialName)
 
     struct termios setting;
     fd = open(qPrintable("/dev/" + setData.devName), O_RDWR);
-    if (fd == -1) {
+    if (fd == -1) { //串口是否存在
         //QMessageBox::warning(this, "open error", strerror(errno));
         qDebug() << "Serial Err::open "<< serialName;
         goto openerr;

@@ -40,8 +40,8 @@ void LineRoadWid::interfaceChangedSlot(int id)
 void LineRoadWid::busChangeSlot(int id)
 {    
     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[id].box[0].data);
-    mEnv = &(shm->data[id].box[0].env);
+    mData = &(shm->data[id].box[0].data); //回路状态内带三相信息
+    mEnv = &(shm->data[id].box[0].env); //环境状态
 
     updateData();
 }

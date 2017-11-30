@@ -23,6 +23,8 @@ public:
 
     //设置表盘表示数据单位
     void setUnit(const QString& strUnit);
+
+
 protected:
     virtual void paintEvent(QPaintEvent *);
 
@@ -40,6 +42,8 @@ private:
     void _drawPointer(QPainter* painter);
     //绘制显示值和单位
     void _drawValue(QPainter* painter);
+
+    bool isFirst;
 private:
     //仪表盘最外圈半径
     int m_nRadius;

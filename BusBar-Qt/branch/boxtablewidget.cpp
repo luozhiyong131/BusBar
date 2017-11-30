@@ -281,11 +281,11 @@ void BoxTableWidget::updateData()
         initTableWid(); // 重新建立表格
 
     int row = ui->tableWidget->rowCount();
-    for(int i=1; i<=row; ++i)
+    for(int i=1; i<=row; ++i) //更新数据
     {
         int k=0;
         setName(i, k++); // 设置输出位名称
-        setAlarmStatus(i, k++);
+        setAlarmStatus(i, k++); //设置报警状态
 
         setVol(i, k++); // 设置电压
         setCur(i, k++); // 设置电流值

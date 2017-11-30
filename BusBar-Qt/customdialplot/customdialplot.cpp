@@ -1,12 +1,16 @@
 #include<QPainter>
 #include <QDebug>
 #include "customdialplot.h"
+#include <QGridLayout>
 
 CustomDialPlot::CustomDialPlot(QWidget *parent) :
     QWidget(parent)
 {
+
     //设置默认大小
     this->resize(200,200);
+
+    isFirst = true;
 
     //初始化仪表盘最外圈半径
     m_nRadius = 0;
@@ -28,9 +32,9 @@ void CustomDialPlot::setRange(int nMinValue, int nMaxValue)
     {
         return;
     }
-
     m_nMinValue = nMinValue;
     m_nMaxValue = nMaxValue;
+
 }
 
 //获取最小值
@@ -50,25 +54,27 @@ void CustomDialPlot::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
     //重新定位坐标起始点
     painter.translate(QPointF(width()/2.0,height()/2.0));
 
-    //更新仪表盘最外圈半径大小
-    m_nRadius = width()>height()?(height()/2):(width()/2)-9;
-    m_centerPointF = QPointF(0,0);
+    if(isFirst){
+        isFirst = false;
+        //更新仪表盘最外圈半径大小
+        m_nRadius = width()>height()?(height()/2):(width()/2)-9;
+        m_centerPointF = QPointF(0,0);
+    }
 
-    //绘制表盘背景
-    _drawBackground(&painter);
+   // _drawBackground();
+    _drawBackground(&painter); //当前表盘
     //绘制表盘
-    _drawDial(&painter);
+   // _drawDial(&painter);
     //绘制表盘刻度
-    _drawTicks(&painter);
+ //   _drawTicks(&painter);
     //绘制指针
     //    _drawPointer(&painter);
     //绘制当前值
     _drawValue(&painter);
-    setColor(painter,m_dCurrentValue);
+   // setColor(painter,m_dCurrentValue);
 }
 
 bool CustomDialPlot::_isRangeCorrect(int nMinValue, int nMaxValue)
@@ -116,20 +122,42 @@ void CustomDialPlot::setUnit(const QString &strUnit)
 void CustomDialPlot::_drawBackground(QPainter *pPainter)
 {
     pPainter->save();
-#if 0
-    //绘制表盘背景
-    pPainter->setPen(Qt::NoPen);
-    QRadialGradient bgGradient(m_centerPointF,m_nRadius,m_centerPointF);
-    bgGradient.setColorAt(0,QColor(Qt::transparent));
-    bgGradient.setColorAt(0.3,QColor(Qt::gray));
-    bgGradient.setColorAt(0.55,QColor(Qt::darkGray));
-    bgGradient.setColorAt(0.6,QColor(Qt::darkGray).darker(150));
-    bgGradient.setColorAt(0.61,QColor(Qt::darkGray));
-    bgGradient.setColorAt(0.8,QColor(Qt::darkGray).lighter(50));
-    bgGradient.setColorAt(0.95,QColor(Qt::darkGray));
-    bgGradient.setColorAt(1.0,QColor(Qt::black));
-    pPainter->setBrush(bgGradient);
-    pPainter->drawEllipse(m_centerPointF,m_nRadius,m_nRadius);
+#if 1
+
+    int r , g, b;
+    r = g = b = 0;
+    int value1 = (m_nMaxValue - m_nMinValue) * 0.60 + m_nMinValue;
+    int value2 = (m_nMaxValue - m_nMinValue) * 0.85  + m_nMinValue;
+    if(m_dCurrentValue < value1){
+        r = 24; g = 139; b = 34;
+    }else if(value1 <= m_dCurrentValue && m_dCurrentValue < value2){
+        r = 232; g = 151; b = 18;
+    }else if(value2 < m_dCurrentValue){
+        r = 240; g = 44; b = 34;
+    }
+    int len = (double)(m_dCurrentValue - m_nMinValue)/(double)(m_nMaxValue - m_nMinValue) * 270;
+    if(len < 0) len = 0;
+    if(len > 270) len = 270;
+
+    int radiu = m_nRadius - 10;
+    int dw = m_nRadius * 0.28;
+    QPointF pieRectTopLeftPot(0-radiu,0-radiu);
+    QPointF pieRectBottomRightPot(0+radiu,0+radiu);
+    QRectF pieRect=QRectF(pieRectTopLeftPot,pieRectBottomRightPot);
+
+    //参数为：画刷，线宽，画笔风格，画笔端点，画笔连接风格
+    QPen pen(QColor(r,g,b), dw, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin);
+    pPainter->setPen(pen);
+    //三个参数：rect表示弧线所在的矩形，startAngle起始角度，spanAngle跨越角度
+    pPainter->drawArc(pieRect, 315*16, 270*16);
+
+    pen.setColor(QColor(229,229,229));
+    pPainter->setPen(pen);
+    //三个参数：rect表示弧线所在的矩形，startAngle起始角度，spanAngle跨越角度
+    pPainter->drawArc(pieRect, 315*16, (270 - len)*16);
+
+
+
 #endif
     pPainter->restore();
 }
@@ -147,25 +175,41 @@ void CustomDialPlot::_drawDial(QPainter *pPainter)
 #if 1
     //将表盘分区间以不同颜色显示
     //红色部分
-    QRadialGradient firstGradient(m_centerPointF,m_nRadius,m_centerPointF);
+   /* QRadialGradient firstGradient(m_centerPointF,m_nRadius,m_centerPointF);
     firstGradient.setColorAt(0,Qt::transparent);
     firstGradient.setColorAt(0.6,Qt::transparent);
     firstGradient.setColorAt(0.61,Qt::transparent);
     firstGradient.setColorAt(0.8,Qt::transparent);
     firstGradient.setColorAt(1.0,Qt::transparent);
     pPainter->setBrush(firstGradient);
-    pPainter->drawPie(pieRect,225*16, 90*16);
+    pPainter->drawPie(pieRect,225*16, 90*16); */
 
     //黄色部分
-    QRadialGradient secondGradient(m_centerPointF,m_nRadius,m_centerPointF);
+   /* QRadialGradient secondGradient(m_centerPointF,m_nRadius,m_centerPointF);
     secondGradient.setColorAt(0,Qt::transparent);
     secondGradient.setColorAt(0.6,Qt::transparent);
     secondGradient.setColorAt(0.61,QColor(229,229,229));
     secondGradient.setColorAt(0.8,QColor(229,229,229));
     secondGradient.setColorAt(1.0,QColor(229,229,229));
     pPainter->setBrush(secondGradient);
-    pPainter->drawPie(pieRect,315*16,270*16);
+    pPainter->drawPie(pieRect,315*16,270*16); */
 
+
+    //测试
+ //   pPainter->restore();
+   // pPainter->save();
+  //  pPainter->setPen(Qt::NoPen);
+
+    QRadialGradient secondGradient2(m_centerPointF,m_nRadius,m_centerPointF);
+    secondGradient2.setColorAt(0,Qt::transparent);
+    secondGradient2.setColorAt(0.6,Qt::transparent);
+    secondGradient2.setColorAt(0.61,QColor(0,229,229));
+    secondGradient2.setColorAt(0.8,QColor(0,229,229));
+    secondGradient2.setColorAt(1.0,QColor(0,229,229));
+    pPainter->setBrush(secondGradient2);
+    pPainter->drawPie(pieRect,90*16,135*16);
+
+   // pPainter->restore();
     //绿色部分
     //    QRadialGradient thirdGradient(m_centerPointF,m_nRadius,m_centerPointF);
     //    thirdGradient.setColorAt(0,Qt::transparent);

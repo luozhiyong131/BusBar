@@ -97,24 +97,20 @@ static void tcp_recv(int sockfd)
     do
     {
         ret = recv(sockfd,buf,512,0);
-                if( ret > 0)
-                {
+        if( ret > 0)
+        {
 
-                    udp_printf("recv: %d %s\n", ret, buf);
-
-        //			rtn = data_packet_analytic(buf, ret, &pkt);
-        //			if(rtn > 0)
-        //			{
-        //				udp_printf("recv: %d %s\n", pkt.len, pkt.data);
-        //
-        //
-        //
-        //			}
-        //			else
-        //				udp_printf("recv err %d\n", ret);
-                }
-                else
-                    udp_printf("call to recv err\n");
+            // udp_printf("recv: %d %s\n", ret, buf);
+            // rtn = data_packet_analytic(buf, ret, &pkt);
+            // if(rtn > 0)
+            // {
+            //      udp_printf("recv: %d %s\n", pkt.len, pkt.data);
+            // }
+            // else
+            //  udp_printf("recv err %d\n", ret);
+        }
+        else
+            udp_printf("call to recv err\n");
     }while(ret > 0);
 
     close(sockfd);

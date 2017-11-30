@@ -128,10 +128,10 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 {
     bool ret = false;
 
-    int rtn = rtu_recv_len(buf, len);
+    int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
         uchar *ptr=buf;
-        ptr += rtu_recv_head(ptr, pkt);
+        ptr += rtu_recv_head(ptr, pkt); //指针偏移
 
         for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
@@ -141,7 +141,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
             ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
         pkt->lineNum = *ptr;
 
-        ret = rtu_recv_crc(buf, len, pkt);
+        ret = rtu_recv_crc(buf, len, pkt); //校验码
     }
     return ret;
 }

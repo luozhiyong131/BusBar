@@ -15,6 +15,7 @@
 #include <linux/input.h>
 #include <string.h>
 
+//控制凤鸣器 -- 专用
 
 int gpio_fd;
 

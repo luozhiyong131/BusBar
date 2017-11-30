@@ -12,9 +12,9 @@
 RtuThread::RtuThread(QObject *parent) :
     QThread(parent)
 {
-    mBuf = (uchar *)malloc(RTU_BUF_SIZE);
-    mRtuPkt = new Rtu_recv;
-    mSerial = new Serial_Trans(this);
+    mBuf = (uchar *)malloc(RTU_BUF_SIZE); //申请内存  -- 随便用
+    mRtuPkt = new Rtu_recv; //传输数据结构
+    mSerial = new Serial_Trans(this); //串口线程
 }
 
 RtuThread::~RtuThread()
@@ -93,23 +93,23 @@ void RtuThread::transData(int addr)
 {
     char offLine = 0;
     uchar *buf = mBuf;
-    Rtu_recv *pkt = mRtuPkt;
-    sBoxData *box = &(mBusData->box[addr]);
+    Rtu_recv *pkt = mRtuPkt; //数据包
+    sBoxData *box = &(mBusData->box[addr]); //共享内存
 
     int rtn = rtu_sent_buff(addr,buf); // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf); // 传输数据，发送同时接收
     if(rtn > 0) {
-        bool ret = rtu_recv_packet(buf, rtn, pkt); // 解释数据
+        bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据
         if(ret) {
-            if(addr == pkt->addr) {
+            if(addr == pkt->addr) { //回收地址和发送地址同
                 offLine = 1;
-                loopData(box, pkt);
+                loopData(box, pkt); //更新数据
                 envData(&(box->env), pkt);
                 box->rate = pkt->rate;
             }
         }
     }
-    box->offLine = offLine;
+    box->offLine = offLine; //在线
 }
 
 
@@ -120,7 +120,7 @@ void RtuThread::run()
     {
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
-            transData(i);
+            transData(i); //更新串口的数据 -- 确认是否离线
             msleep(65);
         }
         msleep(100);

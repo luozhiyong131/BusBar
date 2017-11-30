@@ -36,8 +36,9 @@ void LineWid::initWid()
 {
     //    mTotalWid = new LineTotalWid(ui->totalWid);
     //    connect(this, SIGNAL(busChangedSig(int)), mTotalWid, SLOT(busChangeSlot(int)));
-    initTotalWid();
+    initTotalWid(); //表盘界面
 
+    //三总线界面
     mLine[0] = new LineRoadWid(ui->line1Wid);
     mLine[1] = new LineRoadWid(ui->line2Wid);
     mLine[2] = new LineRoadWid(ui->line3Wid);
@@ -63,7 +64,7 @@ void LineWid::timeoutDone()
 {
     if(isRun) {
         QString str = QString::number(mData->box[0].rate) + "Hz";
-        ui->rateLab->setText(str);
+        ui->rateLab->setText(str); //频率
         updatePlot();
     }
 }
@@ -104,9 +105,9 @@ void LineWid::updatePlot()
 {    
     sDataPacket *shm = get_share_mem();
     sTgObjData *tgBusData = &(shm->data[mIndex].box[0].tgBox);
-    mVolPlot->setValue(tgBusData->vol);
-    mCurPlot->setValue(tgBusData->cur/COM_RATE_CUR);
-    mPwPlot->setValue(tgBusData->pow/COM_RATE_POW);
+    mVolPlot->setValue(tgBusData->vol);        //表盘更新 V
+    mCurPlot->setValue(tgBusData->cur/COM_RATE_CUR); //A
+    mPwPlot->setValue(tgBusData->pow/COM_RATE_POW);  //W
 //    mPfPlot->setValue(tgBusData->pf/COM_RATE_PF);
 }
 

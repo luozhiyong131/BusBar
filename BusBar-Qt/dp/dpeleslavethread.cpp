@@ -43,7 +43,7 @@ void DpEleSlaveThread::saveBox(int bus, sBoxData  &box)
     DbBranchEleItem item;
     item.name = box.boxName;
     for(int i=0; i<9; ++i)
-        item.loops[i] = data->ele[i]/rate;
+    item.loops[i] = data->ele[i]/rate;
     item.loop = box.tgBox.ele/rate;
     db_branchEle_obj(bus)->insertItem(item);
     msleep(5);

@@ -13,10 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mInitShm = new InitShm(this);
-    mInitShm->start();
+    mInitShm = new InitShm(this); //线程
+    mInitShm->start(); //初始化共享内存 -- 单线程运行一次
 
-    initSerial();
+    initSerial(); //串口
 
     mIndex = 0;
     initWidget();
@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
-    BeepThread::bulid()->longBeep(); //
+    BeepThread::bulid()->longBeep(); // 线程 -- 'bi~'
 }
 
 MainWindow::~MainWindow()
@@ -38,8 +38,8 @@ MainWindow::~MainWindow()
  */
 void MainWindow::initSerial()
 {
-    RtuThread *rtu = new RtuThread(this);
-    rtu->init(SERIAL_COM1, 1);
+   RtuThread *rtu = new RtuThread(this);
+   rtu->init(SERIAL_COM1, 1); //只操作母线1
 
     //    rtu = new RtuThread(this);
     //    rtu->init(SERIAL_COM2, 2);
@@ -113,25 +113,25 @@ void MainWindow::initWidget()
 {
     //    set_background_color(ui->stackedWid,Qt::white);
     set_background_icon(ui->stackedWid,":/new/prefix1/image/background.png");
-    initBackground();
+    initBackground(); //按钮图标
 
-    mHomeWid = new HomeWid(ui->stackedWid);
+    mHomeWid = new HomeWid(ui->stackedWid); //主界面
     ui->stackedWid->addWidget(mHomeWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mHomeWid, SIGNAL(busChangedSig(int)));
 
-    mLineWid = new LineWid(ui->stackedWid);
+    mLineWid = new LineWid(ui->stackedWid); //主路信息
     ui->stackedWid->addWidget(mLineWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mLineWid, SIGNAL(busChangedSig(int)));
 
-    mBranchWid = new BranchWid(ui->stackedWid);
+    mBranchWid = new BranchWid(ui->stackedWid); //支路信息
     ui->stackedWid->addWidget(mBranchWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mBranchWid, SIGNAL(busChangedSig(int)));
 
-    mLogsWid = new LogsWid(ui->stackedWid);
+    mLogsWid = new LogsWid(ui->stackedWid); //日志
     ui->stackedWid->addWidget(mLogsWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mLogsWid, SIGNAL(busChangedSig(int)));
 
-    mSettingWid = new SettingWid(ui->stackedWid);
+    mSettingWid = new SettingWid(ui->stackedWid); //配置
     ui->stackedWid->addWidget(mSettingWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }
@@ -218,7 +218,7 @@ void MainWindow::dialogClosed(bool ret)
         InterfaceChangeSig::get()->changeType(5);
     }
     else
-        QMessageBox::information(this,"information","对不起，密码输入不正确，你不具备该权限！","确认");
+        QMessageBox::information(this,"information","对不起，密码输入不正确，您不具备该权限！","确认");
     mCheckDlg->clear();
 }
 

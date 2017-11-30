@@ -24,15 +24,15 @@ LogsWid::~LogsWid()
 
 void LogsWid::initWidget()
 {
-    mMainEleWid = new LogMainEleWid(ui->stackedWid);
+    mMainEleWid = new LogMainEleWid(ui->stackedWid);  //主路电量
     ui->stackedWid->addWidget(mMainEleWid);
     connect(this, SIGNAL(busChangedSig(int)), mMainEleWid, SLOT(initTableSlot(int)));
 
-    mBranchEleWid = new LogBranchEleWid(ui->stackedWid);
+    mBranchEleWid = new LogBranchEleWid(ui->stackedWid); //支路电量
     ui->stackedWid->addWidget(mBranchEleWid);
     connect(this, SIGNAL(busChangedSig(int)), mBranchEleWid, SLOT(initTableSlot(int)));
 
-    mAlarmWid = new LogAlarmWid(ui->stackedWid);
+    mAlarmWid = new LogAlarmWid(ui->stackedWid); //告警
     ui->stackedWid->addWidget(mAlarmWid);
     connect(this, SIGNAL(busChangedSig(int)), mAlarmWid, SLOT(initTableSlot(int)));
     connect(LogSignal::get(), SIGNAL(logTypeSig(int)), this,SLOT(logTypeSlot(int)));

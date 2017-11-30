@@ -25,7 +25,7 @@ LogMainEleWid::~LogMainEleWid()
 
 void LogMainEleWid::initFunSLot()
 {
-    for(int i=0; i<BUS_NUM; ++i) getTableName(i);
+    for(int i=0; i<BUS_NUM; ++i) getTableName(i); //初始化所有数据库对象
 
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);//
@@ -34,9 +34,9 @@ void LogMainEleWid::initFunSLot()
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); //禁用编辑功能
 
     model = new SqlTableModel(ui->tableView);
-    ui->tableView->setModel(model->model);
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
-    connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex)));
+    ui->tableView->setModel(model->model); //关联表
+    ui->tableView->horizontalHeader()->setStretchLastSection(true); //横头 -- 设置最后一节
+    connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex))); //双击信号
 
     initBtnBar();
     initTableSlot(0);
@@ -48,7 +48,7 @@ void LogMainEleWid::initBtnBar()
 //    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
     connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString)));
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
-    connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
+    connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot())); //刷新
     connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int)));
 }
 

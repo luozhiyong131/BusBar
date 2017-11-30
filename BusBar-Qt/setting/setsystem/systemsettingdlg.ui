@@ -24,7 +24,7 @@
     <widget class="QWidget" name="otherWid" native="true">
      <property name="maximumSize">
       <size>
-       <width>200</width>
+       <width>230</width>
        <height>16777215</height>
       </size>
      </property>

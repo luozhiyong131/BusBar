@@ -109,7 +109,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     int boxNum=0, num = item.num;
 
     sBusData *box = &(shm->data[item.bus]);
-     sBoxData *bus = &(box->box[0]);
+    sBoxData *bus = &(box->box[0]);
     switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
     {
     case 1:

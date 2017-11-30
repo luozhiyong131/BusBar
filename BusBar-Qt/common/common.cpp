@@ -107,10 +107,10 @@ void set_background_color(QWidget *widget, const QColor &color)
 
 void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
 {    
-    QPalette palette;
+    QPalette palette; //调色板
     QPixmap map = QPixmap(icon).scaled(size);
-    palette.setBrush(QPalette::Background, QBrush(map));
-    widget->setAutoFillBackground(true);
+    palette.setBrush(QPalette::Background, QBrush(map)); //刷
+    widget->setAutoFillBackground(true); //设置自动填充地面
     widget->setPalette(palette);
 }
 

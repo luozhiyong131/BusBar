@@ -22,12 +22,13 @@ HomeWid::~HomeWid()
 void HomeWid::initFun()
 {
     busChangedSlot(0);
-    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(busChangedSlot(int)));
+    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(busChangedSlot(int))); //修改当前母线
     mMaxNum = mBusData->boxNum;
 
     timer = new QTimer(this);
     timer->start(2*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone())); //实时更新
+    //刷新信号（id）
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
 
@@ -39,14 +40,13 @@ void HomeWid::initWidget()
     QObjectList list = children();
     foreach (QObject *obj1, list)
     {
-        if(id >= 10) break;
-        if (obj1->inherits("QWidget"))
-        {
+        if(id >= 10) break; //前10
+        if (obj1->inherits("QWidget")){
             QWidget *b = qobject_cast<QWidget*>(obj1);
             mBoxWid[id] = new HomeBoxWid(b);
             HomeBoxWid *boxWid = mBoxWid[id];
             boxWid->initFun(mBaseNum, id++);
-            connect(this, SIGNAL(busChangedSig(int)), boxWid, SLOT(busChangeSlot(int)));
+            connect(this, SIGNAL(busChangedSig(int)), boxWid, SLOT(busChangeSlot(int))); //修改母线
         }
     }
     checkBoxBaseNum();
@@ -63,9 +63,9 @@ void HomeWid::interfaceChangedSlot(int id)
 
 void HomeWid::timeoutDone()
 {
-    if(isRun) {
-        ui->curLcd->display(mBusData->box[0].tgBox.cur/COM_RATE_CUR);
-        ui->powLcd->display(mBusData->box[0].tgBox.pow/COM_RATE_POW);
+    if(isRun) { //节省CPU的考虑
+        ui->curLcd->display(mBusData->box[0].tgBox.cur/COM_RATE_CUR); //A
+        ui->powLcd->display(mBusData->box[0].tgBox.pow/COM_RATE_POW); //W
 
         if(mMaxNum != mBusData->boxNum) {
             checkBoxBaseNum();
@@ -115,6 +115,7 @@ void HomeWid::on_downBtn_clicked()
     bool ret = checkBoxBaseNum();
     if(!ret) {
         mBaseNum--;
+        checkBoxBaseNum(); //保持界面-数据统一
     }
 }
 

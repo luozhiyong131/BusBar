@@ -20,16 +20,16 @@ SettingWid::~SettingWid()
 
 void SettingWid::initWidget()
 {
-    majorSettingWidget = new MajorSetting(ui->stackedWidget);
+    majorSettingWidget = new MajorSetting(ui->stackedWidget); //主路
     ui->stackedWidget->addWidget(majorSettingWidget);
 
-    mSubsettingWid = new SubSeeting(ui->stackedWidget);
+    mSubsettingWid = new SubSeeting(ui->stackedWidget); //支路
     ui->stackedWidget->addWidget(mSubsettingWid);
 
-    mTemWid = new TemSettingWid(ui->stackedWidget);
+    mTemWid = new TemSettingWid(ui->stackedWidget); //温度
     ui->stackedWidget->addWidget(mTemWid);
 
-    mSystemDlg = new SystemSettingDlg(ui->stackedWidget);
+    mSystemDlg = new SystemSettingDlg(ui->stackedWidget); //系统
     ui->stackedWidget->addWidget(mSystemDlg);
 }
 

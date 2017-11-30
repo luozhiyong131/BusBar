@@ -35,11 +35,11 @@ void LogAlarmWid::initFunSLot()
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); //禁用编辑功能
 
     model = new SqlTableModel(ui->tableView);
-    ui->tableView->setModel(model->model);
+    ui->tableView->setModel(model->model); //设置模型
 //    ui->tableView->horizontalHeader()->setStretchLastSection(true);
     connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex)));
 
-    initBtnBar();
+    initBtnBar(); // 切换
     initTableSlot(0);
 }
 
@@ -47,10 +47,10 @@ void LogAlarmWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
 //    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
-    connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString)));
-    connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot()));
-    connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot()));
-    connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int)));
+    connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString))); //条件
+    connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot())); //清空
+    connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot())); //刷新
+    connect(mBtnBar,SIGNAL(exportSig(int)),this,SLOT(exportSlot(int))); //导出
 }
 
 QString LogAlarmWid::getTableName(int id)
@@ -71,12 +71,12 @@ void LogAlarmWid::initTableSlot(int id)
 
 bool LogAlarmWid::refreshTable(const QString &table)
 {
-    bool ret = model->refreshTable(table);
+    bool ret = model->refreshTable(table); //更新数据
     if(ret) {
         m_table = table;
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
-        ui->tableView->setColumnHidden(0, true);
-        ui->tableView->setColumnWidth(4,750);
+        ui->tableView->setColumnHidden(0, true); //隐藏列
+        ui->tableView->setColumnWidth(4,750); //设置宽度
     }
     return  ret;
 }
