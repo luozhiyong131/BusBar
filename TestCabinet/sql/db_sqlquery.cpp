@@ -28,7 +28,7 @@ bool db_createRecordTable(void)
 QString cm_pathOfData(const QString& name)
 {
     QDir dataDir("/root/");// = QDir::home();
-    QString dirName = ".Clever/TestCabinet";
+    QString dirName = ".CleverTestCabinet";
     if(!dataDir.exists(dirName))
         dataDir.mkdir(dirName);
     dataDir.cd(dirName);

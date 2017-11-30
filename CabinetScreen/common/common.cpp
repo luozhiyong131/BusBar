@@ -35,7 +35,7 @@ void com_setBackColour(const QString &str,QWidget *target)
 QString cm_pathOfData(const QString& name)
 {
     QDir dataDir("/root/");// = QDir::home();
-    QString dirName = ".Clever/Screen";
+    QString dirName = ".CleverScreen";
     if(!dataDir.exists(dirName))
         dataDir.mkdir(dirName);
     dataDir.cd(dirName);

@@ -20,3 +20,15 @@ void LogAlarmWid::initTable()
     headList << tr("编号") << tr("日期") << tr("时间") << tr("报警项目")<< tr("报警内容") ;
     model->setHeaders(headList);
 }
+
+
+void LogAlarmWid::clearTableSlot()
+{
+    model->model->setTable("markingtable");
+    DbAlarm* db = DbAlarm::bulid();
+    db->clear();
+    db->createTable();
+    initTable();
+//    if(model->removeRow(0))
+//        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+}
