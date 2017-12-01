@@ -24,6 +24,7 @@ private:
 
     void updateWidget(void);
     void checkAlarm(int bit, QTableWidgetItem *item);
+    void clearTable();
 signals:
 
 public slots:
