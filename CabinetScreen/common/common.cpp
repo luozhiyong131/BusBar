@@ -24,8 +24,9 @@ void com_setBackColour(const QString &str,QWidget *target)
     paletteTool.setBrush(QPalette::Button,brushToolwhite) ;
     target->setPalette(paletteTool) ;
 
-    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
+//    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
     target->setWindowIcon(QIcon(":/image/logo.jpg"));
+
 }
 
 

@@ -21,6 +21,14 @@ PduDevWid::PduDevWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
+   // ui->groupBox->setAttribute(Qt::WA_TranslucentBackground, true);
+  //  ui->groupBox->setStyleSheet("QGroupBox{background: #EEF9FF}");
+    //去掉多余的label
+    ui->label_6->hide();
+    ui->label_7->hide();
+    ui->tmpLab->hide();
+    ui->humLab->hide();
 }
 
 PduDevWid::~PduDevWid()
@@ -36,6 +44,11 @@ void PduDevWid::init(int id)
 {
     sDataPacket *packet = get_dev_dataPacket();
     mDevData = &(packet->dev[id]);
+}
+
+void PduDevWid::setType(QString type)
+{
+    ui->label_5->setText(type);
 }
 
 /**
