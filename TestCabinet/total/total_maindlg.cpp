@@ -113,6 +113,7 @@ void TOTAL_MainDlg::checkAlarm(void)
         ui->curLcd->setStyleSheet("color:black;");
 }
 
+extern int get_connect_status(void);
 /**
   * 功　能：定时器响应函数
   * 入口参数：
@@ -120,12 +121,17 @@ void TOTAL_MainDlg::checkAlarm(void)
   */
 void TOTAL_MainDlg::timeoutDone(void)
 {
-    m_totalData = npm_get_pduData()->totalData; // 获取数据
-    if(m_totalData.TKwh.size() > 0) // 已经收取到数据
+    int ret = get_connect_status();
+    if(ret == 0)
     {
-        updateWidget();
-        checkAlarm();
-    }
+        m_totalData = npm_get_pduData()->totalData; // 获取数据
+        if(m_totalData.TKwh.size() > 0) // 已经收取到数据
+        {
+            updateWidget();
+            checkAlarm();
+        }
+    } else
+        initWidget();
 }
 
 void TOTAL_MainDlg::on_line_1_clicked()

@@ -135,10 +135,32 @@ void OP_TableWidget::updateWidget(void)
     }
 }
 
+/**
+ * @brief 清空表格
+ */
+void OP_TableWidget::clearTable()
+{
+    int row = m_tableWidget->rowCount();
+    int column = m_tableWidget->columnCount();
+    int k=0;
+
+    for(int i=0; i<row; ++i)
+    {
+        for(int j=0; j<column; ++j)
+            m_itemVec.at(k++)->setText("---");
+    }
+}
+
 void OP_TableWidget::timeoutDone(void)
 {
     if((m_alarmflag.size() > 0) /*&&(m_data.swicth.size() > 0)*/)
-        updateWidget();
+    {
+        int ret = get_connect_status();
+        if(ret == 0)
+            updateWidget();
+        else
+            clearTable();
+    }
 }
 
 /**
