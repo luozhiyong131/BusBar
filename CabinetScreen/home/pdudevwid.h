@@ -16,6 +16,7 @@ public:
     ~PduDevWid();
 
     void init(int id);
+    void setType(QString type);
 
 protected:
     void initWid();

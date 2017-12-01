@@ -20,6 +20,12 @@ DevThresholdWid::DevThresholdWid(QWidget *parent) :
     mUnitWid[1] = new ThresholdUnitWid(ui->curWid);
     mUnitWid[2] = new ThresholdUnitWid(ui->temWid);
     mUnitWid[3] = new ThresholdUnitWid(ui->humWid);
+
+    //多余的界面
+    ui->label_6->hide();
+    ui->label_7->hide();
+    ui->temWid->hide();
+    ui->humWid->hide();
 }
 
 DevThresholdWid::~DevThresholdWid()
@@ -34,6 +40,11 @@ void DevThresholdWid::init(int id)
         mUnitWid[i]->init(id, i, mLine);
     }
     mDevId = id;
+}
+
+void DevThresholdWid::setType(QString type)
+{
+    ui->label_8->setText(type);
 }
 
 void DevThresholdWid::on_comboBox_currentIndexChanged(int index)

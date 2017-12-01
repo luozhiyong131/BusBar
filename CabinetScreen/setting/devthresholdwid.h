@@ -17,6 +17,7 @@ public:
     ~DevThresholdWid();
 
     void init(int id);
+    void setType(QString type);
 
 
 private slots:

@@ -7,6 +7,9 @@
 #include "logcomelewid.h"
 #include "ui_logcomelewid.h"
 
+#include <QTableWidgetItem>
+#include <QHeaderView>
+
 LogComEleWid::LogComEleWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogComEleWid)

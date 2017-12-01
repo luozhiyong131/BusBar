@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/data.png</file>
+        <file>image/data_select.png</file>
+        <file>image/home.png</file>
+        <file>image/home_select.png</file>
+        <file>image/logo.png</file>
+        <file>image/setting.png</file>
+        <file>image/setting_select.png</file>
+    </qresource>
+</RCC>

@@ -46,3 +46,6 @@ FORMS += \
 
 target.path = /opt
 INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
