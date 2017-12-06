@@ -26,7 +26,7 @@ public:
     int getSerialFd(void);
     void closeSerial();
 
-    int sendData(uchar *pBuff, int nCount);
+    int sendData(uchar *pBuff, int nCount, int msec=0);
     int recvData(uchar *pBuf, int nCount);
     int transmit(uchar *sent, int len, uchar *recv);
 

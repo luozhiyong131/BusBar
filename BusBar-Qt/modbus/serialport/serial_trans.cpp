@@ -144,14 +144,14 @@ void Serial_Trans :: closeSerial()
   * 入口参数：pBuff -> 缓冲区   nCount -> 长度
   * 返回值：发送的实际长度  <=0 出错
   */
-int Serial_Trans::sendData(uchar *pBuff, int nCount)
+int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 {
     if(fd >= 0)
     {
         QMutexLocker locker(&mutex);
         int sendLen = write(fd, pBuff, nCount);
         fsync(fd);
-
+        if(msec > 0) msleep(msec);
         return sendLen;
     }
 
@@ -193,8 +193,7 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
     int ret = sendData(sent, len);
     if(ret > 0) {
         ret = recvData(recv, 250);
-        if(ret <=0 )
-            qDebug() << "Serial Trans Err!!!";
+       // if(ret <=0 ) qDebug() << "Serial Trans Err!!!";
     }
     return ret;
 }

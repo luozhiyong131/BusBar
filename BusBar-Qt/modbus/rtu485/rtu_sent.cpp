@@ -80,3 +80,18 @@ int rtu_sent_buff(uchar addr, uchar *buf)
     msg.addr = addr;
     return rtu_sent_packet(&msg, buf);
 }
+
+
+
+int rtu_sent_buff(uchar addr, ushort reg, ushort len, uchar *buf)
+{
+    static Rtu_Sent msg;
+    static QMutex mutex; // 互拆锁
+    QMutexLocker locker(&mutex);
+
+    msg.addr = addr;
+    msg.fn   = 0x10;
+    msg.reg  = reg;
+    msg.len  = len;
+    return rtu_sent_packet(&msg, buf);
+}

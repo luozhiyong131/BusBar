@@ -16,5 +16,6 @@ struct Rtu_Sent {
 
 ushort rtu_crc(uchar *buf, int len);
 int rtu_sent_buff(uchar addr, uchar *buf);
+int rtu_sent_buff(uchar addr, ushort reg, ushort len, uchar *buf);
 
 #endif // RTU_SENT_H

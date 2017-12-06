@@ -8,6 +8,9 @@
 #include "datetime/timesettingdlg.h"
 #include "net/send/netsendthread.h"
 
+RtuThread *rtu[4];
+//extern RtuThread *rtu[4];
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -38,8 +41,9 @@ MainWindow::~MainWindow()
  */
 void MainWindow::initSerial()
 {
-   RtuThread *rtu = new RtuThread(this);
-   rtu->init(SERIAL_COM1, 1); //只操作母线1
+   //RtuThread *
+   rtu[0] = new RtuThread(this);
+   rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
 
     //    rtu = new RtuThread(this);
     //    rtu->init(SERIAL_COM2, 2);

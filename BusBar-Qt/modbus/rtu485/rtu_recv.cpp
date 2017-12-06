@@ -89,8 +89,8 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
 static int rtu_recv_env(uchar *ptr, RtuEnvUnit *msg)
 {
     msg->value = *(ptr++);
-    msg->min = *(ptr++);
     msg->max = *(ptr++);
+    msg->min = *(ptr++);
 
     return 3;
 }
