@@ -17,7 +17,7 @@
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 
-#define IP_ADDR     "192.168.1.193"
+#define IP_ADDR     "192.168.1.163"
 
 /**
  * 统计数据结构体
