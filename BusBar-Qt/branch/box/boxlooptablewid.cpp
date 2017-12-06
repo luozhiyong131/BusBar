@@ -182,6 +182,7 @@ void BoxLoopTableWid::setVol(int id, int column)
     double value = unit->value[id] / COM_RATE_VOL;
     if(value >= 0)
         str = QString::number(value) + "V";
+
     setTableItem(id, column, str);
     setAlarmStatus(id, column,unit->alarm[id], unit->crAlarm[id]);
 }
@@ -192,12 +193,12 @@ void BoxLoopTableWid::setSw(int id, int column)
 
     int sw = mData->sw[id];
     if(sw)
-        str = "开";
+        str = "接通";
     else
-        str = "关";
+        str = "断开";
 
     setTableItem(id, column, str);
-    setAlarmStatus(id, column,sw, 0);
+    setAlarmStatus(id, column,1-sw, 0);
 }
 
 void BoxLoopTableWid::setCur(int id, int column)

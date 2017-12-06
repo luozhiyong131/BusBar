@@ -65,6 +65,7 @@ void InitShm::initBoxThreshold()
             {
                 int num = (j-1)*LINE_NUM + k; // 回路编号规划
                 initThresholdUnit(i, 3, num, k, box->data.cur, 320);
+                initThresholdUnit(i, 6, num, k, box->data.vol, 480);  ////=====
                 num++;
             }
 
@@ -85,7 +86,7 @@ void InitShm::initBusThreshold()
         sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
-            initThresholdUnit(i, 1, k, bus->data.vol, 255);
+            initThresholdUnit(i, 1, k, bus->data.vol, 275);
             initThresholdUnit(i, 2, k, bus->data.cur, 1000);
             initThresholdUnit(i, 4, k, bus->env.tem, 99);
         }
