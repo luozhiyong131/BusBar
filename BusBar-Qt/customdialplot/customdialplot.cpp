@@ -139,7 +139,7 @@ void CustomDialPlot::_drawBackground(QPainter *pPainter)
     if(len < 0) len = 0;
     if(len > 270) len = 270;
 
-    int radiu = m_nRadius - 10;
+    int radiu = m_nRadius - 11;
     int dw = m_nRadius * 0.28;
     QPointF pieRectTopLeftPot(0-radiu,0-radiu);
     QPointF pieRectBottomRightPot(0+radiu,0+radiu);
