@@ -34,6 +34,8 @@ void LogComEleWid::initFunSLot()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); //禁用编辑功能
 
+
+
     model = new SqlTableModel(ui->tableView);
     ui->tableView->setModel(model->model);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
