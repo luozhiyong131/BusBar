@@ -122,7 +122,7 @@ border-radius:15px
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -130,8 +130,8 @@ border-radius:15px
         <widget class="QWidget" name="humWid" native="true">
          <property name="geometry">
           <rect>
-           <x>90</x>
-           <y>310</y>
+           <x>103</x>
+           <y>360</y>
            <width>371</width>
            <height>31</height>
           </rect>
@@ -140,8 +140,8 @@ border-radius:15px
         <widget class="QWidget" name="curWid" native="true">
          <property name="geometry">
           <rect>
-           <x>90</x>
-           <y>230</y>
+           <x>103</x>
+           <y>270</y>
            <width>371</width>
            <height>31</height>
           </rect>
@@ -150,16 +150,16 @@ border-radius:15px
         <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>230</y>
-           <width>60</width>
+           <x>29</x>
+           <y>270</y>
+           <width>71</width>
            <height>30</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -174,16 +174,16 @@ border-radius:15px
         <widget class="QLabel" name="label_3">
          <property name="geometry">
           <rect>
-           <x>86</x>
-           <y>110</y>
-           <width>61</width>
+           <x>110</x>
+           <y>130</y>
+           <width>71</width>
            <height>21</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -195,16 +195,16 @@ border-radius:15px
         <widget class="QLabel" name="label_5">
          <property name="geometry">
           <rect>
-           <x>262</x>
-           <y>110</y>
-           <width>70</width>
+           <x>290</x>
+           <y>130</y>
+           <width>81</width>
            <height>21</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -216,16 +216,16 @@ border-radius:15px
         <widget class="QLabel" name="label_6">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>260</y>
-           <width>60</width>
+           <x>29</x>
+           <y>310</y>
+           <width>71</width>
            <height>30</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -240,16 +240,16 @@ border-radius:15px
         <widget class="QLabel" name="label_4">
          <property name="geometry">
           <rect>
-           <x>174</x>
-           <y>110</y>
-           <width>70</width>
+           <x>201</x>
+           <y>130</y>
+           <width>81</width>
            <height>21</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -261,16 +261,16 @@ border-radius:15px
         <widget class="QLabel" name="label_7">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>310</y>
-           <width>60</width>
+           <x>29</x>
+           <y>360</y>
+           <width>71</width>
            <height>30</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -285,8 +285,8 @@ border-radius:15px
         <widget class="QWidget" name="temWid" native="true">
          <property name="geometry">
           <rect>
-           <x>90</x>
-           <y>260</y>
+           <x>103</x>
+           <y>310</y>
            <width>371</width>
            <height>31</height>
           </rect>
@@ -296,15 +296,15 @@ border-radius:15px
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>60</y>
-           <width>86</width>
+           <y>80</y>
+           <width>91</width>
            <height>25</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -328,16 +328,16 @@ border-radius:15px
         <widget class="QLabel" name="label">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>170</y>
-           <width>60</width>
+           <x>29</x>
+           <y>200</y>
+           <width>71</width>
            <height>30</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>14</pointsize>
+           <pointsize>16</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -352,8 +352,8 @@ border-radius:15px
         <widget class="QWidget" name="volWid" native="true">
          <property name="geometry">
           <rect>
-           <x>90</x>
-           <y>170</y>
+           <x>103</x>
+           <y>200</y>
            <width>371</width>
            <height>31</height>
           </rect>
@@ -362,10 +362,10 @@ border-radius:15px
         <widget class="QLabel" name="label_8">
          <property name="geometry">
           <rect>
-           <x>190</x>
-           <y>280</y>
-           <width>91</width>
-           <height>111</height>
+           <x>20</x>
+           <y>0</y>
+           <width>31</width>
+           <height>41</height>
           </rect>
          </property>
          <property name="palette">
@@ -408,7 +408,7 @@ border-radius:15px
          <property name="font">
           <font>
            <family>AR PL UKai CN</family>
-           <pointsize>100</pointsize>
+           <pointsize>35</pointsize>
           </font>
          </property>
          <property name="text">

@@ -103,7 +103,7 @@ void PduDevWid::updateWid(int line)
     ui->powLcd->display(value);
 
     value = mDevData->data.ele[line] / COM_RATE_ELE;
-    QString str = QString::number(value,'f', 1) + " KWh";
+    QString str = QString::number(value,'f', 1);
     ui->eleLab->setText(str);
 
     value = mDevData->env.tem.value[line] / COM_RATE_TEM;

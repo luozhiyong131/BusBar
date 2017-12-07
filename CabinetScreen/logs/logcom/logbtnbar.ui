@@ -64,7 +64,7 @@
      <property name="font">
       <font>
        <family>AR PL UKai CN</family>
-       <pointsize>14</pointsize>
+       <pointsize>16</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -93,13 +93,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -132,13 +132,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -159,13 +159,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -186,13 +186,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -213,13 +213,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -240,13 +240,13 @@ border-radius:15px
         <property name="sizeIncrement">
          <size>
           <width>0</width>
-          <height>29</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>AR PL UKai CN</family>
-          <pointsize>14</pointsize>
+          <pointsize>16</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
