@@ -107,7 +107,7 @@ void DpTgThread::run()
     if(isRun == false)
     {
         isRun  = true;
-        DpTgThread(shm);
+        tgPacket(shm);
         isRun  = false;
     }
 }
