@@ -156,11 +156,11 @@ enum  sSetType{
     ,CurrentMAX_L9     = 0x1030
     ,CurrentMIN_L9     = 0x1031
     ,temperatureMAX_1  = 0x1032           //温度上限
-    ,temperatureMin_1  = 0x1033           //温度下限
+    ,temperatureMIN_1  = 0x1033           //温度下限
     ,temperatureMAX_2  = 0x1034
-    ,temperatureMin_2  = 0x1035
+    ,temperatureMIN_2  = 0x1035
     ,temperatureMAX_3  = 0x1036
-    ,temperatureMin_4  = 0x1037
+    ,temperatureMIN_3  = 0x1037
     ,BaudRate          = 0x1038           //波特率
 };
 

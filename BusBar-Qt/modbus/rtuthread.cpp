@@ -83,7 +83,7 @@ int RtuThread::sendData(int addr, ushort reg, ushort len)
     //打包数据
     uchar *buf = mBuf;
     int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-    return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+    return mSerial->sendData(buf, rtn, 2800); //发送 -- 并占用串口800ms
 }
 
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
@@ -161,19 +161,19 @@ void RtuThread::run()
     {
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
-            transData(i); //更新串口的数据 -- 确认是否离线
+         //   transData(i); //更新串口的数据 -- 确认是否离线
             msleep(65);
 
-        /*    mBusData->box[1].offLine = 1;
+            mBusData->box[1].offLine = 1;
             //如果在线 则电流上线为
-            if(mBusData->box[i].offLine > 0){
-                ushort reg = 0x1008;
-                ushort len = 0x00A0;
+        /*    if(mBusData->box[i].offLine > 0){
+                ushort reg = sSetType::CurrentMAX_L1;
+                ushort len = 0x0024;
                qDebug() << "get:" << sendData(i, reg, len);
                msleep(65);
             }
-*/
 
+*/
         }
         msleep(100);
     }

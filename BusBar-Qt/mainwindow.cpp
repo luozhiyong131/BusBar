@@ -8,6 +8,8 @@
 #include "datetime/timesettingdlg.h"
 #include "net/send/netsendthread.h"
 
+#include "shm/setbox.h"
+
 RtuThread *rtu[4];
 //extern RtuThread *rtu[4];
 
@@ -28,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer::singleShot(1000,this,SLOT(initFunSLot())); //延时初始化
     on_comboBox_currentIndexChanged(0);
     BeepThread::bulid()->longBeep(); // 线程 -- 'bi~'
+
+    //修改数据线程
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), SetBOXThread::bulid(), SLOT(busChangedSlot(int)));
 }
 
 MainWindow::~MainWindow()
