@@ -13,5 +13,5 @@ NetWork::NetWork(QObject *parent) : QObject(parent)
 
 //    mNetDataAnalyze = new NetDataAnalyze(this); // 接收IP 模块数据
 
-//    NetSendThread::bulid()->start(); //平板端连接
+    NetSendThread::bulid()->start(); //平板端连接
 }
