@@ -31,10 +31,7 @@ void LogComEleWid::initFunSLot()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);//
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView->resizeColumnsToContents();
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); //禁用编辑功能
-
-
 
     model = new SqlTableModel(ui->tableView);
     ui->tableView->setModel(model->model);
@@ -59,6 +56,7 @@ bool LogComEleWid::refreshTable(const QString &table)
 {
     bool ret = model->refreshTable(table);
     if(ret) {
+        ui->tableView->resizeColumnsToContents();
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
         ui->tableView->setColumnHidden(0, true);
     }
