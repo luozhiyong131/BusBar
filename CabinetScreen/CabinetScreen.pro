@@ -36,10 +36,12 @@ include(sql/sql.pri)
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    ctoolbutton.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    ctoolbutton.h
 
 FORMS += \
         mainwindow.ui
