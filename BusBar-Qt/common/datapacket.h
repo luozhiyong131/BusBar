@@ -156,12 +156,24 @@ enum  sSetType{
     ,CurrentMAX_L9     = 0x1030
     ,CurrentMIN_L9     = 0x1031
     ,temperatureMAX_1  = 0x1032           //温度上限
-    ,temperatureMin_1  = 0x1033           //温度下限
+    ,temperatureMIN_1  = 0x1033           //温度下限
     ,temperatureMAX_2  = 0x1034
-    ,temperatureMin_2  = 0x1035
+    ,temperatureMIN_2  = 0x1035
     ,temperatureMAX_3  = 0x1036
-    ,temperatureMin_4  = 0x1037
-    ,BaudRate          = 0x1038           //波特率
+    ,temperatureMIN_3  = 0x1037 
+    ,temperatureMAX_4  = 0x1038
+    ,temperatureMIN_4  = 0x1039
+    ,temperatureMAX_5  = 0x103A
+    ,temperatureMIN_5  = 0x103B
+    ,temperatureMAX_6  = 0x103C
+    ,temperatureMIN_6  = 0x103D
+    ,temperatureMAX_7  = 0x103E
+    ,temperatureMIN_7  = 0x103F
+    ,temperatureMAX_8  = 0x1041
+    ,temperatureMIN_8  = 0x1042
+    ,temperatureMAX_9  = 0x1043
+    ,temperatureMIN_9  = 0x1044
+    ,BaudRate          = 0x1045           //波特率
 };
 
 sDataPacket *share_mem_get();

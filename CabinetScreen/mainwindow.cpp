@@ -25,15 +25,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mShow = 1;
     ui->widget->setStyleSheet("background-color:#0064CD;");
-    ui->logoLab->setPixmap(QPixmap(":/image/logo.png").scaled(ui->logoLab->size()));
+
     ui->label->setAttribute(Qt::WA_TranslucentBackground, true);
     ui->label_2->setAttribute(Qt::WA_TranslucentBackground, true);
     ui->label_3->setAttribute(Qt::WA_TranslucentBackground, true);
+    ui->logoBtn->setStyleSheet("QToolButton{""border-radius:5px}"); //边框角的弧度为8px
+    ui->logoBtn->setIconSize(ui->logoBtn->size());
+    ui->logoBtn->setIcon(QPixmap(":/image/logo.png").scaled(ui->logoBtn->size()));
+    connect(ui->logoBtn, SIGNAL(longPressSig(int)), this, SLOT(onLongPressSlot(int)));
+
     ui->timeBtn->setStyleSheet("QToolButton{""border-radius:5px}"); //边框角的弧度为8px
     ui->homeBtn->setStyleSheet("QToolButton{""border-radius:5px}" );
     ui->logsBtn ->setStyleSheet( "QToolButton{""border-radius:5px}" );
     ui->setBtn->setStyleSheet( "QToolButton{""border-radius:5px}" );
-    //"QToolButton:hover{background-color:rgb(91, 237, 238);}"
+
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -119,3 +124,41 @@ void MainWindow::on_setBtn_clicked()
     ui->stackedWid->setCurrentWidget(mSetWid);
     onCShow(3);
 }
+
+static bool update_fun(const QString &str)  //升级函数
+{
+    bool ret = true;
+    int rets = system("mount -a /dev/sda1 /mnt/sda1/");
+    if(rets < 0) return false;
+    QFileInfo fi(QString("/mnt/%1/CabinetScreen/app").arg(str));
+    if(fi.exists()) {
+        int ret = system("rm -rf /opt/CabinetScreen");
+        if(ret < 0) {
+            qDebug() << "rm -rf /opt/CabinetScreen err ";
+        }
+        QString cstr = QString("cp /mnt/%1/CabinetScreen/app /opt/CabinetScreen").arg(str);
+        ret = system(cstr.toLatin1());
+        if(ret < 0) {
+            qDebug() << str.toLatin1() << " err ";
+        }
+        system("reboot");
+    } else {
+        ret = false;
+    }
+
+    return ret;
+}
+
+void MainWindow::onLongPressSlot(int time)
+{
+    if(time < 3000) return;
+    QuMsgBox box(this, tr("是否升级系统?"));
+    if(box.Exec()) {
+        bool ret = update_fun("sda1");
+       // if(!ret) ret = update_fun("mmcblk0p1");
+        if(!ret)
+            CriticalMsgBox box(this, tr("升级文件未找到！\n 请插入U盘，把升级文件放入CabinetScreen目录下!"));
+    }
+}
+
+

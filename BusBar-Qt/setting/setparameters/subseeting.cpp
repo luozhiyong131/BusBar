@@ -146,6 +146,7 @@ void SubSeeting::setTableItem(int row, int column)
 
 void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
 {
+    disconnect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     int index = mIndex ;
     int boxNum = item->row() +1 ;
 
@@ -156,4 +157,5 @@ void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
         settingWid.initWidget(index, boxNum, column,0); //初始化界面
         settingWid.exec();
     }
+    connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }

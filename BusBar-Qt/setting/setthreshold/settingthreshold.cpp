@@ -1,6 +1,8 @@
 ﻿#include "settingthreshold.h"
 #include "ui_settingthreshold.h"
 
+#include "shm/setbox.h"
+
 SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingThreshold)
@@ -151,27 +153,31 @@ void SettingThreshold::saveData()
     if(!checkData(item.min,item.crmin,item.crmax,item.max))
         return;
 
+    item.bus = mBus;
+    if(mIsCur)
+        item.type = 2; //电流
+    else
+        item.type = 1; //电压
+    item.num = mIndex;
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
-        qDebug() << "统一设置";
-        if(mIsCur)
+        //qDebug() << "统一设置";
+        if(mIsCur){
             mShm->setLineCurAll(item);
-        else
+        }else{
             mShm->setLineVolAll(item);
+        }
+        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
 
     }else //单独设置
     {
-        qDebug() << "单一设置";
-        item.bus = mBus;
-
-        if(mIsCur)
-            item.type = 2; //电流
-        else
-            item.type = 1; //电压
-
-        item.num = mIndex;
-
+       // qDebug() << "单一设置";
+        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
         mShm->saveItem(item);
     }
 }
@@ -196,12 +202,33 @@ void SettingThreshold::saveLoopData()
 
     if(!checkData(item.min,item.crmin,item.crmax,item.max))
         return;
+    item.bus = mBusNum;
 
+    if((mLineNum != 0) && (mTemNum == 0))
+    {
+        item.type = 3; //插接箱电流
+        item.num = (mBoxNum - 1)*LINE_NUM + (mLineNum -1);
+    }
+    else if((mLineNum == 0) && (mTemNum != 0))
+    {
+        if(isStart)
+        {
+            item.type = 4;
+            item.num =  mTemNum-1;
+        }
+        else
+        {
+            item.type = 5; //插接箱温度
+            item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
+        }
+    }
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
-        qDebug() << "统一设置";
-        //        mShm->setLineCurAll(item);
+       // qDebug() << "统一设置";
+        if(!SetBOXThread::bulid()->send(2,item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
         if((mLineNum != 0) && (mTemNum == 0))
             mShm->setLoopCurAll(item); //电流统一设置
         else if((mLineNum == 0) && (mTemNum != 0))
@@ -209,26 +236,9 @@ void SettingThreshold::saveLoopData()
 
     }else //单独设置
     {
-        qDebug() << "单一设置";
-        item.bus = mBusNum;
-
-        if((mLineNum != 0) && (mTemNum == 0))
-        {
-            item.type = 3; //插接箱电流
-            item.num = (mBoxNum - 1)*LINE_NUM + (mLineNum -1);
-        }
-        else if((mLineNum == 0) && (mTemNum != 0))
-        {
-            if(isStart)
-            {
-                item.type = 4;
-                item.num =  mTemNum-1;
-            }
-            else
-            {
-                item.type = 5; //插接箱温度
-                item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
-            }
+       // qDebug() << "单一设置";
+        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
         mShm->saveItem(item);
     }

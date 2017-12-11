@@ -45,7 +45,7 @@ void TemSettingWid::initTableWidget()
     mWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     mWidget->horizontalHeader()->setStretchLastSection(true);
     mWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);  //设置不可编辑
-    connect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
+    connect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
 
 void TemSettingWid::resetWidget()
@@ -157,6 +157,8 @@ void TemSettingWid::setTem(int row, int column)
 
 void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
 {
+    //屏蔽两次弹出
+    disconnect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     int index = mIndex;
     int boxNum = item->row() +1 ;
     int lineNum = 0;
@@ -168,4 +170,6 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
         settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();
     }
+    connect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
+    this->clearFocus();
 }

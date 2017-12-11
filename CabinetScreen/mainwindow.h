@@ -34,8 +34,7 @@ private slots:
     void on_homeBtn_clicked();
     void on_logsBtn_clicked();
     void on_setBtn_clicked();
-
-
+    void onLongPressSlot(int time);
 
 private:
     Ui::MainWindow *ui;

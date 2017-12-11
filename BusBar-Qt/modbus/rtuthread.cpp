@@ -8,6 +8,8 @@
  */
 #include "rtuthread.h"
 
+#include <QDateTime>
+
 
 RtuThread::RtuThread(QObject *parent) :
     QThread(parent)
@@ -60,9 +62,7 @@ int RtuThread::transmit(int addr, ushort reg, ushort len)
     uchar *buf = mBuf;
     uchar *get = mBuf + 20;
     int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-    qDebug() << "SendLen:" << rtn;
     rtn = mSerial->transmit(buf, rtn, get); //发送并回收
-    qDebug() << "GetLen:" << rtn;
     if(rtn > 0){ //回收到数据
         for(int i = 0; i < rtn; i++){
             if(*buf++ != *get++) return 0;
@@ -74,16 +74,17 @@ int RtuThread::transmit(int addr, ushort reg, ushort len)
 }
 
 int RtuThread::sendData(int addr, ushort reg, ushort len)
-{
-    //判断是否在线
+{   
     sBoxData *box = &(mBusData->box[addr]); //共享内存
-    if(box->offLine == 0){ //不在线
-        return -1;
+    if(box->offLine > 0){ //在线
+        //打包数据
+        uchar *buf = mBuf;
+        int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
+        return mSerial->sendData(buf, rtn, 2800); //发送 -- 并占用串口800ms
+
     }
-    //打包数据
-    uchar *buf = mBuf;
-    int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-    return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+
+    return -1;
 }
 
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
@@ -101,7 +102,7 @@ void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
     loop->pf[id] = data->pf;
     loop->sw[id] = data->sw;
     loop->apPow[id] = data->apPow;
-//    loop->ratedCur[id] = data->curAlarm; ////
+    //    loop->ratedCur[id] = data->curAlarm; ////
 
     loop->wave[id] = data->wave;
 }
@@ -150,6 +151,7 @@ void RtuThread::transData(int addr)
             }
         }
     }
+
     box->offLine = offLine; //在线
 }
 
@@ -164,16 +166,8 @@ void RtuThread::run()
             transData(i); //更新串口的数据 -- 确认是否离线
             msleep(65);
 
-        /*    mBusData->box[1].offLine = 1;
-            //如果在线 则电流上线为
-            if(mBusData->box[i].offLine > 0){
-                ushort reg = 0x1008;
-                ushort len = 0x00A0;
-               qDebug() << "get:" << sendData(i, reg, len);
-               msleep(65);
-            }
-*/
-
+            if( mBusData->box[i].offLine == 0 && i  == 0) qDebug() << "#############";
+            if( mBusData->box[i].offLine > 0 && i  == 0) qDebug() <<QDateTime::currentDateTime().toString("hh:mm:ss.zzz") << "###########";
         }
         msleep(100);
     }

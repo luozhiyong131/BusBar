@@ -135,19 +135,6 @@
       <string>机柜屏</string>
      </property>
     </widget>
-    <widget class="QLabel" name="logoLab">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>10</y>
-       <width>61</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>LOGO</string>
-     </property>
-    </widget>
     <widget class="QToolButton" name="homeBtn">
      <property name="geometry">
       <rect>
@@ -495,6 +482,22 @@
 信息</string>
      </property>
     </widget>
+    <widget class="CToolButton" name="logoBtn">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>61</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>logo</string>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QToolButton" name="timeBtn">
     <property name="geometry">
@@ -668,6 +671,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CToolButton</class>
+   <extends>QToolButton</extends>
+   <header location="global">ctoolbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resource.qrc"/>
  </resources>
