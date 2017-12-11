@@ -159,7 +159,6 @@ void SettingThreshold::saveData()
     else
         item.type = 1; //电压
     item.num = mIndex;
-    SetBOXThread::bulid()->setItemInit(item);
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
@@ -169,14 +168,14 @@ void SettingThreshold::saveData()
         }else{
             mShm->setLineVolAll(item);
         }
-        if(!SetBOXThread::bulid()->send(2)) { //正有其它参数在设置
+        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
 
     }else //单独设置
     {
        // qDebug() << "单一设置";
-        if(!SetBOXThread::bulid()->send(1)) { //正有其它参数在设置
+        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
         mShm->saveItem(item);
@@ -223,12 +222,11 @@ void SettingThreshold::saveLoopData()
             item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
         }
     }
-    SetBOXThread::bulid()->setItemInit(item);
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
        // qDebug() << "统一设置";
-        if(!SetBOXThread::bulid()->send(2)) { //正有其它参数在设置
+        if(!SetBOXThread::bulid()->send(2,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
         if((mLineNum != 0) && (mTemNum == 0))
@@ -239,7 +237,7 @@ void SettingThreshold::saveLoopData()
     }else //单独设置
     {
        // qDebug() << "单一设置";
-        if(!SetBOXThread::bulid()->send(1)) { //正有其它参数在设置
+        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
         mShm->saveItem(item);

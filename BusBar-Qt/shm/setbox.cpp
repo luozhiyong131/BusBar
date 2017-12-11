@@ -14,13 +14,10 @@ SetBOXThread *SetBOXThread::bulid()
     return sington;
 }
 
-void SetBOXThread::setItemInit(DbThresholdItem item)
+bool SetBOXThread::send(int runType, DbThresholdItem item)
 {
     mItem = item;
-}
 
-bool SetBOXThread::send(int runType)
-{
     if(isRunType != 0) return false;
     isRunType = runType;
     start();
@@ -45,14 +42,16 @@ void SetBOXThread::busChangedSlot(int cBusID)
     mBusID = cBusID;
 }
 
-int SetBOXThread::transmit(int addr, ushort reg, ushort len)
+int SetBOXThread::transmit(int addr, ushort reg, ushort len, int busID)
 {
-    return rtu[mBusID]->transmit(addr, reg, len);
+    if(busID == 0) busID = mBusID;
+    return rtu[busID]->transmit(addr, reg, len);
 }
 
-int SetBOXThread::sendData(int addr, ushort reg, ushort len)
+int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID)
 {
-    return rtu[mBusID]->sendData(addr, reg, len);
+    if(busID == 0) busID = mBusID;
+    return rtu[busID]->sendData(addr, reg, len);
 }
 
 bool SetBOXThread::saveItem(DbThresholdItem &item)
@@ -133,8 +132,10 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         num = num % LINE_NUM ;
         break;
     }
-    qDebug() <<  sendData(boxNum, addrMin[num], item.min);
-    qDebug() <<  sendData(boxNum, addrMax[num], item.max);
+    qDebug() <<
+                sendData(boxNum, addrMin[num], item.min);
+    qDebug() <<
+                sendData(boxNum, addrMax[num], item.max);
     return ret;
 }
 
@@ -163,7 +164,7 @@ void SetBOXThread::saveAllItem(DbThresholdItem &item)
         break;
     }
     qDebug() << "lenAll" << boxNum << num << item.type;
-    return;
+   // return;
 
     switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
     {
@@ -176,28 +177,192 @@ void SetBOXThread::saveAllItem(DbThresholdItem &item)
     }
 }
 
+void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
+{
+    ushort addrMin[9], addrMax[9];
+    addrMax[0] = sSetType::VoltageMAX_L1;
+    addrMax[1] = sSetType::VoltageMAX_L2;
+    addrMax[2] = sSetType::VoltageMAX_L3;
+    addrMax[3] = sSetType::VoltageMAX_L4;
+    addrMax[4] = sSetType::VoltageMAX_L5;
+    addrMax[5] = sSetType::VoltageMAX_L6;
+    addrMax[6] = sSetType::VoltageMAX_L7;
+    addrMax[7] = sSetType::VoltageMAX_L8;
+    addrMax[8] = sSetType::VoltageMAX_L9;
+
+    addrMin[0] = sSetType::VoltageMIN_L1;
+    addrMin[1] = sSetType::VoltageMIN_L2;
+    addrMin[2] = sSetType::VoltageMIN_L3;
+    addrMin[3] = sSetType::VoltageMIN_L4;
+    addrMin[4] = sSetType::VoltageMIN_L5;
+    addrMin[5] = sSetType::VoltageMIN_L6;
+    addrMin[6] = sSetType::VoltageMIN_L7;
+    addrMin[7] = sSetType::VoltageMIN_L8;
+    addrMin[8] = sSetType::VoltageMIN_L9;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        sDataPacket *shm = get_share_mem(); // 获取共享内存
+        int len = shm->data[id].boxNum;
+        for(int boxNum=0; boxNum<=len; ++boxNum)
+        {
+           int lens = LINE_NUM;
+           if(0 == boxNum) lens = 3;
+            for(int num=0; num < lens; ++num)
+            {
+                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
+                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+            }
+        }
+    }
+}
+
 void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
 {
+    ushort addrMin[9], addrMax[9];
+    addrMax[0] = sSetType::CurrentMAX_L1;
+    addrMax[1] = sSetType::CurrentMAX_L2;
+    addrMax[2] = sSetType::CurrentMAX_L3;
+    addrMax[3] = sSetType::CurrentMAX_L4;
+    addrMax[4] = sSetType::CurrentMAX_L5;
+    addrMax[5] = sSetType::CurrentMAX_L6;
+    addrMax[6] = sSetType::CurrentMAX_L7;
+    addrMax[7] = sSetType::CurrentMAX_L8;
+    addrMax[8] = sSetType::CurrentMAX_L9;
 
+    addrMin[0] = sSetType::CurrentMIN_L1;
+    addrMin[1] = sSetType::CurrentMIN_L2;
+    addrMin[2] = sSetType::CurrentMIN_L3;
+    addrMin[3] = sSetType::CurrentMIN_L4;
+    addrMin[4] = sSetType::CurrentMIN_L5;
+    addrMin[5] = sSetType::CurrentMIN_L6;
+    addrMin[6] = sSetType::CurrentMIN_L7;
+    addrMin[7] = sSetType::CurrentMIN_L8;
+    addrMin[8] = sSetType::CurrentMIN_L9;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        sDataPacket *shm = get_share_mem(); // 获取共享内存
+        int len = shm->data[id].boxNum;
+        for(int boxNum=0; boxNum<=len; ++boxNum)
+        {
+           int lens = LINE_NUM;
+           if(0 == boxNum) lens = 3;
+            for(int num=0; num < lens; ++num)
+            {
+                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
+                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+            }
+        }
+    }
 }
 
 void SetBOXThread::setTempAll(DbThresholdItem &item)
 {
+    ushort addrMin[9], addrMax[9];
+    addrMax[0] = sSetType::temperatureMAX_1;
+    addrMax[1] = sSetType::temperatureMAX_2;
+    addrMax[2] = sSetType::temperatureMAX_3;
+    addrMax[3] = sSetType::temperatureMAX_4;
+    addrMax[4] = sSetType::temperatureMAX_5;
+    addrMax[5] = sSetType::temperatureMAX_6;
+    addrMax[6] = sSetType::temperatureMAX_7;
+    addrMax[7] = sSetType::temperatureMAX_8;
+    addrMax[8] = sSetType::temperatureMAX_9;
 
+    addrMin[0] = sSetType::temperatureMIN_1;
+    addrMin[1] = sSetType::temperatureMIN_2;
+    addrMin[2] = sSetType::temperatureMIN_3;
+    addrMin[3] = sSetType::temperatureMIN_4;
+    addrMin[4] = sSetType::temperatureMIN_5;
+    addrMin[5] = sSetType::temperatureMIN_6;
+    addrMin[6] = sSetType::temperatureMIN_7;
+    addrMin[7] = sSetType::temperatureMIN_8;
+    addrMin[8] = sSetType::temperatureMIN_9;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        sDataPacket *shm = get_share_mem(); // 获取共享内存
+        int len = shm->data[id].boxNum;
+        for(int boxNum=0; boxNum<=len; ++boxNum)
+        {
+           int lens = LINE_NUM;
+           if(0 == boxNum) lens = 3;
+            for(int num=0; num < lens; ++num)
+            {
+                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
+                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+            }
+        }
+    }
 }
 
 void SetBOXThread::setLineVolAll(DbThresholdItem &item)
 {
+    ushort addrMin[3], addrMax[3];
+    addrMax[0] = sSetType::VoltageMAX_L1;
+    addrMax[1] = sSetType::VoltageMAX_L2;
+    addrMax[2] = sSetType::VoltageMAX_L3;
 
+    addrMin[0] = sSetType::VoltageMIN_L1;
+    addrMin[1] = sSetType::VoltageMIN_L2;
+    addrMin[2] = sSetType::VoltageMIN_L3;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        for(int num=0; num<3; ++num)
+        {
+            qDebug() << sendData(0, addrMin[num], item.min, id);
+            qDebug() << sendData(0, addrMax[num], item.max, id);
+        }
+    }
 }
 
 void SetBOXThread::setLineCurAll(DbThresholdItem &item)
 {
+    ushort addrMin[3], addrMax[3];
+    addrMax[0] = sSetType::CurrentMAX_L1;
+    addrMax[1] = sSetType::CurrentMAX_L2;
+    addrMax[2] = sSetType::CurrentMAX_L3;
 
+    addrMin[0] = sSetType::CurrentMIN_L1;
+    addrMin[1] = sSetType::CurrentMIN_L2;
+    addrMin[2] = sSetType::CurrentMIN_L3;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        for(int num=0; num<3; ++num)
+        {
+            qDebug() << sendData(0, addrMin[num], item.min, id);
+            qDebug() << sendData(0, addrMax[num], item.max, id);
+        }
+    }
 }
 
 void SetBOXThread::setLineTempAll(DbThresholdItem &item)
 {
+    ushort addrMin[3], addrMax[3];
+    addrMax[0] = sSetType::temperatureMAX_1;
+    addrMax[1] = sSetType::temperatureMAX_2;
+    addrMax[2] = sSetType::temperatureMAX_3;
 
+    addrMin[0] = sSetType::temperatureMIN_1;
+    addrMin[1] = sSetType::temperatureMIN_2;
+    addrMin[2] = sSetType::temperatureMIN_3;
+
+    for(int id=0; id<BUS_NUM; ++id)
+    {
+        for(int num=0; num<3; ++num)
+        {
+            qDebug() << sendData(0, addrMin[num], item.min, id);
+            qDebug() << sendData(0, addrMax[num], item.max, id);
+        }
+    }
 }
+
+
+
+
+
+
 

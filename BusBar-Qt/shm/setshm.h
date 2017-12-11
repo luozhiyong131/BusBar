@@ -19,7 +19,7 @@ public:
 
     void setLineVolAll(DbThresholdItem &item); // 设置成有主路电压
     void setLineCurAll(DbThresholdItem &item); // 设置成有主路电流
-    void setLineTempAll(DbThresholdItem &item); // 设置所有接插箱温度
+    void setLineTempAll(DbThresholdItem &item); // 设置始插箱温度
 
     void setName(DbNameItem &item); // 名称设置
     void setLineRatedCur(int index ,int data); //设置母线额定电流

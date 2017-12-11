@@ -22,19 +22,18 @@ public:
     explicit SetBOXThread(QObject *parent = nullptr);
     static SetBOXThread *bulid();
 
-    // ----- init   数据  ------
-    void setItemInit(DbThresholdItem item);
     // ----- 发送数据接口  ------
-    bool send(int runType);
+    bool send(int runType, DbThresholdItem item);
 
 protected:
     void run();
-    int transmit(int addr, ushort reg, ushort len); //发送数据并回收
-    int sendData(int addr, ushort reg, ushort len); //发送数据
+    int transmit(int addr, ushort reg, ushort len, int busID = 0); //发送数据并回收
+    int sendData(int addr, ushort reg, ushort len, int busID = 0); //发送数据
 
     bool saveItem(DbThresholdItem &item); // 单一设置
 
     void saveAllItem(DbThresholdItem &item); // 统一设置
+    void setLoopVolAll(DbThresholdItem &item); // 设置所有回路电压
     void setLoopCurAll(DbThresholdItem &item); // 设置所有回路电流
     void setTempAll(DbThresholdItem &item); // 设置所有接插箱温度
 

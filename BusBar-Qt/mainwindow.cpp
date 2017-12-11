@@ -50,11 +50,11 @@ void MainWindow::initSerial()
    rtu[0] = new RtuThread(this);
    rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
 
-    //    rtu = new RtuThread(this);
-    //    rtu->init(SERIAL_COM2, 2);
+   rtu[1] = new RtuThread(this);
+   rtu[1]->init(SERIAL_COM2, 2);
 
-    //    rtu = new RtuThread(this);
-    //    rtu->init(SERIAL_COM3, 3);
+    //rtu[2] = new RtuThread(this);
+    //rtu[2]->init(SERIAL_COM3, 3);
 
     //    rtu = new RtuThread(this);
     //    rtu->init(SERIAL_COM4, 4);
