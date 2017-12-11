@@ -107,9 +107,9 @@ bool Serial_Trans::openSerial(const QString serialName)
     setting.c_cc[VMIN] = 0; // 数据最小长度
     tcsetattr(fd, TCSANOW, &setting);
 
-//    monitor = new QSocketNotifier(fd, QSocketNotifier::Read, NULL);
-//    connect(monitor, SIGNAL(activated(int)), this, SLOT(readDataSlot()));
-//    monitor->setEnabled(true);
+    //    monitor = new QSocketNotifier(fd, QSocketNotifier::Read, NULL);
+    //    connect(monitor, SIGNAL(activated(int)), this, SLOT(readDataSlot()));
+    //    monitor->setEnabled(true);
 
     //   clearData();
     return true;
@@ -146,18 +146,28 @@ void Serial_Trans :: closeSerial()
   */
 int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 {
+    QMutexLocker locker(&mutex);
+    int ret = sendData(pBuff, nCount);
+    if(ret > 0) {
+        if(msec > 0) msleep(msec);
+    }
+
+    return ret;
+}
+
+
+int Serial_Trans::sendData(uchar *pBuff, int nCount)
+{
     if(fd >= 0)
     {
-        QMutexLocker locker(&mutex);
+        // QMutexLocker locker(&mutex);
         int sendLen = write(fd, pBuff, nCount);
         fsync(fd);
-        if(msec > 0) msleep(msec);
         return sendLen;
     }
 
     return fd;
 }
-
 /**
   * 功　能：读取数据
   * 入口参数：pBuf -> 缓冲区
@@ -165,7 +175,7 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
   */
 int Serial_Trans::recvData(uchar *pBuf, int nCount)
 {
-    QMutexLocker locker(&mutex);
+    // QMutexLocker locker(&mutex);
     int rtn = -1, ret=0;
     if(fd >= 0)
     {
@@ -190,10 +200,11 @@ int Serial_Trans::recvData(uchar *pBuf, int nCount)
   */
 int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
 {
+    QMutexLocker locker(&mutex);
     int ret = sendData(sent, len);
     if(ret > 0) {
         ret = recvData(recv, 250);
-       // if(ret <=0 ) qDebug() << "Serial Trans Err!!!";
+        // if(ret <=0 ) qDebug() << "Serial Trans Err!!!";
     }
     return ret;
 }

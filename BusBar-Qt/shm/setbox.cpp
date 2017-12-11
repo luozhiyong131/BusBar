@@ -132,10 +132,8 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         num = num % LINE_NUM ;
         break;
     }
-    qDebug() <<
-                sendData(boxNum, addrMin[num], item.min);
-    qDebug() <<
-                sendData(boxNum, addrMax[num], item.max);
+    qDebug() << sendData(boxNum, addrMin[num], item.min);
+    qDebug() << sendData(boxNum, addrMax[num], item.max);
     return ret;
 }
 
