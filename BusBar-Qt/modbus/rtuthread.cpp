@@ -165,9 +165,6 @@ void RtuThread::run()
         {
             transData(i); //更新串口的数据 -- 确认是否离线
             msleep(65);
-
-            if( mBusData->box[i].offLine == 0 && i  == 0) qDebug() << "#############";
-            if( mBusData->box[i].offLine > 0 && i  == 0) qDebug() <<QDateTime::currentDateTime().toString("hh:mm:ss.zzz") << "###########";
         }
         msleep(100);
     }
