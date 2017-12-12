@@ -28,7 +28,7 @@ public:
 protected:
     void run();
     int transmit(int addr, ushort reg, ushort len, int busID = 0); //发送数据并回收
-    int sendData(int addr, ushort reg, ushort len, int busID = 0); //发送数据
+    int sendData(int addr, ushort reg, ushort len, int busID = 0, bool value = false); //发送数据
 
     bool saveItem(DbThresholdItem &item); // 单一设置
 

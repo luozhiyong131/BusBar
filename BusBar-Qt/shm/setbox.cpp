@@ -1,5 +1,7 @@
 #include "setbox.h"
 
+#define Time 6000
+
 SetBOXThread::SetBOXThread(QObject *parent)
 {
     mBusID = 0;
@@ -48,10 +50,10 @@ int SetBOXThread::transmit(int addr, ushort reg, ushort len, int busID)
     return rtu[busID]->transmit(addr, reg, len);
 }
 
-int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID)
+int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID, bool value)
 {
     if(busID == 0) busID = mBusID;
-    return rtu[busID]->sendData(addr, reg, len);
+    return rtu[busID]->sendData(addr, reg, len, value);
 }
 
 bool SetBOXThread::saveItem(DbThresholdItem &item)
@@ -132,8 +134,11 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         num = num % LINE_NUM ;
         break;
     }
-    qDebug() << sendData(boxNum, addrMin[num], item.min);
-    qDebug() << sendData(boxNum, addrMax[num], item.max);
+    if(sendData(boxNum, addrMin[num], item.min) > 0){
+        qDebug() << 8;
+        msleep(Time);
+        qDebug() << sendData(boxNum, addrMax[num], item.max, mBusID, true);
+    }
     return ret;
 }
 
@@ -206,10 +211,15 @@ void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
         {
            int lens = LINE_NUM;
            if(0 == boxNum) lens = 3;
-            for(int num=0; num < lens; ++num)
-            {
-                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
-                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+           //-------------[一套只能判断一次]-------------------
+           int value = sendData(0, addrMax[0], item.max, id);
+           if(value > 0){
+                for(int num=0; num < lens; ++num)
+                {
+                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    msleep(Time);
+                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                }
             }
         }
     }
@@ -246,10 +256,15 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
         {
            int lens = LINE_NUM;
            if(0 == boxNum) lens = 3;
-            for(int num=0; num < lens; ++num)
-            {
-                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
-                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+           //-------------[一套只能判断一次]-------------------
+           int value = sendData(0, addrMax[0], item.max, id);
+           if(value > 0){
+                for(int num=0; num < lens; ++num)
+                {
+                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    msleep(Time);
+                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                }
             }
         }
     }
@@ -286,10 +301,15 @@ void SetBOXThread::setTempAll(DbThresholdItem &item)
         {
            int lens = LINE_NUM;
            if(0 == boxNum) lens = 3;
-            for(int num=0; num < lens; ++num)
-            {
-                qDebug() << sendData(boxNum, addrMin[num], item.min, id);
-                qDebug() << sendData(boxNum, addrMax[num], item.max, id);
+           //-------------[一套只能判断一次]-------------------
+           int value = sendData(0, addrMax[0], item.max, id);
+           if(value > 0){
+                for(int num=0; num < lens; ++num)
+                {
+                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    msleep(Time);
+                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                }
             }
         }
     }
@@ -308,10 +328,15 @@ void SetBOXThread::setLineVolAll(DbThresholdItem &item)
 
     for(int id=0; id<BUS_NUM; ++id)
     {
-        for(int num=0; num<3; ++num)
-        {
-            qDebug() << sendData(0, addrMin[num], item.min, id);
-            qDebug() << sendData(0, addrMax[num], item.max, id);
+        //-------------[一套只能判断一次]-------------------
+        int value = sendData(0, addrMax[0], item.max, id);
+        if(value > 0){
+            for(int num=0; num<3; num++)
+            {
+                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                msleep(Time);
+                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+            }
         }
     }
 }
@@ -329,10 +354,15 @@ void SetBOXThread::setLineCurAll(DbThresholdItem &item)
 
     for(int id=0; id<BUS_NUM; ++id)
     {
-        for(int num=0; num<3; ++num)
-        {
-            qDebug() << sendData(0, addrMin[num], item.min, id);
-            qDebug() << sendData(0, addrMax[num], item.max, id);
+        //-------------[一套只能判断一次]-------------------
+        int value = sendData(0, addrMax[0], item.max, id);
+        if(value > 0){
+            for(int num=0; num<3; num++)
+            {
+                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                msleep(Time);
+                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+            }
         }
     }
 }
@@ -350,10 +380,15 @@ void SetBOXThread::setLineTempAll(DbThresholdItem &item)
 
     for(int id=0; id<BUS_NUM; ++id)
     {
-        for(int num=0; num<3; ++num)
-        {
-            qDebug() << sendData(0, addrMin[num], item.min, id);
-            qDebug() << sendData(0, addrMax[num], item.max, id);
+        //-------------[一套只能判断一次]-------------------
+        int value = sendData(0, addrMax[0], item.max, id);
+        if(value > 0){
+            for(int num=0; num<3; num++)
+            {
+                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                msleep(Time);
+                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+            }
         }
     }
 }

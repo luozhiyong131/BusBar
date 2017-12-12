@@ -73,17 +73,15 @@ int RtuThread::transmit(int addr, ushort reg, ushort len)
 
 }
 
-int RtuThread::sendData(int addr, ushort reg, ushort len)
+int RtuThread::sendData(int addr, ushort reg, ushort len, bool value)
 {   
     sBoxData *box = &(mBusData->box[addr]); //共享内存
-    if(box->offLine > 0){ //在线
+    if((box->offLine > 0) || value){ //在线
         //打包数据
         uchar *buf = mBuf;
         int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-        return mSerial->sendData(buf, rtn, 2800); //发送 -- 并占用串口800ms
-
+        return mSerial->sendData(buf, rtn, 3800); //发送 -- 并占用串口800ms
     }
-
     return -1;
 }
 
