@@ -2,6 +2,8 @@
 
 #define ANDROID_TCP_PORT	11283  // 案桌TCP端口号
 
+extern char currentBus;
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -127,6 +129,7 @@ static int landVerify(int sockfd)
     int ret = recv(sockfd,buf,256,0);
     if(ret > 0) {
         udp_printf("recv land verify : %d %s\n", ret, buf);
+        currentBus = buf[ret-1]; //全局母线
         gSocket = sockfd;
         android_sent((uchar *)"OK",2);
     }

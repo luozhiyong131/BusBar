@@ -6,7 +6,11 @@
  */
 #include "devDataSent.h"
 #include "apptcpserver.h"
+#include <QDebug>
+#include "common/datapacket.h"
+#include "common/common.h"
 
+extern char currentBus;
 static uchar gSentBuf[DATA_MSG_SIZE]={0};
 
 static int data_msg_packetSent(uchar *buf, ushort len)
@@ -294,9 +298,9 @@ void sent_devData(uchar id, pduDevData *devData)
  */
 void init_unit(_devDataUnit *unit)
 {
-	static ushort buf[6] = {200,200,200,200,200,200};
-	static ushort maxBuf[6] = {2*200,2*200,2*200,2*200,2*200,2*200};
-	static uchar alarmbuf[6] = {1,1,1,1,1,1};
+    static ushort buf[LINE_NUM] = {200};
+    static ushort maxBuf[LINE_NUM] = {2*200};
+    static uchar alarmbuf[LINE_NUM] = {1};
 
 	unit->value = buf;
 	unit->max = maxBuf;
@@ -312,11 +316,11 @@ void init_unit(_devDataUnit *unit)
  */
 void init_data(_devDataObj *ptr)
 {
-	static ushort buf[6] = {200,200,200,200,0,200};
-	static uint buf2[6] = {2*1000,2*1000,2*1000,2*1000,2*1000,2*1000};
-	static uchar swbuf[6] = {1,1,0,0,1,1};
+    static ushort buf[LINE_NUM] = {200};
+    static uint buf2[LINE_NUM] = {2*1000};
+    static uchar swbuf[LINE_NUM] = {1};
 
-	ptr->len = 6;
+    ptr->len = LINE_NUM;
 	init_unit(&(ptr->cur));
 	init_unit(&(ptr->vol));
 
@@ -344,27 +348,31 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
  */
 void sent_dev_data(void)
 {
-	uchar id = 0;
-	pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData));
-	memset(devData, 0, sizeof(pduDevData));
+   // qDebug() << currentBus;
 
-	_devDataObj *ptr = &(devData->line);
-	init_data(ptr);
-	ptr = &(devData->output);
-	init_data(ptr);
+    uchar id = currentBus - '0';
+    sDataPacket *shm = get_share_mem(); // 获取共享内存
+    int len = shm->data[id].boxNum + 1;  //始端箱也算
+    qDebug() << "len:" << len;
+    for(int  i=0; i< len; ++i) {
+        pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData));
+        memset(devData, 0, sizeof(pduDevData));
 
-	devData->env.len = 4;
-	init_unit(&(devData->env.tem));
-	init_unit(&(devData->env.hum));
+        _devDataObj *ptr = &(devData->line);
+        init_data(ptr);
+        ptr = &(devData->output);
+        init_data(ptr);
 
-	char *str = "cleve; cleve";
-	int i;
-    for(i=0; i<7; ++i) {
-		sent_devData(i,devData);
-		//sent_str(i, 6, 0x11, strlen(str), str);
+        devData->env.len = 4;
+        init_unit(&(devData->env.tem));
+        init_unit(&(devData->env.hum));
+        sent_devData(i,devData);
+        //sent_str(i, 6, 0x11, strlen(str), str);
+
+        free(devData);
 	}
 
-	free(devData);
+
 }
 
 

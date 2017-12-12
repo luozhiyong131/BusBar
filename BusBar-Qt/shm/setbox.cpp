@@ -135,9 +135,8 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         break;
     }
     if(sendData(boxNum, addrMin[num], item.min) > 0){
-        qDebug() << 8;
         msleep(Time);
-        qDebug() << sendData(boxNum, addrMax[num], item.max, mBusID, true);
+        sendData(boxNum, addrMax[num], item.max, mBusID, true);
     }
     return ret;
 }
@@ -166,8 +165,7 @@ void SetBOXThread::saveAllItem(DbThresholdItem &item)
         num = num % LINE_NUM ;
         break;
     }
-    qDebug() << "lenAll" << boxNum << num << item.type;
-   // return;
+    //qDebug() << "lenAll" << boxNum << num << item.type;
 
     switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
     {
@@ -216,9 +214,9 @@ void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
            if(value > 0){
                 for(int num=0; num < lens; ++num)
                 {
-                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                     msleep(Time);
-                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                    sendData(0, addrMin[num], item.min, id, true);
                 }
             }
         }
@@ -261,9 +259,9 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
            if(value > 0){
                 for(int num=0; num < lens; ++num)
                 {
-                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                     msleep(Time);
-                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                    sendData(0, addrMin[num], item.min, id, true);
                 }
             }
         }
@@ -306,9 +304,9 @@ void SetBOXThread::setTempAll(DbThresholdItem &item)
            if(value > 0){
                 for(int num=0; num < lens; ++num)
                 {
-                    if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                    if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                     msleep(Time);
-                    qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                    sendData(0, addrMin[num], item.min, id, true);
                 }
             }
         }
@@ -333,9 +331,9 @@ void SetBOXThread::setLineVolAll(DbThresholdItem &item)
         if(value > 0){
             for(int num=0; num<3; num++)
             {
-                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                 msleep(Time);
-                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                sendData(0, addrMin[num], item.min, id, true);
             }
         }
     }
@@ -359,9 +357,9 @@ void SetBOXThread::setLineCurAll(DbThresholdItem &item)
         if(value > 0){
             for(int num=0; num<3; num++)
             {
-                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                 msleep(Time);
-                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                sendData(0, addrMin[num], item.min, id, true);
             }
         }
     }
@@ -385,9 +383,9 @@ void SetBOXThread::setLineTempAll(DbThresholdItem &item)
         if(value > 0){
             for(int num=0; num<3; num++)
             {
-                if(num != 0) qDebug() << sendData(0, addrMax[num], item.max, id, true);
+                if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                 msleep(Time);
-                qDebug() << sendData(0, addrMin[num], item.min, id, true);
+                sendData(0, addrMin[num], item.min, id, true);
             }
         }
     }

@@ -1,8 +1,9 @@
 #include "network.h"
 #include "send/netsendthread.h"
 
-void set_hb_IP(const QStringList &ips);
+char currentBus = '0';
 
+void set_hb_IP(const QStringList &ips);
 
 NetWork::NetWork(QObject *parent) : QObject(parent)
 {
