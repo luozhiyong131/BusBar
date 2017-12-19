@@ -24,7 +24,7 @@ static ushort crMaxBuf[LEN_DATA][LINE_NUM] = {600};
 static int data_msg_packetSent(uchar *buf, ushort len)
 {
     android_sent(buf,len);
-//    len = udp_clientSentData(gSentBuf,len);
+    //    len = udp_clientSentData(gSentBuf,len);
 
 
     return len;
@@ -53,12 +53,12 @@ static int data_packet_sent(dev_data_packet *msg)
  */
 void sent_devStatus(dev_data_packet *msg, uchar status)
 {
-	msg->len = 1;
-	msg->data = &status;
+    msg->len = 1;
+    msg->data = &status;
 
-	msg->fn[0] = 0;
-	msg->fn[1] = 0;
-	data_packet_sent(msg);
+    msg->fn[0] = 0;
+    msg->fn[1] = 0;
+    data_packet_sent(msg);
 }
 
 
@@ -68,11 +68,11 @@ void sent_devStatus(dev_data_packet *msg, uchar status)
  */
 static void sent_packet(dev_data_packet *msg)
 {
-	if(msg->len > 0) // 必需有数据
-	{
-		if(msg->data) // 数据指针有效
-			data_packet_sent(msg);
-	}
+    if(msg->len > 0) // 必需有数据
+    {
+        if(msg->data) // 数据指针有效
+            data_packet_sent(msg);
+    }
 }
 
 /**
@@ -83,18 +83,18 @@ static void sent_packet(dev_data_packet *msg)
  */
 static int shortToChar(ushort *form, int len, uchar *to)
 {
-	int i, offset=0;
-	if(form)
-	{
-		memset(to,0, DATA_MSG_SIZE);
-		for(i=0; i<len; ++i)
-		{
-			to[offset++] = form[i] >> 8; // 高位
-			to[offset++] = form[i] & 0xFF; // 低8位
-		}
-	}
+    int i, offset=0;
+    if(form)
+    {
+        memset(to,0, DATA_MSG_SIZE);
+        for(i=0; i<len; ++i)
+        {
+            to[offset++] = form[i] >> 8; // 高位
+            to[offset++] = form[i] & 0xFF; // 低8位
+        }
+    }
 
-	return offset;
+    return offset;
 }
 
 /**
@@ -105,21 +105,21 @@ static int shortToChar(ushort *form, int len, uchar *to)
  */
 static int intToChar(uint *form, int len, uchar *to)
 {
-	int i, offset=0;
+    int i, offset=0;
 
-	if(form)
-	{
-		memset(to,0, DATA_MSG_SIZE);
-		for(i=0; i<len; ++i)
-		{
-			to[offset++] = form[i] >> 24; // 高位
-			to[offset++] = (form[i] >> 16) & 0xFF;
-			to[offset++] = (form[i] >> 8) & 0xFF;
-			to[offset++] = form[i] & 0xFF; // 低8位
-		}
-	}
+    if(form)
+    {
+        memset(to,0, DATA_MSG_SIZE);
+        for(i=0; i<len; ++i)
+        {
+            to[offset++] = form[i] >> 24; // 高位
+            to[offset++] = (form[i] >> 16) & 0xFF;
+            to[offset++] = (form[i] >> 8) & 0xFF;
+            to[offset++] = form[i] & 0xFF; // 低8位
+        }
+    }
 
-	return offset;
+    return offset;
 }
 
 /**
@@ -130,47 +130,47 @@ static int intToChar(uint *form, int len, uchar *to)
  */
 static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *msg)
 {
-	int fn=1, fc = msg->fn[1];
+    int fn=1, fc = msg->fn[1];
 
-	/* 发送当前值 */
-	msg->fn[1] = fc + fn++;
-	msg->data = buf;
-	msg->len = shortToChar(unit->value,len,buf);
-	sent_packet(msg);
+    /* 发送当前值 */
+    msg->fn[1] = fc + fn++;
+    msg->data = buf;
+    msg->len = shortToChar(unit->value,len,buf);
+    sent_packet(msg);
 
-	/*发送最小值*/
-	msg->fn[1] = fc + fn++;
-	msg->len = shortToChar(unit->min,len,buf);
-	sent_packet(msg);
+    /*发送最小值*/
+    msg->fn[1] = fc + fn++;
+    msg->len = shortToChar(unit->min,len,buf);
+    sent_packet(msg);
 
-	/*发送最大值*/
-	msg->fn[1] = fc + fn++;
-	msg->len = shortToChar(unit->max,len,buf);
-	sent_packet(msg);
+    /*发送最大值*/
+    msg->fn[1] = fc + fn++;
+    msg->len = shortToChar(unit->max,len,buf);
+    sent_packet(msg);
 
-	/*发送报警*/
-	msg->fn[1] = fc + fn++;
-	msg->len = len;
+    /*发送报警*/
+    msg->fn[1] = fc + fn++;
+    msg->len = len;
     msg->data = unit->alarm;
-	sent_packet(msg);
+    sent_packet(msg);
 
-	/*发送临界最小值*/
-	msg->fn[1] = fc + fn++;
-	msg->data = buf;
-	msg->len = shortToChar(unit->crMin,len,buf);
-	sent_packet(msg);
+    /*发送临界最小值*/
+    msg->fn[1] = fc + fn++;
+    msg->data = buf;
+    msg->len = shortToChar(unit->crMin,len,buf);
+    sent_packet(msg);
 
-	/*发送临界最大值*/
-	msg->fn[1] = fc + fn++;
-	msg->data = buf;
-	msg->len = shortToChar(unit->crMax,len,buf);
-	sent_packet(msg);
+    /*发送临界最大值*/
+    msg->fn[1] = fc + fn++;
+    msg->data = buf;
+    msg->len = shortToChar(unit->crMax,len,buf);
+    sent_packet(msg);
 
-	/*发送临界报警*/
-	msg->fn[1] = fc + fn++;
-	msg->len = len;
+    /*发送临界报警*/
+    msg->fn[1] = fc + fn++;
+    msg->len = len;
     msg->data = unit->crAlarm;
-	sent_packet(msg);
+    sent_packet(msg);
 }
 
 /**
@@ -178,59 +178,59 @@ static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *
  */
 static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
 {
-	int fn=0, len = obj->len;
+    int fn=0, len = obj->len;
 
-	/*电流*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	sent_unit(&(obj->cur), len, buf, msg);
+    /*电流*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    sent_unit(&(obj->cur), len, buf, msg);
 
-	/*电压*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	sent_unit(&(obj->vol), len, buf, msg);
+    /*电压*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    sent_unit(&(obj->vol), len, buf, msg);
 
-	/*功率*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = buf;
-	msg->len = intToChar(obj->pow,len,buf); // 功率
-	sent_packet(msg);
+    /*功率*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = intToChar(obj->pow,len,buf); // 功率
+    sent_packet(msg);
 
-	/*电能*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = buf;
-	msg->len = intToChar(obj->ele,len,buf); // 电能
-	sent_packet(msg);
+    /*电能*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = intToChar(obj->ele,len,buf); // 电能
+    sent_packet(msg);
 
-	/*功率因素*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = buf;
-	msg->len = shortToChar(obj->pf,len,buf);
-	sent_packet(msg);
+    /*功率因素*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->pf,len,buf);
+    sent_packet(msg);
 
-	/*开关控制*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = obj->sw;
-	msg->len = len;
-	sent_packet(msg);
+    /*开关控制*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = obj->sw;
+    msg->len = len;
+    sent_packet(msg);
 
-	/*排C量*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = buf;
-	msg->len = shortToChar(obj->carbon,len,buf);
-	sent_packet(msg);
+    /*排C量*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->carbon,len,buf);
+    sent_packet(msg);
 
-	/*电压频率*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = buf;
-	msg->len = shortToChar(obj->rate,len,buf); // 功率
-	sent_packet(msg);
+    /*电压频率*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->rate,len,buf); // 功率
+    sent_packet(msg);
 
     fn += 1;
     msg->fn[1] = fn << 4;
@@ -250,38 +250,38 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
  */
 static void sent_envObject(_envDataObjct *obj, uchar *buf, dev_data_packet *msg)
 {
-	int fn=0, len = obj->len;
+    int fn=0, len = obj->len;
 
-	/*湿度*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	sent_unit(&(obj->tem), len, buf, msg);
+    /*湿度*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    sent_unit(&(obj->tem), len, buf, msg);
 
-	/*湿度*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	sent_unit(&(obj->hum), len, buf, msg);
+    /*湿度*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    sent_unit(&(obj->hum), len, buf, msg);
 
-	/*门禁*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = obj->door;
-	msg->len = 2;
-	sent_packet(msg);
+    /*门禁*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = obj->door;
+    msg->len = 2;
+    sent_packet(msg);
 
-	/*水禁*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = obj->water;
-	msg->len = 1;
-	sent_packet(msg);
+    /*水禁*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = obj->water;
+    msg->len = 1;
+    sent_packet(msg);
 
-	/*烟雾*/
-	fn += 1;
-	msg->fn[1] = fn << 4;
-	msg->data = obj->smoke;
-	msg->len = 1;
-	sent_packet(msg);
+    /*烟雾*/
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = obj->smoke;
+    msg->len = 1;
+    sent_packet(msg);
 }
 
 /**
@@ -289,25 +289,25 @@ static void sent_envObject(_envDataObjct *obj, uchar *buf, dev_data_packet *msg)
  */
 void sent_devData(uchar id, pduDevData *devData)
 {
-	static dev_data_packet msg;
-	static uchar buf[DATA_MSG_SIZE] = {0};
-	int fn=1;
+    static dev_data_packet msg;
+    static uchar buf[DATA_MSG_SIZE] = {0};
+    int fn=1;
 
     msg.num = 0;
-	msg.addr = id;
+    msg.addr = id;
     msg.fn[0] = fn++;
     sent_object(&(devData->line),buf, &msg);
 
     msg.fn[0] = fn++;
-//	sent_object(&(devData->output),buf,&msg);
+    //	sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
-//	sent_object(&(devData->output),buf,&msg);
+    //	sent_object(&(devData->output),buf,&msg);
 
-	msg.fn[0] = fn++;
-	sent_envObject(&(devData->env), buf,&msg);
+    msg.fn[0] = fn++;
+    sent_envObject(&(devData->env), buf,&msg);
 
-	sent_devStatus(&msg, 1);
+    sent_devStatus(&msg, 1);
 }
 
 /**
@@ -334,13 +334,13 @@ void init_data(_devDataObj *ptr)
     static uchar swbuf[LINE_NUM] = {1};
 
     ptr->len = LINE_NUM;
-	init_unit(&(ptr->cur));
-	init_unit(&(ptr->vol));
+    init_unit(&(ptr->cur));
+    init_unit(&(ptr->vol));
 
-	ptr->sw = swbuf;
-	ptr->pow = buf2;
-	ptr->ele = buf2;
-	ptr->pf = buf;
+    ptr->sw = swbuf;
+    ptr->pow = buf2;
+    ptr->ele = buf2;
+    ptr->pf = buf;
 }
 
 /**
@@ -404,14 +404,14 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
 
 void sent_str(int id, int fn1, int fn2, short len, char *str)
 {
-	dev_data_packet msg;
-	msg.addr = id;
-	msg.len = len;
+    dev_data_packet msg;
+    msg.addr = id;
+    msg.len = len;
     msg.data = (uchar *)str;
 
-	msg.fn[0] = fn1;
-	msg.fn[1] = fn2;
-	data_packet_sent(&msg);
+    msg.fn[0] = fn1;
+    msg.fn[1] = fn2;
+    data_packet_sent(&msg);
 }
 
 /**
@@ -419,34 +419,29 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
  */
 void sent_dev_data(void)
 {
-   // qDebug() << currentBus;
+    // qDebug() << currentBus;
 
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-//        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
         sObjData *obj = &(shm->data[id].box[i].data);
+        _devDataObj *ptr  = &(devData->line);
+        init_dataLine(ptr, obj);  //输出位
+        devData->env.len = LINE_NUM;
+        sEnvData *env = &(shm->data[id].box[i].env);
+        init_Unit(&(devData->env.tem), &(env->tem), 2); //温度
+        // init_unit(&(devData->env.hum));
 
-        //_devDataObj *ptr = &(devData->line);
-        //init_dataLine(ptr, obj);  //相
-       //nit_data(ptr);
-       _devDataObj *ptr  = &(devData->output);
-       //init_data(ptr);
-       init_dataLine(ptr, obj);  //输出位
-       devData->env.len = LINE_NUM;
-       sEnvData *env = &(shm->data[id].box[i].env);
-       init_Unit(&(devData->env.tem), &(env->tem), 2); //温度
-       // init_unit(&(devData->env.hum));
-
-       sent_devData(i,devData);
-       //sent_str(i, 6, 0x11, strlen(str), str);
-       free(devData);
-	}
+        sent_devData(i,devData);
+        //sent_str(i, 6, 0x11, strlen(str), str);
+        free(devData);
+    }
 
 }
 
