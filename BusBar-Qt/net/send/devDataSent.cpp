@@ -432,12 +432,10 @@ void sent_dev_data(void)
         memset(devData, 0, sizeof(pduDevData));
         sObjData *obj = &(shm->data[id].box[i].data);
 
-        //_devDataObj *ptr = &(devData->line);
-        //init_dataLine(ptr, obj);  //相
-       //nit_data(ptr);
-       _devDataObj *ptr  = &(devData->output);
-       //init_data(ptr);
-       init_dataLine(ptr, obj);  //输出位
+        _devDataObj *ptr = &(devData->line);
+        init_dataLine(ptr, obj);  //相
+       //_devDataObj *ptr  = &(devData->output);
+       //init_dataLine(ptr, obj);  //输出位
        devData->env.len = LINE_NUM;
        sEnvData *env = &(shm->data[id].box[i].env);
        init_Unit(&(devData->env.tem), &(env->tem), 2); //温度
