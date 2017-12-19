@@ -1,4 +1,5 @@
 #include "apptcpserver.h"
+#include "datadone/netanalyzedata.h"
 
 #define ANDROID_TCP_PORT	11283  // 案桌TCP端口号
 
@@ -94,7 +95,7 @@ static int tcp_sent(void *buf, int len)
 static void tcp_recv(int sockfd)
 {
     uchar buf[512] = {0};
-    //    dev_data_packet pkt;
+    dev_data_packet pkt;
     int ret,rtn;
     do
     {
@@ -102,14 +103,16 @@ static void tcp_recv(int sockfd)
         if( ret > 0)
         {
 
-            // udp_printf("recv: %d %s\n", ret, buf);
-            // rtn = data_packet_analytic(buf, ret, &pkt);
-            // if(rtn > 0)
-            // {
-            //      udp_printf("recv: %d %s\n", pkt.len, pkt.data);
-            // }
-            // else
-            //  udp_printf("recv err %d\n", ret);
+            udp_printf("recv: %d %s\n", ret, buf);
+            rtn = dev_data_analytic(buf, ret, &pkt);
+            if(rtn > 0)
+            {
+             //   devList.append(pkt);
+                qDebug() << pkt.fn[0] << pkt.fn[1];
+                udp_printf("recv: %d %s\n", pkt.len, pkt.data);
+            }
+            else
+                udp_printf("recv err %d\n", ret);
         }
         else
             udp_printf("call to recv err\n");

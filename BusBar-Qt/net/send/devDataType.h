@@ -37,6 +37,8 @@ typedef struct
 
     ushort		*carbon; // 排C量
     ushort 		*rate; //电压频率
+    ushort 		*apPow; // 视在功率
+    ushort 		*wave; // 谐波值
 }_devDataObj;
 
 typedef struct
