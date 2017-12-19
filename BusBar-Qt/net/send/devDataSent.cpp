@@ -360,7 +360,7 @@ void sent_dev_data(void)
 	char *str = "cleve; cleve";
 	int i;
     for(i=0; i<7; ++i) {
-		sent_devData(i,devData);
+        sent_devData(i,devData);
 		//sent_str(i, 6, 0x11, strlen(str), str);
 	}
 

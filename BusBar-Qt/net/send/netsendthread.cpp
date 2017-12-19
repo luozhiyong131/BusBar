@@ -19,6 +19,6 @@ void NetSendThread::run()
 {
     while (1) {
         sent_dev_data();
-        sleep(1);
+        sleep(1);       
     }
 }
