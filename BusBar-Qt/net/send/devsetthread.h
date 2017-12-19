@@ -2,9 +2,10 @@
 #define DEVSETTHREAD_H
 
 #include <QObject>
-#include <QSet>
+#include <QMap>
 #include <QThread>
 
+#include "netdataformat.h"
 /**
  * 在网络中传输 数据库包
  */
@@ -18,7 +19,7 @@ typedef struct
 }dev_data;
 
 
-static  QSet<dev_data> gDevList;
+static  QMap<uchar ,QMap<QByteArray ,dev_data>> gDevMap;
 
 
 class DevSetThread : public QThread
@@ -28,6 +29,8 @@ public:
     explicit DevSetThread(QObject *parent = nullptr);
 
     DevSetThread* bulid();
+
+    void insert(const dev_data_packet &pkt);
 
 protected:
     void run();
