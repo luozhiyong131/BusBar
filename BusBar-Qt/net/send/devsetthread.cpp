@@ -31,15 +31,13 @@ void DevSetThread::insert(const dev_data_packet &pkt)
 
     //重复性判断
     QMap<QByteArray ,dev_data> cMap;
+    lock.lockForWrite();
     if(gDevMap.contains(cData.addr)) //如果存在
     {
         cMap= gDevMap[cData.addr];
-        lock.lockForWrite();
         gDevMap.remove(cData.addr); //删除
-        lock.unlock();
     }
     cMap.insert(cData.fn, cData); //如果key存在，用新value覆盖
-    lock.lockForWrite();
     gDevMap.insert(cData.addr, cMap);
     lock.unlock();
 }
