@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/send/devDataType.h \
     $$PWD/send/devDataSent.h \
     $$PWD/save/pduhashdevdatasave.h \
-    $$PWD/network.h
+    $$PWD/network.h \
+    $$PWD/send/devsetthread.h
 	
 SOURCES += \
     $$PWD/udp/recv/udprecvsocket.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/send/apptcpserver.cpp \
     $$PWD/send/devDataSent.cpp \
     $$PWD/save/pduhashdevdatasave.cpp \
-    $$PWD/network.cpp
+    $$PWD/network.cpp \
+    $$PWD/send/devsetthread.cpp
 
 
 	

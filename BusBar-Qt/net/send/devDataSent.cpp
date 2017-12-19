@@ -231,6 +231,18 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
 	msg->data = buf;
 	msg->len = shortToChar(obj->rate,len,buf); // 功率
 	sent_packet(msg);
+
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->apPow,len,buf);
+    sent_packet(msg);
+
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->wave,len,buf);
+    sent_packet(msg);
 }
 
 /**
@@ -336,7 +348,6 @@ void init_data(_devDataObj *ptr)
  */
 void init_Unit(_devDataUnit *unit, sDataUnit *cUnit, int n)
 {
-   // qDebug() << cUnit->value[0];
     for(int i = 0; i < LINE_NUM; i++){
         valueBuf[n][i]  = (ushort)cUnit->value[i]; //;
         maxBuf[n][i]    = (ushort)cUnit->max[i];
@@ -363,12 +374,17 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     static uint powBuf[LINE_NUM] = {2*1000};
     static uint eleBuf[LINE_NUM] = {2*1000};
     static ushort pfBuf[LINE_NUM] = {200};
+    static ushort apPowBuf[LINE_NUM] = {2*1000};
+    static ushort waveBuf[LINE_NUM] = {2*1000};
+
 
     for(int i = 0; i < LINE_NUM; i++){
-        swBuf[i]  = (uchar)obj->sw[i];
-        powBuf[i] = (uint)obj->pow[i];
-        eleBuf[i] = (uint)obj->ele[i];
-        pfBuf[i]  = (ushort)obj->pf[i];
+        swBuf[i]    = (uchar)obj->sw[i];
+        powBuf[i]   = (uint)obj->pow[i];
+        eleBuf[i]   = (uint)obj->ele[i];
+        pfBuf[i]    = (ushort)obj->pf[i];
+        apPowBuf[i] = (ushort)obj->apPow[i];
+        waveBuf[i]  = (ushort)obj->wave[i];
     }
 
     ptr->len = LINE_NUM;
@@ -376,10 +392,13 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     init_Unit(&(ptr->cur), &(obj->cur), 1);
 
 
-    ptr->sw  = swBuf;   //开关状态
-    ptr->pow = powBuf;  // 功率
-    ptr->ele = eleBuf;  // 电能
-    ptr->pf  = pfBuf;   //功率因素
+    ptr->sw    = swBuf;   //开关状态
+    ptr->pow   = powBuf;  // 功率
+    ptr->ele   = eleBuf;  // 电能
+    ptr->pf    = pfBuf;   //功率因素
+    ptr->apPow = apPowBuf; //视在功率
+    ptr->wave  = waveBuf;  // 谐波值
+
 }
 
 
@@ -406,19 +425,17 @@ void sent_dev_data(void)
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
+
+        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
-
         sObjData *obj = &(shm->data[id].box[i].data);
+
         //_devDataObj *ptr = &(devData->line);
         //init_dataLine(ptr, obj);  //相
        //nit_data(ptr);
        _devDataObj *ptr  = &(devData->output);
-
-     //  if(obj->vol.value[0] == 17) qDebug() << "00000--------------------" << i;
-      // obj->vol.value[0] = obj->vol.value[1] = obj->vol.value[2] = 200;
-     //  obj->cur.value[0] = obj->cur.value[1] = obj->cur.value[2] = 100;
-
        //init_data(ptr);
        init_dataLine(ptr, obj);  //输出位
        devData->env.len = LINE_NUM;
