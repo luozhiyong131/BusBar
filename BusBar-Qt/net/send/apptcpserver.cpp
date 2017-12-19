@@ -97,6 +97,7 @@ static int tcp_sent(void *buf, int len)
 static void tcp_recv(int sockfd)
 {
     uchar buf[512] = {0};
+    net_data_packet packet;
     dev_data_packet pkt;
     int ret,rtn;
     do
@@ -104,19 +105,22 @@ static void tcp_recv(int sockfd)
         ret = recv(sockfd,buf,512,0);
         if( ret > 0)
         {
-            udp_printf("recv: %d %s\n", ret, buf);
-            rtn = dev_data_analytic(buf, ret, &pkt);
-            if(rtn > 0)
+            rtn = net_data_analytic(buf, ret, &packet);
+            if(rtn >= 0)
             {
-                qDebug() << pkt.addr - '0' << pkt.fn[0] << pkt.fn[1];
-                DevSetThread::bulid()->insert(pkt);
-                udp_printf("recv: %d %s\n", pkt.len, pkt.data);
-            }
-            else
-                udp_printf("recv err %d\n", ret);
-        }
-        else
-            udp_printf("call to recv err\n");
+                rtn = dev_data_analytic(packet.data, packet.len, &pkt);
+                if(rtn > 0)
+                {
+                    qDebug() << pkt.addr - '0' << pkt.fn[0] << pkt.fn[1];
+                    DevSetThread::bulid()->insert(pkt);
+                    udp_printf("recv: %d %s\n", pkt.len, pkt.data);
+                }
+                else
+                    udp_printf("recv err %d\n", rtn);
+            } else
+                udp_printf("net_data_analytic err %d\n", rtn);
+        } else
+            udp_printf("call to recv err %d \n", ret);
     }while(ret > 0);
 
     close(sockfd);

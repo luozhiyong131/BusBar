@@ -57,6 +57,7 @@ static int data_packet_sync(uchar *buf, ushort len)
     rtn = offset + 2 + DATA_MSG_CODE_SIZE; /*代号段结束位置*/
     rtn += (buf[rtn]<<8) + buf[rtn+1]; /*数据长度*/
     rtn += 2+1; /*数据长度二字节、校验位一字节*/
+
     if(rtn < len)
     {
         if(buf[rtn] == DATA_MSG_ED) /**/
@@ -121,7 +122,7 @@ static int data_packet_getDomain(uchar *buf, net_data_packet *msg)
 
     msg->XOR = *(ptr++);
     XOR = net_data_xor(msg->data, len); // 检查校验码
-    //XOR = msg->XOR;  // 不检查校验码 为了提高执行效率  校验码不检查
+    XOR = msg->XOR;  // 不检查校验码 为了提高执行效率  校验码不检查
     if(XOR != msg->XOR)
         return DATA_ERR_XOR;
 
