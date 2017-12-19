@@ -1,10 +1,12 @@
 #include "netsendthread.h"
 #include "devDataSent.h"
 #include "apptcpserver.h"
+#include "send/devsetthread.h"
 
 NetSendThread::NetSendThread(QObject *parent) : QThread(parent)
 {
     AppTcpServer::bulid()->start();
+    DevSetThread::bulid()->start();
 }
 
 NetSendThread *NetSendThread::bulid()

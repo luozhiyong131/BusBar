@@ -1,6 +1,8 @@
 #include "devsetthread.h"
 
+#include <QReadWriteLock>
 
+QReadWriteLock lock;
 
 DevSetThread::DevSetThread(QObject *parent) : QThread(parent)
 {
@@ -17,20 +19,6 @@ DevSetThread *DevSetThread::bulid()
 
 void DevSetThread::insert(const dev_data_packet &pkt)
 {
-    /*
-     * map.insert("eins o",1);
-    map.insert("sieben",7);
-    map["a test"]=23; //修改
-
-    int val2=map.value("error");
-    qDebug()<<val2;    ///0
-
-    int val3=map.value("error2",20);
-    qDebug()<<val3;
-
-    int val4=map.value("a test",40);
-    qDebug()<<val4;
-     */
     //数据转移
     dev_data cData;
     cData.num  = pkt.num;
@@ -38,11 +26,22 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     for(int i = 0; i < DEV_FN_SIZE; i++)
         cData.fn.append(pkt.fn[i]);
     cData.data = QByteArray((char*)pkt.data);
-/*
+
+    //lock.lockForRead();
+
     //重复性判断
-    QMap<QByteArray ,dev_data> cMap = gDevMap[cData.addr];
-    cMap.insert(key, value), //如果key存在，用新value覆盖
-*/
+    QMap<QByteArray ,dev_data> cMap;
+    if(gDevMap.contains(cData.addr)) //如果存在
+    {
+        cMap= gDevMap[cData.addr];
+        lock.lockForWrite();
+        gDevMap.remove(cData.addr); //删除
+        lock.unlock();
+    }
+    cMap.insert(cData.fn, cData); //如果key存在，用新value覆盖
+    lock.lockForWrite();
+    gDevMap.insert(cData.addr, cMap);
+    lock.unlock();
 }
 
 void DevSetThread::run()
@@ -51,10 +50,28 @@ void DevSetThread::run()
         if(gDevMap.size()){ //释放缓存
             isRun = true;
 
+            //从最开始进队列的开始
+            QMap<QByteArray ,dev_data> cMap;
+            cMap = gDevMap.first();
+            uchar addr = gDevMap.firstKey();
+            lock.lockForWrite();
+            gDevMap.remove(addr); //删除
+            lock.unlock();
+
+            QMap<QByteArray ,dev_data>::iterator it; //遍历map
+            for ( it = cMap.begin(); it != cMap.end(); ++it ) {
+                    dev_data cData = cMap[it.key()];
+
+                    //设置函数
+                    qDebug() << cData.addr << cData.fn;
+                    msleep(1000);
+                }
+            cMap.clear(); //清空map
 
         }else{
             isRun = false;
-            sleep(1000);
+        //    qDebug() << "#########################";
+            msleep(1000);
         }
 
     }

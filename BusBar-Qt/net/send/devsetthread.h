@@ -28,7 +28,7 @@ class DevSetThread : public QThread
 public:
     explicit DevSetThread(QObject *parent = nullptr);
 
-    DevSetThread* bulid();
+    static DevSetThread* bulid();
 
     void insert(const dev_data_packet &pkt);
 

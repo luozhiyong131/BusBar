@@ -17,6 +17,8 @@ extern char currentBus;
 #include <netdb.h>
 #include <ctype.h>
 
+#include "send/devsetthread.h"
+
 static int sock_fd=-1, gSocket=-1;
 
 #define udp_printf qDebug
@@ -102,13 +104,12 @@ static void tcp_recv(int sockfd)
         ret = recv(sockfd,buf,512,0);
         if( ret > 0)
         {
-
             udp_printf("recv: %d %s\n", ret, buf);
             rtn = dev_data_analytic(buf, ret, &pkt);
             if(rtn > 0)
             {
-             //   devList.append(pkt);
-                qDebug() << pkt.fn[0] << pkt.fn[1];
+                qDebug() << pkt.addr - '0' << pkt.fn[0] << pkt.fn[1];
+                DevSetThread::bulid()->insert(pkt);
                 udp_printf("recv: %d %s\n", pkt.len, pkt.data);
             }
             else
