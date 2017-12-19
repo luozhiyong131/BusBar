@@ -13,6 +13,14 @@
 extern char currentBus;
 static uchar gSentBuf[DATA_MSG_SIZE]={0};
 
+#define LEN_DATA 5
+static ushort valueBuf[LEN_DATA][LINE_NUM] = {100};
+static ushort maxBuf[LEN_DATA][LINE_NUM] = {2*200};
+static ushort minBuf[LEN_DATA][LINE_NUM] = {2*200};
+static uchar  alarmBuf[LEN_DATA][LINE_NUM] = {1};
+static ushort crMinBuf[LEN_DATA][LINE_NUM] = {300};
+static ushort crMaxBuf[LEN_DATA][LINE_NUM] = {600};
+
 static int data_msg_packetSent(uchar *buf, ushort len)
 {
     android_sent(buf,len);
@@ -290,25 +298,18 @@ void sent_devData(uchar id, pduDevData *devData)
 	sent_devStatus(&msg, 1);
 }
 
-
-
-
 /**
  * 初始化数据  测试用，
  */
 void init_unit(_devDataUnit *unit)
 {
-    static ushort buf[LINE_NUM] = {200};
-    static ushort maxBuf[LINE_NUM] = {2*200};
-    static uchar alarmbuf[LINE_NUM] = {1};
+    unit->value = valueBuf[0];
+    unit->max = maxBuf[0];
+    unit->min = minBuf[0];
+    unit->alarm = alarmBuf[0];
 
-	unit->value = buf;
-	unit->max = maxBuf;
-	unit->min = maxBuf;
-    unit->alarm = alarmbuf;
-
-	unit->crMin = buf;
-	unit->crMax = buf;
+    unit->crMin = crMinBuf[0];
+    unit->crMax = crMaxBuf[0];
 }
 
 /**
@@ -328,6 +329,57 @@ void init_data(_devDataObj *ptr)
 	ptr->pow = buf2;
 	ptr->ele = buf2;
 	ptr->pf = buf;
+}
+
+/**
+ * 初始化数据  Unit，
+ */
+void init_Unit(_devDataUnit *unit, sDataUnit *cUnit, int n)
+{
+   // qDebug() << cUnit->value[0];
+    for(int i = 0; i < LINE_NUM; i++){
+        valueBuf[n][i]  = (ushort)cUnit->value[i]; //;
+        maxBuf[n][i]    = (ushort)cUnit->max[i];
+        minBuf[n][i]    = (ushort)cUnit->min[i];
+        alarmBuf[n][i]  = (uchar)cUnit->alarm[i];
+        crMinBuf[n][i]  = (ushort)cUnit->crMin[i];
+        crMaxBuf[n][i]  = (ushort)cUnit->crMax[i];
+    }
+
+    unit->value = valueBuf[n];
+    unit->max = maxBuf[n];
+    unit->min = minBuf[n];
+    unit->alarm = alarmBuf[n];
+
+    unit->crMin = crMinBuf[n];
+    unit->crMax = crMaxBuf[n];
+}
+/**
+ * 数据初始化  -- 相
+ */
+void init_dataLine(_devDataObj *ptr, sObjData *obj)
+{
+    static uchar swBuf[LINE_NUM] = {1};
+    static uint powBuf[LINE_NUM] = {2*1000};
+    static uint eleBuf[LINE_NUM] = {2*1000};
+    static ushort pfBuf[LINE_NUM] = {200};
+
+    for(int i = 0; i < LINE_NUM; i++){
+        swBuf[i]  = (uchar)obj->sw[i];
+        powBuf[i] = (uint)obj->pow[i];
+        eleBuf[i] = (uint)obj->ele[i];
+        pfBuf[i]  = (ushort)obj->pf[i];
+    }
+
+    ptr->len = LINE_NUM;
+    init_Unit(&(ptr->vol), &(obj->vol), 0);
+    init_Unit(&(ptr->cur), &(obj->cur), 1);
+
+
+    ptr->sw  = swBuf;   //开关状态
+    ptr->pow = powBuf;  // 功率
+    ptr->ele = eleBuf;  // 电能
+    ptr->pf  = pfBuf;   //功率因素
 }
 
 
@@ -353,25 +405,31 @@ void sent_dev_data(void)
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
-    qDebug() << "len:" << len;
     for(int  i=0; i< len; ++i) {
-        pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData));
+        pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
 
-        _devDataObj *ptr = &(devData->line);
-        init_data(ptr);
-        ptr = &(devData->output);
-        init_data(ptr);
+        sObjData *obj = &(shm->data[id].box[i].data);
+        //_devDataObj *ptr = &(devData->line);
+        //init_dataLine(ptr, obj);  //相
+       //nit_data(ptr);
+       _devDataObj *ptr  = &(devData->output);
 
-        devData->env.len = 4;
-        init_unit(&(devData->env.tem));
-        init_unit(&(devData->env.hum));
-        sent_devData(i,devData);
-        //sent_str(i, 6, 0x11, strlen(str), str);
+     //  if(obj->vol.value[0] == 17) qDebug() << "00000--------------------" << i;
+      // obj->vol.value[0] = obj->vol.value[1] = obj->vol.value[2] = 200;
+     //  obj->cur.value[0] = obj->cur.value[1] = obj->cur.value[2] = 100;
 
-        free(devData);
+       //init_data(ptr);
+       init_dataLine(ptr, obj);  //输出位
+       devData->env.len = LINE_NUM;
+       sEnvData *env = &(shm->data[id].box[i].env);
+       init_Unit(&(devData->env.tem), &(env->tem), 2); //温度
+       // init_unit(&(devData->env.hum));
+
+       sent_devData(i,devData);
+       //sent_str(i, 6, 0x11, strlen(str), str);
+       free(devData);
 	}
-
 
 }
 
