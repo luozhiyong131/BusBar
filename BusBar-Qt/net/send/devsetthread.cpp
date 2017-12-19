@@ -62,7 +62,7 @@ void DevSetThread::run()
 
                     //设置函数
                     qDebug() << cData.addr << cData.fn;
-                    msleep(1000);
+                    msleep(4000);
                 }
             cMap.clear(); //清空map
 
