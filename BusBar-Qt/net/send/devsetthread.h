@@ -2,7 +2,7 @@
 #define DEVSETTHREAD_H
 
 #include <QObject>
-#include <QList>
+#include <QSet>
 #include <QThread>
 
 /**
@@ -18,7 +18,7 @@ typedef struct
 }dev_data;
 
 
-static  QList<dev_data> gDevList;
+static  QSet<dev_data> gDevList;
 
 
 class DevSetThread : public QThread
@@ -32,7 +32,7 @@ public:
 protected:
     void run();
 
-protected:
+public:
     bool isRun;
 signals:
 
