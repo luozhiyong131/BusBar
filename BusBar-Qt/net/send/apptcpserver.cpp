@@ -111,7 +111,7 @@ static void tcp_recv(int sockfd)
                 rtn = dev_data_analytic(packet.data, packet.len, &pkt);
                 if(rtn > 0)
                 {
-                    qDebug() << pkt.addr - '0' << pkt.fn[0] << pkt.fn[1];
+                    qDebug() << pkt.addr << pkt.fn[0] << pkt.fn[1] ;
                     DevSetThread::bulid()->insert(pkt);
                     udp_printf("recv: %d %s\n", pkt.len, pkt.data);
                 }
