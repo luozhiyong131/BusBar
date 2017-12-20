@@ -34,6 +34,8 @@ public:
 
 protected:
     void run();
+    bool saveLocal(dev_data &cData);  // 单一设置 -- 本地共享内存
+    bool saveFarend(dev_data &cData); // 单一设置 -- 远端
 
 public:
     bool isRun;

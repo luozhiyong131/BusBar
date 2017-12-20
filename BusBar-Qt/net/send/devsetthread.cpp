@@ -1,6 +1,7 @@
 #include "devsetthread.h"
 
 #include <QReadWriteLock>
+#include "shm/setbox.h"
 
 QReadWriteLock lock;
 
@@ -27,7 +28,8 @@ void DevSetThread::insert(const dev_data_packet &pkt)
         cData.fn.append(pkt.fn[i]);
     cData.data = QByteArray((char*)pkt.data);
 
-    //lock.lockForRead();
+    //修改共享内存 -- 刷新显示
+    saveLocal(cData);
 
     //重复性判断
     QMap<QByteArray ,dev_data> cMap;
@@ -42,12 +44,11 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     lock.unlock();
 }
 
-void DevSetThread::run()
+void DevSetThread::run() //只设置远端
 {
     while (1) {
         if(gDevMap.size()){ //释放缓存
             isRun = true;
-
             //从最开始进队列的开始
             QMap<QByteArray ,dev_data> cMap;
             cMap = gDevMap.first();
@@ -61,8 +62,8 @@ void DevSetThread::run()
                     dev_data cData = cMap[it.key()];
 
                     //设置函数
-                    qDebug() << cData.addr << cData.fn;
-                    msleep(4000);
+                   // qDebug() << cData.addr << cData.fn << cData.data;
+                    msleep(1000);
                 }
             cMap.clear(); //清空map
 
@@ -73,6 +74,79 @@ void DevSetThread::run()
         }
 
     }
+}
+
+bool DevSetThread::saveLocal(dev_data &cData)  //本地
+{
+    //先分类命令
+    int Hig, Low; //高低位
+ //   qDebug() << "Type" << cData.fn << cData.fn.toHex();
+    Hig = cData.fn.at(0);
+    Low = cData.fn.at(1);
+    qDebug() << "Hig:" << Hig << "Low:" << Low;
+
+    if(0x00 == Low){ //统一设置
+        switch (Hig){
+        case 0x00 :  qDebug() << "allSet - OutA"; break; /* 输出位电流 */
+        case 0x01 :  qDebug() << "allSet - InV"; break; /* 输入相电压 */
+        case 0x02 :  qDebug() << "allSet - InA"; break; /* 输入相电流 */
+        case 0x03 :  qDebug() << "allSet - Tem"; break; /* 温度 */
+        case 0x04 :  qDebug() << "allSet - Hum"; break; /* 湿度 */
+        case 0x71 :  qDebug() << "allSet - LoopA"; break; /* 回路电流 */
+        case 0x72 :  qDebug() << "allSet - On/Off"; break; /* 开关 */
+        default   :  break;
+        }
+    }else{ //单项 Low-1位
+        switch (Hig){
+        case 0x00 :  qDebug() << QString("Item%1Set - OutA").arg(Low); break; /* 输出位电流 */
+        case 0x01 :  qDebug() << QString("Item%1Set - InV").arg(Low); break; /* 输入相电压 */
+        case 0x02 :  qDebug() << QString("Item%1Set - InA").arg(Low); break; /* 输入相电流 */
+        case 0x03 :  qDebug() << QString("Item%1Set - Tem").arg(Low); break; /* 温度 */
+        case 0x04 :  qDebug() << QString("Item%1Set - Hum").arg(Low); break; /* 湿度 */
+        case 0x71 :  qDebug() << QString("Item%1Set - LoopA").arg(Low); break; /* 回路电流 */
+        case 0x72 :  qDebug() << QString("Item%1Set - On/Off").arg(Low); break; /* 开关 */
+        default   :  break;
+        }
+    }
+
+
+
+
+
+    //dev -- item
+}
+
+bool DevSetThread::saveFarend(dev_data &cData) //远端
+{
+    //dev -- item
+    DbNameItem item;
+    item.bus = cData.num;
+    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    item.num = 0; // 编号
+
+    while (SetBOXThread::bulid()->isRun()) msleep(1000);
+
+
+    /*if(ret) //统一设置
+    {
+        //qDebug() << "统一设置";
+        if(mIsCur){
+            mShm->setLineCurAll(item);
+        }else{
+            mShm->setLineVolAll(item);
+        }
+        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
+
+    }else //单独设置
+    {
+       // qDebug() << "单一设置";
+        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
+        mShm->saveItem(item);
+    }*/
 }
 
 
