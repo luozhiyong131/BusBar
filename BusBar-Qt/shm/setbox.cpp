@@ -26,6 +26,12 @@ bool SetBOXThread::send(int runType, DbThresholdItem item)
     return true;
 }
 
+bool SetBOXThread::isRun()
+{
+    if(isRunType != 0) return true;
+    return false;
+}
+
 void SetBOXThread::run()
 {
     if(1 == isRunType){ //单元设置

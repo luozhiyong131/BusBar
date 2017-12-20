@@ -24,7 +24,7 @@ public:
 
     // ----- 发送数据接口  ------
     bool send(int runType, DbThresholdItem item);
-
+    bool isRun();
 protected:
     void run();
     int transmit(int addr, ushort reg, ushort len, int busID = 0); //发送数据并回收
