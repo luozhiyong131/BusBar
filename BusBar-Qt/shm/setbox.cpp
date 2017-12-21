@@ -52,13 +52,13 @@ void SetBOXThread::busChangedSlot(int cBusID)
 
 int SetBOXThread::transmit(int addr, ushort reg, ushort len, int busID)
 {
-    if(busID == 0) busID = mBusID;
+    if(busID == -1) busID = mBusID;
     return rtu[busID]->transmit(addr, reg, len);
 }
 
 int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID, bool value)
 {
-    if(busID == 0) busID = mBusID;
+    if(busID == -1) busID = mBusID;
     return rtu[busID]->sendData(addr, reg, len, value);
 }
 
@@ -142,45 +142,21 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
     }
     if(sendData(boxNum, addrMin[num], item.min) > 0){
         msleep(Time);
-        sendData(boxNum, addrMax[num], item.max, mBusID, true);
+        sendData(boxNum, addrMax[num], item.max, item.bus, true);
     }
     return ret;
 }
 
 void SetBOXThread::saveAllItem(DbThresholdItem &item)
 {
-    int boxNum=0, num = item.num;
     switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
     {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        boxNum = num / LINE_NUM + 1;
-        num = num % LINE_NUM ;
-        break;
-    case 4:
-        break;
-    case 5:
-        boxNum = num / SENSOR_NUM + 1;
-        num = num % SENSOR_NUM ;
-        break;
-    case 6:
-        boxNum = num / LINE_NUM + 1;
-        num = num % LINE_NUM ;
-        break;
-    }
-    //qDebug() << "lenAll" << boxNum << num << item.type;
-
-    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
-    {
-    case 1: setLineVolAll(item);  break; //主路电压阈值
-    case 2: setLineCurAll(item);  break; //主路电流阈值
-    case 3: setLoopCurAll(item);  break; //回路电流阈值
-    case 4: setLineTempAll(item); break; //始端箱温度
-    case 5: setTempAll(item);     break; //插接箱温度
-    case 6: break;
+        case 1: setLineVolAll(item);  break; //主路电压阈值
+        case 2: setLineCurAll(item);  break; //主路电流阈值
+        case 3: setLoopCurAll(item);  break; //回路电流阈值
+        case 4: setLineTempAll(item); break; //始端箱温度
+        case 5: setTempAll(item);     break; //插接箱温度
+        case 6: break;
     }
 }
 
