@@ -176,6 +176,7 @@ bool DevSetThread::saveLocal(DbThresholdItem &item)
     }else{ //单项
         mShm->saveItem(item);
     }
+    return true;
 }
 
 bool DevSetThread::saveFarend(DbThresholdItem &item)
@@ -192,5 +193,6 @@ bool DevSetThread::saveFarend(DbThresholdItem &item)
             //InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
     }
+    return true;
 }
 
