@@ -108,7 +108,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
     sDataUnit *unit=NULL;
     int boxNum=0, num = item.num;
 
-    qDebug() <<"bus" <<item.bus << "Type" << item.type << "num" << item.num;
+    //qDebug() <<"bus" <<item.bus << "Type" << item.type << "num" << item.num;
 
     sBusData *box = &(shm->data[item.bus]);
     sBoxData *bus = &(box->box[0]);

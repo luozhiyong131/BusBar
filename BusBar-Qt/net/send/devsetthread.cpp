@@ -89,7 +89,8 @@ void DevSetThread::run() //只设置远端
 
 int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
 {
-    /* 返回1为正常返回 2表示只做本地操作不做远端操作 */
+    /* 返回1为电流电压温度 0表示只做本地操作不做远端操作 */
+    int re = 0;
     int Hig, Low; //高低位
     Hig = cData.fn.at(0);
     Low = cData.fn.at(1);
@@ -101,12 +102,12 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
         data[i] = cData.data.at(i*2)<<8 | cData.data.at(i*2 + 1);
     int aret = 1;
     switch (Hig){
-    case 0x00 :  qDebug() << "- OutA"; break; /* 输出位电流 */
     case 0x01 :  { /* 输入相电压 - 主路*/
         qDebug() << "- InV";
         if(cData.addr == 0) item.type = 1;
         //else item.type = 6;
         aret  = COM_RATE_VOL * 10;
+        re = 1;
         break;
     }
     case 0x02 :  { /* 输入相电流*/
@@ -114,6 +115,7 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
         if(cData.addr == 0) item.type = 2; //主路电流
         else item.type = 3; //支路电流
         aret = COM_RATE_CUR;
+        re = 1;
         break;
     }
     case 0x03 :  { /* 温度 */
@@ -121,8 +123,11 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
         if(cData.addr == 0) item.type = 4; //始端箱温度
         else item.type = 5; //插接箱温度
         aret = COM_RATE_TEM * 10;
+        re = 1;
         break;
     }
+
+    case 0x00 :  qDebug() << "- OutA"; break; /* 输出位电流 */
     case 0x04 :  qDebug() << "- Hum"; break; /* 湿度 */
     case 0x71 :  { /* 回路电流 */
         qDebug() << "- LoopA";
@@ -149,10 +154,9 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
             break;
         }
     }
-
-    qDebug() << data[0]<< data[1]<< data[2]<< data[3] << item.bus;
-    qDebug() << item.min<< item.max<< item.crmin<< item.crmax << aret;
-    return 1;
+//    qDebug() << data[0]<< data[1]<< data[2]<< data[3] << item.bus;
+//    qDebug() << item.min<< item.max<< item.crmin<< item.crmax << aret;
+    return re;
 }
 
 bool DevSetThread::saveLocal(DbThresholdItem &item)
