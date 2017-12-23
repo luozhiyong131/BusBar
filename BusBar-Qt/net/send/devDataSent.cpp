@@ -296,18 +296,18 @@ void sent_devData(uchar id, pduDevData *devData)
     msg.num = 0;
     msg.addr = id;
     msg.fn[0] = fn++;
-    sent_object(&(devData->line),buf, &msg);
+        sent_object(&(devData->line),buf, &msg);
+
+    msg.fn[0] = fn++;
+//    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
     //	sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
-    //	sent_object(&(devData->output),buf,&msg);
+    //    sent_envObject(&(devData->env), buf,&msg);
 
-    msg.fn[0] = fn++;
-    sent_envObject(&(devData->env), buf,&msg);
-
-    sent_devStatus(&msg, 1);
+    //    sent_devStatus(&msg, 1);
 }
 
 /**
@@ -414,6 +414,54 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
     data_packet_sent(&msg);
 }
 
+
+
+void sent_busName(void)
+{
+    dev_data_packet msg;
+    msg.num = 0;
+    msg.addr = 0;
+
+    msg.len = 3;  //=======
+    msg.data = (uchar *)"bus";
+
+    msg.fn[0] = 5;
+    msg.fn[1] = 0x11;
+    data_packet_sent(&msg);
+}
+
+void sent_busRateCur(void)
+{
+    dev_data_packet msg;
+    msg.num = 0;
+    msg.addr = 0;
+
+    uchar data[2] = {0, 200};
+
+    msg.len = 2;  //=======
+    msg.data = data;
+
+    msg.fn[0] = 30;
+    msg.fn[1] = 0;
+    data_packet_sent(&msg);
+}
+
+void sent_busBoxNum(void)
+{
+    dev_data_packet msg;
+    msg.num = 0;
+    msg.addr = 0;
+
+    uchar data[2] = {16};
+
+    msg.len = 1;  //=======
+    msg.data = data;
+
+    msg.fn[0] = 31;
+    msg.fn[1] = 0;
+    data_packet_sent(&msg);
+}
+
 /**
  * 发送测试数据， 测试用
  */
@@ -421,12 +469,12 @@ void sent_dev_data(void)
 {
     // qDebug() << currentBus;
 
-    uchar id = currentBus - '0';
+    uchar id = 0; //currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+        //        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
@@ -443,6 +491,9 @@ void sent_dev_data(void)
         free(devData);
     }
 
+    //    sent_busName();
+    //    sent_busRateCur();
+    //    sent_busBoxNum();
 }
 
 
