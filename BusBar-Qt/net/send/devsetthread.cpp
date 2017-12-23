@@ -8,6 +8,7 @@ QReadWriteLock lock;
 DevSetThread::DevSetThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
+    mShm = new SetShm; //操作共享内存
 }
 
 DevSetThread *DevSetThread::bulid()
@@ -24,12 +25,20 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     dev_data cData;
     cData.num  = pkt.num;
     cData.addr = pkt.addr;
+    uchar *data = pkt.data;
     for(int i = 0; i < DEV_FN_SIZE; i++)
         cData.fn.append(pkt.fn[i]);
-    cData.data = QByteArray((char*)pkt.data);
+    for(int i = 0; i < pkt.len; i++)
+        cData.data.append(*data++);
 
     //修改共享内存 -- 刷新显示
-    saveLocal(cData);
+    DbThresholdItem item;
+    switch (devToItem(cData, item)){
+        case 1 :  saveLocal(item); break; /* 设置本地 - 同时需要设置远端 */
+        case 2 :  return; /* 仅仅设置本地 */
+        case 3 :   /* */
+            break;
+    }
 
     //重复性判断
     QMap<QByteArray ,dev_data> cMap;
@@ -60,9 +69,11 @@ void DevSetThread::run() //只设置远端
             QMap<QByteArray ,dev_data>::iterator it; //遍历map
             for ( it = cMap.begin(); it != cMap.end(); ++it ) {
                     dev_data cData = cMap[it.key()];
-
-                    //设置函数
-                   // qDebug() << cData.addr << cData.fn << cData.data;
+                    //修改远端
+                    DbThresholdItem item;
+                    switch (devToItem(cData, item)){
+                        case 1 :  saveFarend(item); break; /* 设置本地 - 同时需要设置远端 */
+                    }
                     msleep(1000);
                 }
             cMap.clear(); //清空map
@@ -76,108 +87,112 @@ void DevSetThread::run() //只设置远端
     }
 }
 
-bool DevSetThread::saveLocal(dev_data &cData)  //本地
+int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
 {
-    //先分类命令
+    /* 返回1为电流电压温度 0表示只做本地操作不做远端操作 */
+    int re = 0;
     int Hig, Low; //高低位
- //   qDebug() << "Type" << cData.fn << cData.fn.toHex();
     Hig = cData.fn.at(0);
     Low = cData.fn.at(1);
-    qDebug() << "Hig:" << Hig << "Low:" << Low;
-
-    if(0x00 == Low){ //统一设置
-        switch (Hig){
-        case 0x00 :  qDebug() << "allSet - OutA"; break; /* 输出位电流 */
-        case 0x01 :  qDebug() << "allSet - InV"; break; /* 输入相电压 */
-        case 0x02 :  qDebug() << "allSet - InA"; break; /* 输入相电流 */
-        case 0x03 :  qDebug() << "allSet - Tem"; break; /* 温度 */
-        case 0x04 :  qDebug() << "allSet - Hum"; break; /* 湿度 */
-        case 0x71 :  qDebug() << "allSet - LoopA"; break; /* 回路电流 */
-        case 0x72 :  qDebug() << "allSet - On/Off"; break; /* 开关 */
-        default   :  break;
-        }
-    }else{ //单项 Low-1位
-        switch (Hig){
-        case 0x00 :  qDebug() << QString("Item%1Set - OutA").arg(Low); break; /* 输出位电流 */
-        case 0x01 :  qDebug() << QString("Item%1Set - InV").arg(Low); break; /* 输入相电压 */
-        case 0x02 :  qDebug() << QString("Item%1Set - InA").arg(Low); break; /* 输入相电流 */
-        case 0x03 :  qDebug() << QString("Item%1Set - Tem").arg(Low); break; /* 温度 */
-        case 0x04 :  qDebug() << QString("Item%1Set - Hum").arg(Low); break; /* 湿度 */
-        case 0x71 :  qDebug() << QString("Item%1Set - LoopA").arg(Low); break; /* 回路电流 */
-        case 0x72 :  qDebug() << QString("Item%1Set - On/Off").arg(Low); break; /* 开关 */
-        default   :  break;
-        }
+   // qDebug() << "Hig:" << Hig << "Low:" << Low;
+    //先分类命令 //dev -- item
+    int len = cData.data.length() / 2; //数据长度
+    int data[4] = {0};
+    for(int i = 0; i < len; i ++) //结果放大了十倍
+        data[i] = cData.data.at(i*2)<<8 | cData.data.at(i*2 + 1);
+    int aret = 1;
+    switch (Hig){
+    case 0x01 :  { /* 输入相电压 - 主路*/
+        qDebug() << "- InV";
+        if(cData.addr == 0) item.type = 1;
+        //else item.type = 6;
+        aret  = COM_RATE_VOL * 10;
+        re = 1;
+        break;
+    }
+    case 0x02 :  { /* 输入相电流*/
+        qDebug() << "- InA";
+        if(cData.addr == 0) item.type = 2; //主路电流
+        else item.type = 3; //支路电流
+        aret = COM_RATE_CUR;
+        re = 1;
+        break;
+    }
+    case 0x03 :  { /* 温度 */
+        qDebug() << "- Tem";
+        if(cData.addr == 0) item.type = 4; //始端箱温度
+        else item.type = 5; //插接箱温度
+        aret = COM_RATE_TEM * 10;
+        re = 1;
+        break;
     }
 
-
-
-
-
-    //dev -- item
-}
-
-bool DevSetThread::saveFarend(dev_data &cData) //远端
-{
-    //dev -- item
-    DbNameItem item;
+    case 0x00 :  qDebug() << "- OutA"; break; /* 输出位电流 */
+    case 0x04 :  qDebug() << "- Hum"; break; /* 湿度 */
+    case 0x71 :  { /* 回路电流 */
+        qDebug() << "- LoopA";
+        break;
+    }
+    case 0x72 :  qDebug() << "- On/Off"; break; /* 开关 */
+    default   :  break;
+    }
+    item.min = data[0]*aret/10;
+    item.max = data[1]*aret/10;
+    item.crmin = data[2]*aret/10;
+    item.crmax = data[3]*aret/10;
     item.bus = cData.num;
-    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
-    item.num = 0; // 编号
+    item.num = Low;
 
-    while (SetBOXThread::bulid()->isRun()) msleep(1000);
-
-
-    /*if(ret) //统一设置
-    {
-        //qDebug() << "统一设置";
-        if(mIsCur){
-            mShm->setLineCurAll(item);
-        }else{
-            mShm->setLineVolAll(item);
+    if(cData.addr != 0){
+        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
+        {
+        case 3:
+            item.num += (cData.addr - 1) * LINE_NUM;
+            break;
+        case 5:
+            item.num += (cData.addr - 1) * SENSOR_NUM;
+            break;
         }
-        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
-            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-        }
-
-    }else //单独设置
-    {
-       // qDebug() << "单一设置";
-        if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
-            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-        }
-        mShm->saveItem(item);
-    }*/
+    }
+//    qDebug() << data[0]<< data[1]<< data[2]<< data[3] << item.bus;
+//    qDebug() << item.min<< item.max<< item.crmin<< item.crmax << aret;
+    return re;
 }
 
-
-/*
- * SetShm * mShm;
- *  DbNameItem item;
-    item.bus = mIndex;
-    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
-    item.num = 0; // 编号
-    QString name = ui->lineEdit->text();
-    if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
-        item.name = name;
-        mShm->setName(item);
- *
- * QString rateCurStr = ui->lineEdit_2->text();
-    if((!rateCurStr.isEmpty()) && (cm_isDigitStr(rateCurStr)))
-    {
-        mShm->setLineRatedCur(mIndex,rateCurStr.toInt() * COM_RATE_CUR);
-    }else
-    {
-        QMessageBox::information(this,tr("information"),tr("请检查电流输入格式！"));
-        saveSuccess = false;
+bool DevSetThread::saveLocal(DbThresholdItem &item)
+{
+    int Low = item.num;
+    item.num--;
+    if(0x00 == Low){ //统一设置
+        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
+        {
+        case 1: mShm->setLineVolAll(item);  break; //主路电压阈值
+        case 2: mShm->setLineCurAll(item);  break; //主路电流阈值
+        case 3: mShm->setLoopCurAll(item);  break; //回路电流阈值
+        case 4: mShm->setLineTempAll(item); break; //始端箱温度
+        case 5: mShm->setTempAll(item);     break; //插接箱温度
+        case 6: break;
+        }
+    }else{ //单项
+        mShm->saveItem(item);
     }
+    return true;
+}
 
-    QString boxNumStr = ui->lineEdit_3->text();
-    if((!boxNumStr.isEmpty()) && (cm_isDigitStr(boxNumStr)))
-    {
-        mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
-    }else
-    {
-        QMessageBox::information(this,tr("information"),tr("请检查插接箱数量输入格式！"));
-        saveSuccess = false;
+bool DevSetThread::saveFarend(DbThresholdItem &item)
+{
+    while (SetBOXThread::bulid()->isRun()) msleep(1000);
+    int Low = item.num;
+    item.num--;
+    if(0x00 == Low){ //统一设置
+        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
+            //InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
+    }else{ //单项
+        if(!SetBOXThread::bulid()->send(1, item)) { //正有其它参数在设置
+            //InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+        }
     }
- * */
+    return true;
+}
+

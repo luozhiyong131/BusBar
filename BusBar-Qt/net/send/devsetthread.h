@@ -6,6 +6,7 @@
 #include <QThread>
 
 #include "netdataformat.h"
+#include "shm/setshm.h"
 /**
  * 在网络中传输 数据库包
  */
@@ -34,11 +35,17 @@ public:
 
 protected:
     void run();
-    bool saveLocal(dev_data &cData);  // 单一设置 -- 本地共享内存
-    bool saveFarend(dev_data &cData); // 单一设置 -- 远端
+    int devToItem(dev_data &cData, DbThresholdItem &item); //设置 -- 本地共享内存 or 远端
+    bool saveLocal(DbThresholdItem &item);  // 本地设置
+    bool saveFarend(DbThresholdItem &item); // 远端设置
 
 public:
     bool isRun;
+
+
+protected:
+    SetShm *mShm; //操作共享内存
+
 signals:
 
 public slots:
