@@ -296,18 +296,18 @@ void sent_devData(uchar id, pduDevData *devData)
     msg.num = 0;
     msg.addr = id;
     msg.fn[0] = fn++;
-        sent_object(&(devData->line),buf, &msg);
+    sent_object(&(devData->line),buf, &msg);
 
     msg.fn[0] = fn++;
 //    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
-    //	sent_object(&(devData->output),buf,&msg);
+//    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
-    //    sent_envObject(&(devData->env), buf,&msg);
+    sent_envObject(&(devData->env), buf,&msg);
 
-    //    sent_devStatus(&msg, 1);
+    sent_devStatus(&msg, 1);
 }
 
 /**
@@ -467,14 +467,14 @@ void sent_busBoxNum(void)
  */
 void sent_dev_data(void)
 {
-    // qDebug() << currentBus;
+    qDebug() << currentBus;
 
-    uchar id = 0; //currentBus - '0';
+    uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        //        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
@@ -491,9 +491,9 @@ void sent_dev_data(void)
         free(devData);
     }
 
-    //    sent_busName();
-    //    sent_busRateCur();
-    //    sent_busBoxNum();
+    sent_busName();
+    sent_busRateCur();
+    sent_busBoxNum();
 }
 
 
