@@ -416,46 +416,57 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
 
 
 
-void sent_busName(void)
+void sent_busName(sBusData *bus)
 {
+    static uchar nameBuf[NAME_LEN] = {0};
+    for(int i = 0; i < NAME_LEN; i++)
+            nameBuf[i] = (uchar)bus->busName[i];
+
     dev_data_packet msg;
     msg.num = 0;
     msg.addr = 0;
 
-    msg.len = 3;  //=======
-    msg.data = (uchar *)"bus";
+    msg.len = NAME_LEN;  //=======
+    msg.data = nameBuf;
 
     msg.fn[0] = 5;
     msg.fn[1] = 0x11;
     data_packet_sent(&msg);
 }
 
-void sent_busRateCur(void)
+void sent_busRateCur(sBusData *bus)
 {
+
+    static uchar rateCurBuf[2] = {1};
+    rateCurBuf[0] = (uchar)(bus->box[0].ratedCur >> 8);
+    rateCurBuf[1] = (uchar)(bus->box[0].ratedCur);
+
     dev_data_packet msg;
     msg.num = 0;
     msg.addr = 0;
 
-    uchar data[2] = {0, 200};
+    //uchar data[2] = {0, 200};
 
     msg.len = 2;  //=======
-    msg.data = data;
+    msg.data = rateCurBuf;
 
     msg.fn[0] = 30;
     msg.fn[1] = 0;
     data_packet_sent(&msg);
 }
 
-void sent_busBoxNum(void)
+void sent_busBoxNum(sBusData *bus)
 {
+    static uchar boxNumBuf[2] = {2};
+           boxNumBuf[0] = bus->boxNum;
+           boxNumBuf[1] = bus->boxNum;
+
     dev_data_packet msg;
     msg.num = 0;
     msg.addr = 0;
 
-    uchar data[2] = {16};
-
     msg.len = 1;  //=======
-    msg.data = data;
+    msg.data = boxNumBuf;
 
     msg.fn[0] = 31;
     msg.fn[1] = 0;
@@ -467,7 +478,7 @@ void sent_busBoxNum(void)
  */
 void sent_dev_data(void)
 {
-    qDebug() << currentBus;
+  //  qDebug() << currentBus;
 
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
@@ -491,9 +502,9 @@ void sent_dev_data(void)
         free(devData);
     }
 
-    sent_busName();
-    sent_busRateCur();
-    sent_busBoxNum();
+    sent_busName(&shm->data[id]);
+    sent_busRateCur(&shm->data[id]);
+    sent_busBoxNum(&shm->data[id]);
 }
 
 
