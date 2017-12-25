@@ -72,7 +72,8 @@ void DevSetThread::run() //只设置远端
                     //修改远端
                     DbThresholdItem item;
                     switch (devToItem(cData, item)){
-                        case 1 :  saveFarend(item); break; /* 设置本地 - 同时需要设置远端 */
+                        case 1 : saveFarend(item); break; /* 设置本地 - 同时需要设置远端 */
+                        case 2 : setNameNum(cData); return; /* 仅设置本地 */
                     }
                     msleep(1000);
                 }
@@ -94,7 +95,7 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
     int Hig, Low; //高低位
     Hig = cData.fn.at(0);
     Low = cData.fn.at(1);
-   // qDebug() << "Hig:" << Hig << "Low:" << Low;
+    qDebug() << "data" << cData.data.toHex() << Hig << Low << "--";
     //先分类命令 //dev -- item
     int len = cData.data.length() / 2; //数据长度
     int data[4] = {0};
@@ -194,5 +195,10 @@ bool DevSetThread::saveFarend(DbThresholdItem &item)
         }
     }
     return true;
+}
+
+void DevSetThread::setNameNum(dev_data &cData)
+{
+
 }
 

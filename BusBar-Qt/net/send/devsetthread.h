@@ -38,6 +38,7 @@ protected:
     int devToItem(dev_data &cData, DbThresholdItem &item); //设置 -- 本地共享内存 or 远端
     bool saveLocal(DbThresholdItem &item);  // 本地设置
     bool saveFarend(DbThresholdItem &item); // 远端设置
+    void setNameNum(dev_data &cData); // 设置名字什么的
 
 public:
     bool isRun;
