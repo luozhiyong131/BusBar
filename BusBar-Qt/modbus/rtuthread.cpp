@@ -151,6 +151,21 @@ void RtuThread::transData(int addr)
     }
 
     box->offLine = offLine; //在线
+
+    /////=============
+    box->data.vol.value[0] = 229;
+    box->data.vol.value[1] = 231;
+    box->data.vol.value[2] = 234;
+    box->offLine = 1;
+
+    if(addr == 0) {
+        box->data.cur.value[0] = 9;
+        box->data.cur.value[1] = 12;
+        box->data.cur.value[1] = 0;
+    }
+
+
+
 }
 
 
@@ -162,8 +177,8 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             transData(i); //更新串口的数据 -- 确认是否离线
-            msleep(65);
+            msleep(165);
         }
-        msleep(1300);
+        msleep(800);
     }
 }
