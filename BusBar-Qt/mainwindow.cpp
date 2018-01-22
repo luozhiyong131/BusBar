@@ -33,6 +33,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //修改数据线程
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), SetBOXThread::bulid(), SLOT(busChangedSlot(int)));
+
+    char *ip = "ifconfig eth1 192.168.100.233";
+    system(ip);
+//    ip = "ifconfig eht1 192.168.100.234 netmask 255.255.255.0 up";
+//    system(ip);
+//    ip = "route add default gw 192.168.100.1";
+//    system(ip);
 }
 
 MainWindow::~MainWindow()

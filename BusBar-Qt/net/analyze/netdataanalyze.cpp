@@ -48,7 +48,7 @@ void NetDataAnalyze::initFun(void)
 {
     mHeartBeat->startSent(); // 启动心跳
 
-    start(); // 自动启动线程
+    start(); // 自动启动线程 -- 接收数据
 }
 
 void NetDataAnalyze::timeoutDone()
@@ -63,7 +63,7 @@ void NetDataAnalyze::timeoutDone()
  */
 int NetDataAnalyze::recvData(void)
 {
-    int rtn = mSocket->recvData(mIP, mRecvBuf);
+    int rtn = mSocket->recvData(mIP, mRecvBuf);  //接收数据
     if(rtn > 0)
     {
         rtn = net_data_analytic(mRecvBuf, rtn, mPacket); //网络数据包解包

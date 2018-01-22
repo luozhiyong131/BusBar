@@ -38,7 +38,11 @@ protected:
     int devToItem(dev_data &cData, DbThresholdItem &item); //设置 -- 本地共享内存 or 远端
     bool saveLocal(DbThresholdItem &item);  // 本地设置
     bool saveFarend(DbThresholdItem &item); // 远端设置
-    void setNameNum(dev_data &cData); // 设置名字什么的
+
+    void setNameNum(dev_data &cData, int type); // 设置名字什么的
+    void setName(dev_data &cData); //设置名字
+    void setLineRatedCur(dev_data &cData); //设置额定电流
+    void setLineBoxNum(dev_data &cData); //设置插接数
 
 public:
     bool isRun;

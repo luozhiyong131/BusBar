@@ -35,8 +35,10 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     DbThresholdItem item;
     switch (devToItem(cData, item)){
         case 1 :  saveLocal(item); break; /* 设置本地 - 同时需要设置远端 */
-        case 2 :  return; /* 仅仅设置本地 */
-        case 3 :   /* */
+        case 2 :  setNameNum(cData, 2); return; /* 仅设置本地 - name   */
+        case 3 :  setNameNum(cData, 3); return; /* 仅设置本地 - A      */
+        case 4 :  setNameNum(cData, 4); return; /* 仅设置本地 - num    */
+        case 5 :   /* */
             break;
     }
 
@@ -73,7 +75,6 @@ void DevSetThread::run() //只设置远端
                     DbThresholdItem item;
                     switch (devToItem(cData, item)){
                         case 1 : saveFarend(item); break; /* 设置本地 - 同时需要设置远端 */
-                        case 2 : setNameNum(cData); return; /* 仅设置本地 */
                     }
                     msleep(1000);
                 }
@@ -90,12 +91,12 @@ void DevSetThread::run() //只设置远端
 
 int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
 {
-    /* 返回1为电流电压温度 0表示只做本地操作不做远端操作 */
-    int re = 0;
+    /* 返回1为电流电压温度 -1表示啥都不做   只做本地操作不做远端操作 */
+    int re = -1;
     int Hig, Low; //高低位
     Hig = cData.fn.at(0);
     Low = cData.fn.at(1);
-    qDebug() << "data" << cData.data.toHex() << Hig << Low << "--";
+   // qDebug() << "data" << cData.data.toHex() << Hig << Low << "--";
     //先分类命令 //dev -- item
     int len = cData.data.length() / 2; //数据长度
     int data[4] = {0};
@@ -130,11 +131,24 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
 
     case 0x00 :  qDebug() << "- OutA"; break; /* 输出位电流 */
     case 0x04 :  qDebug() << "- Hum"; break; /* 湿度 */
-    case 0x71 :  { /* 回路电流 */
-        qDebug() << "- LoopA";
+    case 0x71 :  qDebug() << "- LoopA"; break; /* 回路电流 */
+    case 0x72 :  qDebug() << "- On/Off"; break; /* 开关 */
+
+    case 0x05 :  { /* 母线名字 */
+        qDebug() << "- busName";
+        re = 2;
         break;
     }
-    case 0x72 :  qDebug() << "- On/Off"; break; /* 开关 */
+    case 0x1E :  { /* 额定电流 */
+        qDebug() << "- RateCur";
+        re = 3;
+        break;
+    }
+    case 0x1F :  { /* 插接箱数 */
+        qDebug() << "- BoxNum";
+        re = 4;
+        break;
+    }
     default   :  break;
     }
     item.min = data[0]*aret/10;
@@ -197,8 +211,40 @@ bool DevSetThread::saveFarend(DbThresholdItem &item)
     return true;
 }
 
-void DevSetThread::setNameNum(dev_data &cData)
+void DevSetThread::setNameNum(dev_data &cData, int type)
 {
+    /* 2 - name   3 - A   4 - mun */
+    qDebug() << "Type" << type;
+    switch (type) {
+    case 2: setName(cData);break;
+    case 3: setLineRatedCur(cData);break;
+    case 4: setLineBoxNum(cData);break;
+    default:
+        break;
+    }
+}
 
+void DevSetThread::setName(dev_data &cData)
+{
+    DbNameItem item;
+    item.bus = cData.num;
+    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    item.num = 0; // 编号
+    item.name = QString(cData.data);
+    mShm->setName(item);
+}
+
+void DevSetThread::setLineRatedCur(dev_data &cData)
+{
+    int data = 0;
+    data = cData.data.at(0)<<8 | cData.data.at(1);
+    mShm->setLineRatedCur(cData.num,data * COM_RATE_CUR / 10);
+}
+
+void DevSetThread::setLineBoxNum(dev_data &cData)
+{
+    int data = 0;
+    data = cData.data.at(0);
+    mShm->setLineBoxNum(cData.num, data);
 }
 

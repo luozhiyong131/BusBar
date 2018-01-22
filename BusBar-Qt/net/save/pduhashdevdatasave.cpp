@@ -38,7 +38,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
     case PDU_CMD_ALARM:
         sizeBit = 1;
         ptr = unit->alarm;
-        break;
+        return; /////====
 
     case PDU_CDM_CRMIN:
         ptr = unit->crMin;

@@ -194,7 +194,7 @@ AppTcpServer::~AppTcpServer()
 void AppTcpServer::sent(uchar *data, int len)
 {
     tcp_sent(data, len);
-    usleep(5);
+    msleep(3);
 }
 
 void AppTcpServer::run()

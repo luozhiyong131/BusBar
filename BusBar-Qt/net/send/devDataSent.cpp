@@ -299,10 +299,10 @@ void sent_devData(uchar id, pduDevData *devData)
     sent_object(&(devData->line),buf, &msg);
 
     msg.fn[0] = fn++;
-//    sent_object(&(devData->output),buf,&msg);
+    //    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
-//    sent_object(&(devData->output),buf,&msg);
+    //    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
     sent_envObject(&(devData->env), buf,&msg);
@@ -391,13 +391,16 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     init_Unit(&(ptr->vol), &(obj->vol), 0);
     init_Unit(&(ptr->cur), &(obj->cur), 1);
 
-
     ptr->sw    = swBuf;   //开关状态
     ptr->pow   = powBuf;  // 功率
     ptr->ele   = eleBuf;  // 电能
     ptr->pf    = pfBuf;   //功率因素
     ptr->apPow = apPowBuf; //视在功率
     ptr->wave  = waveBuf;  // 谐波值
+
+    //////============
+    for(int i=0; i<LINE_NUM; ++i)
+        ptr->vol.value[i] = 234;
 
 }
 
@@ -420,7 +423,7 @@ void sent_busName(sBusData *bus)
 {
     static uchar nameBuf[NAME_LEN] = {0};
     for(int i = 0; i < NAME_LEN; i++)
-            nameBuf[i] = (uchar)bus->busName[i];
+        nameBuf[i] = (uchar)bus->busName[i];
 
     dev_data_packet msg;
     msg.num = 0;
@@ -458,8 +461,8 @@ void sent_busRateCur(sBusData *bus)
 void sent_busBoxNum(sBusData *bus)
 {
     static uchar boxNumBuf[2] = {2};
-           boxNumBuf[0] = bus->boxNum;
-           boxNumBuf[1] = bus->boxNum;
+    boxNumBuf[0] = bus->boxNum;
+    boxNumBuf[1] = bus->boxNum;
 
     dev_data_packet msg;
     msg.num = 0;
@@ -478,14 +481,14 @@ void sent_busBoxNum(sBusData *bus)
  */
 void sent_dev_data(void)
 {
-  //  qDebug() << currentBus;
+    //  qDebug() << currentBus;
 
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+//        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
