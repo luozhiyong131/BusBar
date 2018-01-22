@@ -29,7 +29,7 @@ static int rtu_recv_len(uchar *buf, int len)
          len = buf[2];
         if(len != RTU_SENT_LEN) {
             ret = -3;
-//            qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_LEN;
+            qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_LEN;
         }
     }
 
@@ -140,10 +140,10 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
             ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
         pkt->lineNum = *ptr;
 
-//        for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
-         for(int i=0; i<9; ++i) // 读取电参数
+        for(int i=0; i<RTU_LINE_MAX; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
         ret = rtu_recv_crc(buf, len, pkt); //校验码
+        qDebug() << ret;
     }
     return ret;
 }

@@ -164,6 +164,6 @@ void RtuThread::run()
             transData(i); //更新串口的数据 -- 确认是否离线
             msleep(65);
         }
-        msleep(100);
+        msleep(1300);
     }
 }

@@ -467,8 +467,6 @@ void sent_busBoxNum(void)
  */
 void sent_dev_data(void)
 {
-    qDebug() << currentBus;
-
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
