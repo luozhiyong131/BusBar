@@ -152,7 +152,7 @@ void RtuThread::transData(int addr)
 
     box->offLine = offLine; //在线
 
-#if 0  // 删除 因为演示才加的代码 制造假数据  没用
+#if 0  // 删除 因为演示才加的代码 制造假数据  没用  记得删除
     /////=============
     box->data.vol.value[0] = 229;
     box->data.vol.value[1] = 231;
