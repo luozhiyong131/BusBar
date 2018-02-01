@@ -64,7 +64,9 @@ SOURCES += \
     output/op_outputdlg.cpp \
     output/op_tablewidget.cpp \
     logs/log_showdlg.cpp \
-    logs/log_tableview.cpp
+    logs/log_tableview.cpp \
+    ctoolbutton.cpp \
+    common/msgbox.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -97,7 +99,9 @@ HEADERS += \
     output/op_outputdlg.h \
     output/op_tablewidget.h \
     logs/log_showdlg.h \
-    logs/log_tableview.h
+    logs/log_tableview.h \
+    ctoolbutton.h \
+    common/msgbox.h
 
 FORMS += \
         mainwindow.ui \

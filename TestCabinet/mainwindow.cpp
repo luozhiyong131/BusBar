@@ -7,6 +7,7 @@
 #include "log_showdlg.h"
 #include "timesettingdlg.h"
 #include "fv_maindlg.h"
+#include "common/msgbox.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     timer->start(1000);
+
+    connect(ui->logoBtn, SIGNAL(longPressSig(int)), this, SLOT(onLongPressSlot(int)));
 }
 
 MainWindow::~MainWindow()
@@ -134,4 +137,40 @@ void MainWindow::on_timeBtn_clicked()
     TimeSettingDlg *dlg = new TimeSettingDlg(this);
     dlg->exec();
     delete dlg;
+}
+
+static bool update_fun(const QString &str)  //升级函数
+{
+    bool ret = true;
+    int rets = system("mount -a /dev/sda1 /mnt/sda1/");
+    if(rets < 0) return false;
+    QFileInfo fi(QString("/mnt/%1/TestCabinet/app").arg(str));
+    if(fi.exists()) {
+        int ret = system("rm -rf /mnt/mtdblock3/app");
+        if(ret < 0) {
+            qDebug() << "rm -rf /mnt/mtdblock3/app err ";
+        }
+        QString cstr = QString("cp /mnt/%1/TestCabinet/app /mnt/mtdblock3/app").arg(str);
+        ret = system(cstr.toLatin1());
+        if(ret < 0) {
+            qDebug() << str.toLatin1() << " err ";
+        }
+        system("reboot");
+    } else {
+        ret = false;
+    }
+
+    return ret;
+}
+
+void MainWindow::onLongPressSlot(int time)
+{
+    if(time < 3000) return;
+    QuMsgBox box(this, tr("是否升级系统?"));
+    if(box.Exec()) {
+        bool ret = update_fun("sda1");
+       // if(!ret) ret = update_fun("mmcblk0p1");
+        if(!ret)
+            CriticalMsgBox box(this, tr("升级文件未找到！\n 请插入U盘，把升级文件放入TestCabinet目录下!"));
+    }
 }

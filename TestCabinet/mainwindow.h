@@ -36,6 +36,8 @@ private slots:
 
     void on_timeBtn_clicked();
 
+    void onLongPressSlot(int time);
+
 private:
     Ui::MainWindow *ui;
      QTimer *timer;
