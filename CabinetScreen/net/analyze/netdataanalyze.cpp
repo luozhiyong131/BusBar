@@ -98,7 +98,7 @@ void NetDataAnalyze::run(void)
     {
         for(int i=0; i<IF_ETH_NUM; ++i) {
             mHeartBeat->heartbeatPacket(i, IP_ADDR);
-            msleep(1800);
+            msleep(1950);
 
             for(int k=0; k<UDP_PORT_NUM; k++) {
                 do {
