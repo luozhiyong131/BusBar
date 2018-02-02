@@ -534,21 +534,21 @@ void MDB_ReadThread::autoUpdateThread(NPM_sPDUData &pduData, uchar addr)
         updateTotalCurThreshold(pduData.totalData, addr);
         break;
 
-    case 3: // 更新环境数据
+//    case 3: // 更新环境数据
 //        updateEnv(pduData.alarm, addr);
-        break;
+//        break;
 
-    case 4: // 更新阀值
-        updateEnvThreshold(pduData.alarm, addr);
-        break;
+//    case 4: // 更新阀值
+//        updateEnvThreshold(pduData.alarm, addr);
+//        break;
 
-    case 5:  // 更新设备信息
+//    case 5:  // 更新设备信息
 //        updateDev(pduData.dev, addr);
-        break;
+//        break;
 
-    case 6: // 更新IP
-        //updateIP(pduData.dev, addr);
-        break;
+//    case 6: // 更新IP
+//        updateIP(pduData.dev, addr);
+//        break;
 
     default:
         m_stepThreshold = 0;
