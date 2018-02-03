@@ -3,9 +3,6 @@
 
 #include "rtu_sent.h"
 
-#define RTU_LINE_NUM 9 // 3相
-#define RTU_TH_NUM 3 // 3个传感器
-
 struct RtuRecvLine {
     ushort vol; // 电压值
     ushort cur; // 电流值

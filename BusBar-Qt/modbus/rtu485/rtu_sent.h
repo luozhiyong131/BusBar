@@ -3,8 +3,9 @@
 
 #include <QtCore>
 
-#define RTU_SENT_LEN (22*9+1+3*3+1)  ////=============  长度需要改变 ////============ 加上开关，功率因素之后，是为14
-//#define RTU_SENT_LEN (22*3+1+3*3+1)  ////=============  长度需要改变 ////============ 加上开关，功率因素之后，是为14
+#define RTU_LINE_NUM 9 // 3相
+#define RTU_TH_NUM 3 // 3个传感器
+#define RTU_SENT_LEN (22*RTU_LINE_NUM+1+3*3+1)  // 长度需要改变 ////============ 加上开关，功率因素之后，是为14
 
 
 struct Rtu_Sent {

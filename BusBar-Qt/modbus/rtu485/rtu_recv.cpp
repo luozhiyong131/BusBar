@@ -15,15 +15,14 @@
 static int rtu_recv_len(uchar *buf, int len)
 {
     int ret = 0;
-    int rtn = RTU_SENT_LEN+5;   ///===============
-//    int rtn = RTU_SENT_LEN+6;   /// 6
+    int rtn = RTU_SENT_LEN+5;
 
     if(len < rtn) {
         ret = -1;
-        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
+//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
         ret = -2;
-        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
 //        len = buf[2]*256 + buf[3];
          len = buf[2];
@@ -48,11 +47,8 @@ static int rtu_recv_head(uchar *ptr,  Rtu_recv *pkt)
     pkt->addr = *(ptr++);// 从机地址码
     pkt->fn = *(ptr++);  /*功能码*/
 
-    ///============
     pkt->len = (*ptr) ; /*数据长度*/
     return 3;
-//    pkt->len = (*ptr) * 256 + *(ptr+1); /*数据长度*/
-//    return 4;
 }
 
 /**
