@@ -20,10 +20,10 @@ static int rtu_recv_len(uchar *buf, int len)
 
     if(len < rtn) {
         ret = -1;
-//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
+        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
         ret = -2;
-//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
 //        len = buf[2]*256 + buf[3];
          len = buf[2];
@@ -108,9 +108,8 @@ static int rtu_recv_env(uchar *ptr, RtuEnvUnit *msg)
 static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
 {
     bool ret = true;
-    int rtn = len-2; uchar *ptr = buf+rtn;
+    int rtn = len-2;
 
-    msg->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
     ushort crc = rtu_crc(buf, rtn);
     if(crc != msg->crc) {
         ret = false;
@@ -137,25 +136,15 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         uchar *ptr=buf;
         ptr += rtu_recv_head(ptr, pkt); //指针偏移
 
-///===============
         pkt->rate = *(ptr++);
-
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
             ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
-        pkt->lineNum = *ptr;
+        pkt->lineNum = *(ptr++);
 
-        for(int i=0; i<RTU_LINE_MAX; ++i) // 读取电参数
+        for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
-
-
-//        for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
-//            ptr += rtu_recv_data(ptr, &(pkt->data[i]));
-//        pkt->rate = *(ptr++);
-//        for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
-//            ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
-//        pkt->lineNum = *ptr;
-
+        pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
         ret = rtu_recv_crc(buf, len, pkt); //校验码
     }
     return ret;

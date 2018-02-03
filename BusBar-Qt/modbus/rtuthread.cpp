@@ -108,12 +108,12 @@ void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
 {
     sObjData *loop = &(box->data);
-    for(int i=0; i<LINE_NUM; i++)
+     loop->lineNum = pkt->lineNum;
+    for(int i=0; i<loop->lineNum; i++)
     {
         RtuRecvLine *data = &(pkt->data[i]);
         loopObjData(loop, i, data);
-    }
-    loop->lineNum = pkt->lineNum;
+    }   
 }
 
 void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
@@ -160,9 +160,10 @@ void RtuThread::run()
     while(isRun)
     {
         for(int i=0; i<=mBusData->boxNum; ++i)
+//        for(int i=0; i<1; ++i)
         {
             transData(i); //更新串口的数据 -- 确认是否离线
-            msleep(165);
+            msleep(465);
         }
         msleep(800);
     }
