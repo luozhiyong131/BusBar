@@ -16,7 +16,7 @@ FV_WaitDlg::FV_WaitDlg(QWidget *parent) :
     m_time = 0;
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    timer->start(1300);
+    timer->start(1450);
 }
 
 FV_WaitDlg::~FV_WaitDlg()
@@ -27,6 +27,6 @@ FV_WaitDlg::~FV_WaitDlg()
 void FV_WaitDlg::timeoutDone(void)
 {
     ui->progressBar->setValue(m_time++);
-    if(m_time > 35)
+    if(m_time > 31)
         this->close();
 }
