@@ -16,7 +16,7 @@ FV_WaitDlg::FV_WaitDlg(QWidget *parent) :
     m_time = 0;
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    timer->start(1450);
+    timer->start(1850);
 }
 
 FV_WaitDlg::~FV_WaitDlg()
