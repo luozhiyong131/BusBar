@@ -17,6 +17,7 @@
 #include <string.h>
 
 #define LINE_NUM 3 // 三相
+#define LINE_NUM_MAX 9 // 三相
 #define BOX_NUM 32 // 插接箱数量
 #define BUS_NUM 2  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
@@ -41,14 +42,14 @@ typedef struct _sTgObjData {
  * 数据单元：包括当前值，阈值，临界值，报警状态等
  */
 typedef struct _sDataUnit {
-    int value[LINE_NUM]; // 值
-    int min[LINE_NUM]; // 最小值
-    int max[LINE_NUM]; // 最大值
-    int alarm[LINE_NUM]; // 报警值 0表示未报警  1表示已报警 2表示已纪录
+    int value[LINE_NUM_MAX]; // 值
+    int min[LINE_NUM_MAX]; // 最小值
+    int max[LINE_NUM_MAX]; // 最大值
+    int alarm[LINE_NUM_MAX]; // 报警值 0表示未报警  1表示已报警 2表示已纪录
 
-    int crMin[LINE_NUM]; // 临界最小值
-    int crMax[LINE_NUM]; // 临界最大值
-    int crAlarm[LINE_NUM]; // 临界报警值
+    int crMin[LINE_NUM_MAX]; // 临界最小值
+    int crMax[LINE_NUM_MAX]; // 临界最大值
+    int crAlarm[LINE_NUM_MAX]; // 临界报警值
 }sDataUnit;
 
 /**
@@ -59,13 +60,13 @@ typedef struct _sObjData {
     sDataUnit vol; // 电压
     sDataUnit cur;  // 电流
 
-    int pow[LINE_NUM]; // 功率
-    int ele[LINE_NUM]; // 电能
-    int pf[LINE_NUM]; // 功率因素
-    int sw[LINE_NUM]; // 开关状态
-    int apPow[LINE_NUM]; // 视在功率
-    int ratedCur[LINE_NUM]; // 额定电流
-    int wave[LINE_NUM]; // 谐波值
+    int pow[LINE_NUM_MAX]; // 功率
+    int ele[LINE_NUM_MAX]; // 电能
+    int pf[LINE_NUM_MAX]; // 功率因素
+    int sw[LINE_NUM_MAX]; // 开关状态
+    int apPow[LINE_NUM_MAX]; // 视在功率
+    int ratedCur[LINE_NUM_MAX]; // 额定电流
+    int wave[LINE_NUM_MAX]; // 谐波值
 }sObjData;
 
 
@@ -85,7 +86,7 @@ typedef struct _sBoxData {
     int loopNum; // 回路数量
 
     sObjData data; // 回路数据
-    char loopName[LINE_NUM][NAME_LEN]; // 回路名称
+    char loopName[LINE_NUM_MAX][NAME_LEN]; // 回路名称
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 插接箱统计信息

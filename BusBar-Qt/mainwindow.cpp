@@ -33,13 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //修改数据线程
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), SetBOXThread::bulid(), SLOT(busChangedSlot(int)));
-
-    char *ip = "ifconfig eth1 192.168.100.233";
-    system(ip);
-//    ip = "ifconfig eht1 192.168.100.234 netmask 255.255.255.0 up";
-//    system(ip);
-//    ip = "route add default gw 192.168.100.1";
-//    system(ip);
 }
 
 MainWindow::~MainWindow()
@@ -55,18 +48,18 @@ void MainWindow::initSerial()
 {
    rtu[0] = new RtuThread(this);
    rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
-#if BUS_NUM > 1
-   rtu[1] = new RtuThread(this);
-   rtu[1]->init(SERIAL_COM2, 2);
-#endif
-#if BUS_NUM > 2
-   rtu[2] = new RtuThread(this);
-   rtu[2]->init(SERIAL_COM3, 3);
-#endif
-#if BUS_NUM > 3
-   rtu[3] = new RtuThread(this);
-   rtu[3]->init(SERIAL_COM4, 4);
-#endif
+//#if BUS_NUM > 1
+//   rtu[1] = new RtuThread(this);
+//   rtu[1]->init(SERIAL_COM2, 2);
+//#endif
+//#if BUS_NUM > 2
+//   rtu[2] = new RtuThread(this);
+//   rtu[2]->init(SERIAL_COM3, 3);
+//#endif
+//#if BUS_NUM > 3
+//   rtu[3] = new RtuThread(this);
+//   rtu[3]->init(SERIAL_COM4, 4);
+//#endif
 }
 
 void MainWindow::updateTime()

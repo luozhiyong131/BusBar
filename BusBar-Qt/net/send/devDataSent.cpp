@@ -377,7 +377,6 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     static ushort apPowBuf[LINE_NUM] = {2*1000};
     static ushort waveBuf[LINE_NUM] = {2*1000};
 
-
     for(int i = 0; i < LINE_NUM; i++){
         swBuf[i]    = (uchar)obj->sw[i];
         powBuf[i]   = (uint)obj->pow[i];
@@ -397,11 +396,6 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     ptr->pf    = pfBuf;   //功率因素
     ptr->apPow = apPowBuf; //视在功率
     ptr->wave  = waveBuf;  // 谐波值
-
-    //////============
-    for(int i=0; i<LINE_NUM; ++i)
-        ptr->vol.value[i] = 234;
-
 }
 
 
@@ -481,17 +475,12 @@ void sent_busBoxNum(sBusData *bus)
  */
 void sent_dev_data(void)
 {
-<<<<<<< HEAD
-    //  qDebug() << currentBus;
-
-=======
->>>>>>> master
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-//        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
