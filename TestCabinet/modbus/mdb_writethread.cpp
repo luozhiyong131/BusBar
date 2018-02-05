@@ -33,7 +33,7 @@ bool MDB_writeThread::transData(QVector <short> &data)
      }
      int ret = npmv_write_data(m_writeData);
 
-    msleep(500); // 写之前等等
+    msleep(700); // 写之前等等
     ret = m_trans->sendData(m_buf, ret);   // 发送数据
     if(ret > 0)
     {
@@ -58,7 +58,7 @@ bool MDB_writeThread::transData(QVector <short> &data)
   */
 bool MDB_writeThread::writeThreshold(void)
 {
-    m_delay = 430;
+    m_delay = 10;
     NPM_SetUnit unit;
 
     if( m_que.size() > 0)
@@ -71,13 +71,13 @@ bool MDB_writeThread::writeThreshold(void)
         case NPM_CUR_MIN: // 设置输出单元电流最小值
             m_writeData.reg = NPMV_CUR_MIN;
             m_writeData.num = NPMV_OUT_COUNT;
-            m_delay = 440;
+            m_delay = 20;
             break;
 
         case NPM_CUR_MAX: // 设置输出单元电流最大值
             m_writeData.reg = NPMV_CUR_MAX;
             m_writeData.num = NPMV_OUT_COUNT;
-             m_delay = 440;
+             m_delay = 20;
             break;
 
         case NPM_TCUR_MIN: // 设置总电流最小值
