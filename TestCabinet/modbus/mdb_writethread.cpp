@@ -71,13 +71,13 @@ bool MDB_writeThread::writeThreshold(void)
         case NPM_CUR_MIN: // 设置输出单元电流最小值
             m_writeData.reg = NPMV_CUR_MIN;
             m_writeData.num = NPMV_OUT_COUNT;
-            m_delay = 20;
+            m_delay = 27;
             break;
 
         case NPM_CUR_MAX: // 设置输出单元电流最大值
             m_writeData.reg = NPMV_CUR_MAX;
             m_writeData.num = NPMV_OUT_COUNT;
-             m_delay = 20;
+             m_delay = 27;
             break;
 
         case NPM_TCUR_MIN: // 设置总电流最小值

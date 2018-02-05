@@ -23,7 +23,7 @@ protected:
     void autoUpdateThread(NPM_sPDUData &pduData,uchar addr);
 
 private:
-    int transData(int len, int mdelay=300);
+    int transData(int len, int mdelay=305);
     int updateData(NPM_CMD_sData &data,QVector <uchar> &recvData);
     int updateData(NPM_CMD_sData &data,QVector<short> &recvData);
     int updateData(NPM_CMD_sData &data,QVector<int> &recvData);
