@@ -1,5 +1,5 @@
 /**
-  * 阀值设置主窗口
+  * 阈值设置主窗口
   *         Lzy       2016-6-2
   */
 #include "fv_thresholddlg.h"
@@ -11,7 +11,7 @@ FV_ThresholdDlg::FV_ThresholdDlg(QWidget *parent) :
     ui(new Ui::FV_ThresholdDlg)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("输出电流阀值"),this);
+    com_setBackColour(tr("输出电流阈值"),this);
 //     setStyleSheet(BTN_FOCUS_BACK_COLOR);
 
 #if defined(ARM_LINUX)
@@ -30,7 +30,7 @@ FV_ThresholdDlg::~FV_ThresholdDlg()
 }
 
 /**
-  * 功　能：设置阀值响应函数
+  * 功　能：设置阈值响应函数
   * 入口参数：bit -> 输出位
   * 返回值：
   */
@@ -44,7 +44,7 @@ void FV_ThresholdDlg::setSlot(int bit)
     if(ret == QDialog::Accepted)
     {
         dlg->getData(m_curMin, m_curMax);
-        if(bit) // 单独设置某位输出单元阀值
+        if(bit) // 单独设置某位输出单元阈值
         {
             short curMin = m_curMin.at(bit-1);
             short curMax = m_curMax.at(bit-1);
@@ -56,7 +56,7 @@ void FV_ThresholdDlg::setSlot(int bit)
 
             ui->okBtn->setEnabled( true);
         }
-        else // 统一设置单元阀值
+        else // 统一设置单元阈值
         {
             m_table_1->updateThreshold(bit, m_curMin.at(0), m_curMax.at(0));
             m_table_2->updateThreshold(bit, m_curMin.at(0), m_curMax.at(0));
@@ -129,7 +129,7 @@ void FV_ThresholdDlg::on_setAllBtn_clicked()
   */
  void FV_ThresholdDlg::slaveRecord(void)
  {
-     QString str = tr("输出电流阀值修改");
+     QString str = tr("输出电流阈值修改");
      QString msg = "Output";
 
      if(m_bit)
@@ -164,7 +164,7 @@ void FV_ThresholdDlg::on_okBtn_clicked()
 }
 
 /**
-  * 功　能：阀值刷新
+  * 功　能：阈值刷新
   * 入口参数：
   * 返回值：无
   */
@@ -191,7 +191,7 @@ void FV_ThresholdDlg::on_cancelBtn_clicked()
     {
         QMessageBox msgBox(this);
          com_setBackColour(tr("信息提示"),&msgBox);
-        msgBox.setText(tr("\n您已修改阀值，是否要放弃修改？\n"));
+        msgBox.setText(tr("\n您已修改阈值，是否要放弃修改？\n"));
         msgBox.setStandardButtons (QMessageBox::Ok|QMessageBox::Cancel);
         msgBox.setButtonText (QMessageBox::Ok,QString("确定"));
         msgBox.setButtonText (QMessageBox::Cancel,QString("取 消"));

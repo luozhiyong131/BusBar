@@ -6,7 +6,7 @@ FV_MainDlg::FV_MainDlg(QWidget *parent) :
     ui(new Ui::FV_MainDlg)
 {
     ui->setupUi(this);    
-    com_setBackColour(tr("阀值设置"),this);
+    com_setBackColour(tr("阈值设置"),this);
 }
 
 FV_MainDlg::~FV_MainDlg()

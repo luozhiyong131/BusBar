@@ -99,7 +99,7 @@ void MainWindow::timeoutDone(void)
 }
 
 /**
-  * 功　能：阀值设置
+  * 功　能：阈值设置
   */
 void MainWindow::on_thresholdBtn_clicked()
 {

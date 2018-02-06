@@ -7,7 +7,7 @@ TOTAL_WaitDlg::TOTAL_WaitDlg(QWidget *parent) :
     ui(new Ui::TOTAL_WaitDlg)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("设置总电流阀值"),this);
+    com_setBackColour(tr("设置总电流阈值"),this);
 
     m_time = 0;
     timer = new QTimer(this);

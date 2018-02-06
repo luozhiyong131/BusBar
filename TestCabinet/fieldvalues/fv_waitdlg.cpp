@@ -11,7 +11,7 @@ FV_WaitDlg::FV_WaitDlg(QWidget *parent) :
     ui(new Ui::FV_WaitDlg)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("设置单元电流阀值"),this);
+    com_setBackColour(tr("设置单元电流阈值"),this);
 
     m_time = 0;
     timer = new QTimer(this);

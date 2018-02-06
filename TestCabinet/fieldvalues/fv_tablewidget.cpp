@@ -1,5 +1,5 @@
 /**
-  * 阀值显示表格
+  * 阈值显示表格
   *         Lzy       2016-6-2
   */
 #include "fv_tablewidget.h"
@@ -67,7 +67,7 @@ void FV_TableWidget::editBtnPress(int value)
 }
 
 /**
-  * 功　能：更新阀值
+  * 功　能：更新阈值
   * 入口参数：bit-> 输出位     0表示统一修改
   ×                     curMin -> 电流最小值
   ×                     curMax -> 电流最大值
@@ -79,7 +79,7 @@ void FV_TableWidget::updateThreshold(int bit, short curMin, short curMax)
     QString strMax = QString::number(curMax/ 10.0,'f', 1);
     int k=0;
 
-    if(bit == 0)  // 统一修改阀值
+    if(bit == 0)  // 统一修改阈值
     {
         for(int i=0; i<m_rows; ++i)
         {
@@ -211,7 +211,7 @@ void FV_TableWidget::updateWidget(void)
 
         checkAlarm(m_base + i, m_itemVec.at(k-1));
 
-        if(m_oneTime == false) // 只更新一次阀值
+        if(m_oneTime == false) // 只更新一次阈值
         {
             temp = m_data.curMin.at(m_base + i) / 10.0; // 最大值
             str = QString::number(temp,'f', 1);

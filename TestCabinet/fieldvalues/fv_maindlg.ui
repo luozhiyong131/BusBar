@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>总电流阀值设置</string>
+    <string>总电流阈值设置</string>
    </property>
   </widget>
   <widget class="QPushButton" name="outputBtn">
@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>单元电流阀值设置</string>
+    <string>单元电流阈值设置</string>
    </property>
   </widget>
   <widget class="QPushButton" name="quitBtn">

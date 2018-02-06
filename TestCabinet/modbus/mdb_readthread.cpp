@@ -169,7 +169,7 @@ int MDB_ReadThread::updateCKSData(NPM_sCurKwh  &data ,uchar addr)
 }
 
 /**
-  * 功　能：更新电流阀值
+  * 功　能：更新电流阈值
   * 入口参数：data -> 结构体
   * 返回值： > 0
   */
@@ -245,7 +245,7 @@ int MDB_ReadThread::updateTotalCur(NPM_sTotalData  &data, uchar addr)
 }
 
 /**
-  * 功　能：更新总电流阀值
+  * 功　能：更新总电流阈值
   * 入口参数：data -> 结构体
   * 返回值： > 0
   */
@@ -340,7 +340,7 @@ int MDB_ReadThread::updateEnv(NPM_sAlarm  &data, uchar addr)
 }
 
 /**
-  * 功　能：更新环境阀值
+  * 功　能：更新环境阈值
   * 入口参数：data -> 结构体
   * 返回值： > 0
   */
@@ -526,11 +526,11 @@ void MDB_ReadThread::autoUpdateThread(NPM_sPDUData &pduData, uchar addr)
 {
     switch( ++m_stepThreshold)
     {
-    case  1: // 更新电流阀值
+    case  1: // 更新电流阈值
         updateCurThreshold(pduData.curKwh, addr);
         break;
 
-    case 2: // 更新总阀值
+    case 2: // 更新总阈值
         updateTotalCurThreshold(pduData.totalData, addr);
         break;
 
@@ -538,7 +538,7 @@ void MDB_ReadThread::autoUpdateThread(NPM_sPDUData &pduData, uchar addr)
 //        updateEnv(pduData.alarm, addr);
 //        break;
 
-//    case 4: // 更新阀值
+//    case 4: // 更新阈值
 //        updateEnvThreshold(pduData.alarm, addr);
 //        break;
 

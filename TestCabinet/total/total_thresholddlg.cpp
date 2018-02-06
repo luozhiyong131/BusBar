@@ -8,7 +8,7 @@ TOTAL_ThresholdDlg::TOTAL_ThresholdDlg(QWidget *parent) :
     ui(new Ui::TOTAL_ThresholdDlg)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("总电流阀值"),this);
+    com_setBackColour(tr("总电流阈值"),this);
 
     m_initFlag = false;
     m_totalData = npm_get_pduData()->totalData; // 获取数据
@@ -212,7 +212,7 @@ void TOTAL_ThresholdDlg::timeoutDone(void)
   */
 void TOTAL_ThresholdDlg::slaveRecord(void)
 {
-    QString str = tr("总电流阀值修改");
+    QString str = tr("总电流阈值修改");
     QString msg = tr("修改范围:%1A~%2A").arg(m_tcurMin.at(0)/10.0).arg(m_tcurMax.at(0)/10.0);
     db_record_save(str,msg);
 }
@@ -295,7 +295,7 @@ void TOTAL_ThresholdDlg::on_quitBtn_clicked()
     {
         QMessageBox msgBox(this);
         com_setBackColour(tr("信息提示"),&msgBox);
-        msgBox.setText(tr("\n您已修改阀值，是否要放弃修改？\n"));
+        msgBox.setText(tr("\n您已修改阈值，是否要放弃修改？\n"));
         msgBox.setStandardButtons (QMessageBox::Ok|QMessageBox::Cancel);
         msgBox.setButtonText (QMessageBox::Ok,QString("确定"));
         msgBox.setButtonText (QMessageBox::Cancel,QString("取 消"));

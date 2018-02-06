@@ -1,5 +1,5 @@
 /**
-  * 阀值设置窗口
+  * 阈值设置窗口
   *         Lzy       2016-6-2
   */
 #include "fv_setdlg.h"
@@ -10,7 +10,7 @@ FV_SetDlg::FV_SetDlg(QWidget *parent) :
     ui(new Ui::FV_SetDlg)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("输出电流阀值设置"),this);
+    com_setBackColour(tr("输出电流阈值设置"),this);
 
     m_editBtn = m_bit =0;
     ui->okBtn->setEnabled(false);
@@ -245,13 +245,13 @@ void FV_SetDlg::on_btn_enter_clicked()
   */
 bool FV_SetDlg::checkCurValue(void)
 {
-    QString title = tr("电流阀值设置错误");
+    QString title = tr("电流阈值设置错误");
     double curMin, curMax;
 
     curMin = ui->curMin->value();
     curMax = ui->curMax->value();
     if(curMin > curMax){
-        QMessageBox::critical(this,title ,tr("\n输出单元电流阀值设置不合法，请重新输入！\n 最小值不能大于最大值\n"));
+        QMessageBox::critical(this,title ,tr("\n输出单元电流阈值设置不合法，请重新输入！\n 最小值不能大于最大值\n"));
         return false;
     }
     if(curMax > 16){
@@ -303,7 +303,7 @@ void FV_SetDlg::on_cancelBtn_clicked()
     {
         QMessageBox msgBox(this);
         com_setBackColour(tr("信息提示"),&msgBox);
-        msgBox.setText(tr("\n您已修改阀值，是否要放弃修改？\n"));
+        msgBox.setText(tr("\n您已修改阈值，是否要放弃修改？\n"));
         msgBox.setStandardButtons (QMessageBox::Ok|QMessageBox::Cancel);
         msgBox.setButtonText (QMessageBox::Ok,QString("确定"));
         msgBox.setButtonText (QMessageBox::Cancel,QString("取 消"));

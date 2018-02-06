@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>单元电流阀值</string>
+    <string>单元电流阈值</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox">
@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>单元电流阀值</string>
+    <string>单元电流阈值</string>
    </property>
   </widget>
   <widget class="QPushButton" name="okBtn">

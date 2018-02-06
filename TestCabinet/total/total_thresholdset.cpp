@@ -1,5 +1,5 @@
 /**
-  *  修改总电流阀值
+  *  修改总电流阈值
   *         Lzy       2016-6-1
   */
 #include "total_thresholdset.h"
@@ -10,7 +10,7 @@ TOTAL_ThresholdSet::TOTAL_ThresholdSet(QWidget *parent) :
     ui(new Ui::TOTAL_ThresholdSet)
 {
     ui->setupUi(this);
-    com_setBackColour(tr("总电流阀值设置"),this);
+    com_setBackColour(tr("总电流阈值设置"),this);
 
     m_editBtn = 0;
     ui->groupBox->setHidden(true);
@@ -51,13 +51,13 @@ void TOTAL_ThresholdSet::setData(QVector <short> &min, QVector <short> &max)
   */
 bool TOTAL_ThresholdSet::checkCurValue(void)
 {
-    QString title = tr("总电流阀值设置错误");
+    QString title = tr("总电流阈值设置错误");
     double curMin, curMax;
 
     curMin = ui->curMin_1->value();
     curMax = ui->curMax_1->value();
     if(curMin > curMax){
-        QMessageBox::critical(this,title ,tr("\n总电流阀值设置不合法，请重新输入！\n 最小值不能大于最大值\n"));
+        QMessageBox::critical(this,title ,tr("\n总电流阈值设置不合法，请重新输入！\n 最小值不能大于最大值\n"));
         return false;
     }
     if(curMax > 32){
@@ -69,7 +69,7 @@ bool TOTAL_ThresholdSet::checkCurValue(void)
     curMin = ui->curMin_2->value();
     curMax = ui->curMax_2->value();
     if(curMin > curMax){
-        QMessageBox::critical(this,title ,tr("相数(L2)电流阀值设置不合法，请重新输入！\n 最小值不能大于最大值"));
+        QMessageBox::critical(this,title ,tr("相数(L2)电流阈值设置不合法，请重新输入！\n 最小值不能大于最大值"));
         return false;
     }
     if(curMax > 32){
@@ -80,7 +80,7 @@ bool TOTAL_ThresholdSet::checkCurValue(void)
     curMin = ui->curMin_3->value();
     curMax = ui->curMax_3->value();
     if(curMin > curMax){
-        QMessageBox::critical(this,title ,tr("相数(L3)电流阀值设置不合法，请重新输入！\n 最小值不能大于最大值"));
+        QMessageBox::critical(this,title ,tr("相数(L3)电流阈值设置不合法，请重新输入！\n 最小值不能大于最大值"));
         return false;
     }
     if(curMax > 32){
@@ -122,7 +122,7 @@ void TOTAL_ThresholdSet::setCurValue(void)
 }
 
 /**
-  * 功　能：显示阀值
+  * 功　能：显示阈值
   * 入口参数：
   * 返回值：无
   */
@@ -405,7 +405,7 @@ void TOTAL_ThresholdSet::on_cancelBtn_clicked()
     {
         QMessageBox msgBox(this);
          com_setBackColour(tr("信息提示"),&msgBox);
-        msgBox.setText(tr("\n您已修改阀值，是否要放弃修改？\n"));
+        msgBox.setText(tr("\n您已修改阈值，是否要放弃修改？\n"));
         msgBox.setStandardButtons (QMessageBox::Ok|QMessageBox::Cancel);
         msgBox.setButtonText (QMessageBox::Ok,QString("确定"));
         msgBox.setButtonText (QMessageBox::Cancel,QString("取 消"));
