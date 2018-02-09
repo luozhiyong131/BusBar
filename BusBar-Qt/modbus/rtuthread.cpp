@@ -162,7 +162,7 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             transData(i); //更新串口的数据 -- 确认是否离线
-            msleep(265);
+            msleep(365);
         }
         msleep(800);
     }
