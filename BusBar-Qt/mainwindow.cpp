@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this); //线程
     mInitShm->start(); //初始化共享内存 -- 单线程运行一次
 
-    initSerial(); //串口
 
     mIndex = 0;
     initWidget();
@@ -106,7 +105,8 @@ void MainWindow::checkAlarm()
 }
 
 void MainWindow::initFunSLot()
-{
+{    
+    initSerial(); //串口
     new DpThread(this); // 创建数据处理线程
     updateTime();
 

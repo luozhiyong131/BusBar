@@ -149,7 +149,6 @@ void RtuThread::transData(int addr)
             }
         }
     }
-
     box->offLine = offLine; //在线
 }
 

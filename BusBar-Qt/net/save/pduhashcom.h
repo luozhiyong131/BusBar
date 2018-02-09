@@ -37,7 +37,6 @@ int get_pdu_devCode(uchar *prt);
 bool pdu_netData_check(uchar type, uchar trans);  //协议匹配
 
 void pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit);
-
 bool char_to_string(QString &str, uchar *data, ushort len);
 void pdu_saveHash_string(char *strBase, ushort len, uchar *data);
 void pdu_devStr_save(char *strBase, pdu_dev_data *data);

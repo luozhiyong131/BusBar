@@ -12,7 +12,6 @@
 
 #define SHM_KEY	1234
 
-
 /**
  * 获取共享内存
  */
@@ -31,7 +30,6 @@ sDataPacket *share_mem_get()
         return NULL;
     }
 //	printf("\nMemory attached at %X\n", (int)shm);
-
     return (sDataPacket *)shm;
 }
 
