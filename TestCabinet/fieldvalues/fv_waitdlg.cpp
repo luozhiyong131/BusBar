@@ -27,6 +27,5 @@ FV_WaitDlg::~FV_WaitDlg()
 void FV_WaitDlg::timeoutDone(void)
 {
     ui->progressBar->setValue(m_time++);
-    if(m_time > 31)
-        this->close();
+    if(m_time > 31) this->close();
 }

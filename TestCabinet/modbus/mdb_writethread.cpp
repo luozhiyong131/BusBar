@@ -33,7 +33,7 @@ bool MDB_writeThread::transData(QVector <short> &data)
      }
      int ret = npmv_write_data(m_writeData);
 
-    msleep(500); // 写之前等等
+    msleep(700); // 写之前等等
     ret = m_trans->sendData(m_buf, ret);   // 发送数据
     if(ret > 0)
     {

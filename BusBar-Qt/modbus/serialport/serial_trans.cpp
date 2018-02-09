@@ -203,7 +203,7 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
     QMutexLocker locker(&mutex);
     int ret = sendData(sent, len);
     if(ret > 0) {
-        ret = recvData(recv, 5);
+        ret = recvData(recv, 4);
 //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
     }
     return ret;
