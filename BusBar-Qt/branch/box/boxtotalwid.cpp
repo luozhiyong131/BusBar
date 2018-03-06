@@ -30,6 +30,19 @@ void BoxTotalWid::timeoutDone()
 {
     updateData();
 }
+/*
+void BoxTotalWid::setTemp(int id, int column)
+{
+    QString str = "---";
+    sDataUnit *unit = &(mEnvData->tem);
+
+    double value = unit->value[id]/COM_RATE_TEM;
+    if(value >= 0)
+        str = QString::number(value) + "°C";
+    setTableItem(id, column, str);
+
+    setAlarmStatus(id, column,unit->alarm[id], unit->crAlarm[id]);
+}*/
 
 void BoxTotalWid::updateData()
 {
@@ -50,4 +63,14 @@ void BoxTotalWid::updateData()
 
     str = QString::number(mTgBox->vol) + "V";
     ui->vollab->setText(str);
+
+    str =  QString::number(mEnvBox->tem.value[0]) + "°C";
+    ui->tem1->setText(str);
+
+    str =  QString::number(mEnvBox->tem.value[1]) + "°C";
+    ui->tem2->setText(str);
+
+    str =  QString::number(mEnvBox->tem.value[2]) + "°C";
+    ui->tem3->setText(str);
+
 }

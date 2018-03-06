@@ -35,7 +35,7 @@ void TemSettingWid::initTableWidget()
     mWidget->setRowCount(0);
 
     QStringList horHead;
-    horHead<< tr("插接箱");
+    horHead<< tr("接插箱");
     for(int i=0; i<SENSOR_NUM; ++i)
         horHead << tr("温度") + QString::number(i+1);
 
@@ -111,7 +111,7 @@ void TemSettingWid::updateWid(int index)
 
 
 /**
- * @brief 设置插接箱名称
+ * @brief 设置接插箱名称
  * @param row
  * @param column
  */
@@ -169,6 +169,7 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
         SettingThreshold settingWid(this);
         settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();
+
     }
     connect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     this->clearFocus();

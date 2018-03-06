@@ -23,7 +23,7 @@ public:
 
     void setName(DbNameItem &item); // 名称设置
     void setLineRatedCur(int index ,int data); //设置母线额定电流
-    void setLineBoxNum(int index,int num); //设置母线插接箱数量
+    void setLineBoxNum(int index,int num); //设置母线接插箱数量
 
 protected:
     void setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit);

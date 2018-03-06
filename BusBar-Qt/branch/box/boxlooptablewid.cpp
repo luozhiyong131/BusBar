@@ -6,6 +6,11 @@ BoxLoopTableWid::BoxLoopTableWid(QWidget *parent) :
     ui(new Ui::BoxLoopTableWid)
 {
     ui->setupUi(this);
+
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->setSpacing(0);
+    gridLayout->setContentsMargins(0, 0, 0, 0);
+    gridLayout->addWidget(this);
 }
 
 BoxLoopTableWid::~BoxLoopTableWid()
@@ -44,7 +49,7 @@ void BoxLoopTableWid::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("名称") <<tr("开关") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能") << tr("温度");
+    header <<tr("名称") <<tr("开关") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能");// << tr("温度");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -52,6 +57,10 @@ void BoxLoopTableWid::initTableWidget()
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); //关闭横向滑条
+
+
+
 
     // ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
     // ui->tableWidget->setColumnWidth(0,200);
@@ -97,6 +106,7 @@ void BoxLoopTableWid::initTable()
     addRowContent(list);
 }
 
+
 /**
  * @brief 初始化表格窗口
  */
@@ -105,7 +115,9 @@ void BoxLoopTableWid::initTableWid()
     initTableWidget();
     checkTable();
 
-    int size =mData->lineNum; // 获取插接箱的数量
+    int size =mData->lineNum; // 获取接插箱的数量
+
+  //  size = 9; //===========
     for(int i=0; i<size; ++i)
         initTable();
 }
@@ -157,7 +169,10 @@ void BoxLoopTableWid::clearTable()
 
 void BoxLoopTableWid::setName(int id, int column)
 {
-    QString name =tr("L%1").arg(id+1);
+    int divisor   =  id/3; //除数
+    int remainder =  id%3;//余数
+
+    QString name = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
     setTableItem(id, column, name);
 }
 
@@ -280,7 +295,7 @@ void BoxLoopTableWid::updateData()
             setPow(i, k++); // 功率
             setPf(i, k++); // 功率因素
             setEle(i, k++);
-            setTemp(i, k++);
+           // setTemp(i, k++); //温度
         }
     } else {
         clearTable();

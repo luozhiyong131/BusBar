@@ -104,7 +104,7 @@ void SubSeeting::updateWid(int index)
 
 
 /**
- * @brief 设置插接箱名称
+ * @brief 设置接插箱名称
  * @param row
  * @param column
  */

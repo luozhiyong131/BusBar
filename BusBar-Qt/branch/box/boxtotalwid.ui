@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>91</height>
+    <width>752</width>
+    <height>117</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -320,6 +320,156 @@
    </property>
    <property name="text">
     <string>48kVA</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>509</x>
+     <y>86</y>
+     <width>85</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>85</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>85</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>温度3:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tem2">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>86</y>
+     <width>160</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>85</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>0°C</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tem1">
+   <property name="geometry">
+    <rect>
+     <x>101</x>
+     <y>86</y>
+     <width>82</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>82</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>82</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>0°C</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tem3">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>86</y>
+     <width>131</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>85</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>0°C</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>86</y>
+     <width>85</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>85</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>85</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>温度2:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>86</y>
+     <width>82</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>82</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>82</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>温度1:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>

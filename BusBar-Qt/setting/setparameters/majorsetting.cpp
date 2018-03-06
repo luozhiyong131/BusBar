@@ -77,7 +77,7 @@ void MajorSetting::updateWidget(int index)
 
 /**
  * @brief MajorSetting::indexChanged
- * @param index  index 改变，刷新额定电流和插接箱数量
+ * @param index  index 改变，刷新额定电流和接插箱数量
  */
 void MajorSetting::indexChanged(int index)
 {
@@ -140,7 +140,7 @@ void MajorSetting::on_pushButton_clicked()
     bool saveSuccess = true;
     DbNameItem item;
     item.bus = mIndex;
-    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    item.type = 1; // 名称类型 1 母线名称   2 接插箱名称  3 回路名称
     item.num = 0; // 编号
     QString name = ui->lineEdit->text();
     if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
@@ -165,7 +165,7 @@ void MajorSetting::on_pushButton_clicked()
         mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
     }else
     {
-        QMessageBox::information(this,tr("information"),tr("请检查插接箱数量输入格式！"));
+        QMessageBox::information(this,tr("information"),tr("请检查接插箱数量输入格式！"));
         saveSuccess = false;
     }
 

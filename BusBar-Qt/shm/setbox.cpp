@@ -41,8 +41,8 @@ void SetBOXThread::run()
     }else{
 
     }
-
     isRunType = 0;
+
 }
 
 void SetBOXThread::busChangedSlot(int cBusID)
@@ -53,12 +53,14 @@ void SetBOXThread::busChangedSlot(int cBusID)
 int SetBOXThread::transmit(int addr, ushort reg, ushort len, int busID)
 {
     if(busID == -1) busID = mBusID;
+    if(rtu[busID] == NULL) return -1;
     return rtu[busID]->transmit(addr, reg, len);
 }
 
 int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID, bool value)
 {
     if(busID == -1) busID = mBusID;
+    if(rtu[busID] == NULL) return -1;
     return rtu[busID]->sendData(addr, reg, len, value);
 }
 
@@ -119,7 +121,7 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         addrMin[2] = sSetType::temperatureMIN_3;
     }
 
-    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
+    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度 6 回路电压阈值
     {
     case 1:
         break;
@@ -149,13 +151,13 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
 
 void SetBOXThread::saveAllItem(DbThresholdItem &item)
 {
-    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
+    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度 6 回路电压阈值
     {
         case 1: setLineVolAll(item);  break; //主路电压阈值
         case 2: setLineCurAll(item);  break; //主路电流阈值
         case 3: setLoopCurAll(item);  break; //回路电流阈值
         case 4: setLineTempAll(item); break; //始端箱温度
-        case 5: setTempAll(item);     break; //插接箱温度
+        case 5: setTempAll(item);     break; //接插箱温度
         case 6: break;
     }
 }
@@ -363,7 +365,7 @@ void SetBOXThread::setLineTempAll(DbThresholdItem &item)
         //-------------[一套只能判断一次]-------------------
         int value = sendData(0, addrMax[0], item.max, id);
         if(value > 0){
-            for(int num=0; num<3; num++)
+            for(int num = 0; num<3; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
                 msleep(Time);

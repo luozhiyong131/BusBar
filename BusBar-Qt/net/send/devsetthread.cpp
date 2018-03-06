@@ -123,7 +123,7 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
     case 0x03 :  { /* 温度 */
         qDebug() << "- Tem";
         if(cData.addr == 0) item.type = 4; //始端箱温度
-        else item.type = 5; //插接箱温度
+        else item.type = 5; //接插箱温度
         aret = COM_RATE_TEM * 10;
         re = 1;
         break;
@@ -144,7 +144,7 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
         re = 3;
         break;
     }
-    case 0x1F :  { /* 插接箱数 */
+    case 0x1F :  { /* 接插箱数 */
         qDebug() << "- BoxNum";
         re = 4;
         break;
@@ -159,7 +159,7 @@ int DevSetThread::devToItem(dev_data &cData, DbThresholdItem &item)
     item.num = Low;
 
     if(cData.addr != 0){
-        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
+        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度
         {
         case 3:
             item.num += (cData.addr - 1) * LINE_NUM;
@@ -179,13 +179,13 @@ bool DevSetThread::saveLocal(DbThresholdItem &item)
     int Low = item.num;
     item.num--;
     if(0x00 == Low){ //统一设置
-        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
+        switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度 6 回路电压阈值
         {
         case 1: mShm->setLineVolAll(item);  break; //主路电压阈值
         case 2: mShm->setLineCurAll(item);  break; //主路电流阈值
         case 3: mShm->setLoopCurAll(item);  break; //回路电流阈值
         case 4: mShm->setLineTempAll(item); break; //始端箱温度
-        case 5: mShm->setTempAll(item);     break; //插接箱温度
+        case 5: mShm->setTempAll(item);     break; //接插箱温度
         case 6: break;
         }
     }else{ //单项
@@ -228,7 +228,7 @@ void DevSetThread::setName(dev_data &cData)
 {
     DbNameItem item;
     item.bus = cData.num;
-    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    item.type = 1; // 名称类型 1 母线名称   2 接插箱名称  3 回路名称
     item.num = 0; // 编号
     item.name = QString(cData.data);
     mShm->setName(item);

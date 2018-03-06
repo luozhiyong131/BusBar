@@ -8,14 +8,14 @@ InitShm::InitShm(QObject *parent) : QThread(parent)
 }
 
 /**
- * @brief 初始化插接箱数量
+ * @brief 初始化接插箱数量
  */
 void InitShm::initBoxNum()
 {
     for(int i=0; i<BUS_NUM; ++i) {
-        int boxNum = getBoxNum(i);  //插接箱数
+        int boxNum = getBoxNum(i);  //接插箱数
         if(boxNum <= 0) boxNum = 18;
-        shm->data[i].boxNum = boxNum; // 18个插接箱
+        shm->data[i].boxNum = boxNum; // 18个接插箱
 
         int rateCur = getRateCur(i); // rateCur
         if(rateCur <= 0) rateCur = 2600;
@@ -136,7 +136,7 @@ void InitShm::initBoxName()
         for(int j=1; j<BOX_NUM/*busData->boxNum*/; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            initNameUnit(i, 2, j, box->boxName, QString("iBox-%1").arg(j));//插接箱名称各处统一
+            initNameUnit(i, 2, j, box->boxName, QString("iBox-%1").arg(j));//接插箱名称各处统一
         }
     }
 }

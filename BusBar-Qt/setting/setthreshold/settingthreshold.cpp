@@ -15,8 +15,17 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
     isBox = false;
 
     mShm = new SetShm; //操作共享内存
-
     initWidget();
+
+    connect(ui->spinBox,   SIGNAL(getFocus()), this, SLOT(onGetFocusSlot1()));
+    connect(ui->spinBox_2, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot2()));
+    connect(ui->spinBox_3, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot3()));
+    connect(ui->spinBox_4, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot4()));
+
+    connect(ui->label_2, SIGNAL(press()), this, SLOT(onGetFocusSlot1()));
+    connect(ui->label_3, SIGNAL(press()), this, SLOT(onGetFocusSlot2()));
+    connect(ui->label_4, SIGNAL(press()), this, SLOT(onGetFocusSlot3()));
+    connect(ui->label_5, SIGNAL(press()), this, SLOT(onGetFocusSlot4()));
 }
 
 /**
@@ -30,6 +39,16 @@ SettingThreshold::SettingThreshold(QWidget *parent) :
     ui->setupUi(this);
     isBox = true;
     mShm = new SetShm; //操作共享内存
+
+    connect(ui->spinBox,   SIGNAL(getFocus()), this, SLOT(onGetFocusSlot1()));
+    connect(ui->spinBox_2, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot2()));
+    connect(ui->spinBox_3, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot3()));
+    connect(ui->spinBox_4, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot4()));
+
+    connect(ui->label_2, SIGNAL(press()), this, SLOT(onGetFocusSlot1()));
+    connect(ui->label_3, SIGNAL(press()), this, SLOT(onGetFocusSlot2()));
+    connect(ui->label_4, SIGNAL(press()), this, SLOT(onGetFocusSlot3()));
+    connect(ui->label_5, SIGNAL(press()), this, SLOT(onGetFocusSlot4()));
 }
 
 SettingThreshold::~SettingThreshold()
@@ -66,13 +85,12 @@ void SettingThreshold::initWidget()
     ui->spinBox_4->setValue(unit->crMax[mIndex]/aret);
 
     setSuffex(str);
-
 }
 
 /**
  * @brief SettingThreshold::initWidget
  * @param index  当前母线编号
- * @param boxNUm 插接箱编号
+ * @param boxNUm 接插箱编号
  * @param lineNum 相数  0-2,为3则表示当前点击为温度
  */
 void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temNum ,bool isStartBox)
@@ -183,7 +201,7 @@ void SettingThreshold::saveData()
 }
 
 /**
- * @brief 保存插接箱数据
+ * @brief 保存接插箱数据
  */
 void SettingThreshold::saveLoopData()
 {
@@ -206,7 +224,7 @@ void SettingThreshold::saveLoopData()
 
     if((mLineNum != 0) && (mTemNum == 0))
     {
-        item.type = 3; //插接箱电流
+        item.type = 3; //接插箱电流
         item.num = (mBoxNum - 1)*LINE_NUM + (mLineNum -1);
     }
     else if((mLineNum == 0) && (mTemNum != 0))
@@ -218,7 +236,7 @@ void SettingThreshold::saveLoopData()
         }
         else
         {
-            item.type = 5; //插接箱温度
+            item.type = 5; //接插箱温度
             item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
         }
     }
@@ -258,6 +276,35 @@ void SettingThreshold::on_saveBtn_clicked()
         saveLoopData();
 
     on_cancelBtn_clicked();
+}
+
+void SettingThreshold::onGetFocusSlot1()
+{
+    setNuber(ui->spinBox, ui->label_2->text());
+}
+
+void SettingThreshold::onGetFocusSlot2()
+{
+    setNuber(ui->spinBox_2, ui->label_3->text());
+}
+
+void SettingThreshold::onGetFocusSlot3()
+{
+    setNuber(ui->spinBox_3, ui->label_4->text());
+}
+
+void SettingThreshold::onGetFocusSlot4()
+{
+    setNuber(ui->spinBox_4, ui->label_5->text());
+}
+
+void SettingThreshold::setNuber(QSpinBox *spinBox, QString tit)
+{
+    int value = spinBox->value();
+    SetKey key(this, value, tit);
+    key.exec();
+    value = key.getNuber();
+    spinBox->setValue(value);
 }
 
 bool SettingThreshold::checkData(int min, int crmin, int crmax, int max)

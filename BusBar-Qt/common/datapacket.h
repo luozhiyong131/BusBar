@@ -4,8 +4,8 @@
  * datapacket.h
  * 数据包结构体定义思路
  * 	1、数据包中包含四条母线数据
- * 	2、一条母线包括最多20个插接箱数据
- * 	LINE_NUM、一个插接箱包括最多3个输出位
+ * 	2、一条母线包括最多20个接插箱数据
+ * 	LINE_NUM、一个接插箱包括最多3个输出位
  * 	4、一个输出位包括基本的数据结体
  *
  *  Created on: 2017年5月24日
@@ -18,7 +18,7 @@
 
 #define LINE_NUM 3 // 三相
 #define LINE_NUM_MAX 9 // 三相
-#define BOX_NUM 20 // 插接箱数量
+#define BOX_NUM 32 // 接插箱数量
 #define BUS_NUM 2  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
@@ -79,7 +79,7 @@ typedef struct _sEnvData {
 }sEnvData;
 
 /**
- * 插接箱数据结构体：包括最多三个插接位，插接箱名称
+ * 接插箱数据结构体：包括最多三个插接位，接插箱名称
  */
 typedef struct _sBoxData {
     char offLine; // 离线标识
@@ -89,11 +89,11 @@ typedef struct _sBoxData {
     char loopName[LINE_NUM_MAX][NAME_LEN]; // 回路名称
     sEnvData env; // 环境状态
 
-    sTgObjData tgBox; // 插接箱统计信息
-    char boxAlarm, boxVolAlarm, boxCurAlarm, boxEnvAlarm; // 插接箱报警
-    char boxStatus; // 插接箱状态
+    sTgObjData tgBox; // 接插箱统计信息
+    char boxAlarm, boxVolAlarm, boxCurAlarm, boxEnvAlarm; // 接插箱报警
+    char boxStatus; // 接插箱状态
     char boxSpec; //  0 表示 SI  1 表示 IP
-    char boxName[NAME_LEN]; // 插接箱名称
+    char boxName[NAME_LEN]; // 接插箱名称
 
     int ratedCur; // 额定电流
     int rate; // 电压频率
@@ -101,11 +101,11 @@ typedef struct _sBoxData {
 }sBoxData;
 
 /**
- * 母线数据结构体：包括插接箱数据，电压频率 母线名称
+ * 母线数据结构体：包括接插箱数据，电压频率 母线名称
  */
 typedef struct _sBusData{
-    int boxNum; // 插接箱数量
-    sBoxData   box[BOX_NUM];  // 最多20个插接箱
+    int boxNum; // 接插箱数量
+    sBoxData   box[BOX_NUM];  // 最多20个接插箱
     char busName[NAME_LEN]; // 母线名称
 }sBusData;
 

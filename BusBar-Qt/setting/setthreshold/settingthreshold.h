@@ -6,6 +6,10 @@
 #include "common.h"
 #include "setshm.h"
 #include "frmnum.h"
+#include "setkey.h"
+
+#include "myspinbox.h"
+#include "mylabel.h"
 
 namespace Ui {
 class SettingThreshold;
@@ -22,6 +26,13 @@ public:
 
     void initWidget(int index , int boxNUm , int lineNum, int temNum, bool isStartBox = false);
 
+public slots:
+    //获取焦点
+    void onGetFocusSlot1();
+    void onGetFocusSlot2();
+    void onGetFocusSlot3();
+    void onGetFocusSlot4();
+    void setNuber(QSpinBox *spinBox, QString tit);
 private slots:
     void on_cancelBtn_clicked();
     void on_saveBtn_clicked();

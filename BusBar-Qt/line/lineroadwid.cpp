@@ -73,7 +73,9 @@ void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
 void LineRoadWid::updateData()
 {
     int id = mID;
-    QString str = "L" + QString::number(id+1);
+   // QString str = "L" + QString::number(id+1);
+    QString str = QString((char)('A' + id));
+
     ui->name->setText(str);
 
     str = QString::number(mData->vol.value[id]) + "V";

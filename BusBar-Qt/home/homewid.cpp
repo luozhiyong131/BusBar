@@ -96,6 +96,7 @@ bool HomeWid::checkBoxBaseNum()
         enable = true;
     }
     ui->downBtn->setEnabled(enable);
+
     setBoxBaseNum();
     return enable;
 }
@@ -114,8 +115,8 @@ void HomeWid::on_downBtn_clicked()
     mBaseNum++;
     bool ret = checkBoxBaseNum();
     if(!ret) {
-        mBaseNum--;
-        checkBoxBaseNum(); //保持界面-数据统一
+        // mBaseNum--;
+        // checkBoxBaseNum(); //保持界面-数据统一
     }
 }
 

@@ -40,7 +40,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="MyLabel" name="label_5">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -61,7 +61,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_3">
+  <widget class="MySpinBox" name="spinBox_3">
    <property name="geometry">
     <rect>
      <x>121</x>
@@ -74,7 +74,7 @@
     <number>999</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="MyLabel" name="label_2">
    <property name="geometry">
     <rect>
      <x>19</x>
@@ -95,7 +95,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_2">
+  <widget class="MySpinBox" name="spinBox_2">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -132,7 +132,7 @@
     <string>统一设置</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="MyLabel" name="label_4">
    <property name="geometry">
     <rect>
      <x>17</x>
@@ -153,7 +153,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="MyLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -212,7 +212,7 @@
     <string>保存</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox">
+  <widget class="MySpinBox" name="spinBox">
    <property name="geometry">
     <rect>
      <x>121</x>
@@ -231,7 +231,7 @@
     <number>999</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_4">
+  <widget class="MySpinBox" name="spinBox_4">
    <property name="geometry">
     <rect>
      <x>353</x>
@@ -248,6 +248,18 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">setthreshold/myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">setthreshold/mylabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

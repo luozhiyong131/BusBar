@@ -33,9 +33,9 @@ void CurrentAlarmsDlg::initTableWidget()
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
 //    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+      ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
 //    ui->tableWidget->setColumnHidden(0, true); // 隐藏母线名称
-//     ui->tableWidget->setColumnWidth(1,200);
+      ui->tableWidget->setColumnWidth(1,180);
 }
 
 

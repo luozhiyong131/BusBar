@@ -75,16 +75,20 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 
 void DpAlarmThread::boxAlarm(sBoxData &box)
 {
-    alarmDataUnit(box.data.cur); // 回路是否有报警
-    box.boxCurAlarm = alarmFlag(box.data.cur);
+    if(box.offLine > 0) {
+        alarmDataUnit(box.data.cur); // 回路是否有报警
+        box.boxCurAlarm = alarmFlag(box.data.cur);
 
-    alarmDataUnit(box.data.vol); // 回路是否有报警
-    box.boxVolAlarm = alarmFlag(box.data.vol);
+        alarmDataUnit(box.data.vol); // 回路是否有报警
+        box.boxVolAlarm = alarmFlag(box.data.vol);
 
-    alarmDataUnit(box.env.tem);
-    box.boxEnvAlarm =  alarmFlag(box.env.tem);
+        alarmDataUnit(box.env.tem);
+        box.boxEnvAlarm =  alarmFlag(box.env.tem);
 
-    box.boxAlarm = box.boxCurAlarm + box.boxVolAlarm + box.boxEnvAlarm;
+        box.boxAlarm = box.boxCurAlarm + box.boxVolAlarm + box.boxEnvAlarm;
+    } else {
+        box.boxAlarm = 0;
+    }
 }
 
 void DpAlarmThread::busAlarm(sBusData &bus)

@@ -121,14 +121,14 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
     {
         QString typeStr = tr("回路电流");
         if(box.boxCurAlarm) {
-            QString msg = tr("插接箱：%1，L").arg(box.boxName);
-            unitAlarm(typeStr, msg, box.data.cur, 10, "A");
+            QString msg = tr("接插箱：%1，L").arg(box.boxName);
+            unitAlarm(typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
         }
 
         typeStr = tr("接插箱温度");
         if(box.boxEnvAlarm) {
-            QString msg = tr("插接箱：%1，温度").arg(box.boxName);
-            unitAlarm(typeStr, msg, box.env.tem, 10, "C");
+            QString msg = tr("接插箱：%1，温度").arg(box.boxName);
+            unitAlarm(typeStr, msg, box.env.tem, COM_RATE_TEM, "°C");
         }
     }
 }
@@ -145,19 +145,19 @@ void DpAlarmSlave::busAlarm(int id)
         if(busBox->boxCurAlarm) { // 总线电流报警
             QString typeStr = tr("主路电流");
             QString msg = tr("母线：%1，Line ").arg(bus->busName);
-            unitAlarm(typeStr, msg, busBox->data.cur, 10, "A");
+            unitAlarm(typeStr, msg, busBox->data.cur, COM_RATE_CUR, "A");
         }
 
         if(busBox->boxVolAlarm) { // 总线电压报警
             QString typeStr = tr("主路电压");
             QString msg = tr("母线：%1，Line ").arg(bus->busName);
-            unitAlarm(typeStr, msg, busBox->data.vol, 10, "V");
+            unitAlarm(typeStr, msg, busBox->data.vol, COM_RATE_VOL, "V");
         }
 
         if(busBox->boxEnvAlarm) { // 温度
             QString typeStr = tr("主路湿度");
             QString msg = tr("母线：%1，温度").arg(bus->busName);
-            unitAlarm(typeStr, msg, busBox->env.tem, 10, "C");
+            unitAlarm(typeStr, msg, busBox->env.tem, COM_RATE_TEM, "°C");
         }
     }
 

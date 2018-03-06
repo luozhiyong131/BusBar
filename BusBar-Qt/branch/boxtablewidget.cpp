@@ -112,7 +112,7 @@ void BoxTableWidget::initTableWid()
 {
     initTableWidget();
 
-    int size = mBoxData->boxNum; // 获取插接箱的数量
+    int size = mBoxData->boxNum; // 获取接插箱的数量
     for(int i=0; i<size; ++i)
         initTable();
 }

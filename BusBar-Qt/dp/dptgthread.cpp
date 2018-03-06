@@ -59,7 +59,7 @@ int DpTgThread::averData(int *data, int len)
 void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
 {
     memset(tg, 0, sizeof(sTgObjData));
-    for(int i=0; i<LINE_NUM; ++i)
+    for(int i=0; i<LINE_NUM_MAX; ++i)
     {
         tg->cur += obj->cur.value[i];
         tg->pow += obj->pow[i];
@@ -84,7 +84,7 @@ void DpTgThread::tgBox(sBoxData *box)
 
 void DpTgThread::tgBus(sBusData *bus)
 {
-    for(int i=0; i<=bus->boxNum; ++i) { // 插接箱统计
+    for(int i=0; i<=bus->boxNum; ++i) { // 接插箱统计
         tgBox(&(bus->box[i]));
     }
 }

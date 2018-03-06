@@ -78,9 +78,11 @@ int RtuThread::sendData(int addr, ushort reg, ushort len, bool value)
     sBoxData *box = &(mBusData->box[addr]); //共享内存
     if((box->offLine > 0) || value){ //在线
         //打包数据
+
         uchar *buf = mBuf;
         int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-        return mSerial->sendData(buf, rtn, 3800); //发送 -- 并占用串口800ms
+        qDebug() <<"send Data +++>>>>" << QByteArray((char*)buf, rtn).toHex();
+        return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
     }
     return -1;
 }
@@ -161,8 +163,8 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             transData(i); //更新串口的数据 -- 确认是否离线
-            msleep(365);
+            msleep(565);
         }
-        msleep(800);
+        msleep(1400);
     }
 }

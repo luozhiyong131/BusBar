@@ -87,7 +87,7 @@ void LogBranchEleWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("接插箱");
     for(int i=0; i<9; ++i)
         mHeadList << "L" + QString::number(i+1);
     mHeadList << tr("合计");
