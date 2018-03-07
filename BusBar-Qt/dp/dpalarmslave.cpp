@@ -126,7 +126,7 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
         }
 
         typeStr = tr("回路电压");
-        if(box.boxEnvAlarm) {
+        if(box.boxVolAlarm) {
             QString msg = tr("接插箱：%1，L").arg(box.boxName);
             unitAlarm(typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
         }
