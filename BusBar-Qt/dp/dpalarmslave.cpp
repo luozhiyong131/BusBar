@@ -125,6 +125,12 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
             unitAlarm(typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
         }
 
+        typeStr = tr("回路电压");
+        if(box.boxEnvAlarm) {
+            QString msg = tr("接插箱：%1，L").arg(box.boxName);
+            unitAlarm(typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
+        }
+
         typeStr = tr("接插箱温度");
         if(box.boxEnvAlarm) {
             QString msg = tr("接插箱：%1，温度").arg(box.boxName);
