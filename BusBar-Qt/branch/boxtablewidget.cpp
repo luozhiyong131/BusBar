@@ -171,11 +171,12 @@ void BoxTableWidget::setAlarmStatus(int id, int column)
     QTableWidgetItem *item = ui->tableWidget->item(id-1, column);
     if(mBoxData->box[id].offLine)
     {
-        int alarm = mBoxData->box[id].boxCurAlarm;
-        if(alarm == 2) { // 报警
-            str = tr("报警");
+        int curAlarm = mBoxData->box[id].boxCurAlarm;
+        int volAlarm = mBoxData->box[id].boxVolAlarm;
+        if((curAlarm == 2)  || (volAlarm == 2)) { // 报警
+            str = tr("告警");
             item->setTextColor(QColor(Qt::red));
-        } else  if(alarm == 1) { // 预警
+        } else  if((curAlarm == 1)  || (volAlarm == 1))  { // 预警
             str = tr("预警");
             item->setTextColor(QColor(Qt::yellow));
         } else {

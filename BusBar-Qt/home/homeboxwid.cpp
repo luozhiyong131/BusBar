@@ -72,12 +72,12 @@ void HomeBoxWid::updateData()
     ui->curLab->setPalette(pe);
 }
 
-void HomeBoxWid::updateAlarmIcon(QLabel *lab, int curALarm, int envALarm)
+void HomeBoxWid::updateAlarmIcon(QLabel *lab,int volAlarm, int curALarm, int envALarm)
 {
     QString str;
-    if(curALarm == 2 || envALarm == 2) {
+    if(volAlarm == 2 || curALarm == 2 || envALarm == 2) {
         str = "boxalarm";
-    } else if(curALarm == 1 || envALarm == 1) {
+    } else if(volAlarm == 1 || curALarm == 1 || envALarm == 1) {
         str = "boxciralarm";
     } else {
         str = "boxonline";
@@ -91,9 +91,9 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab, int curALarm, int envALarm)
 void HomeBoxWid::updateAlarmStatus()
 {
     if(mData->offLine) {
-        updateAlarmIcon(ui->iconLab_1,  mData->boxCurAlarm, mData->boxEnvAlarm);
-        updateAlarmIcon(ui->iconLab_2,  mData->boxCurAlarm, mData->boxEnvAlarm);
-        updateAlarmIcon(ui->iconLab_3,  mData->boxCurAlarm, mData->boxEnvAlarm);
+        updateAlarmIcon(ui->iconLab_1,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
+        updateAlarmIcon(ui->iconLab_2,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
+        updateAlarmIcon(ui->iconLab_3,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
     } else { // 离线
         setBackgroundImage(ui->iconLab_1, "boxoffine");
         setBackgroundImage(ui->iconLab_2, "boxoffine");
