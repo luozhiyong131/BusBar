@@ -147,7 +147,11 @@ void Serial_Trans :: closeSerial()
 int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 {
     QMutexLocker locker(&mutex);
-    int ret = sendData(pBuff, nCount);
+    int ret;
+    for(int i = 0; i < 3; i++){ //连发三次
+        ret = sendData(pBuff, nCount);
+        msleep(1);
+    }
     if(ret > 0) {
         if(msec > 0) msleep(msec);
     }

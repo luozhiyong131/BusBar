@@ -35,7 +35,7 @@ void DpAlarmThread::timeoutDone()
 
 void DpAlarmThread::alarmDataUnit(sDataUnit &unit, bool cr)
 {
-    for(int i=0; i<LINE_NUM; ++i)
+    for(int i=0; i<LINE_NUM_MAX; ++i)
     {
         if((unit.value[i] < unit.min[i]) || (unit.value[i] > unit.max[i]))
         {
@@ -60,12 +60,12 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 {
     char flag=0;
 
-    for(int i=0; i<LINE_NUM; ++i) {
+    for(int i=0; i<LINE_NUM_MAX; ++i) {
         flag += unit.alarm[i];
         if(flag) return 2;
     }
 
-    for(int i=0; i<LINE_NUM; ++i) {
+    for(int i=0; i<LINE_NUM_MAX; ++i) {
         if(cr) flag += unit.crAlarm[i];
         if(flag) return 1;
     }

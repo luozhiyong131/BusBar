@@ -42,5 +42,7 @@
         <file>image/number/number20.png</file>
         <file>image/off.png</file>
         <file>image/on.png</file>
+        <file>image/number/backspace.png</file>
+        <file>image/number/delete.png</file>
     </qresource>
 </RCC>

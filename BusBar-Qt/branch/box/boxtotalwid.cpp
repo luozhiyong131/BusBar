@@ -22,7 +22,7 @@ void BoxTotalWid::initFun(int bus, int box)
 {
     sDataPacket *shm = get_share_mem();
     mTgBox = &(shm->data[bus].box[box].tgBox);
-    mEnvBox = &(shm->data[bus].box[box].env);
+    mEnvData = &(shm->data[bus].box[box].env);
     updateData();
 }
 
@@ -64,13 +64,31 @@ void BoxTotalWid::updateData()
     str = QString::number(mTgBox->vol) + "V";
     ui->vollab->setText(str);
 
-    str =  QString::number(mEnvBox->tem.value[0]) + "°C";
+
+    sDataUnit *unit = &(mEnvData->tem);
+    str =  QString::number(unit->value[0]) + "°C";
+    setLabeColor(ui->tem1, unit->alarm[0], unit->crAlarm[0]);
     ui->tem1->setText(str);
 
-    str =  QString::number(mEnvBox->tem.value[1]) + "°C";
+    str =  QString::number(unit->value[1]) + "°C";
+    setLabeColor(ui->tem2, unit->alarm[1], unit->crAlarm[1]);
     ui->tem2->setText(str);
 
-    str =  QString::number(mEnvBox->tem.value[2]) + "°C";
+    str =  QString::number(unit->value[2]) + "°C";
+    setLabeColor(ui->tem3, unit->alarm[2], unit->crAlarm[2]);
     ui->tem3->setText(str);
 
+}
+
+void BoxTotalWid::setLabeColor(QLabel *label, int alarm, int crAlarm)
+{
+    QPalette pa;
+    if(alarm) { // 报警
+        pa.setColor(QPalette::WindowText,Qt::red);
+    } else  if(crAlarm) { // 预警
+        pa.setColor(QPalette::WindowText,Qt::yellow);
+    } else {
+        pa.setColor(QPalette::WindowText,Qt::black);
+    }
+    label->setPalette(pa);
 }

@@ -148,6 +148,7 @@ void RtuThread::transData(int addr)
                 loopData(box, pkt); //更新数据
                 envData(&(box->env), pkt);
                 box->rate = pkt->rate;
+                box->dc = pkt->dc;
             }
         }
     }

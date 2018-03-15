@@ -40,6 +40,7 @@ struct Rtu_recv {
     RtuRecvEnv  env[RTU_TH_NUM];
     uchar lineNum;
     uchar rate;
+    uchar dc; // 交直流标志位
 
     ushort crc; // 检验码
 };

@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LINE_NUM 3 // 三相
+#define LINE_NUM 9 // 三相
 #define LINE_NUM_MAX 9 // 三相
 #define BOX_NUM 32 // 接插箱数量
 #define BUS_NUM 2  // 四条母线
@@ -97,7 +97,7 @@ typedef struct _sBoxData {
 
     int ratedCur; // 额定电流
     int rate; // 电压频率
-
+    char dc; // 交直流标志位
 }sBoxData;
 
 /**

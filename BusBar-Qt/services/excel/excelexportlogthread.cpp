@@ -84,6 +84,7 @@ void ExcelExportLogThread::exportMsg(QList<QStringList> &list)
         } else
             ret = true;
         e.Save();
+        system("sync");
 
     } else {
         qDebug() << "Excel Export Log Thread Err!!!";

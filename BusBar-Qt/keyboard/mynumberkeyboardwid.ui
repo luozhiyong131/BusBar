@@ -439,10 +439,14 @@
      <property name="text">
       <string>delate</string>
      </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/backspace.png</normaloff>:/new/prefix1/image/number/backspace.png</iconset>
+     </property>
      <property name="iconSize">
       <size>
-       <width>58</width>
-       <height>58</height>
+       <width>56</width>
+       <height>57</height>
       </size>
      </property>
      <property name="default">

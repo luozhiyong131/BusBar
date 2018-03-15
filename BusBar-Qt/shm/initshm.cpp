@@ -61,10 +61,10 @@ void InitShm::initBoxThreshold()
         for(int j=1; j<=busData->boxNum; ++j) //值init有效位
         {
             sBoxData *box = &(busData->box[j]); //插接葙
-            for(int k=0; k<LINE_NUM; ++k) //三相
+            for(int k=0; k<LINE_NUM_MAX; ++k) //三相
             {
-                int num = (j-1)*LINE_NUM + k; // 回路编号规划
-                initThresholdUnit(i, 3, num, k, box->data.cur, 320);
+                int num = (j-1)*LINE_NUM_MAX + k; // 回路编号规划
+                initThresholdUnit(i, 3, num, k, box->data.cur, 3200);
                 initThresholdUnit(i, 6, num, k, box->data.vol, 480);  ////=====
                 num++;
             }
