@@ -40,6 +40,7 @@ private:
     QTableWidget *mWidget;
     sBusData *mPacket ;
     int mIndex;
+    int mDc;
 };
 
 #endif // SUBSEETING_H

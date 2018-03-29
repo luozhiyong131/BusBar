@@ -146,17 +146,19 @@ void TemSettingWid::setTem(int row, int column)
     QTableWidgetItem *item = mWidget->item(row,column);
 
     sBoxData *box = &(mPacket->box[row+1]);
-    if(box->offLine > 0) {
-        sDataUnit *unit = &(box->env.tem);
+    sDataUnit *unit = &(box->env.tem);
+    if(box->offLine > 0 && unit->value[column-1]) {
         str = QString::number(unit->value[column-1] / COM_RATE_TEM) + "℃";
         setAlarmStatus(item, unit, column-1);
+    }else{
+         item->setTextColor(QColor(Qt::black));
     }
-
     item->setText(str);
 }
 
 void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
 {
+    if(item->text().compare("---") == 0) return;  //为零不设置
     //屏蔽两次弹出
     disconnect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     int index = mIndex;
@@ -169,7 +171,6 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
         SettingThreshold settingWid(this);
         settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();
-
     }
     connect(mWidget,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     this->clearFocus();

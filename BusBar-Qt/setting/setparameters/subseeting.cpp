@@ -8,6 +8,7 @@ SubSeeting::SubSeeting(QWidget *parent) :
     ui->setupUi(this);
 
     mIndex = 0xff;
+    mPacket = NULL;
     initWidget();
 }
 
@@ -19,6 +20,8 @@ SubSeeting::~SubSeeting()
 void SubSeeting::initWidget()
 {
     mWidget = new QTableWidget(this);
+
+    mDc = mPacket ? mPacket->box[0].dc : 0;
     initTableWidget();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
@@ -32,8 +35,21 @@ void SubSeeting::initTableWidget()
 
     QStringList horHead;
     horHead<< tr("接插箱");
-    for(int i=0; i<LINE_NUM; ++i)
-        horHead << "L" + QString::number(i+1);
+
+    if(mDc){ //交流9个
+        for(int i = 0; i < LINE_NUM; ++i){
+            int id = i;
+            int divisor   =  id/3; //除数
+            int remainder =  id%3;//余数
+            QString nameStr = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
+            horHead << nameStr;
+        }
+    }else{ //直流4个
+        for(int i = 0; i < 4; i++){
+            QString nameStr = "D" + QString("%1").arg(i + 1);
+            horHead << nameStr;
+        }
+    }
 
     mWidget->setColumnCount(horHead.size());
     mWidget->setHorizontalHeaderLabels(horHead);
@@ -61,6 +77,13 @@ void SubSeeting::resetWidget()
     for(int i = 0 ;  i < boxNum ; i++)
     {
         mWidget->insertRow(i);
+        int len;
+       // int dc = mPacket ? mPacket->box[0].dc : 0;
+        if(mDc){ //交流9个
+            len = LINE_NUM;
+        }else{
+            len = 4;
+        }
         for(int j = 0 ;  j <= LINE_NUM; j++)
         {
             QTableWidgetItem * item = new QTableWidgetItem("---");
@@ -78,7 +101,11 @@ void SubSeeting::checkBus(int index)
     }
 
     int row = mWidget->rowCount();
-    if(mPacket->boxNum != row) {
+    int col = mWidget->columnCount();
+
+    mDc = mPacket ? mPacket->box[0].dc : 0;
+    int len = mDc ? LINE_NUM : 4;
+    if(mPacket->boxNum != row || col != len+1) { //修改判断条件——  2018.3.21——By>MW
         clearWidget();
         resetWidget();
     }
@@ -131,9 +158,9 @@ void SubSeeting::setTableItem(int row, int column)
 {
     QString str = "---";
     QTableWidgetItem *item = mWidget->item(row,column);
-
     sBoxData *box = &(mPacket->box[row+1]);
-    if(box->offLine > 0) {
+
+    if(box->offLine > 0 && column <= box->rate) { //追加判断条件_ By_MW 2018.3.21
 
         sDataUnit *unit = &(box->data.cur);
         double value = unit->value[column-1] / COM_RATE_CUR;
@@ -146,6 +173,7 @@ void SubSeeting::setTableItem(int row, int column)
 
 void SubSeeting::itemDoubleClicked(QTableWidgetItem *item)
 {
+    if(item->text().compare("---") == 0) return;  //为空不设置
     disconnect(mWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
     int index = mIndex ;
     int boxNum = item->row() +1 ;

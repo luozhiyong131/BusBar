@@ -36,6 +36,9 @@ private:
     sObjData *mData;
     sEnvData *mEnv;
     QTimer *timer;
+    //char mDc; //交只流  0为直流 其他交流
+    int mBusId; //当前母线
+
     bool isRun;
 };
 

@@ -21,6 +21,7 @@ startBoxWid::~startBoxWid()
 
 void startBoxWid::on_tem_btn_1_clicked()
 {
+    if(!startBoxTem->value[0]) return; //0不开放
     QPushButton *btn = (QPushButton *)sender();
     int ret = switchProperty(btn);
     switchBtn(ret);
@@ -28,6 +29,7 @@ void startBoxWid::on_tem_btn_1_clicked()
 
 void startBoxWid::on_tem_btn_2_clicked()
 {
+    if(!startBoxTem->value[1]) return; //0不开放
     QPushButton *btn = (QPushButton *)sender();
     int ret = switchProperty(btn);
     switchBtn(ret);
@@ -35,6 +37,7 @@ void startBoxWid::on_tem_btn_2_clicked()
 
 void startBoxWid::on_tem_btn_3_clicked()
 {
+    if(!startBoxTem->value[2]) return; //0不开放
     QPushButton *btn = (QPushButton *)sender();
     int ret = switchProperty(btn);
     switchBtn(ret);
@@ -54,9 +57,12 @@ void startBoxWid::initButtonProPerty()
 void startBoxWid::updateWid()
 {
     int i = 0 ;
-    ui->tem_btn_1->setText(QString::number(startBoxTem->value[i++],10)+"℃");
-    ui->tem_btn_2->setText(QString::number(startBoxTem->value[i++],10)+"℃");
-    ui->tem_btn_3->setText(QString::number(startBoxTem->value[i++],10)+"℃");
+    QString str = startBoxTem->value[i] ?  QString::number(startBoxTem->value[i++],10)+"℃" : "---";
+    ui->tem_btn_1->setText(str);
+    str = startBoxTem->value[i] ?  QString::number(startBoxTem->value[i++],10)+"℃" : "---";
+    ui->tem_btn_2->setText(str);
+    str = startBoxTem->value[i] ?  QString::number(startBoxTem->value[i++],10)+"℃" : "---";
+    ui->tem_btn_3->setText(str);
 }
 
 void startBoxWid::indexChanged(int index)

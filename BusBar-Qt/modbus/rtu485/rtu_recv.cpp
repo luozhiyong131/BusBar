@@ -7,6 +7,30 @@
  */
 #include "rtu_recv.h"
 
+static int rtu_recv_len_dc(uchar *buf, int len)
+{
+    int ret = 0;
+    int rtn = RTU_SENT_DC_LEN+5;
+
+    if(len < rtn) {
+        ret = -1;
+//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
+    } else if(len > rtn) {
+        ret = -2;
+//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+    } else {
+//        len = buf[2]*256 + buf[3];
+         len = buf[2];
+        if(len != RTU_SENT_DC_LEN) {
+            ret = -3;
+            qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_DC_LEN;
+        }
+    }
+    return ret;
+}
+
+
+
 /**
   * 功　能：长度 校验
   * 入口参数：buf -> 缓冲区  len -> 长度
@@ -17,7 +41,11 @@ static int rtu_recv_len(uchar *buf, int len)
     int ret = 0;
     int rtn = RTU_SENT_LEN+5;
 
-    if(len < rtn) {
+    if(0 == rtu_recv_len_dc(buf, len)){ //先判断是否是直流数据
+        return ret;
+    }
+
+    if(len < rtn) {  //判断是否为交流数据
         ret = -1;
 //        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
@@ -75,7 +103,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->pf =  *(ptr++);// 功率因素
     msg->sw =  *(ptr++);// 开关状态
 
-    msg->apPow = msg->vol * msg->cur / 10; // 视在功率
+    msg->apPow = msg->vol * msg->cur / 10.0; // 视在功率
 
     return 22;   ////============ 加上开关，功率因素之后，是为14
 }
@@ -127,21 +155,44 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 {
     bool ret = false;
 
+
+    qDebug() << len << RTU_SENT_DC_LEN;
     int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
+         qDebug() << QByteArray((char*)buf, len).toHex();
         uchar *ptr=buf;
         ptr += rtu_recv_head(ptr, pkt); //指针偏移
 
+        pkt->dc = *(ptr++);  //[交直流]
         pkt->rate = *(ptr++);
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
             ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
-        pkt->lineNum = *(ptr++);
+        pkt->lineNum = *(ptr++); //[输出位]
+        pkt->version = *(ptr++); //[输出位]
+        ptr += 2;
+        qDebug() << "___________________" << pkt->version;
 
-        for(int i=0; i<RTU_LINE_NUM; ++i) // 读取电参数
+        int lineSum = 0;
+        if(pkt->dc)//交流
+            lineSum = RTU_LINE_NUM;
+        else
+            lineSum = 4; //[暂时未加宏]
+        for(int i=0; i<lineSum; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
+
+        //----------------------[二分二路直流][显示]----------------------------
+        if(2 == pkt->rate && 2 == pkt->lineNum && 0 == pkt->dc){ //交换2-3数据
+            RtuRecvLine data;
+            data = pkt->data[1];
+            pkt->data[1] = pkt->data[2];
+            pkt->data[2] = data;
+            //swap(pkt->data[1], pkt->data[2]);
+        }
+        //---------------------------------------------------------------
 
         pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
         ret = rtu_recv_crc(buf, len, pkt); //校验码
+        //qDebug() <<  ret;
     }
     return ret;
 }

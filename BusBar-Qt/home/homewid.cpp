@@ -50,6 +50,14 @@ void HomeWid::initWidget()
         }
     }
     checkBoxBaseNum();
+
+    /* 考虑到不可相加 故隐藏 */
+    ui->label->hide();
+    ui->curLcd->hide();
+    ui->label_2->hide();
+    ui->powLcd->hide();
+    ui->label_3->hide();
+    ui->label_4->hide();
 }
 
 void HomeWid::interfaceChangedSlot(int id)

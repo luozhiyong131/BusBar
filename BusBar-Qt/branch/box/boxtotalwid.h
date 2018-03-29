@@ -28,6 +28,7 @@ protected slots:
 private:
     Ui::BoxTotalWid *ui;
     sTgObjData *mTgBox;
+    sLineTgObjData *mLineTgBox;
     sEnvData *mEnvData;
     QTimer *timer;
 };

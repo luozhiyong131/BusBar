@@ -317,10 +317,12 @@ void BoxTableWidget::timeoutDone()
 
 void BoxTableWidget::getItem(QTableWidgetItem*)
 {
+    disconnect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
     BeepThread::bulid()->beep();
     int row = ui->tableWidget->currentRow();
 
     BoxDlg dlg(0);
     dlg.initBox(mBusID, row+1);
     dlg.exec();
+    connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
 }

@@ -29,6 +29,10 @@ private:
     void setProgressbarValue(QProgressBar *bar,sDataUnit  *data ,int index);
     void setProcessBarColor(QProgressBar *bar, QString color);
 
+    void upDataLine2(bool show);
+    void upDataLine3(bool show);
+    void showSum(int value);
+
 public slots:
     void indexChanged(int index);
 
