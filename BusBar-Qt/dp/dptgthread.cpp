@@ -90,7 +90,7 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
     }
 
     for(int i=0; i<3; ++i) {
-        if(tg->apPow > 0)
+        if(tg->apPow[i] > 0)
             tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
         else
             tg->pf[i] = 0;
@@ -123,7 +123,7 @@ void DpTgThread::dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int le
     }
 
     for(int i=0; i<2; ++i) {
-        if(tg->apPow > 0)
+        if(tg->apPow[i] > 0)
             tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
         else
             tg->pf[i] = 0;

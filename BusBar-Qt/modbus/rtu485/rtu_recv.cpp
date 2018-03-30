@@ -155,11 +155,9 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 {
     bool ret = false;
 
-
-    qDebug() << len << RTU_SENT_DC_LEN;
+    //qDebug() << len << RTU_SENT_DC_LEN;
     int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
-         qDebug() << QByteArray((char*)buf, len).toHex();
         uchar *ptr=buf;
         ptr += rtu_recv_head(ptr, pkt); //指针偏移
 
@@ -170,7 +168,6 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         pkt->lineNum = *(ptr++); //[输出位]
         pkt->version = *(ptr++); //[输出位]
         ptr += 2;
-        qDebug() << "___________________" << pkt->version;
 
         int lineSum = 0;
         if(pkt->dc)//交流

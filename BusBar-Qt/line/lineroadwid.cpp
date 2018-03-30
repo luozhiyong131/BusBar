@@ -62,7 +62,7 @@ void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
     if(unit.alarm[id])
         pe.setColor(QPalette::WindowText,Qt::red);
     else  if(unit.crAlarm[id])
-        pe.setColor(QPalette::WindowText,Qt::yellow);
+        pe.setColor(QPalette::WindowText,"#CD7E80");
     else
         pe.setColor(QPalette::WindowText,Qt::black);
 

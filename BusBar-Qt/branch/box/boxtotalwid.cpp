@@ -191,7 +191,7 @@ void BoxTotalWid::updateData()
     ui->temC->setText(str);
 
     if(len){
-        str =  QString::number((unit->value[0] + unit->value[1] + unit->value[3])/len) + "°C";
+        str =  QString::number((unit->value[0] + unit->value[1] + unit->value[2])/len) + "°C";
     }else{
         str = "---";
     }
@@ -205,7 +205,7 @@ void BoxTotalWid::setLabeColor(QLabel *label, int alarm, int crAlarm)
     if(alarm) { // 报警
         pa.setColor(QPalette::WindowText,Qt::red);
     } else  if(crAlarm) { // 预警
-        pa.setColor(QPalette::WindowText,Qt::yellow);
+        pa.setColor(QPalette::WindowText,"#CD7E80");
     } else {
         pa.setColor(QPalette::WindowText,Qt::black);
     }

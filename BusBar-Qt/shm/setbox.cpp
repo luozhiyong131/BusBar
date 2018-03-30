@@ -1,6 +1,6 @@
 #include "setbox.h"
 
-#define Time 6000
+#define TIME 6000
 
 SetBOXThread::SetBOXThread(QObject *parent)
 {
@@ -163,7 +163,7 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
     //---------------------------------------------------------------
 
     if(sendData(boxNum, addrMin[num], item.min) > 0){
-        msleep(Time);
+        msleep(TIME);
         sendData(boxNum, addrMax[num], item.max, item.bus, true);
     }
     return ret;
@@ -223,7 +223,7 @@ void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
             for(int num=0; num < lens; ++num)
             {
                 sendData(0xFF, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0xFF, addrMin[num], item.min, id, true);
             }
         }
@@ -270,7 +270,7 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
            for(int num=0; num < lens; ++num)
            {
                sendData(0xFF, addrMax[num], item.max, id, true);
-               msleep(Time);
+               msleep(TIME);
                sendData(0xFF, addrMin[num], item.min, id, true);
            }
 
@@ -282,7 +282,7 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
                 for(int num=0; num < lens; ++num)
                 {
                     if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                    msleep(Time);
+                    msleep(TIME);
                     sendData(0, addrMin[num], item.min, id, true);
                 }
             }*/
@@ -329,11 +329,10 @@ void SetBOXThread::setTempAll(DbThresholdItem &item)
         for(int num=0; num < len; ++num)
         {
             sendData(0xFF, addrMax[num], item.max, id, true);
-            msleep(Time);
+            msleep(TIME);
             sendData(0xFF, addrMin[num], item.min, id, true);
         }
-
-       /* sDataPacket *shm = get_share_mem(); // 获取共享内存
+       /* sDataPacket *shm = get_share_mem();id // 获取共享内存
         int len = shm->data[id].boxNum;
         for(int boxNum=0; boxNum<=len; ++boxNum)
         {
@@ -345,7 +344,7 @@ void SetBOXThread::setTempAll(DbThresholdItem &item)
                 for(int num=0; num < lens; ++num)
                 {
                     if(num != 0) sendData(boxNum, addrMax[num], item.max, id, true);
-                    msleep(Time);
+                    msleep(TIME);
                     sendData(boxNum, addrMin[num], item.min, id, true);
                 }
             }
@@ -382,7 +381,7 @@ void SetBOXThread::setLineVolAll(DbThresholdItem &item)
             for(int num=0; num<3; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }
@@ -418,7 +417,7 @@ void SetBOXThread::setLineCurAll(DbThresholdItem &item)
             for(int num=0; num<len; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }
@@ -455,7 +454,7 @@ void SetBOXThread::setLineTempAll(DbThresholdItem &item)
             for(int num = 0; num<len; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }

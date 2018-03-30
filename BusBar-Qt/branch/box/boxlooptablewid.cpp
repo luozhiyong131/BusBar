@@ -189,7 +189,7 @@ void BoxLoopTableWid::setAlarmStatus(int id, int column, int alarm, int crAlarm)
     if(alarm) { // 报警
         item->setTextColor(QColor(Qt::red));
     } else  if(crAlarm) { // 预警
-        item->setTextColor(QColor(Qt::yellow));
+        item->setTextColor(QColor("#CD7E80"));
     } else {
         item->setTextColor(QColor(Qt::black));
     }

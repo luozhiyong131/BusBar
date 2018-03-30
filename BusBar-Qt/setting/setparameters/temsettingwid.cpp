@@ -129,7 +129,7 @@ void TemSettingWid::setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int i
     if(unit->alarm[id] > 0) { // 报警
         item->setTextColor(QColor(Qt::red));
     } else  if(unit->crAlarm[id] > 0) { // 预警
-        item->setTextColor(QColor(Qt::yellow));
+        item->setTextColor(QColor("#CD7E80"));
     } else {
         item->setTextColor(QColor(Qt::black));
     }

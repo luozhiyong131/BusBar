@@ -62,7 +62,7 @@ void HomeBoxWid::updateData()
         if(mData->boxCurAlarm == 2)
             pe.setColor(QPalette::WindowText,Qt::red);
         else  if(mData->boxCurAlarm == 1)
-            pe.setColor(QPalette::WindowText,Qt::yellow);
+            pe.setColor(QPalette::WindowText,"#CD7E80");
         else
             pe.setColor(QPalette::WindowText,Qt::black);
     } else {
