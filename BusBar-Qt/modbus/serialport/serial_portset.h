@@ -6,7 +6,7 @@
   */
 #include <QtCore>
 
-#define ARM_LINUX 2
+#define ARM_LINUX 1
 
 #if ARM_LINUX == 1
 #define SERIAL_COM1     "ttyS8"
