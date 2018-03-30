@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>706</width>
+    <width>717</width>
     <height>120</height>
    </rect>
   </property>
@@ -58,7 +58,7 @@
         </size>
        </property>
        <property name="text">
-        <string>相线</string>
+        <string>输入</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -241,7 +241,7 @@
         </size>
        </property>
        <property name="text">
-        <string>A相</string>
+        <string>A</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -427,7 +427,7 @@
         </size>
        </property>
        <property name="text">
-        <string>B相</string>
+        <string>B</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -613,7 +613,7 @@
         </size>
        </property>
        <property name="text">
-        <string>C相</string>
+        <string>C</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -799,7 +799,7 @@
         </size>
        </property>
        <property name="text">
-        <string>平均/和相</string>
+        <string>平均/和</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

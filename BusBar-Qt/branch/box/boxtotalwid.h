@@ -30,6 +30,7 @@ private:
     sTgObjData *mTgBox;
     sLineTgObjData *mLineTgBox;
     sEnvData *mEnvData;
+    sBoxData *mBox;
     QTimer *timer;
 };
 

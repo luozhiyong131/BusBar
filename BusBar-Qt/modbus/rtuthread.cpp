@@ -114,7 +114,8 @@ void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
 {
     sObjData *loop = &(box->data);
-     loop->lineNum = pkt->lineNum;
+    box->loopNum = loop->lineNum = pkt->lineNum;
+
     for(int i=0; i<loop->lineNum; i++)
     {
         RtuRecvLine *data = &(pkt->data[i]);

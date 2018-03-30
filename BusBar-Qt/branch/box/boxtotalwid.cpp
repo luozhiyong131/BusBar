@@ -21,6 +21,7 @@ BoxTotalWid::~BoxTotalWid()
 void BoxTotalWid::initFun(int bus, int box)
 {
     sDataPacket *shm = get_share_mem();
+    mBox = &(shm->data[bus].box[box]);
     mTgBox = &(shm->data[bus].box[box].tgBox);
     mLineTgBox  = &(shm->data[bus].box[box].lineTgBox);
     mEnvData = &(shm->data[bus].box[box].env);
@@ -47,9 +48,29 @@ void BoxTotalWid::setTemp(int id, int column)
 
 void BoxTotalWid::updateData()
 {
+    if(mBox->dc){ //交流
+        ui->curC->show();
+        ui->tPowC->show();
+        ui->tApPowC->show();
+        ui->tPfC->show();
+        ui->tEleC->show();
+        ui->volC->show();
+        ui->label_5->show();
+        ui->temC->show();
+    }else{
+        ui->curC->hide();
+        ui->tPowC->hide();
+        ui->tApPowC->hide();
+        ui->tPfC->hide();
+        ui->tEleC->hide();
+        ui->volC->hide();
+        ui->label_5->hide();
+        ui->temC->hide();
+    }
+
     QString str;
     int i = 0;
-    if(mLineTgBox->vol[i]){
+   // if(mLineTgBox->vol[i]){
         str= QString::number(mLineTgBox->cur[i]/COM_RATE_CUR, 'f', 1) + "A";
         ui->curA->setText(str);
 
@@ -67,7 +88,7 @@ void BoxTotalWid::updateData()
 
         str = QString::number(mLineTgBox->vol[i]) + "V";
         ui->volA->setText(str);
-    }else{
+  /*  }else{
         str= "---";
         ui->curA->setText(str);
         ui->tPowA->setText(str);
@@ -75,9 +96,9 @@ void BoxTotalWid::updateData()
         ui->tPfA->setText(str);
         ui->tEleA->setText(str);
         ui->volA->setText(str);
-    }
+    }*/
     i = 1;
-    if(mLineTgBox->vol[i]){
+  //  if(mLineTgBox->vol[i]){
         str= QString::number(mLineTgBox->cur[i]/COM_RATE_CUR, 'f', 1) + "A";
         ui->curB->setText(str);
 
@@ -95,7 +116,7 @@ void BoxTotalWid::updateData()
 
         str = QString::number(mLineTgBox->vol[i]) + "V";
         ui->volB->setText(str);
-    }else{
+  /*  }else{
         str= "---";
         ui->curB->setText(str);
         ui->tPowB->setText(str);
@@ -103,9 +124,9 @@ void BoxTotalWid::updateData()
         ui->tPfB->setText(str);
         ui->tEleB->setText(str);
         ui->volB->setText(str);
-    }
+    }*/
     i = 2;
-    if(mLineTgBox->vol[i]){
+   // if(mLineTgBox->vol[i]){
         str= QString::number(mLineTgBox->cur[i]/COM_RATE_CUR, 'f', 1) + "A";
         ui->curC->setText(str);
         str =  QString::number(mLineTgBox->pow[i]/COM_RATE_POW, 'f', 3) + "kW";
@@ -118,7 +139,7 @@ void BoxTotalWid::updateData()
         ui->tEleC->setText(str);
         str = QString::number(mLineTgBox->vol[i]) + "V";
         ui->volC->setText(str);
-    }else{
+  /*  }else{
         str= "---";
         ui->curC->setText(str);
         ui->tPowC->setText(str);
@@ -126,7 +147,7 @@ void BoxTotalWid::updateData()
         ui->tPfC->setText(str);
         ui->tEleC->setText(str);
         ui->volC->setText(str);
-    }
+    }*/
 
     //---------------------------[hexiang]-----------------------------------------
 

@@ -105,10 +105,10 @@ void DpTgThread::dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int le
     if(len == 2 && line == 2){ //er fen er
         for(int i = 0 ; i < 2; i++){
             tg->vol[i] = obj->vol.value[i];
-            tg->cur[i] += obj->cur.value[i];
-            tg->pow[i] += obj->pow[i];
-            tg->ele[i] += obj->ele[i];
-            tg->apPow[i] += obj->apPow[i];
+            tg->cur[i] = obj->cur.value[i];
+            tg->pow[i] = obj->pow[i];
+            tg->ele[i] = obj->ele[i];
+            tg->apPow[i] = obj->apPow[i];
         }
     }else{
         for(int i = 0 ; i < 2; i++){

@@ -333,8 +333,18 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>50</pointsize>
+     <family>Ubuntu</family>
+     <pointsize>30</pointsize>
+     <weight>7</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 57 30pt &quot;Ubuntu&quot;;</string>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
    </property>
    <property name="text">
     <string>直</string>
@@ -354,10 +364,15 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>50</pointsize>
-     <weight>50</weight>
+     <family>Ubuntu</family>
+     <pointsize>30</pointsize>
+     <weight>7</weight>
+     <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 57 30pt &quot;Ubuntu&quot;;</string>
    </property>
    <property name="text">
     <string>流</string>
