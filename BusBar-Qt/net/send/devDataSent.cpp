@@ -51,14 +51,25 @@ static int data_packet_sent(dev_data_packet *msg)
 /**
  * 发送工作状态
  */
-void sent_devStatus(dev_data_packet *msg, uchar status)
+void sent_devStatus(int id, int addr, sBoxData *box)
 {
-    msg->len = 1;
-    msg->data = &status;
+    uchar buf[4], len=0;
 
-    msg->fn[0] = 0;
-    msg->fn[1] = 0;
-    data_packet_sent(msg);
+    buf[len++] = box->boxStatus;
+    buf[len++] = box->dc;
+    buf[len++] = box->version;
+    buf[len++] = box->loopNum;
+
+    dev_data_packet msg;
+    msg.num = id;
+    msg.addr = addr;
+
+    msg.len = len;  //=======
+    msg.data = buf;
+
+    msg.fn[0] = 0;
+    msg.fn[1] = 0;
+    data_packet_sent(&msg);
 }
 
 
@@ -287,27 +298,25 @@ static void sent_envObject(_envDataObjct *obj, uchar *buf, dev_data_packet *msg)
 /**
  * 功  能：设备数据发送
  */
-void sent_devData(uchar id, pduDevData *devData)
+void sent_devData(uchar id, int box, pduDevData *devData)
 {
     static dev_data_packet msg;
     static uchar buf[DATA_MSG_SIZE] = {0};
     int fn=1;
 
-    msg.num = 0;
-    msg.addr = id;
+    msg.num = id;
+    msg.addr = box;
     msg.fn[0] = fn++;
     sent_object(&(devData->line),buf, &msg);
 
     msg.fn[0] = fn++;
-    //    sent_object(&(devData->output),buf,&msg);
+    sent_object(&(devData->loop),buf,&msg);
 
     msg.fn[0] = fn++;
     //    sent_object(&(devData->output),buf,&msg);
 
     msg.fn[0] = fn++;
     sent_envObject(&(devData->env), buf,&msg);
-
-    sent_devStatus(&msg, 1);
 }
 
 /**
@@ -365,11 +374,12 @@ void init_Unit(_devDataUnit *unit, sDataUnit *cUnit, int n)
     unit->crMin = crMinBuf[n];
     unit->crMax = crMaxBuf[n];
 }
+
 /**
  * 数据初始化  -- 相
  */
 void init_dataLine(_devDataObj *ptr, sObjData *obj)
-{
+{    
     static uchar swBuf[LINE_NUM] = {1};
     static uint powBuf[LINE_NUM] = {2*1000};
     static uint eleBuf[LINE_NUM] = {2*1000};
@@ -386,7 +396,9 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
         waveBuf[i]  = (ushort)obj->wave[i];
     }
 
+    ptr->len = obj->lineNum;
     ptr->len = LINE_NUM;
+
     init_Unit(&(ptr->vol), &(obj->vol), 0);
     init_Unit(&(ptr->cur), &(obj->cur), 1);
 
@@ -397,6 +409,36 @@ void init_dataLine(_devDataObj *ptr, sObjData *obj)
     ptr->apPow = apPowBuf; //视在功率
     ptr->wave  = waveBuf;  // 谐波值
 }
+
+void init_dataLoop(_devDataObj *ptr, sLineTgObjData *obj)
+{
+    static ushort volArray[3], curArray[3];
+    static uint powBuf[3], eleBuf[3];
+    static ushort pfBuf[3], apPowBuf[3];
+    int len = 0;
+
+    for(int i = 0; i < 3; i++){
+        volArray[i] = (ushort)obj->vol[i];
+        if(volArray[i] > 0) len++;
+        curArray[i] = (ushort)obj->cur[i];
+
+        powBuf[i]   = (uint)obj->pow[i];
+        eleBuf[i]   = (uint)obj->ele[i];
+        pfBuf[i]    = (ushort)obj->pf[i];
+        apPowBuf[i] = (ushort)obj->apPow[i];
+    }
+
+//    ptr->len = len;
+    ptr->len = 3;
+    ptr->vol.value = volArray;
+    ptr->cur.value = curArray;
+    ptr->pow   = powBuf;  // 功率
+    ptr->ele   = eleBuf;  // 电能
+    ptr->pf    = pfBuf;   //功率因素
+    ptr->apPow = apPowBuf; //视在功率
+}
+
+
 
 
 void sent_str(int id, int fn1, int fn2, short len, char *str)
@@ -413,7 +455,7 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
 
 
 
-void sent_busName(sBusData *bus)
+void sent_busName(int id, sBusData *bus)
 {
     static uchar nameBuf[NAME_LEN] = {0};
     for(int i = 0; i < NAME_LEN; i++)
@@ -431,7 +473,7 @@ void sent_busName(sBusData *bus)
     data_packet_sent(&msg);
 }
 
-void sent_busRateCur(sBusData *bus)
+void sent_busRateCur(int id, sBusData *bus)
 {
 
     static uchar rateCurBuf[2] = {1};
@@ -439,7 +481,7 @@ void sent_busRateCur(sBusData *bus)
     rateCurBuf[1] = (uchar)(bus->box[0].ratedCur);
 
     dev_data_packet msg;
-    msg.num = 0;
+    msg.num = id;
     msg.addr = 0;
 
     //uchar data[2] = {0, 200};
@@ -452,14 +494,14 @@ void sent_busRateCur(sBusData *bus)
     data_packet_sent(&msg);
 }
 
-void sent_busBoxNum(sBusData *bus)
+void sent_busBoxNum(int id, sBusData *bus)
 {
     static uchar boxNumBuf[2] = {2};
     boxNumBuf[0] = bus->boxNum;
     boxNumBuf[1] = bus->boxNum;
 
     dev_data_packet msg;
-    msg.num = 0;
+    msg.num = id;
     msg.addr = 0;
 
     msg.len = 1;  //=======
@@ -480,26 +522,28 @@ void sent_dev_data(void)
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+//        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
-        sObjData *obj = &(shm->data[id].box[i].data);
-        _devDataObj *ptr  = &(devData->line);
-        init_dataLine(ptr, obj);  //输出位
-        devData->env.len = LINE_NUM;
-        sEnvData *env = &(shm->data[id].box[i].env);
-        init_Unit(&(devData->env.tem), &(env->tem), 2); //温度
+
+        sBoxData *box =  &(shm->data[id].box[i]);
+        init_dataLine(&(devData->line), &(box->data));  //输出位
+        init_dataLoop(&(devData->loop), &(box->lineTgBox));
+
+        devData->env.len = SENSOR_NUM;
+        init_Unit(&(devData->env.tem), &(box->env.tem), 2); //温度
         // init_unit(&(devData->env.hum));
 
-        sent_devData(i,devData);
+        sent_devData(id, i,devData);
+        sent_devStatus(id, i, box);
         //sent_str(i, 6, 0x11, strlen(str), str);
         free(devData);
     }
 
-    sent_busName(&shm->data[id]);
-    sent_busRateCur(&shm->data[id]);
-    sent_busBoxNum(&shm->data[id]);
+    sent_busName(id, &shm->data[id]);
+    sent_busRateCur(id, &shm->data[id]);
+    sent_busBoxNum(id, &shm->data[id]);
 }
 
 
