@@ -108,17 +108,33 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
 
     if((lineNum > 0) && (lineNum < 10) && (temNum == 0))
     {
+        //----------[区分始端箱和接插箱]----------------------By_MW 2018.3.21
+        QString nameStr;
+        if(boxNUm){ //接插
+            nameStr = QString("接插箱%1").arg(boxNUm);
+        }else{
+            nameStr = "始端箱";
+        }
+        //-------------------------------------------------
         str = "A";
         rate = COM_RATE_CUR;
-        title = tr("母线%1 接插箱%2 L%3 电流设置").arg(index+1).arg(boxNUm).arg(lineNum);
+        title = tr("母线%1 %2 输入%3 电流设置").arg(index+1).arg(nameStr).arg(lineNum);
         unit = &(data->data[index].box[boxNUm].data.cur);
         initData(unit , lineNum -1,rate);
     }
     else if ((temNum > 0) && (temNum < 10) && (lineNum == 0))
     {
+        //----------[区分始端箱和接插箱]----------------------By_MW 2018.3.21
+        QString nameStr;
+        if(boxNUm){ //接插
+            nameStr = QString("接插箱%1").arg(boxNUm);
+        }else{
+            nameStr = "始端箱";
+        }
+        //-------------------------------------------------
         str = "℃";
         rate = COM_RATE_TEM;
-        title = tr("母线%1 接插箱%2 温度%3设置").arg(index+1).arg(boxNUm).arg(temNum);
+        title = tr("母线%1 %2 温度%3设置").arg(index+1).arg(nameStr).arg(temNum);
         unit = &(data->data[index].box[boxNUm].env.tem);
         initData(unit , temNum-1 ,rate);
     }
@@ -181,13 +197,14 @@ void SettingThreshold::saveData()
     if(ret) //统一设置
     {
         //qDebug() << "统一设置";
+        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
+            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+            return; // 跳出设置
+        }
         if(mIsCur){
             mShm->setLineCurAll(item);
         }else{
             mShm->setLineVolAll(item);
-        }
-        if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
-            InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
         }
 
     }else //单独设置
@@ -195,6 +212,7 @@ void SettingThreshold::saveData()
        // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+            return; // 跳出设置
         }
         mShm->saveItem(item);
     }
@@ -246,17 +264,24 @@ void SettingThreshold::saveLoopData()
        // qDebug() << "统一设置";
         if(!SetBOXThread::bulid()->send(2,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+            return; // 跳出设置
         }
         if((mLineNum != 0) && (mTemNum == 0))
             mShm->setLoopCurAll(item); //电流统一设置
-        else if((mLineNum == 0) && (mTemNum != 0))
-            mShm->setTempAll(item);  //温度统一设置
+        else if((mLineNum == 0) && (mTemNum != 0)){
+            if(item.type == 5){ //接插箱
+                mShm->setTempAll(item);
+            }else{  //始端箱
+                 mShm->setLineTempAll(item); //温度统一设置
+            }
 
+        }
     }else //单独设置
     {
        // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
+            return; // 跳出设置
         }
         mShm->saveItem(item);
     }

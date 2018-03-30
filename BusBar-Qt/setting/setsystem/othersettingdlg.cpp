@@ -2,11 +2,18 @@
 #include "ui_othersettingdlg.h"
 #include "common.h"
 #include "datetime/timesettingdlg.h"
+#include "serialport/serial_portset.h"
 
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#if ARM_LINUX  == 2
+#define UPDATA_DIR "udisk"
+#else
+#define UPDATA_DIR "mmcblk0p1"
+#endif
 
 OtherSettingDlg::OtherSettingDlg(QWidget *parent) :
     QWidget(parent),
@@ -26,11 +33,13 @@ static bool update_fun(const QString &str)
 
     QFileInfo fi(QString("/mnt/%1/busbar/app").arg(str));
     if(fi.exists()) {
+        QString cstr;
+        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
         int ret = system("rm -rf /mnt/mtdblock3/app");
         if(ret < 0) {
-            qDebug() << "rm -rf /mnt/mtdblock3/app err ";
+            qDebug() << "rm -rf /mnt/opt/app err ";
         }
-        QString cstr = QString("cp /mnt/%1/busbar/app /mnt/mtdblock3/app").arg(str);
+        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
         ret = system(cstr.toLatin1());
         if(ret < 0) {
             qDebug() << str.toLatin1() << " err ";
@@ -48,7 +57,7 @@ void OtherSettingDlg::on_updateBtn_clicked()
     QuMsgBox box(this, tr("是否升级系统?"));
     if(box.Exec()) {
         bool ret = update_fun("sda1");
-        if(!ret) ret = update_fun("mmcblk0p1");
+        if(!ret) ret = update_fun(UPDATA_DIR);
         if(!ret)
             CriticalMsgBox box(this, tr("升级文件未找到！\n 请插入U盘，把升级文件放入busbar目录下!"));
     }

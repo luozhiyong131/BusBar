@@ -80,7 +80,7 @@ void DpAlarmSlave::saveMsg(const QString &typeStr, const QString &str)
 
 void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, double rate, const QString &sym)
 {
-    for(int i=0; i<LINE_NUM; ++i)
+    for(int i=0; i<LINE_NUM_MAX; ++i)
     {
         QString str=msg, tempStr = typeStr;
         if(unit.alarm[i])
@@ -114,6 +114,54 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
     }
 }
 
+void DpAlarmSlave::unitAlarmVA(sBoxData &box, QString &typeStr, QString &msg, sDataUnit &unit, double rate, const QString &sym)
+{
+    for(int i=0; i<LINE_NUM_MAX; ++i)
+    {
+        //---------------------[区分日志关键字]-------------------
+        QString alarmStr = "Line";
+        int id = i;
+        if(box.dc){
+            int divisor   =  id/3; //除数
+            int remainder =  id%3;//余数
+            alarmStr = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
+        }else{
+            alarmStr = "D" + QString("%1").arg(id+1);
+        }
+        //---------------------------------------------------
+
+        QString str=msg, tempStr = typeStr;
+        if(unit.alarm[i])
+        {
+            tempStr = typeStr + tr("报警");
+            str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(alarmStr)
+                    .arg(unit.value[i]/rate).arg(sym)
+                    .arg(unit.min[i]/rate).arg(sym)
+                    .arg(unit.max[i]/rate).arg(sym);
+
+            if(unit.alarm[i] == 1){
+                unit.alarm[i] = 2;
+                saveMsg(typeStr, str);
+            }
+        }
+        else if(unit.crAlarm[i])
+        {
+            tempStr = typeStr +  tr("预警");
+            str += tr("%1，当前值：%2%3, 临界下限值：%4%5, 临界上限值：%6%7").arg(alarmStr)
+                    .arg(unit.value[i]/rate).arg(sym)
+                    .arg(unit.crMin[i]/rate).arg(sym)
+                    .arg(unit.crMax[i]/rate).arg(sym);
+        }
+
+        // 实时报警信息
+        if((unit.alarm[i]) || (unit.crAlarm[i])) {
+            mAlarmStr << shm->data[mBusId].busName;
+            mAlarmStr << tempStr;
+            mAlarmStr << str;
+        }
+    }
+}
+
 
 void DpAlarmSlave::boxAlarm(sBoxData &box)
 {
@@ -121,14 +169,14 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
     {
         QString typeStr = tr("回路电流");
         if(box.boxCurAlarm) {
-            QString msg = tr("接插箱：%1，L").arg(box.boxName);
-            unitAlarm(typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
+            QString msg = tr("接插箱：%1，").arg(box.boxName);
+            unitAlarmVA(box, typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
         }
 
         typeStr = tr("回路电压");
-        if(box.boxEnvAlarm) {
-            QString msg = tr("接插箱：%1，L").arg(box.boxName);
-            unitAlarm(typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
+        if(box.boxVolAlarm) {
+            QString msg = tr("接插箱：%1，").arg(box.boxName);
+            unitAlarmVA(box, typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
         }
 
         typeStr = tr("接插箱温度");
@@ -139,29 +187,33 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
     }
 }
 
-
-
 void DpAlarmSlave::busAlarm(int id)
 {
     mBusId = id;
     sBusData *bus = &(shm->data[id]);
-
     sBoxData *busBox = &(bus->box[0]);
+    //----------------[区分日志关键字]-------------------
+    QString alarmStr = "输入";
+    if(!busBox->dc){ // 直流
+        alarmStr = "输入";
+    }
+    //--------------------------------------------------
+
     if(busBox->boxAlarm) {
         if(busBox->boxCurAlarm) { // 总线电流报警
             QString typeStr = tr("主路电流");
-            QString msg = tr("母线：%1，Line ").arg(bus->busName);
+            QString msg = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
             unitAlarm(typeStr, msg, busBox->data.cur, COM_RATE_CUR, "A");
         }
 
         if(busBox->boxVolAlarm) { // 总线电压报警
             QString typeStr = tr("主路电压");
-            QString msg = tr("母线：%1，Line ").arg(bus->busName);
+            QString msg = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
             unitAlarm(typeStr, msg, busBox->data.vol, COM_RATE_VOL, "V");
         }
 
         if(busBox->boxEnvAlarm) { // 温度
-            QString typeStr = tr("主路湿度");
+            QString typeStr = tr("主路温度");
             QString msg = tr("母线：%1，温度").arg(bus->busName);
             unitAlarm(typeStr, msg, busBox->env.tem, COM_RATE_TEM, "°C");
         }

@@ -225,7 +225,7 @@ void CustomDialPlot::_drawDial(QPainter *pPainter)
     pPainter->setBrush(QBrush(Qt::transparent));
     pPainter->drawPie(pieRect,225*16, 90*16);
 
-    pPainter->setBrush(QBrush(Qt::yellow));
+    pPainter->setBrush(QBrush("#CD7E80"));
     pPainter->drawPie(pieRect,315*16,270*16);
 
     pPainter->restore();

@@ -23,12 +23,18 @@ void SetShm::setLoopCurAll(DbThresholdItem &item)
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<LINE_NUM; ++k) {
+            int len;
+            if(box->dc){ //交流
+                len = LINE_NUM;
+            }else{
+                len = 4; //目前未作为宏
+            }
+
+            for(int k=0; k<len; ++k) {
                 setThresholdUnit( k, item, box->data.cur);
             }
         }
     }
-
     DbThreshold::bulid()->setLoopCurAll(item);
 }
 
@@ -38,7 +44,14 @@ void SetShm::setLineVolAll(DbThresholdItem &item)
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBoxData *bus = &(shm->data[i].box[0]);
-        for(int k=0; k<3; ++k)
+        int len;
+        if(bus->dc){ //交流
+            len = 3;
+        }else{
+            len = bus->rate;
+        }
+
+        for(int k=0; k<len; ++k)
         {
             setThresholdUnit(k, item, bus->data.vol);
         }
@@ -52,7 +65,14 @@ void SetShm::setLineCurAll(DbThresholdItem &item)
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBoxData *bus = &(shm->data[i].box[0]);
-        for(int k=0; k<3; ++k)
+        int len;
+        if(bus->dc){ //交流
+            len = 3;
+        }else{
+            len = bus->rate;
+        }
+
+        for(int k=0; k<len; ++k)
         {
             setThresholdUnit(k, item, bus->data.cur);
         }
@@ -67,7 +87,14 @@ void SetShm::setLineTempAll(DbThresholdItem &item)
     for(int i=0; i<BUS_NUM; ++i)
     {
          sBoxData *bus = &(shm->data[i].box[0]);
-        for(int k=0; k<3; ++k)
+         int len;
+         if(bus->dc){ //交流
+             len = 3;
+         }else{
+             len = bus->rate;
+         }
+
+        for(int k=0; k<len; ++k)
         {
             setThresholdUnit(k, item, bus->env.tem);
         }
@@ -79,6 +106,7 @@ void SetShm::setLineTempAll(DbThresholdItem &item)
 
 void SetShm::setTempAll(DbThresholdItem &item)
 {
+    /*
     for(int i=0; i<BUS_NUM; ++i)
     {
          sBoxData *bus = &(shm->data[i].box[0]);
@@ -86,7 +114,7 @@ void SetShm::setTempAll(DbThresholdItem &item)
         {
             setThresholdUnit(k, item, bus->env.tem);
         }
-    }
+    }*/
 
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -94,7 +122,13 @@ void SetShm::setTempAll(DbThresholdItem &item)
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            for(int k=0; k<LINE_NUM; ++k) {
+            int len;
+            if(box->dc){ //交流
+                len = SENSOR_NUM;
+            }else{
+                len = box->rate; //直流为输入总数
+            }
+            for(int k=0; k<len; ++k) {
                 setThresholdUnit( k, item, box->env.tem);
             }
         }

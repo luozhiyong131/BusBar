@@ -38,6 +38,7 @@ void TxtExportLogThread::exportMsg(QList<QStringList> &list)
         }
         ret = true;
         data.close();
+        system("sync");
     } else {
         qDebug() << "Txt Export Log Thread Err!!!";
     }

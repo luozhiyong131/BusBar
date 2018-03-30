@@ -67,17 +67,84 @@ void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
         tg->apPow += obj->apPow[i];
     }
     tg->vol = averData(obj->vol.value);
-    tg->pf = averData(obj->pf);
+    if(tg->apPow > 0)
+        tg->pf = (tg->pow * 100.0 / tg->apPow);
+    else
+        tg->pf = 0;
+    //    tg->pf = averData(obj->pf);
 }
 
+
+void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
+{
+    memset(tg, 0, sizeof(sLineTgObjData));
+    for(int i=0; i<3; ++i)
+    {
+        tg->vol[i] = obj->vol.value[i];
+        for(int j=0; j<3; ++j) {
+            tg->cur[i] += obj->cur.value[i+j*3];
+            tg->pow[i] += obj->pow[i+j*3];
+            tg->ele[i] += obj->ele[i+j*3];
+            tg->apPow[i] += obj->apPow[i+j*3];
+        }
+    }
+
+    for(int i=0; i<3; ++i) {
+        if(tg->apPow[i] > 0)
+            tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
+        else
+            tg->pf[i] = 0;
+    }
+}
+
+
+void DpTgThread::dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int len)
+{
+    memset(tg, 0, sizeof(sLineTgObjData));
+
+    if(len == 2 && line == 2){ //er fen er
+        for(int i = 0 ; i < 2; i++){
+            tg->vol[i] = obj->vol.value[i];
+            tg->cur[i] += obj->cur.value[i];
+            tg->pow[i] += obj->pow[i];
+            tg->ele[i] += obj->ele[i];
+            tg->apPow[i] += obj->apPow[i];
+        }
+    }else{
+        for(int i = 0 ; i < 2; i++){
+            tg->vol[i] = obj->vol.value[i];
+            for(int j=0; j<2; ++j) {
+                tg->cur[i] += obj->cur.value[i*2+j];
+                tg->pow[i] += obj->pow[i*2+j];
+                tg->ele[i] += obj->ele[i*2+j];
+                tg->apPow[i] += obj->apPow[i*2+j];
+            }
+        }
+    }
+
+    for(int i=0; i<2; ++i) {
+        if(tg->apPow[i] > 0)
+            tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
+        else
+            tg->pf[i] = 0;
+    }
+}
 
 void DpTgThread::tgBox(sBoxData *box)
 {
     sObjData *loop = &(box->data);
     sTgObjData *tgBox = &(box->tgBox);
+    sLineTgObjData *linTgBox = &(box->lineTgBox);
 
     if(box->offLine) {
-        tgObj(loop, tgBox);        
+        tgObj(loop, tgBox);
+
+        if(box->dc) {
+            lineTgObj(loop, linTgBox);
+        } else  {
+            dcLineTgObj(loop, linTgBox, box->rate, box->loopNum);
+        }
+
         tgBox->tem = averData(box->env.tem.value);
     }
 }

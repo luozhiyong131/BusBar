@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     on_comboBox_currentIndexChanged(0);
     BeepThread::bulid()->longBeep(); // 线程 -- 'bi~'
 
+    for(int i=0; i < 4; i++) rtu[i] = NULL;
+
     //修改数据线程
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), SetBOXThread::bulid(), SLOT(busChangedSlot(int)));
 }

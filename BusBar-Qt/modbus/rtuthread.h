@@ -23,7 +23,7 @@ signals:
     
 protected:
     void run();
-    void transData(int addr);
+    int transData(int addr);
 
     void loopObjData(sObjData *loop, int id, RtuRecvLine *data);
     void loopData(sBoxData *box, Rtu_recv *pkt);

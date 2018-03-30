@@ -63,7 +63,7 @@ void LogMainEleWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("A相")<< tr("B相") << tr("C相") << tr("合相");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("A")<< tr("B") << tr("C") << tr("合相");
     model->setHeaders(mHeadList);
 }
 

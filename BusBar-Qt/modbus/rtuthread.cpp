@@ -75,14 +75,18 @@ int RtuThread::transmit(int addr, ushort reg, ushort len)
 
 int RtuThread::sendData(int addr, ushort reg, ushort len, bool value)
 {   
-    sBoxData *box = &(mBusData->box[addr]); //共享内存
-    if((box->offLine > 0) || value){ //在线
-        //打包数据
-
+    if(addr == 0xFF){
         uchar *buf = mBuf;
         int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-        qDebug() <<"send Data +++>>>>" << QByteArray((char*)buf, rtn).toHex();
         return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+    }else{
+        sBoxData *box = &(mBusData->box[addr]); //共享内存
+        if((box->offLine > 0) || value){ //在线
+            //打包数据
+            uchar *buf = mBuf;
+            int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
+            return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+        }
     }
     return -1;
 }
@@ -131,7 +135,7 @@ void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
 }
 
 
-void RtuThread::transData(int addr)
+int RtuThread::transData(int addr)
 {
     char offLine = 0;
     uchar *buf = mBuf;
@@ -144,14 +148,24 @@ void RtuThread::transData(int addr)
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据
         if(ret) {
             if(addr == pkt->addr) { //回收地址和发送地址同
-                offLine = 1;
+                offLine = 3;
                 loopData(box, pkt); //更新数据
                 envData(&(box->env), pkt);
                 box->rate = pkt->rate;
+                box->dc = pkt->dc;
+                box->version = pkt->version;
             }
         }
     }
-    box->offLine = offLine; //在线
+
+    if(offLine) {
+        box->offLine = offLine; //在线
+    } else {
+        if(box->offLine > 0)
+            box->offLine--;
+    }
+
+    return offLine;
 }
 
 
@@ -161,10 +175,13 @@ void RtuThread::run()
     while(isRun)
     {
         for(int i=0; i<=mBusData->boxNum; ++i)
-        {
-            transData(i); //更新串口的数据 -- 确认是否离线
-            msleep(565);
+        {            
+            if(transData(i) == 0 ) {
+                 msleep(1100);
+                transData(i);
+            }
+            msleep(865);
         }
-        msleep(1400);
+        msleep(1800);
     }
 }

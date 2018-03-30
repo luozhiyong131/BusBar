@@ -17,6 +17,9 @@ protected:
     void run();
 
     int averData(int *data, int len=LINE_NUM);
+    void lineTgObj(sObjData *obj, sLineTgObjData *tg);
+    void dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int len);
+
     void tgObj(sObjData *obj, sTgObjData *tg);
 
     void tgBox(sBoxData *box);

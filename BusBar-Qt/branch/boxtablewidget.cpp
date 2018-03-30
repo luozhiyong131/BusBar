@@ -178,7 +178,7 @@ void BoxTableWidget::setAlarmStatus(int id, int column)
             item->setTextColor(QColor(Qt::red));
         } else  if((curAlarm == 1)  || (volAlarm == 1))  { // 预警
             str = tr("预警");
-            item->setTextColor(QColor(Qt::yellow));
+            item->setTextColor(QColor("#CD7E80"));
         } else {
             str = tr("正常");
             item->setTextColor(QColor(Qt::black));
@@ -317,10 +317,12 @@ void BoxTableWidget::timeoutDone()
 
 void BoxTableWidget::getItem(QTableWidgetItem*)
 {
+    disconnect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
     BeepThread::bulid()->beep();
     int row = ui->tableWidget->currentRow();
 
     BoxDlg dlg(0);
     dlg.initBox(mBusID, row+1);
     dlg.exec();
+    connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(getItem(QTableWidgetItem*)));
 }

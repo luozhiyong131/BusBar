@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LINE_NUM 3 // 三相
+#define LINE_NUM 9 // 三相
 #define LINE_NUM_MAX 9 // 三相
 #define BOX_NUM 32 // 接插箱数量
 #define BUS_NUM 2  // 四条母线
@@ -37,6 +37,16 @@ typedef struct _sTgObjData {
     int tem;
 }sTgObjData;
 
+typedef struct _sLineTgObjData {
+    int vol[3]; // 电压
+    int cur[3];  // 电流
+
+    int pow[3]; // 功率
+    int ele[3]; // 电能
+    int pf[3]; // 功率因素
+    int apPow[3]; // 袖在功率
+    int tem[3];
+}sLineTgObjData;
 
 /**
  * 数据单元：包括当前值，阈值，临界值，报警状态等
@@ -84,12 +94,14 @@ typedef struct _sEnvData {
 typedef struct _sBoxData {
     char offLine; // 离线标识
     int loopNum; // 回路数量
+    char version;
 
     sObjData data; // 回路数据
     char loopName[LINE_NUM_MAX][NAME_LEN]; // 回路名称
     sEnvData env; // 环境状态
 
     sTgObjData tgBox; // 接插箱统计信息
+    sLineTgObjData lineTgBox;
     char boxAlarm, boxVolAlarm, boxCurAlarm, boxEnvAlarm; // 接插箱报警
     char boxStatus; // 接插箱状态
     char boxSpec; //  0 表示 SI  1 表示 IP
@@ -97,7 +109,7 @@ typedef struct _sBoxData {
 
     int ratedCur; // 额定电流
     int rate; // 电压频率
-
+    char dc; // 交直流标志位
 }sBoxData;
 
 /**

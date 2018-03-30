@@ -39,10 +39,10 @@ void LineRoadWid::interfaceChangedSlot(int id)
 
 void LineRoadWid::busChangeSlot(int id)
 {    
+    mBusId = id;
     sDataPacket *shm = get_share_mem();
     mData = &(shm->data[id].box[0].data); //回路状态内带三相信息
     mEnv = &(shm->data[id].box[0].env); //环境状态
-
     updateData();
 }
 
@@ -62,7 +62,7 @@ void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
     if(unit.alarm[id])
         pe.setColor(QPalette::WindowText,Qt::red);
     else  if(unit.crAlarm[id])
-        pe.setColor(QPalette::WindowText,Qt::yellow);
+        pe.setColor(QPalette::WindowText,"#CD7E80");
     else
         pe.setColor(QPalette::WindowText,Qt::black);
 
@@ -74,7 +74,17 @@ void LineRoadWid::updateData()
 {
     int id = mID;
    // QString str = "L" + QString::number(id+1);
-    QString str = QString((char)('A' + id));
+    QString str;
+
+    str = QString((char)('A' + id));
+
+    sDataPacket *shm = get_share_mem();
+    int dc = shm->data[mBusId].box[0].dc; //交直流 -- 第一次初始化时共享内存为0，故改为事实获取_ByMW.2018.3.22
+    if(dc){ //交流
+        if(id+1 > 2)  {this->show(); }
+    }else {
+        if(id+1 > 2)  { this->hide(); return;}
+    }
 
     ui->name->setText(str);
 

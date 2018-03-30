@@ -1,6 +1,6 @@
 #include "setbox.h"
 
-#define Time 6000
+#define TIME 6000
 
 SetBOXThread::SetBOXThread(QObject *parent)
 {
@@ -142,8 +142,28 @@ bool SetBOXThread::saveItem(DbThresholdItem &item)
         num = num % LINE_NUM ;
         break;
     }
+
+    //----------------------[二分二路直流][显示]-----------------------[下面已做处理，取消——2018.3.21]
+  /*  if(item.type == 3 || item.type ==6){  //交换2-3设置地址
+        sDataPacket *shm = get_share_mem(); // 获取共享内存
+        sBusData *mBusData = &(shm->data[item.bus]);
+        sBoxData *box = &(mBusData->box[boxNum]); //共享内存
+        if(2 == box->rate && 2 == box->loopNum && 0 == box->dc){
+           // swap(addrMin[1], addrMin[2]);
+           // swap(addrMax[1], addrMax[2]);
+            ushort  value;
+            value = addrMin[2];
+            addrMin[2] = addrMin[1];
+            addrMin[1] = value;
+            value = addrMax[2];
+            addrMax[2] = addrMax[1];
+            addrMax[1] = value;
+        }
+    } */
+    //---------------------------------------------------------------
+
     if(sendData(boxNum, addrMin[num], item.min) > 0){
-        msleep(Time);
+        msleep(TIME);
         sendData(boxNum, addrMax[num], item.max, item.bus, true);
     }
     return ret;
@@ -191,17 +211,20 @@ void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
         int len = shm->data[id].boxNum;
         for(int boxNum=0; boxNum<=len; ++boxNum)
         {
-           int lens = LINE_NUM;
-           if(0 == boxNum) lens = 3;
-           //-------------[一套只能判断一次]-------------------
-           int value = sendData(0, addrMax[0], item.max, id);
-           if(value > 0){
-                for(int num=0; num < lens; ++num)
-                {
-                    if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                    msleep(Time);
-                    sendData(0, addrMin[num], item.min, id, true);
-                }
+
+            //--------------[广播]--------------------[试用]
+            int lens;
+            if(shm->data[id].box[0].dc){
+                lens = LINE_NUM_MAX; //交流
+            }else{
+                lens = 4; //直流
+            }
+
+            for(int num=0; num < lens; ++num)
+            {
+                sendData(0xFF, addrMax[num], item.max, id, true);
+                msleep(TIME);
+                sendData(0xFF, addrMin[num], item.min, id, true);
             }
         }
     }
@@ -236,18 +259,33 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
         int len = shm->data[id].boxNum;
         for(int boxNum=0; boxNum<=len; ++boxNum)
         {
-           int lens = LINE_NUM;
-           if(0 == boxNum) lens = 3;
+           //--------------[广播]--------------------[试用]
+           int lens;
+           if(shm->data[id].box[0].dc){
+               lens = LINE_NUM_MAX; //交流
+           }else{
+               lens = 4; //直流
+           }
+
+           for(int num=0; num < lens; ++num)
+           {
+               sendData(0xFF, addrMax[num], item.max, id, true);
+               msleep(TIME);
+               sendData(0xFF, addrMin[num], item.min, id, true);
+           }
+
            //-------------[一套只能判断一次]-------------------
+         /* int lens = LINE_NUM;
+           if(0 == boxNum) lens = 3;
            int value = sendData(0, addrMax[0], item.max, id);
            if(value > 0){
                 for(int num=0; num < lens; ++num)
                 {
                     if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                    msleep(Time);
+                    msleep(TIME);
                     sendData(0, addrMin[num], item.min, id, true);
                 }
-            }
+            }*/
         }
     }
 }
@@ -277,23 +315,40 @@ void SetBOXThread::setTempAll(DbThresholdItem &item)
 
     for(int id=0; id<BUS_NUM; ++id)
     {
+        //-------------[区分交直流]--------- By_MW 2018.3.23
         sDataPacket *shm = get_share_mem(); // 获取共享内存
+        sBusData *bus = &(shm->data[id]);
+        int len;
+        if(bus->box[0].dc){ //交流
+            len = 3;
+        }else{
+            len = bus->box[0].rate;
+        }
+        //------------------------------
+        //--------------[广播]--------------------[试用]
+        for(int num=0; num < len; ++num)
+        {
+            sendData(0xFF, addrMax[num], item.max, id, true);
+            msleep(TIME);
+            sendData(0xFF, addrMin[num], item.min, id, true);
+        }
+       /* sDataPacket *shm = get_share_mem();id // 获取共享内存
         int len = shm->data[id].boxNum;
         for(int boxNum=0; boxNum<=len; ++boxNum)
         {
-           int lens = LINE_NUM;
+           int lens = SENSOR_NUM;
            if(0 == boxNum) lens = 3;
            //-------------[一套只能判断一次]-------------------
            int value = sendData(0, addrMax[0], item.max, id);
            if(value > 0){
                 for(int num=0; num < lens; ++num)
                 {
-                    if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                    msleep(Time);
-                    sendData(0, addrMin[num], item.min, id, true);
+                    if(num != 0) sendData(boxNum, addrMax[num], item.max, id, true);
+                    msleep(TIME);
+                    sendData(boxNum, addrMin[num], item.min, id, true);
                 }
             }
-        }
+        }*/
     }
 }
 
@@ -313,10 +368,20 @@ void SetBOXThread::setLineVolAll(DbThresholdItem &item)
         //-------------[一套只能判断一次]-------------------
         int value = sendData(0, addrMax[0], item.max, id);
         if(value > 0){
+            //-------------[区分交直流]--------- By_MW 2018.3.23
+            sDataPacket *shm = get_share_mem(); // 获取共享内存
+            sBusData *bus = &(shm->data[id]);
+            int len;
+            if(bus->box[0].dc){ //交流
+                len = 3;
+            }else{
+                len = bus->box[0].rate;
+            }
+            //------------------------------
             for(int num=0; num<3; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }
@@ -339,10 +404,20 @@ void SetBOXThread::setLineCurAll(DbThresholdItem &item)
         //-------------[一套只能判断一次]-------------------
         int value = sendData(0, addrMax[0], item.max, id);
         if(value > 0){
-            for(int num=0; num<3; num++)
+            //-------------[区分交直流]--------- By_MW 2018.3.23
+            sDataPacket *shm = get_share_mem(); // 获取共享内存
+            sBusData *bus = &(shm->data[id]);
+            int len;
+            if(bus->box[0].dc){ //交流
+                len = 3;
+            }else{
+                len = bus->box[0].rate;
+            }
+            //------------------------------
+            for(int num=0; num<len; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }
@@ -365,10 +440,21 @@ void SetBOXThread::setLineTempAll(DbThresholdItem &item)
         //-------------[一套只能判断一次]-------------------
         int value = sendData(0, addrMax[0], item.max, id);
         if(value > 0){
-            for(int num = 0; num<3; num++)
+            //-------------[区分交直流]--------- By_MW 2018.3.23
+            sDataPacket *shm = get_share_mem(); // 获取共享内存
+            sBusData *bus = &(shm->data[id]);
+            int len;
+            if(bus->box[0].dc){ //交流
+                len = 3;
+            }else{
+                len = bus->box[0].rate;
+            }
+            //------------------------------
+
+            for(int num = 0; num<len; num++)
             {
                 if(num != 0) sendData(0, addrMax[num], item.max, id, true);
-                msleep(Time);
+                msleep(TIME);
                 sendData(0, addrMin[num], item.min, id, true);
             }
         }

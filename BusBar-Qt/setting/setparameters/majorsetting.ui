@@ -275,7 +275,7 @@ color: rgb(0,0,0);</string>
 color: rgb(0,0,0);</string>
        </property>
        <property name="text">
-        <string>相位</string>
+        <string>输入</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -485,7 +485,7 @@ color: rgb(0,0,0);</string>
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>L1</string>
+     <string>A</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -653,7 +653,7 @@ color: rgb(0,0,0);</string>
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>L2</string>
+     <string>B</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -821,7 +821,7 @@ color: rgb(0,0,0);</string>
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>L3</string>
+     <string>C</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

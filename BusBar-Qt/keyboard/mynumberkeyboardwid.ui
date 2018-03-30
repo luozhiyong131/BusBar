@@ -349,36 +349,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="pushButton_delate">
-     <property name="minimumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>60</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>1</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>delate</string>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>58</width>
-       <height>58</height>
-      </size>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="2">
     <widget class="QPushButton" name="pushButton_6">
      <property name="minimumSize">
@@ -444,6 +414,43 @@
        <width>58</width>
        <height>58</height>
       </size>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QPushButton" name="pushButton_delate">
+     <property name="minimumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>1</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>delate</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../images.qrc">
+       <normaloff>:/new/prefix1/image/number/backspace.png</normaloff>:/new/prefix1/image/number/backspace.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>56</width>
+       <height>57</height>
+      </size>
+     </property>
+     <property name="default">
+      <bool>false</bool>
      </property>
     </widget>
    </item>

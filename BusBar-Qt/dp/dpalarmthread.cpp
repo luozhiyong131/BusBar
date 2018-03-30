@@ -33,9 +33,9 @@ void DpAlarmThread::timeoutDone()
 
 
 
-void DpAlarmThread::alarmDataUnit(sDataUnit &unit, bool cr)
+void DpAlarmThread::alarmDataUnit(sDataUnit &unit, int lineNum, bool cr)
 {
-    for(int i=0; i<LINE_NUM; ++i)
+    for(int i=0; i<lineNum; ++i)
     {
         if((unit.value[i] < unit.min[i]) || (unit.value[i] > unit.max[i]))
         {
@@ -60,12 +60,12 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 {
     char flag=0;
 
-    for(int i=0; i<LINE_NUM; ++i) {
+    for(int i=0; i<LINE_NUM_MAX; ++i) {
         flag += unit.alarm[i];
         if(flag) return 2;
     }
 
-    for(int i=0; i<LINE_NUM; ++i) {
+    for(int i=0; i<LINE_NUM_MAX; ++i) {
         if(cr) flag += unit.crAlarm[i];
         if(flag) return 1;
     }
@@ -76,13 +76,23 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
 void DpAlarmThread::boxAlarm(sBoxData &box)
 {
     if(box.offLine > 0) {
-        alarmDataUnit(box.data.cur); // 回路是否有报警
+        int lineNum = box.data.lineNum;
+        alarmDataUnit(box.data.cur, lineNum); // 回路是否有报警
         box.boxCurAlarm = alarmFlag(box.data.cur);
 
-        alarmDataUnit(box.data.vol); // 回路是否有报警
+        lineNum = box.data.lineNum;
+        alarmDataUnit(box.data.vol, lineNum); // 回路是否有报警
         box.boxVolAlarm = alarmFlag(box.data.vol);
 
-        alarmDataUnit(box.env.tem);
+        //--------------[限制存在才报警]----------------- By_MW 2018.3.23
+        if(box.dc){ //交流
+            lineNum = 3;
+        }else{ //直流
+            lineNum = box.rate;
+        }
+        //---------------------------------------------
+
+        alarmDataUnit(box.env.tem, lineNum);
         box.boxEnvAlarm =  alarmFlag(box.env.tem);
 
         box.boxAlarm = box.boxCurAlarm + box.boxVolAlarm + box.boxEnvAlarm;

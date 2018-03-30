@@ -22,6 +22,8 @@ void BoxDlg::initBox(int bus, int box)
 
     QString name(mData->boxName);
     ui->titleLab->setText(name);
+    QString version = QString("V%1.%2").arg(mData->version/10).arg(mData->version%10);
+    ui->version->setText(version);
 
     initWid(bus, box);
 }

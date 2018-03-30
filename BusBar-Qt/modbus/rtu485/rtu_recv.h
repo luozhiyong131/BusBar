@@ -35,11 +35,13 @@ struct Rtu_recv {
     uchar addr; // 表示从机地址码
     uchar fn; // 表示功能码
     ushort len; // 表示数据字节数
+    uchar version;
 
     RtuRecvLine data[RTU_LINE_NUM];
     RtuRecvEnv  env[RTU_TH_NUM];
     uchar lineNum;
     uchar rate;
+    uchar dc; // 交直流标志位
 
     ushort crc; // 检验码
 };

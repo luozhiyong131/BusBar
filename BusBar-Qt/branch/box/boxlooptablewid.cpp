@@ -23,6 +23,7 @@ void BoxLoopTableWid::initLine(int bus, int box)
 {
     sDataPacket *shm = get_share_mem();
     mBoxData = &(shm->data[bus].box[box]);
+    mDc = shm->data[bus].box[box].dc;
 
     mData = &(mBoxData->data);
     mEnvData = &(mBoxData->env);
@@ -169,10 +170,15 @@ void BoxLoopTableWid::clearTable()
 
 void BoxLoopTableWid::setName(int id, int column)
 {
-    int divisor   =  id/3; //除数
-    int remainder =  id%3;//余数
+    QString name;
+    if(mDc){
+        int divisor   =  id/3; //除数
+        int remainder =  id%3;//余数
+        name = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
+    }else{
+        name = "D" + QString("%1").arg(id + 1);
+    }
 
-    QString name = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
     setTableItem(id, column, name);
 }
 
@@ -183,7 +189,7 @@ void BoxLoopTableWid::setAlarmStatus(int id, int column, int alarm, int crAlarm)
     if(alarm) { // 报警
         item->setTextColor(QColor(Qt::red));
     } else  if(crAlarm) { // 预警
-        item->setTextColor(QColor(Qt::yellow));
+        item->setTextColor(QColor("#CD7E80"));
     } else {
         item->setTextColor(QColor(Qt::black));
     }

@@ -20,6 +20,7 @@ public:
 
 protected:
     void updateData();
+    void setLabeColor(QLabel *, int , int);
 
 protected slots:
     void timeoutDone();
@@ -27,7 +28,8 @@ protected slots:
 private:
     Ui::BoxTotalWid *ui;
     sTgObjData *mTgBox;
-    sEnvData *mEnvBox;
+    sLineTgObjData *mLineTgBox;
+    sEnvData *mEnvData;
     QTimer *timer;
 };
 

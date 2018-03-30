@@ -50,6 +50,14 @@ void HomeWid::initWidget()
         }
     }
     checkBoxBaseNum();
+
+    /* 考虑到不可相加 故隐藏 */
+    ui->label->hide();
+    ui->curLcd->hide();
+    ui->label_2->hide();
+    ui->powLcd->hide();
+    ui->label_3->hide();
+    ui->label_4->hide();
 }
 
 void HomeWid::interfaceChangedSlot(int id)
@@ -66,6 +74,16 @@ void HomeWid::timeoutDone()
     if(isRun) { //节省CPU的考虑
         ui->curLcd->display(mBusData->box[0].tgBox.cur/COM_RATE_CUR); //A
         ui->powLcd->display(mBusData->box[0].tgBox.pow/COM_RATE_POW); //W
+
+        //------------[交直流区分]-------------------By_MW 2018.3.30
+        QString name;
+        if(mBusData->box[0].dc){ //交流
+            name = "交";
+        }else{
+            name = "直";
+        }
+        ui->name1->setText(name);
+        //-----------------------------------------
 
         if(mMaxNum != mBusData->boxNum) {
             checkBoxBaseNum();

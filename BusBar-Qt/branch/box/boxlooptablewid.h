@@ -52,6 +52,7 @@ private:
     sBoxData *mBoxData;
     sObjData *mData;
     sEnvData *mEnvData;
+    char mDc;
 };
 
 #endif // BOXLOOPTABLEWID_H
