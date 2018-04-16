@@ -208,25 +208,21 @@ void SetBOXThread::setLoopVolAll(DbThresholdItem &item)
     for(int id=0; id<BUS_NUM; ++id)
     {
         sDataPacket *shm = get_share_mem(); // 获取共享内存
-        int len = shm->data[id].boxNum;
-        for(int boxNum=0; boxNum<=len; ++boxNum)
-        {
-
-            //--------------[广播]--------------------[试用]
-            int lens;
-            if(shm->data[id].box[0].dc){
-                lens = LINE_NUM_MAX; //交流
-            }else{
-                lens = 4; //直流
-            }
-
-            for(int num=0; num < lens; ++num)
-            {
-                sendData(0xFF, addrMax[num], item.max, id, true);
-                msleep(TIME);
-                sendData(0xFF, addrMin[num], item.min, id, true);
-            }
+        //--------------[广播]--------------------[试用]
+        int lens;
+        if(shm->data[id].box[0].dc){
+            lens = LINE_NUM_MAX; //交流
+        }else{
+            lens = 4; //直流
         }
+
+        for(int num=0; num < lens; ++num)
+        {
+            sendData(0xFF, addrMax[num], item.max, id, true);
+            msleep(TIME);
+            sendData(0xFF, addrMin[num], item.min, id, true);
+        }
+
     }
 }
 
@@ -256,23 +252,20 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
     for(int id=0; id<BUS_NUM; ++id)
     {
         sDataPacket *shm = get_share_mem(); // 获取共享内存
-        int len = shm->data[id].boxNum;
-        for(int boxNum=0; boxNum<=len; ++boxNum)
-        {
-           //--------------[广播]--------------------[试用]
-           int lens;
-           if(shm->data[id].box[0].dc){
-               lens = LINE_NUM_MAX; //交流
-           }else{
-               lens = 4; //直流
-           }
+        //--------------[广播]--------------------[试用]
+        int lens;
+        if(shm->data[id].box[0].dc){
+            lens = LINE_NUM_MAX; //交流
+        }else{
+            lens = 4; //直流
+        }
 
-           for(int num=0; num < lens; ++num)
-           {
-               sendData(0xFF, addrMax[num], item.max, id, true);
-               msleep(TIME);
-               sendData(0xFF, addrMin[num], item.min, id, true);
-           }
+        for(int num=0; num < lens; ++num)
+        {
+            sendData(0xFF, addrMax[num], item.max, id, true);
+            msleep(TIME);
+            sendData(0xFF, addrMin[num], item.min, id, true);
+        }
 
            //-------------[一套只能判断一次]-------------------
          /* int lens = LINE_NUM;
@@ -286,7 +279,6 @@ void SetBOXThread::setLoopCurAll(DbThresholdItem &item)
                     sendData(0, addrMin[num], item.min, id, true);
                 }
             }*/
-        }
     }
 }
 
