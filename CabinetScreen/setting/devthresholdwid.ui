@@ -364,8 +364,8 @@ border-radius:15px
           <rect>
            <x>20</x>
            <y>0</y>
-           <width>31</width>
-           <height>41</height>
+           <width>211</width>
+           <height>51</height>
           </rect>
          </property>
          <property name="palette">

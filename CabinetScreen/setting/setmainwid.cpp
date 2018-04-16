@@ -15,9 +15,9 @@ SetMainWid::SetMainWid(QWidget *parent) :
 
    // ui->widget->setStyleSheet("background-color:#66ccff;");
     mDevWid[0] = new DevThresholdWid(ui->widget_1);
-    mDevWid[0]->setType("A");
+    mDevWid[0]->setType("A路(DPS)");
     mDevWid[1] = new DevThresholdWid(ui->widget_2);
-    mDevWid[1]->setType("B");
+    mDevWid[1]->setType("B路(市电)");
 
     QGridLayout *yout_1 = new QGridLayout(ui->widget_1);
     yout_1->addWidget(mDevWid[0]);
