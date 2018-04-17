@@ -54,6 +54,7 @@ typedef struct
 typedef struct
 {
 	_devDataObj		    line; // 输入相
+    _devDataObj		    loop; // 输入相
 	_devDataObj 		output; //输出位
 	_envDataObjct 		env; // 环境
 }pduDevData;

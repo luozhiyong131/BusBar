@@ -59,7 +59,7 @@ int DpTgThread::averData(int *data, int len)
 void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
 {
     memset(tg, 0, sizeof(sTgObjData));
-    int line = 1; // LINE_NUM
+    int line = 1;  // LINE_NUM
     for(int i=0; i<line; ++i)
     {
         tg->cur += obj->cur.value[i];
