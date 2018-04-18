@@ -125,21 +125,22 @@ void MainWindow::on_setBtn_clicked()
     onCShow(3);
 }
 
-static bool update_fun(const QString &str)  //升级函数
+static bool update_fun(const QString &str)
 {
     bool ret = true;
-    int rets = system("mount -a /dev/sda1 /mnt/sda1/");
-    if(rets < 0) return false;
+
     QFileInfo fi(QString("/mnt/%1/CabinetScreen/app").arg(str));
     if(fi.exists()) {
-        int ret = system("rm -rf /opt/CabinetScreen");
+        QString cstr;
+        cstr = QString("rm -rf opt/app");
+        int ret = system(cstr.toLatin1());
         if(ret < 0) {
-            qDebug() << "rm -rf /opt/CabinetScreen err ";
+            qDebug() << cstr.toLatin1() << " err ";
         }
-        QString cstr = QString("cp /mnt/%1/CabinetScreen/app /opt/CabinetScreen").arg(str);
+        cstr = QString("cp /mnt/%1/CabinetScreen/app /opt/app").arg(str);
         ret = system(cstr.toLatin1());
         if(ret < 0) {
-            qDebug() << str.toLatin1() << " err ";
+            qDebug() << cstr.toLatin1() << " err ";
         }
         system("reboot");
     } else {
