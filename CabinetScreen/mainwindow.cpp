@@ -132,7 +132,7 @@ static bool update_fun(const QString &str)
     QFileInfo fi(QString("/mnt/%1/CabinetScreen/app").arg(str));
     if(fi.exists()) {
         QString cstr;
-        cstr = QString("rm -rf opt/app");
+        cstr = QString("rm -rf /opt/app");
         int ret = system(cstr.toLatin1());
         if(ret < 0) {
             qDebug() << cstr.toLatin1() << " err ";
