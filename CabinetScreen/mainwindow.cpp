@@ -155,7 +155,7 @@ void MainWindow::onLongPressSlot(int time)
     if(time < 3000) return;
     QuMsgBox box(this, tr("是否升级系统?"));
     if(box.Exec()) {
-        bool ret = update_fun("sda1");
+        bool ret = update_fun("udisk");
        // if(!ret) ret = update_fun("mmcblk0p1");
         if(!ret)
             CriticalMsgBox box(this, tr("升级文件未找到！\n 请插入U盘，把升级文件放入CabinetScreen目录下!"));
