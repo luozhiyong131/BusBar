@@ -74,13 +74,23 @@
     <string notr="true">background-color: rgb(200, 200, 200);</string>
    </property>
    <property name="text">
-    <string>X</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/new/prefix1/image/close.png</normaloff>:/new/prefix1/image/close.png</iconset>
    </property>
    <property name="iconSize">
     <size>
      <width>41</width>
      <height>41</height>
     </size>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="Line" name="line">
@@ -210,6 +220,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../images.qrc"/>
+ </resources>
  <connections/>
 </ui>

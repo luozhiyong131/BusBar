@@ -44,5 +44,6 @@
         <file>image/on.png</file>
         <file>image/number/backspace.png</file>
         <file>image/number/delete.png</file>
+        <file>image/close.png</file>
     </qresource>
 </RCC>

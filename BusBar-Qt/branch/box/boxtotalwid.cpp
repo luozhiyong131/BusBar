@@ -10,6 +10,7 @@ BoxTotalWid::BoxTotalWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(2000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    ui->AllWid->hide(); //隐藏和 y_MW_2018.4.23
 }
 
 BoxTotalWid::~BoxTotalWid()
@@ -49,23 +50,9 @@ void BoxTotalWid::setTemp(int id, int column)
 void BoxTotalWid::updateData()
 {
     if(mBox->dc){ //交流
-        ui->curC->show();
-        ui->tPowC->show();
-        ui->tApPowC->show();
-        ui->tPfC->show();
-        ui->tEleC->show();
-        ui->volC->show();
-        ui->label_5->show();
-        ui->temC->show();
+        ui->CWid->show();
     }else{
-        ui->curC->hide();
-        ui->tPowC->hide();
-        ui->tApPowC->hide();
-        ui->tPfC->hide();
-        ui->tEleC->hide();
-        ui->volC->hide();
-        ui->label_5->hide();
-        ui->temC->hide();
+        ui->CWid->hide();
     }
 
     QString str;

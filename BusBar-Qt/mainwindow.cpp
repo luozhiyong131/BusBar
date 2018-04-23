@@ -98,7 +98,7 @@ void MainWindow::checkAlarm()
         alarm += shm->data[i].box[0].boxAlarm;
     }
 
-    alarm = 1;  /////========= 特意显示出来
+//    alarm = 1;  /////========= 特意显示出来
     if(alarm)  {
         ui->alarmBtn->setVisible(true);
     } else {
@@ -147,6 +147,10 @@ void MainWindow::initWidget()
     mSettingWid = new SettingWid(ui->stackedWid); //配置
     ui->stackedWid->addWidget(mSettingWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
+
+    //隐藏
+    ui->busNameLab->hide();
+    ui->ratedLab->hide();
 }
 
 void MainWindow::on_homeBtn_clicked()

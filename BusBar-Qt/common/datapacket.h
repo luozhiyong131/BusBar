@@ -19,7 +19,7 @@
 #define LINE_NUM 9 // 三相
 #define LINE_NUM_MAX 9 // 三相
 #define BOX_NUM 32 // 接插箱数量
-#define BUS_NUM 2  // 四条母线
+#define BUS_NUM 4  // 四条母线
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 

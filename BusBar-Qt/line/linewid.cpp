@@ -36,6 +36,7 @@ void LineWid::initWid()
 {
     //    mTotalWid = new LineTotalWid(ui->totalWid);
     //    connect(this, SIGNAL(busChangedSig(int)), mTotalWid, SLOT(busChangeSlot(int)));
+    ui->totalWid->hide(); //隐藏和 By_MW_2018.4.23
     initTotalWid(); //表盘界面
 
     //三总线界面
@@ -48,6 +49,7 @@ void LineWid::initWid()
         line->initLine(i);
         connect(this, SIGNAL(busChangedSig(int)), line, SLOT(busChangeSlot(int)));
     }
+
 }
 
 
@@ -78,39 +80,44 @@ void LineWid::timeoutDone()
         QString version = QString("V%1.%2").arg(mData->box[0].version/10).arg(mData->box[0].version%10);
         ui->version->setText(version);
 
+        updateTotalWid();
         updatePlot();
     }
 }
 
 
 void LineWid::initTotalWid()
-{
+{    
     QHBoxLayout *layout = new QHBoxLayout(ui->totalWid);
 
     mCurPlot = new CustomDialPlot(ui->totalWid);
     mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
-//    mPfPlot = new CustomDialPlot(ui->totalWid);
+    //    mPfPlot = new CustomDialPlot(ui->totalWid);
 
     layout->addWidget(mVolPlot);
     layout->addWidget(mCurPlot);
     layout->addWidget(mPwPlot);
-//    layout->addWidget(mPfPlot);
+    //    layout->addWidget(mPfPlot);
 
     mVolPlot->setUnit("V");
-    mVolPlot->setRange(0,255);
-
     mCurPlot->setUnit("A");
+    mPwPlot->setUnit("kW");
+
+    //    mPfPlot->setUnit("");
+    //    mPfPlot->setRange(0,1);
+}
+
+void LineWid::updateTotalWid()
+{
     int max = 0;
     for(int i=0; i<3; ++i) max += mData->box[0].data.cur.max[i];
+    if(max<1000) max = 1000;
     mCurPlot->setRange(0,max/COM_RATE_CUR + 1);
 
-    mPwPlot->setUnit("kW");
-    max *= 255;
+    max *= 275;
     mPwPlot->setRange(0,max/COM_RATE_POW);
-
-//    mPfPlot->setUnit("");
-//    mPfPlot->setRange(0,1);
+    mVolPlot->setRange(0,275);
 }
 
 
@@ -121,7 +128,7 @@ void LineWid::updatePlot()
     mVolPlot->setValue(tgBusData->vol);        //表盘更新 V
     mCurPlot->setValue(tgBusData->cur/COM_RATE_CUR); //A
     mPwPlot->setValue(tgBusData->pow/COM_RATE_POW);  //W
-//    mPfPlot->setValue(tgBusData->pf/COM_RATE_PF);
+    //    mPfPlot->setValue(tgBusData->pf/COM_RATE_PF);
 }
 
 void LineWid::indexChanged(int index)

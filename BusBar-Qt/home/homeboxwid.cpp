@@ -119,6 +119,8 @@ void HomeBoxWid::on_pushButton_clicked()
 
 void HomeBoxWid::initWid()
 {
+    ui->curLab->hide(); //隐藏和——by_MW_2018.04.23
+
     QSize size(95,95);
     set_background_icon(this, ":/new/prefix1/image/round.png", size);
 }

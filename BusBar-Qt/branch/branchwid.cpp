@@ -10,6 +10,7 @@ BranchWid::BranchWid(QWidget *parent) :
     connect(this, SIGNAL(busChangedSig(int)), mTableWid, SLOT(busChangeSlot(int)));
 }
 
+
 BranchWid::~BranchWid()
 {
     delete ui;

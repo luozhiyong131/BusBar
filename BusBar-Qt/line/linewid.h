@@ -27,6 +27,7 @@ protected:
     void initFun();
     void initWid();
     void initTotalWid();
+    void updateTotalWid();
     void updatePlot();
 
 protected slots:

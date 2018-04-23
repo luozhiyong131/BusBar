@@ -70,6 +70,9 @@ RESOURCES += \
 target.path = /opt
 INSTALLS += target
 
+DISTFILES += \
+    image/close.png
+
 
 
 
