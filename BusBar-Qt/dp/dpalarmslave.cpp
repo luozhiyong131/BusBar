@@ -39,6 +39,11 @@ QStringList get_alarm_str()
     return str;
 }
 
+int get_alarm_len()
+{
+    return gAlarmStr.size();
+}
+
 
 DpAlarmSlave::DpAlarmSlave(QObject *parent) : QThread(parent)
 {

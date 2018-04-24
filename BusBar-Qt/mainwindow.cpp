@@ -11,7 +11,7 @@
 #include "shm/setbox.h"
 
 RtuThread *rtu[4] = {NULL, NULL, NULL, NULL};
-//extern RtuThread *rtu[4];
+extern int get_alarm_len();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -92,13 +92,7 @@ void MainWindow::setBusName(int index)
 
 void MainWindow::checkAlarm()
 {
-    int alarm = 0;
-    sDataPacket *shm = get_share_mem();
-    for(int i=0; i>BUS_NUM; ++i) {
-        alarm += shm->data[i].box[0].boxAlarm;
-    }
-
-//    alarm = 1;  /////========= 特意显示出来
+    int alarm = get_alarm_len();  /////========= 特意显示出来
     if(alarm)  {
         ui->alarmBtn->setVisible(true);
     } else {
