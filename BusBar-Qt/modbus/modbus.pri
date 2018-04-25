@@ -7,7 +7,8 @@ HEADERS += \
     modbus/serialport/serial_portset.h \
     modbus/rtu485/rtu_sent.h \
     modbus/rtu485/rtu_recv.h \
-    modbus/rtuthread.h
+    modbus/rtuthread.h \
+    modbus/thirdthread.h
    
 	
 SOURCES += \	
@@ -16,7 +17,8 @@ SOURCES += \
     modbus/serialport/serial_portset.cpp \
     modbus/rtu485/rtu_sent.cpp \
     modbus/rtu485/rtu_recv.cpp \
-    modbus/rtuthread.cpp
+    modbus/rtuthread.cpp \
+    modbus/thirdthread.cpp
     
 
 

@@ -192,7 +192,6 @@ int Serial_Trans::recvData(uchar *pBuf, int nCount)
                 break;
         } while(rtn>0);
     }
-
     return ret;
 }
 

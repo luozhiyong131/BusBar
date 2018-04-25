@@ -23,6 +23,8 @@
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 
+#define SRC_DATA_LEN_MAX 255 //一包数据最长 —— 用于对接动环
+
 /**
  * 统计数据结构体
  */
@@ -121,10 +123,19 @@ typedef struct _sBusData{
     char busName[NAME_LEN]; // 母线名称
 }sBusData;
 
+/**
+ * 转发动环数据： 所有接插相原始数据
+ */
+typedef struct _sSrcData{
+    u_char len[BOX_NUM];
+    u_char array[BOX_NUM][SRC_DATA_LEN_MAX];
+}sSrcData;
+
 
 typedef struct _sDataPacket
 {
     sBusData data[BUS_NUM];  // 四条母线数据
+    sSrcData srcData[BUS_NUM];  //放一起[申请到共享内存]
 }sDataPacket;
 
 /**

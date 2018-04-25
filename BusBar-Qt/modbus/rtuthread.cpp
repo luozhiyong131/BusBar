@@ -35,6 +35,7 @@ bool RtuThread::init(const QString& name, int id)
 {
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     mBusData = &(shm->data[id-1]);
+    mSrcData = &(shm->srcData[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
     if(ret)
@@ -146,7 +147,7 @@ int RtuThread::transData(int addr)
     int rtn = rtu_sent_buff(addr,buf); // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf); // 传输数据，发送同时接收
     if(rtn > 0) {
-        bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据
+        bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it
         if(ret) {
             if(addr == pkt->addr) { //回收地址和发送地址同
                 offLine = 3;
@@ -156,6 +157,20 @@ int RtuThread::transData(int addr)
                 box->dc = pkt->dc;
                 box->version = pkt->version;
             }
+
+            uchar *srcArray = mSrcData->array[addr];
+            uchar *srcLen  = &(mSrcData->len[addr]);
+            uchar *cbuf = buf;
+            *srcLen = rtn;
+            for(int i = 0; i < *srcLen; i++){
+                *srcArray++ = *cbuf++;
+            }
+        }else{
+            //数据出错清零
+            uchar *srcArray = mSrcData->array[addr];
+            uchar *srcLen  = &(mSrcData->len[addr]);
+            *srcLen = 0;
+            memset(srcArray,0,sizeof(SRC_DATA_LEN_MAX));
         }
     }
 

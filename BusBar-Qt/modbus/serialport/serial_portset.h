@@ -23,6 +23,7 @@
 #define SERIAL_COM2     "ttymxc3"
 #define SERIAL_COM3     "ttymxc4"
 #define SERIAL_COM4     "ttymxc6"
+#define SERIAL_COM5     "ttymxc1"
 #else
 #define SERIAL_COM1     "ttyUSB0"
 #define SERIAL_COM2     "ttyUSB1"

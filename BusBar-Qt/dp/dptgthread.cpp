@@ -71,6 +71,7 @@ void DpTgThread::tgObj(sObjData *obj, sTgObjData *tg)
         tg->pf = (tg->pow * 100.0 / tg->apPow);
     else
         tg->pf = 0;
+    if(tg->pf>99) tg->pf = 99;
     //    tg->pf = averData(obj->pf);
 }
 
@@ -94,7 +95,9 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
             tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
         else
             tg->pf[i] = 0;
+        if(tg->pf[i]>99) tg->pf[i] = 99;
     }
+
 }
 
 
@@ -127,6 +130,7 @@ void DpTgThread::dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int le
             tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
         else
             tg->pf[i] = 0;
+         if(tg->pf[i]>99) tg->pf[i] = 99;
     }
 }
 

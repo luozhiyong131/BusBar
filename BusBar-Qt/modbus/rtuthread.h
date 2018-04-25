@@ -35,6 +35,8 @@ private:
     Serial_Trans *mSerial;
     Rtu_recv *mRtuPkt;
     sBusData *mBusData;
+    sSrcData *mSrcData;
+
     bool isRun;
 };
 

@@ -30,12 +30,8 @@ protected:
     void setTableItem(int id, int column, const QString &str);
     void setName(int id, int column);
     void setAlarmStatus(int id, int column);
-    void setCur(int id, int column);
-    void setVol(int id, int column);
-    void setPow(int id, int column);
-    void setPf(int id, int column);
-    void setEle(int id, int column);
-    void setTemp(int id, int column);
+    void setCur(int id, int line, int column);
+    void setEle(int id, int line, int column);
     void updateData();
 
 public slots:

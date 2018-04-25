@@ -9,8 +9,10 @@
 #include "net/send/netsendthread.h"
 
 #include "shm/setbox.h"
+#include "modbus/thirdthread.h"
 
 RtuThread *rtu[4] = {NULL, NULL, NULL, NULL};
+ThirdThread *thr = NULL;
 extern int get_alarm_len();
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -61,6 +63,9 @@ void MainWindow::initSerial()
    rtu[3] = new RtuThread(this);
    rtu[3]->init(SERIAL_COM4, 4);
 #endif
+
+   thr = new ThirdThread(this);
+   thr->init(SERIAL_COM5);
 }
 
 void MainWindow::updateTime()
