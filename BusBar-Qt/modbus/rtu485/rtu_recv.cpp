@@ -158,6 +158,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
     //qDebug() << len << RTU_SENT_DC_LEN;
     int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
+        //qDebug() << len << RTU_SENT_DC_LEN;
         uchar *ptr=buf;
         ptr += rtu_recv_head(ptr, pkt); //指针偏移
 

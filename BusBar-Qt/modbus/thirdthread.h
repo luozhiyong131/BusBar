@@ -12,9 +12,7 @@ struct ThrData {
     uchar addr; // 表示从机地址码 addr%64 - 那条母线_0起  addr%4 - 那条接插相_0起 [0 - 255]
     uchar fn; // 表示功能码
     ushort position; //地址地址位
-
     ushort len; // 表示数据字节数
-
     ushort crc; // 检验码
 };
 
@@ -33,6 +31,7 @@ public slots:
 protected:
     void run();
     void transData();
+    bool validateData(int rtn);
 
 private:
     Serial_Trans *mSerial;
