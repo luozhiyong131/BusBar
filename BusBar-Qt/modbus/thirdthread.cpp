@@ -42,8 +42,8 @@ void ThirdThread::transData()
         uchar *srcArray = srcData->array[addr];
         uchar len  = srcData->len[addr];
         mSerial->sendData(srcArray, len);
-        qDebug() << "len:" << len;
-        qDebug() << "**********buf" << QByteArray((char*)mBuf, rtn).toHex();
+       // qDebug() << "len:" << len;
+       // qDebug() << "**********buf" << QByteArray((char*)mBuf, rtn).toHex();
     }else{
        // qDebug() << "get Ro" << rtn;
     }
