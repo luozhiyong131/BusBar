@@ -49,7 +49,7 @@ void ThirdThread::transData()
             buf = mBuf;
             *buf = addr;
             if(rtu[id] != NULL)
-                rtu[id]->sendData(buf, rtn, 200); //最好放入其他线程——暂时放这
+                rtu[id]->sendData(buf, rtn, 200); //[最好放入其他线程——暂时放这]
         }else{ //功能码不合法
 
         }
