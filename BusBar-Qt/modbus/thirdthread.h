@@ -5,14 +5,21 @@
 #include "serialport/serial_trans.h"
 #include "rtu485/rtu_recv.h"
 #include "common.h"
+#include "rtuthread.h"
 
 #define RTU_BUF_SIZE 100
 
+enum {
+    Fn_Get = 3  //获取数据
+   ,Fn_Set = 0x10 //设置数据
+};
+
+extern RtuThread *rtu[4];
 struct ThrData {
     uchar addr; // 表示从机地址码 addr%64 - 那条母线_0起  addr%4 - 那条接插相_0起 [0 - 255]
     uchar fn; // 表示功能码
     ushort position; //地址地址位
-    ushort len; // 表示数据字节数
+    ushort data; // get表示数据字节数_set表示设置数据
     ushort crc; // 检验码
 };
 
@@ -38,6 +45,7 @@ private:
     bool isRun;
     uchar *mBuf;
     ThrData *mThr;
+
 };
 
 #endif // THIRDTHREAD_H

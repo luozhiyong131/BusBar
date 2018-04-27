@@ -36,14 +36,25 @@ void ThirdThread::transData()
         if(!validateData(rtn)) return; //解析并验证数据
         uchar id = mThr->addr % 64;
         uchar addr = mThr->addr % 4;
-        if(id >=BUS_NUM || addr >= BOX_NUM || mThr->fn != 3) return;
-        sDataPacket *shm = get_share_mem(); // 获取共享内存
-        sSrcData *srcData = &(shm->srcData[id]);
-        uchar *srcArray = srcData->array[addr];
-        uchar len  = srcData->len[addr];
-        mSerial->sendData(srcArray, len);
+        if(id >=BUS_NUM || addr >= BOX_NUM) return;
+        if(mThr->fn == Fn_Get){ //获取数据 _ [未加长度位0时该回复数据]
+            sDataPacket *shm = get_share_mem(); // 获取共享内存
+            sSrcData *srcData = &(shm->srcData[id]);
+            uchar *srcArray = srcData->array[addr];
+            uchar len  = srcData->len[addr];
+            mSerial->sendData(srcArray, len);
+        }else if(mThr->fn == Fn_Set){ //发送数据
+            buf = mBuf;
+            mSerial->sendData(buf, rtn); //先回应同样的数据
+            buf = mBuf;
+            *buf = addr;
+            if(rtu[id] != NULL)
+                rtu[id]->sendData(buf, rtn, 200); //最好放入其他线程——暂时放这
+        }else{ //功能码不合法
+
+        }
        // qDebug() << "len:" << len;
-       // qDebug() << "**********buf" << QByteArray((char*)mBuf, rtn).toHex();
+        //qDebug() << "**********buf" << QByteArray((char*)mBuf, rtn).toHex();
     }else{
        // qDebug() << "get Ro" << rtn;
     }
@@ -61,7 +72,7 @@ bool ThirdThread::validateData(int rtn)
     mThr->position = hh<<8 + ll;
     hh = *buf++;
     ll = *buf++;
-    mThr->len = hh<<8 + ll;
+    mThr->data = hh<<8 + ll;
     ll = *buf++;
     hh = *buf++;
     mThr->crc = (ll<<8) + hh;

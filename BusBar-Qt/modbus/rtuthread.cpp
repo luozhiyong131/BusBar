@@ -92,6 +92,11 @@ int RtuThread::sendData(int addr, ushort reg, ushort len, bool value)
     return -1;
 }
 
+int RtuThread::sendData(uchar *pBuff, int nCount, int msec)
+{
+    return mSerial->sendData(pBuff, nCount, msec);
+}
+
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
     loop->vol.value[id] = data->vol;
