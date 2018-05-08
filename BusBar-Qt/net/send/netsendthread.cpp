@@ -5,8 +5,8 @@
 
 NetSendThread::NetSendThread(QObject *parent) : QThread(parent)
 {
-    AppTcpServer::bulid()->start();
-    DevSetThread::bulid()->start();
+    AppTcpServer::bulid()->start(); //secv data
+    DevSetThread::bulid()->start(); //set data
 }
 
 NetSendThread *NetSendThread::bulid()
@@ -20,7 +20,7 @@ NetSendThread *NetSendThread::bulid()
 void NetSendThread::run()
 {
     while (1) {
-        sent_dev_data();
+        sent_dev_data(); //send data
         // sleep(1);
     }
 }

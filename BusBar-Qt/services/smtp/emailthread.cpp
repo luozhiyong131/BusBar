@@ -35,7 +35,7 @@ bool EmailThread::getMessage(QString &subject, QString &body)
 {
     bool ret = true;
 
-    subject = tr("IDC-BUS报警邮件");
+    subject = tr("IDC-BUS告警邮件");
     body = get_email_str();
     if(body.isEmpty())
         ret = false;

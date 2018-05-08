@@ -47,7 +47,7 @@ void BoxTableWidget::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("接插箱") << tr("状态") << tr("A电流") << tr("A电能") << tr("B电流") << tr("B电能") << tr("C电流")   << tr("C电能");
+    header <<tr("插接箱") << tr("状态") << tr("A电流") << tr("A电能") << tr("B电流") << tr("B电能") << tr("C电流")   << tr("C电能");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -112,7 +112,7 @@ void BoxTableWidget::initTableWid()
 {
     initTableWidget();
 
-    int size = mBoxData->boxNum; // 获取接插箱的数量
+    int size = mBoxData->boxNum; // 获取插接箱的数量
     for(int i=0; i<size; ++i)
         initTable();
 }
@@ -173,7 +173,7 @@ void BoxTableWidget::setAlarmStatus(int id, int column)
     {
         int curAlarm = mBoxData->box[id].boxCurAlarm;
         int volAlarm = mBoxData->box[id].boxVolAlarm;
-        if((curAlarm == 2)  || (volAlarm == 2)) { // 报警
+        if((curAlarm == 2)  || (volAlarm == 2)) { // 告警
             str = tr("告警");
             item->setTextColor(QColor(Qt::red));
         } else  if((curAlarm == 1)  || (volAlarm == 1))  { // 预警
@@ -234,7 +234,7 @@ void BoxTableWidget::updateData()
     {
         int k=0;
         setName(i, k++); // 设置输出位名称
-        setAlarmStatus(i, k++); //设置报警状态
+        setAlarmStatus(i, k++); //设置告警状态
 
         for(int j=0; j<3; ++j) {
             setCur(i, j, k++); // 设置电流值

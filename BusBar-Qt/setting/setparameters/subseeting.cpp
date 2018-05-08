@@ -34,7 +34,7 @@ void SubSeeting::initTableWidget()
     mWidget->setRowCount(0);
 
     QStringList horHead;
-    horHead<< tr("接插箱");
+    horHead<< tr("插接箱");
 
     if(mDc){ //交流9个
         for(int i = 0; i < LINE_NUM; ++i){
@@ -131,7 +131,7 @@ void SubSeeting::updateWid(int index)
 
 
 /**
- * @brief 设置接插箱名称
+ * @brief 设置插接箱名称
  * @param row
  * @param column
  */
@@ -145,7 +145,7 @@ void SubSeeting::setName(int row, int column)
 
 void SubSeeting::setAlarmStatus(QTableWidgetItem *item, sDataUnit *unit,int id)
 {
-    if(unit->alarm[id] > 0) { // 报警
+    if(unit->alarm[id] > 0) { // 告警
         item->setTextColor(QColor(Qt::red));
     } else  if(unit->crAlarm[id] > 0) { // 预警
         item->setTextColor(QColor("#CD7E80"));

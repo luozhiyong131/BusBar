@@ -210,7 +210,7 @@ void BoxTotalWid::updateData()
 void BoxTotalWid::setLabeColor(QLabel *label, int alarm, int crAlarm)
 {
     QPalette pa;
-    if(alarm) { // 报警
+    if(alarm) { // 告警
         pa.setColor(QPalette::WindowText,Qt::red);
     } else  if(crAlarm) { // 预警
         pa.setColor(QPalette::WindowText,"#CD7E80");

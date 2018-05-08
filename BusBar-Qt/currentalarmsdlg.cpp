@@ -7,8 +7,8 @@ CurrentAlarmsDlg::CurrentAlarmsDlg(QWidget *parent) :
     ui(new Ui::CurrentAlarmsDlg)
 {
     ui->setupUi(this);
-//    this->setWindowTitle(tr("当前报警内容"));
-    com_setBackColour(tr("当前报警内容"),this);
+//    this->setWindowTitle(tr("当前告警内容"));
+    com_setBackColour(tr("当前告警内容"),this);
 
     QTimer::singleShot(100,this,SLOT(on_refreshBtn_clicked())); //延时初始化
 }
@@ -28,7 +28,7 @@ void CurrentAlarmsDlg::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("母线名称")<<tr("报警类型") << tr("报警内容");
+    header <<tr("母线名称")<<tr("告警类型") << tr("告警内容");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 

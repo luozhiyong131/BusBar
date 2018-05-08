@@ -90,7 +90,7 @@ void SettingThreshold::initWidget()
 /**
  * @brief SettingThreshold::initWidget
  * @param index  当前母线编号
- * @param boxNUm 接插箱编号
+ * @param boxNUm 插接箱编号
  * @param lineNum 相数  0-2,为3则表示当前点击为温度
  */
 void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temNum ,bool isStartBox)
@@ -108,10 +108,10 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
 
     if((lineNum > 0) && (lineNum < 10) && (temNum == 0))
     {
-        //----------[区分始端箱和接插箱]----------------------By_MW 2018.3.21
+        //----------[区分始端箱和插接箱]----------------------By_MW 2018.3.21
         QString nameStr;
         if(boxNUm){ //接插
-            nameStr = QString("接插箱%1").arg(boxNUm);
+            nameStr = QString("插接箱%1").arg(boxNUm);
         }else{
             nameStr = "始端箱";
         }
@@ -124,10 +124,10 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
     }
     else if ((temNum > 0) && (temNum < 10) && (lineNum == 0))
     {
-        //----------[区分始端箱和接插箱]----------------------By_MW 2018.3.21
+        //----------[区分始端箱和插接箱]----------------------By_MW 2018.3.21
         QString nameStr;
         if(boxNUm){ //接插
-            nameStr = QString("接插箱%1").arg(boxNUm);
+            nameStr = QString("插接箱%1").arg(boxNUm);
         }else{
             nameStr = "始端箱";
         }
@@ -219,7 +219,7 @@ void SettingThreshold::saveData()
 }
 
 /**
- * @brief 保存接插箱数据
+ * @brief 保存插接箱数据
  */
 void SettingThreshold::saveLoopData()
 {
@@ -242,7 +242,7 @@ void SettingThreshold::saveLoopData()
 
     if((mLineNum != 0) && (mTemNum == 0))
     {
-        item.type = 3; //接插箱电流
+        item.type = 3; //插接箱电流
         item.num = (mBoxNum - 1)*LINE_NUM + (mLineNum -1);
     }
     else if((mLineNum == 0) && (mTemNum != 0))
@@ -254,7 +254,7 @@ void SettingThreshold::saveLoopData()
         }
         else
         {
-            item.type = 5; //接插箱温度
+            item.type = 5; //插接箱温度
             item.num = (mBoxNum - 1)*SENSOR_NUM + (mTemNum-1) ;
         }
     }
@@ -269,7 +269,7 @@ void SettingThreshold::saveLoopData()
         if((mLineNum != 0) && (mTemNum == 0))
             mShm->setLoopCurAll(item); //电流统一设置
         else if((mLineNum == 0) && (mTemNum != 0)){
-            if(item.type == 5){ //接插箱
+            if(item.type == 5){ //插接箱
                 mShm->setTempAll(item);
             }else{  //始端箱
                  mShm->setLineTempAll(item); //温度统一设置

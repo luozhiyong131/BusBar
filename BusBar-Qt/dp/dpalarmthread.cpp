@@ -1,6 +1,6 @@
 /*
  * dpalarmthread.cpp
- * 报警标志位判定线程
+ * 告警标志位判定线程
  *
  *
  *  Created on: 2017年10月1日
@@ -77,14 +77,14 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
 {
     if(box.offLine > 0) {
         int lineNum = box.data.lineNum;
-        alarmDataUnit(box.data.cur, lineNum); // 回路是否有报警
+        alarmDataUnit(box.data.cur, lineNum); // 回路是否有告警
         box.boxCurAlarm = alarmFlag(box.data.cur);
 
         lineNum = box.data.lineNum;
-        alarmDataUnit(box.data.vol, lineNum); // 回路是否有报警
+        alarmDataUnit(box.data.vol, lineNum); // 回路是否有告警
         box.boxVolAlarm = alarmFlag(box.data.vol);
 
-        //--------------[限制存在才报警]----------------- By_MW 2018.3.23
+        //--------------[限制存在才告警]----------------- By_MW 2018.3.23
         if(box.dc){ //交流
             lineNum = 3;
         }else{ //直流

@@ -146,7 +146,7 @@ bool SetShm::saveItem(DbThresholdItem &item)
 
     sBusData *box = &(shm->data[item.bus]);
     sBoxData *bus = &(box->box[0]);
-    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度
+    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
     {
     case 1:
         unit = &(bus->data.vol);
@@ -186,7 +186,7 @@ void SetShm::setName(DbNameItem &item)
     char *name = NULL;
     int boxNum=0, num = item.num;
     sBusData *bus = &(shm->data[item.bus]);
-    switch(item.type) // 名称类型 1 母线名称   2 接插箱名称
+    switch(item.type) // 名称类型 1 母线名称   2 插接箱名称
     {
     case 1:
         name = bus->busName;
@@ -226,7 +226,7 @@ void SetShm::setLineRatedCur(int index, int data)
 }
 
 /**
- * @brief SetShm::setLineBoxNum  设置母线接插箱数量
+ * @brief SetShm::setLineBoxNum  设置母线插接箱数量
  * @param index  母线编号
  * @param num    数量
  */

@@ -35,7 +35,7 @@ protected:
     void saveAllItem(DbThresholdItem &item); // 统一设置
     void setLoopVolAll(DbThresholdItem &item); // 设置所有回路电压
     void setLoopCurAll(DbThresholdItem &item); // 设置所有回路电流
-    void setTempAll(DbThresholdItem &item); // 设置所有接插箱温度
+    void setTempAll(DbThresholdItem &item); // 设置所有插接箱温度
 
     void setLineVolAll(DbThresholdItem &item); // 设置所有主路电压
     void setLineCurAll(DbThresholdItem &item); // 设置所有主路电流

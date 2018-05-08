@@ -86,7 +86,7 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab,int volAlarm, int curALarm, int env
 }
 
 /**
- * @brief 更新报警图片
+ * @brief 更新告警图片
  */
 void HomeBoxWid::updateAlarmStatus()
 {

@@ -8,7 +8,7 @@
 
 //const QColor gray(174,225,254);//空设备,原为灰色，现为天蓝色
 //const QColor green(97,202,40);//正常
-//const QColor orange(255,0,0);//报警，原为橘红，现为红色
+//const QColor orange(255,0,0);//告警，原为橘红，现为红色
 //const QColor blue(200,200,200);//离线，原为男色，现为灰色
 
 /* 窗口背景色 */

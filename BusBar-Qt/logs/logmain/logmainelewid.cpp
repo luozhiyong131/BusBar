@@ -97,7 +97,7 @@ void LogMainEleWid::refreshSlot()
 
 void LogMainEleWid::doubleSlot(QModelIndex)
 {
-    QString str = tr("是否删除这条纪录?");
+    QString str = tr("是否删除这条记录?");
     QuMsgBox box(this, str);
     bool ret = box.Exec();
     if(ret)
@@ -109,7 +109,7 @@ void LogMainEleWid::doubleSlot(QModelIndex)
 
 
 /**
- * @brief 纪录导出 0按时间段导出 1日报表 ，2月报表  3 年报表
+ * @brief 记录导出 0按时间段导出 1日报表 ，2月报表  3 年报表
  */
 void LogMainEleWid::exportSlot(int mode)
 {

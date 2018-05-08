@@ -61,7 +61,7 @@ bool LogBranchEleExportThread::readDb()
         msg = tr("数据读取完成!!");
     } else {
         ret = false;
-        msg = tr("没有纪录数据，无法导出!!");
+        msg = tr("没有记录数据，无法导出!!");
     }
     emit readDbSig(msg);
 

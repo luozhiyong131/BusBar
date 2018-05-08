@@ -64,7 +64,7 @@ void LogAlarmWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("报警项目")<< tr("报警内容") ;
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("告警项目")<< tr("告警内容") ;
     model->setHeaders(mHeadList);
 }
 
@@ -100,7 +100,7 @@ void LogAlarmWid::refreshSlot()
 
 void LogAlarmWid::doubleSlot(QModelIndex)
 {
-    QString str = tr("是否删除这条纪录?");
+    QString str = tr("是否删除这条记录?");
     QuMsgBox box(this, str);
     bool ret = box.Exec();
     if(ret)
@@ -113,7 +113,7 @@ void LogAlarmWid::doubleSlot(QModelIndex)
 
 
 /**
- * @brief 纪录导出 1日报表 ，2月报表  3 年报表
+ * @brief 记录导出 1日报表 ，2月报表  3 年报表
  */
 void LogAlarmWid::exportSlot(int mode)
 {

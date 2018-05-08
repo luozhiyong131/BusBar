@@ -46,7 +46,7 @@ static int tcp_creatSocket(int port, int lisnum)
             SOCK_PACKET： 与网络驱动程序直接通信。
      */
     //socket函数，向系统申请一个通信端口
-    int sockfd=socket(AF_INET,SOCK_STREAM,0);//IPV4 TCP协议
+    int sockfd=socket(AF_INET,SOCK_STREAM,0);//IPV4 TCP协议           ______ [1]
     if(sockfd >= 0)//申请失败
     {
         memset(&sin,0,sizeof(sin));// 初始化 然后是设置套接字
@@ -54,7 +54,7 @@ static int tcp_creatSocket(int port, int lisnum)
         sin.sin_addr.s_addr=INADDR_ANY;//sin_addr存储IP地址,使用in_addr这个数据结构
         sin.sin_port=htons(port);//存储端口号
 
-        ret = bind(sockfd,(struct sockaddr *)&sin,sizeof(sin)); //将套接字（sin） 跟端口（sockfd）链接
+        ret = bind(sockfd,(struct sockaddr *)&sin,sizeof(sin)); //将套接字（sin） 跟端口（sockfd）链接      ______ [2]
         if(ret >= 0)
         {
             /*int PASCAL FAR listen( SOCKET s, int backlog);
@@ -62,11 +62,11 @@ static int tcp_creatSocket(int port, int lisnum)
                    backlog：等待连接队列的最大长度。
              * listen()仅适用于支持连接的套接口，如SOCK_STREAM类型的。
              */
-            ret = listen(sockfd,lisnum);
+            ret = listen(sockfd,lisnum);                                                  //  _______ [3]
             if(ret >= 0) //在端口sockfd监听
             {
                 qDebug("TCP accepting connections \n");
-                return sockfd;;
+                return sockfd; //OK
             }
             else
                 qDebug("call to listen err\n");
@@ -102,10 +102,11 @@ static void tcp_recv(int sockfd)
     int ret,rtn;
     do
     {
-        ret = recv(sockfd,buf,512,0);
+        usleep(1);
+        ret = recv(sockfd,buf,512,0); //接收
         if( ret > 0)
         {
-            rtn = net_data_analytic(buf, ret, &packet);
+            rtn = net_data_analytic(buf, ret, &packet); //解析数据包 _ 返回数据长度
             if(rtn >= 0)
             {
                 rtn = dev_data_analytic(packet.data, packet.len, &pkt);
@@ -154,7 +155,7 @@ static int tcp_accept(int sockfd)
     struct sockaddr_in pin;
 
     uint size = sizeof(struct sockaddr_in);
-    int sock = accept(sockfd,(struct sockaddr *)&pin, &size);
+    int sock = accept(sockfd,(struct sockaddr *)&pin, &size);  //                   ______ [4]
     if(sock >= 0)
     {
         udp_printf("Client IP: %s\n", inet_ntoa(pin.sin_addr));
@@ -169,7 +170,6 @@ static int tcp_accept(int sockfd)
 
     return 0;
 }
-
 
 AppTcpServer::AppTcpServer(QObject *parent) : QThread(parent)
 {

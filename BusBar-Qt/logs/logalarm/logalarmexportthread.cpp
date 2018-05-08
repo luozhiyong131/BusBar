@@ -31,7 +31,7 @@ bool LogAlarmExportThread::readDb()
     emit readDbSig(msg);
 
     QStringList heads;
-    heads << "No." << "Date" << "Time" << tr("报警内容") << tr("详细描述");
+    heads << "No." << "Date" << "Time" << tr("告警内容") << tr("详细描述");
     mList << heads;
 
     QVector<DbAlarmItem> items = mEle->selectByDate(mExcelStr->start, mExcelStr->end);
@@ -55,7 +55,7 @@ bool LogAlarmExportThread::readDb()
         msg = tr("数据读取完成!!");
     } else {
         ret = false;
-        msg = tr("没有纪录数据，无法导出!!");
+        msg = tr("没有记录数据，无法导出!!");
     }
     emit readDbSig(msg);
 

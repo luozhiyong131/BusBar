@@ -155,7 +155,7 @@ void DpTgThread::tgBox(sBoxData *box)
 
 void DpTgThread::tgBus(sBusData *bus)
 {
-    for(int i=0; i<=bus->boxNum; ++i) { // 接插箱统计
+    for(int i=0; i<=bus->boxNum; ++i) { // 插接箱统计
         tgBox(&(bus->box[i]));
     }
 }

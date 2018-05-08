@@ -64,7 +64,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>当前报警信息</string>
+    <string>当前告警信息</string>
    </property>
   </widget>
  </widget>

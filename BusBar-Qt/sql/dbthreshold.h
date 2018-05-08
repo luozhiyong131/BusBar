@@ -8,7 +8,7 @@
 struct DbThresholdItem{
     int id;
     int bus; // 母线编号 0~3
-    int type; // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5接插箱温度  6 回路电压阈值
+    int type; // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度  6 回路电压阈值
     int num; // 编号
     int min, crmin, crmax, max; // 最小值，临界下限  临界上限  最大值
 };

@@ -527,7 +527,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>数据
-纪录</string>
+记录</string>
        </property>
        <property name="flat">
         <bool>true</bool>

@@ -8,11 +8,11 @@ typedef enum {
 
     PDU_CMD_MIN, //最小值
     PDU_CMD_MAX, //最大值
-    PDU_CMD_ALARM, //报警
+    PDU_CMD_ALARM, //告警
 
     PDU_CDM_CRMIN,//临界最小值
     PDU_CMD_CRMAX, //临界最大值
-    PDU_CMD_CRALARM, //临界报警
+    PDU_CMD_CRALARM, //临界告警
 }PDU_CMD_DATA_TYPE;
 
 

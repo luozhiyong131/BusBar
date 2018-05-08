@@ -87,7 +87,7 @@ void LogBranchEleWid::initTableSlot(int id)
     m_table = getTableName(id);
     this->refreshTable(m_table);
 
-    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("接插箱");
+    mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱");
    /* for(int i=0; i<9; ++i)
         mHeadList << "L" + QString::number(i+1);*/
     //--------------------[由于界面不好修改——By_MW 2018.3.21]-----------
@@ -128,7 +128,7 @@ void LogBranchEleWid::refreshSlot()
 
 void LogBranchEleWid::doubleSlot(QModelIndex)
 {
-    QString str = tr("是否删除这条纪录?");
+    QString str = tr("是否删除这条记录?");
     QuMsgBox box(this, str);
     bool ret = box.Exec();
     if(ret)
@@ -140,7 +140,7 @@ void LogBranchEleWid::doubleSlot(QModelIndex)
 
 
 /**
- * @brief 纪录导出 1日报表 ，2月报表  3 年报表
+ * @brief 记录导出 1日报表 ，2月报表  3 年报表
  */
 void LogBranchEleWid::exportSlot(int mode)
 {

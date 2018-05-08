@@ -1,6 +1,6 @@
 /*
  * dpalarmslave.cpp
- * 报警内容保存，报警信息提示线程
+ * 告警内容保存，告警信息提示线程
  *
  *
  *  Created on: 2017年10月1日
@@ -10,11 +10,11 @@
 #include "dbalarm.h"
 
 static QMutex mutex; // 互拆锁
-static QString gEmailStr; // 报警邮件的内容
-static QStringList gAlarmStr; // 实时报警内容 存储格式 母线名称，报警类型，报警内容
+static QString gEmailStr; // 告警邮件的内容
+static QStringList gAlarmStr; // 实时告警内容 存储格式 母线名称，告警类型，告警内容
 
 /**
- * @brief 获取报警邮件的内容
+ * @brief 获取告警邮件的内容
  * @return
  */
 QString get_email_str()
@@ -27,8 +27,8 @@ QString get_email_str()
 }
 
 /**
- * @brief 获取实时报警内容
- * @return  实时报警内容 存储格式 母线名称，报警类型，报警内容
+ * @brief 获取实时告警内容
+ * @return  实时告警内容 存储格式 母线名称，告警类型，告警内容
  */
 QStringList get_alarm_str()
 {
@@ -90,7 +90,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
         QString str=msg, tempStr = typeStr;
         if(unit.alarm[i])
         {
-            tempStr = typeStr + tr("报警");
+            tempStr = typeStr + tr("告警");
             str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(i+1)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.min[i]/rate).arg(sym)
@@ -110,7 +110,7 @@ void DpAlarmSlave::unitAlarm(QString &typeStr, QString &msg, sDataUnit &unit, do
                     .arg(unit.crMax[i]/rate).arg(sym);
         }
 
-        // 实时报警信息
+        // 实时告警信息
         if((unit.alarm[i]) || (unit.crAlarm[i])) {
             mAlarmStr << shm->data[mBusId].busName;
             mAlarmStr << tempStr;
@@ -138,7 +138,7 @@ void DpAlarmSlave::unitAlarmVA(sBoxData &box, QString &typeStr, QString &msg, sD
         QString str=msg, tempStr = typeStr;
         if(unit.alarm[i])
         {
-            tempStr = typeStr + tr("报警");
+            tempStr = typeStr + tr("告警");
             str += tr("%1，当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(alarmStr)
                     .arg(unit.value[i]/rate).arg(sym)
                     .arg(unit.min[i]/rate).arg(sym)
@@ -158,7 +158,7 @@ void DpAlarmSlave::unitAlarmVA(sBoxData &box, QString &typeStr, QString &msg, sD
                     .arg(unit.crMax[i]/rate).arg(sym);
         }
 
-        // 实时报警信息
+        // 实时告警信息
         if((unit.alarm[i]) || (unit.crAlarm[i])) {
             mAlarmStr << shm->data[mBusId].busName;
             mAlarmStr << tempStr;
@@ -174,19 +174,19 @@ void DpAlarmSlave::boxAlarm(sBoxData &box)
     {
         QString typeStr = tr("回路电流");
         if(box.boxCurAlarm) {
-            QString msg = tr("接插箱：%1，").arg(box.boxName);
+            QString msg = tr("插接箱：%1，").arg(box.boxName);
             unitAlarmVA(box, typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
         }
 
         typeStr = tr("回路电压");
         if(box.boxVolAlarm) {
-            QString msg = tr("接插箱：%1，").arg(box.boxName);
+            QString msg = tr("插接箱：%1，").arg(box.boxName);
             unitAlarmVA(box, typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
         }
 
-        typeStr = tr("接插箱温度");
+        typeStr = tr("插接箱温度");
         if(box.boxEnvAlarm) {
-            QString msg = tr("接插箱：%1，温度").arg(box.boxName);
+            QString msg = tr("插接箱：%1，温度").arg(box.boxName);
             unitAlarm(typeStr, msg, box.env.tem, COM_RATE_TEM, "°C");
         }
     }
@@ -205,13 +205,13 @@ void DpAlarmSlave::busAlarm(int id)
     //--------------------------------------------------
 
     if(busBox->boxAlarm) {
-        if(busBox->boxCurAlarm) { // 总线电流报警
+        if(busBox->boxCurAlarm) { // 总线电流告警
             QString typeStr = tr("主路电流");
             QString msg = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
             unitAlarm(typeStr, msg, busBox->data.cur, COM_RATE_CUR, "A");
         }
 
-        if(busBox->boxVolAlarm) { // 总线电压报警
+        if(busBox->boxVolAlarm) { // 总线电压告警
             QString typeStr = tr("主路电压");
             QString msg = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
             unitAlarm(typeStr, msg, busBox->data.vol, COM_RATE_VOL, "V");

@@ -116,7 +116,7 @@ void BoxLoopTableWid::initTableWid()
     initTableWidget();
     checkTable();
 
-    int size =mData->lineNum; // 获取接插箱的数量
+    int size =mData->lineNum; // 获取插接箱的数量
 
   //  size = 9; //===========
     for(int i=0; i<size; ++i)
@@ -186,7 +186,7 @@ void BoxLoopTableWid::setAlarmStatus(int id, int column, int alarm, int crAlarm)
 {
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
 
-    if(alarm) { // 报警
+    if(alarm) { // 告警
         item->setTextColor(QColor(Qt::red));
     } else  if(crAlarm) { // 预警
         item->setTextColor(QColor("#CD7E80"));

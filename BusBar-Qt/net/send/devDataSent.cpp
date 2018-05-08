@@ -25,8 +25,6 @@ static int data_msg_packetSent(uchar *buf, ushort len)
 {
     android_sent(buf,len);
     //    len = udp_clientSentData(gSentBuf,len);
-
-
     return len;
 }
 
@@ -159,7 +157,7 @@ static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *
     msg->len = shortToChar(unit->max,len,buf);
     sent_packet(msg);
 
-    /*发送报警*/
+    /*发送告警*/
     msg->fn[1] = fc + fn++;
     msg->len = len;
     msg->data = unit->alarm;
@@ -177,7 +175,7 @@ static void sent_unit(_devDataUnit *unit, int len, uchar *buf, dev_data_packet *
     msg->len = shortToChar(unit->crMax,len,buf);
     sent_packet(msg);
 
-    /*发送临界报警*/
+    /*发送临界告警*/
     msg->fn[1] = fc + fn++;
     msg->len = len;
     msg->data = unit->crAlarm;
@@ -522,7 +520,7 @@ void sent_dev_data(void)
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-//        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
+        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
 
         pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
@@ -538,7 +536,7 @@ void sent_dev_data(void)
         sent_devData(id, i,devData);
         sent_devStatus(id, i, box);
         //sent_str(i, 6, 0x11, strlen(str), str);
-        free(devData);
+        free(devData); //释放
     }
 
     sent_busName(id, &shm->data[id]);

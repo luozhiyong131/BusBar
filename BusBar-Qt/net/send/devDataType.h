@@ -16,11 +16,11 @@ typedef struct
 
     ushort 		*min; //最小值
     ushort 		*max; //最大值
-    uchar 		*alarm; // 报警状态
+    uchar 		*alarm; // 告警状态
 
     ushort 		*crMin; //临界最小值
     ushort 		*crMax; //临界最大值
-    uchar 		*crAlarm; //临界报警状态
+    uchar 		*crAlarm; //临界告警状态
 }_devDataUnit;
 
 typedef struct

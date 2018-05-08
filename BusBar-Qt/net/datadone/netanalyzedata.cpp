@@ -142,10 +142,10 @@ int net_data_analytic(uchar *buf, ushort len, net_data_packet *msg)
     int ret;
     uchar *ptr=buf;
 
-    ret = data_packet_sync(buf,len);
+    ret = data_packet_sync(buf,len); //验证包的各种特性
     if(ret >= 0)
     {
-        ptr = buf+ret;
+        ptr = buf+ret; /*信息头偏移距离*/
         msg->hdr = *(ptr++); /*信息头*/
         msg->stx = *(ptr++); /*标识字*/
 
