@@ -93,6 +93,9 @@ void MainWindow::setBusName(int index)
     sBusData *busData = &(shm->data[index]);
     double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->ratedLab->setText(QString::number(rateCur));
+
+    ui->busNameLab->setText("");
+    ui->ratedLab->setText("V1.0.1");
 }
 
 void MainWindow::checkAlarm()
@@ -146,10 +149,6 @@ void MainWindow::initWidget()
     mSettingWid = new SettingWid(ui->stackedWid); //配置
     ui->stackedWid->addWidget(mSettingWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
-
-    //隐藏
-    ui->busNameLab->hide();
-    ui->ratedLab->hide();
 }
 
 void MainWindow::on_homeBtn_clicked()

@@ -7,7 +7,6 @@
 #include "common.h"
 #include "rtuthread.h"
 
-#define RTU_BUF_SIZE 100
 
 enum {
     Fn_Get = 3  //获取数据

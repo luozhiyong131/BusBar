@@ -83,7 +83,7 @@ color: rgb(255, 255, 255);</string>
           </font>
          </property>
          <property name="text">
-          <string>IDC-BusBar   V1.0.0</string>
+          <string>IDC-BusBar   </string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
