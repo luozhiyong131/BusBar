@@ -65,7 +65,7 @@ bool DbBranchEle::modifyItem(const DbBranchEleItem &item, const QString &cmd)
     query.bindValue(":name",item.name);
 
     for(int i=0; i<9; ++i)
-        query.bindValue(QString(":loop_%d").arg(i+1),item.loops[i]);
+        query.bindValue(QString(":loop_%1").arg(i+1),item.loops[i]);
     query.bindValue(":loop",item.loop);
     ret = query.exec();
     if(!ret)

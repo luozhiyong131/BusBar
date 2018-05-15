@@ -75,6 +75,7 @@ bool LogMainEleWid::refreshTable(const QString &table)
         m_table = table;
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
         ui->tableView->setColumnHidden(0, true);
+        ui->tableView->setColumnHidden(6, true);
     }
     return  ret;
 }

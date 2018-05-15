@@ -16,7 +16,8 @@ DpEleSlaveThread::DpEleSlaveThread(QObject *parent) : QThread(parent)
     shm = get_share_mem(); // 获取共享内存
 
      timer = new QTimer(this);
-     timer->start(60*60*1000);
+//     timer->start(60*60*1000);
+     timer->start(1000);
      connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -37,14 +38,15 @@ void DpEleSlaveThread::timeoutDone()
 void DpEleSlaveThread::saveBox(int bus, sBoxData  &box)
 {
     double rate = 10;
-    if(box.offLine == 0) return; //不保存
+//    if(box.offLine == 0) return; //不保存
     sObjData *data = &(box.data);
 
     DbBranchEleItem item;
     item.name = box.boxName;
     for(int i=0; i<9; ++i)
-    item.loops[i] = data->ele[i]/rate;
+        item.loops[i] = data->ele[i]/rate;
     item.loop = box.tgBox.ele/rate;
+
     db_branchEle_obj(bus)->insertItem(item);
     msleep(5);
 }
