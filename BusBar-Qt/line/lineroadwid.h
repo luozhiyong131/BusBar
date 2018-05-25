@@ -20,6 +20,8 @@ public:
 
 protected:
     void updateData();
+    void updateWid(int id);
+    void initWid();
     void updateAlarmStatus(QLabel *lab, sDataUnit &unit);
 
 public slots:
@@ -33,12 +35,9 @@ private:
     Ui::LineRoadWid *ui;
 
     int mID;
-    sObjData *mData;
-    sEnvData *mEnv;
-    QTimer *timer;
-    //char mDc; //交只流  0为直流 其他交流
-    int mBusId; //当前母线
+    sBoxData *mBox;
 
+    QTimer *timer;
     bool isRun;
 };
 

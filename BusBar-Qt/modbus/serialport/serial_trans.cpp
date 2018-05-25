@@ -103,7 +103,7 @@ bool Serial_Trans::openSerial(const QString serialName)
     }
 
     tcflush(fd, TCIFLUSH);
-    setting.c_cc[VTIME] = 4; // 超时时间 0.5S
+    setting.c_cc[VTIME] = 2; // 超时时间 0.5S
     setting.c_cc[VMIN] = 0; // 数据最小长度
     tcsetattr(fd, TCSANOW, &setting);
 
@@ -177,20 +177,24 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount)
   * 入口参数：pBuf -> 缓冲区
   * 返回值：读取的实际长度  <=0 出错
   */
-int Serial_Trans::recvData(uchar *pBuf, int nCount)
+int Serial_Trans::recvData(uchar *pBuf, int msecs)
 {
     // QMutexLocker locker(&mutex);
-    int rtn = -1, ret=0;
+    int count=0, ret=0;
     if(fd >= 0)
     {
-        do {
-            rtn = read(fd, pBuf, nCount);
+        do
+        {
+            int rtn = read(fd, pBuf, 256);
             if(rtn > 0) {
                 pBuf += rtn; // 指针移动
                 ret += rtn; // 长度增加
-            } else if(ret >= nCount)
-                break;
-        } while(rtn>0);
+                count = msecs-1;
+            } else {
+                count++;
+            }
+        } while (count < msecs) ;
+
     }
     return ret;
 }
@@ -207,7 +211,7 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
     int ret = sendData(sent, len);
     if(ret > 0) {
         ret = recvData(recv, 5);
-//         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
+        //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
     }
     return ret;
 }

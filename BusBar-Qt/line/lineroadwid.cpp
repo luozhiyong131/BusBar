@@ -38,11 +38,9 @@ void LineRoadWid::interfaceChangedSlot(int id)
 }
 
 void LineRoadWid::busChangeSlot(int id)
-{    
-    mBusId = id;
+{
     sDataPacket *shm = get_share_mem();
-    mData = &(shm->data[id].box[0].data); //回路状态内带三相信息
-    mEnv = &(shm->data[id].box[0].env); //环境状态
+    mBox = &(shm->data[id].box[0]);
     updateData();
 }
 
@@ -69,26 +67,12 @@ void LineRoadWid::updateAlarmStatus(QLabel *lab, sDataUnit &unit)
     lab->setPalette(pe);
 }
 
-
-void LineRoadWid::updateData()
+void LineRoadWid::updateWid(int id)
 {
-    int id = mID;
-   // QString str = "L" + QString::number(id+1);
-    QString str;
+    sObjData *mData = &(mBox->data); //回路状态内带三相信息
+    sEnvData  *mEnv = &(mBox->env); //环境状态
 
-    str = QString((char)('A' + id));
-
-    sDataPacket *shm = get_share_mem();
-    int dc = shm->data[mBusId].box[0].dc; //交直流 -- 第一次初始化时共享内存为0，故改为事实获取_ByMW.2018.3.22
-    if(dc){ //交流
-        if(id+1 > 2)  {this->show(); }
-    }else {
-        if(id+1 > 2)  { this->hide(); return;}
-    }
-
-    ui->name->setText(str);
-
-    str = QString::number(mData->vol.value[id]) + "V";
+    QString str = QString::number(mData->vol.value[id]) + "V";
     ui->volLab->setText(str);
     updateAlarmStatus(ui->volLab, mData->vol);
 
@@ -111,4 +95,34 @@ void LineRoadWid::updateData()
     str =  QString::number(mEnv->tem.value[id]) + "℃";
     ui->temLab->setText(str);
     updateAlarmStatus(ui->temLab, mEnv->tem);
+}
+
+void LineRoadWid::initWid()
+{
+    QString str = "---";
+    ui->volLab->setText(str);
+    ui->curLab->setText(str);
+    ui->maxCur->setText(str);
+    ui->powLab->setText(str);
+    ui->pfLab->setText(str);
+    ui->eleLab->setText(str);
+    ui->temLab->setText(str);
+}
+
+void LineRoadWid::updateData()
+{
+    int id = mID;
+    QString str = QString((char)('A' + id));
+    ui->name->setText(str);
+    if(mBox->offLine) {
+        updateWid(id);
+    } else {
+        initWid();
+    }
+
+    if(mBox->dc){ //交流
+        if(id+1 > 2)  {this->show(); }
+    }else {
+        if(id+1 > 2)  { this->hide(); return;}
+    }
 }

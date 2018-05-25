@@ -38,6 +38,7 @@ private slots:
 private:
     Ui::HomeBoxWid *ui;
 
+    int mBoxNum;
     int mID, mBusID, mBaseNum;
     sBoxData *mData;
     QTimer *timer;

@@ -28,7 +28,7 @@ public:
 
     int sendData(uchar *pBuff, int nCount, int msec);
     int sendData(uchar *pBuff, int nCount);
-    int recvData(uchar *pBuf, int nCount);
+    int recvData(uchar *pBuf, int msecs);
     int transmit(uchar *sent, int len, uchar *recv);
 
 protected:

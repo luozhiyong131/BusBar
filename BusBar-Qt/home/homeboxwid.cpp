@@ -10,7 +10,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
 {
     ui->setupUi(this);
     initWid();
-    mBusID = 0;
+    mBoxNum = mBusID = 0;
 
     isRun = true;
     timer = new QTimer(this);
@@ -28,6 +28,7 @@ void HomeBoxWid::initFun(int base, int id)
 {
     mID = base*10 + id+1;
     sDataPacket *shm = get_share_mem();
+    mBoxNum = shm->data[mBusID].boxNum;
     mData = &(shm->data[mBusID].box[mID]);
     ui->titleLab->setText(QString::number(mID));
     updateData();
@@ -91,13 +92,15 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab,int volAlarm, int curALarm, int env
 void HomeBoxWid::updateAlarmStatus()
 {
     if(mData->offLine) {
+        this->setHidden(false);
         updateAlarmIcon(ui->iconLab_1,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_2,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_3,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
-    } else { // 离线
+    } else { // 离线        
         setBackgroundImage(ui->iconLab_1, "boxoffine");
         setBackgroundImage(ui->iconLab_2, "boxoffine");
         setBackgroundImage(ui->iconLab_3, "boxoffine");
+        if(mID > mBoxNum) this->setHidden(true);
     }
 }
 
