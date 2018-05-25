@@ -36,7 +36,7 @@ void LogAlarmWid::initFunSLot()
 
     model = new SqlTableModel(ui->tableView);
     ui->tableView->setModel(model->model); //设置模型
-//    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    //    ui->tableView->horizontalHeader()->setStretchLastSection(true);
     connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex)));
 
     initBtnBar(); // 切换
@@ -46,7 +46,7 @@ void LogAlarmWid::initFunSLot()
 void LogAlarmWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
-//    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
+    //    connect(mBtnBar, SIGNAL(busNumSig(int)), this, SLOT(initTableSlot(int)));
     connect(mBtnBar,SIGNAL(querySig(QString)),model,SLOT(queryFilter(QString))); //条件
     connect(mBtnBar,SIGNAL(clearSig()),this,SLOT(clearTableSlot())); //清空
     connect(mBtnBar,SIGNAL(refreshSig()),this,SLOT(refreshSlot())); //刷新
@@ -83,14 +83,16 @@ bool LogAlarmWid::refreshTable(const QString &table)
 
 void LogAlarmWid::clearTableSlot()
 {
+#if SQL_DEL_MODE
     model->model->setTable("markingtable");
     DbAlarm* db = db_alarm_obj(mid);
     db->clear();
     db->createTable();
     initTableSlot(mid);
-
-//    if(model->removeRow(0))
-//        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+#else
+    if(model->removeRow(0))
+        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+#endif
 }
 
 void LogAlarmWid::refreshSlot()

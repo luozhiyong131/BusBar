@@ -87,7 +87,7 @@ void InitShm::initBusThreshold()
         for(int k=0; k<3; ++k)
         {
             initThresholdUnit(i, 1, k, bus->data.vol, 275);
-            initThresholdUnit(i, 2, k, bus->data.cur, 1000);
+            initThresholdUnit(i, 2, k, bus->data.cur, 6000);
             initThresholdUnit(i, 4, k, bus->env.tem, 99);
         }
     }

@@ -22,7 +22,7 @@ void BoxTableWidget::initFunSLot()
 {
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(3*1000);
+    timer->start(1500);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
     isRun = false;

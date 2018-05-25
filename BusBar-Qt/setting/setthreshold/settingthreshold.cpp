@@ -16,6 +16,7 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
 
     mShm = new SetShm; //操作共享内存
     initWidget();
+    initSpinBox();
 
     connect(ui->spinBox,   SIGNAL(getFocus()), this, SLOT(onGetFocusSlot1()));
     connect(ui->spinBox_2, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot2()));
@@ -39,6 +40,7 @@ SettingThreshold::SettingThreshold(QWidget *parent) :
     ui->setupUi(this);
     isBox = true;
     mShm = new SetShm; //操作共享内存
+    initSpinBox();
 
     connect(ui->spinBox,   SIGNAL(getFocus()), this, SLOT(onGetFocusSlot1()));
     connect(ui->spinBox_2, SIGNAL(getFocus()), this, SLOT(onGetFocusSlot2()));
@@ -56,6 +58,14 @@ SettingThreshold::~SettingThreshold()
     delete ui;
 }
 
+void SettingThreshold::initSpinBox()
+{
+    ui->spinBox_3->setEnabled(false);
+    connect(ui->spinBox, SIGNAL(valueChanged(int)),  ui->spinBox_2, SLOT(setValue(int)));
+
+    ui->spinBox_4->setEnabled(false);
+    connect(ui->spinBox_2, SIGNAL(valueChanged(int)),  ui->spinBox_4, SLOT(setValue(int)));
+}
 
 void SettingThreshold::initWidget()
 {
@@ -83,6 +93,7 @@ void SettingThreshold::initWidget()
     ui->spinBox_2->setValue(unit->max[mIndex]/aret);
     ui->spinBox_3->setValue(unit->crMin[mIndex]/aret);
     ui->spinBox_4->setValue(unit->crMax[mIndex]/aret);
+
 
     setSuffex(str);
 }
@@ -209,7 +220,7 @@ void SettingThreshold::saveData()
 
     }else //单独设置
     {
-       // qDebug() << "单一设置";
+        // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
             return; // 跳出设置
@@ -261,7 +272,7 @@ void SettingThreshold::saveLoopData()
     bool ret = ui->checkBox->isChecked();
     if(ret) //统一设置
     {
-       // qDebug() << "统一设置";
+        // qDebug() << "统一设置";
         if(!SetBOXThread::bulid()->send(2,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
             return; // 跳出设置
@@ -272,13 +283,13 @@ void SettingThreshold::saveLoopData()
             if(item.type == 5){ //插接箱
                 mShm->setTempAll(item);
             }else{  //始端箱
-                 mShm->setLineTempAll(item); //温度统一设置
+                mShm->setLineTempAll(item); //温度统一设置
             }
 
         }
     }else //单独设置
     {
-       // qDebug() << "单一设置";
+        // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
             return; // 跳出设置
@@ -335,7 +346,7 @@ void SettingThreshold::setNuber(QSpinBox *spinBox, QString tit)
 bool SettingThreshold::checkData(int min, int crmin, int crmax, int max)
 {
 
-//    qDebug() << "checkdata-------------";
+    //    qDebug() << "checkdata-------------";
     if(min > crmin )
     {
         QMessageBox::warning(this,tr("waring"),tr("最小值大于临界下限！"),tr("OK"));

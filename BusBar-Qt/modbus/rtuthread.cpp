@@ -43,6 +43,8 @@ bool RtuThread::init(const QString& name, int id)
         QTimer::singleShot(3*1000,this,SLOT(start()));  // 启动线程
     }
 
+    mId = id;
+
     return ret;
 }
 
@@ -100,12 +102,12 @@ int RtuThread::sendData(uchar *pBuff, int nCount, int msec)
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
     loop->vol.value[id] = data->vol;
-    loop->vol.min[id] = data->minVol;
-    loop->vol.max[id] = data->maxVol;
+    loop->vol.crMin[id] = loop->vol.min[id] = data->minVol;
+    loop->vol.crMax[id] = loop->vol.max[id] = data->maxVol;
 
     loop->cur.value[id] = data->cur;
-    loop->cur.min[id] = data->minCur;
-    loop->cur.max[id] = data->maxCur;
+    loop->cur.crMin[id] = loop->cur.min[id] = data->minCur;
+    loop->cur.crMax[id] = loop->cur.max[id] = data->maxCur;
 
     loop->pow[id] = data->pow;
     loop->ele[id] = data->ele;
@@ -134,8 +136,8 @@ void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
     for(int i=0; i<SENSOR_NUM; ++i)
     {
         env->tem.value[i] = pkt->env[i].tem.value;
-        env->tem.min[i] = pkt->env[i].tem.min;
-        env->tem.max[i] = pkt->env[i].tem.max;
+        env->tem.crMin[i] = env->tem.min[i] = pkt->env[i].tem.min;
+        env->tem.crMax[i] = env->tem.max[i] = pkt->env[i].tem.max;
 
         env->hum.value[i] = pkt->env[i].hum.value;
     }
@@ -196,12 +198,13 @@ void RtuThread::run()
     while(isRun)
     {
         for(int i=0; i<=mBusData->boxNum; ++i)
-        {            
+        {
             if(transData(i) == 0 ) {
                  msleep(1100);
                 transData(i);
+            } else {
+                msleep(865);
             }
-            msleep(865);
         }
         msleep(1800);
     }

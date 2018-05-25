@@ -82,13 +82,16 @@ bool LogMainEleWid::refreshTable(const QString &table)
 
 void LogMainEleWid::clearTableSlot()
 {
+#if SQL_DEL_MODE
     model->model->setTable("markingtable");
     DbMainEle* db = db_mainEle_obj(mid);
     db->clear();
     db->createTable();
     initTableSlot(mid);
-//    if(model->removeRow(0))
-//        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+#else
+    if(model->removeRow(0))
+        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+#endif
 }
 
 void LogMainEleWid::refreshSlot()

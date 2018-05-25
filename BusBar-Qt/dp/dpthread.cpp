@@ -9,11 +9,7 @@
 
 DpThread::DpThread(QObject *parent) : QThread(parent)
 {
-    mTgThread = new DpTgThread(this);
-    mAlarmThread = new DpAlarmThread(this);
-    mEle = new DpEleSlaveThread(this);
-    mAlarmSlave = new DpAlarmSlave(this);
-    mBeep = new DpBeepThread(this);
+    QTimer::singleShot(5*1000,this,SLOT(initFunSLot())); //延时初始化
 }
 
 DpThread::~DpThread()
@@ -22,7 +18,14 @@ DpThread::~DpThread()
 }
 
 
-
+void DpThread::initFunSLot()
+{
+    mTgThread = new DpTgThread(this);
+    mAlarmThread = new DpAlarmThread(this);
+    mEle = new DpEleSlaveThread(this);
+    mAlarmSlave = new DpAlarmSlave(this);
+    mBeep = new DpBeepThread(this);
+}
 
 
 

@@ -12,7 +12,7 @@ LineRoadWid::LineRoadWid(QWidget *parent) :
     initLine(0);
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(3*1000 + rand() % 100);
+    timer->start(1500 + rand() % 100);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }

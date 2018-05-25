@@ -19,7 +19,7 @@ void LineTotalWid::initFunSLot()
 {
     busChangeSlot(0);
     timer = new QTimer(this);
-    timer->start(2*1000);
+    timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 

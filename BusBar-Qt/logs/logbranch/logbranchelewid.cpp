@@ -79,7 +79,7 @@ void LogBranchEleWid::updateColumnHidden()
     ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
     ui->tableView->setColumnHidden(0, true);
     ui->tableView->setColumnHidden(13, true);
-//        ui->tableView->resizeColumnsToContents();
+    //        ui->tableView->resizeColumnsToContents();
 }
 
 void LogBranchEleWid::initTableSlot(int id)
@@ -89,7 +89,7 @@ void LogBranchEleWid::initTableSlot(int id)
     this->refreshTable(m_table);
 
     mHeadList << tr("编号") << tr("日期") << tr("时间") << tr("插接箱");
-   /* for(int i=0; i<9; ++i)
+    /* for(int i=0; i<9; ++i)
         mHeadList << "L" + QString::number(i+1);*/
     //--------------------[由于界面不好修改——By_MW 2018.3.21]-----------
     mHeadList << tr("A1/D1") << tr("B1/D2") << tr("C1/D3") << tr("A2/D4") << tr("B2")
@@ -112,14 +112,16 @@ bool LogBranchEleWid::refreshTable(const QString &table)
 
 void LogBranchEleWid::clearTableSlot()
 {
+#if SQL_DEL_MODE
     model->model->setTable("markingtable");
     DbBranchEle* db = db_branchEle_obj(mid);
     db->clear();
     db->createTable();
     initTableSlot(mid);
-
-    //    if(model->removeRow(0))
-    //        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+#else
+    if(model->removeRow(0))
+        QTimer::singleShot(1,this,SLOT(clearTableSlot()));
+#endif
 }
 
 void LogBranchEleWid::refreshSlot()

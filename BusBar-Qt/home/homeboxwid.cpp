@@ -14,7 +14,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
 
     isRun = true;
     timer = new QTimer(this);
-    timer->start(3000 + rand()%100); //防止所有对象同时申请刷新
+    timer->start(1500 + rand()%100); //防止所有对象同时申请刷新
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }

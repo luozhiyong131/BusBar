@@ -22,6 +22,7 @@ protected:
 
 protected slots:
     void timeoutDone();
+    void initFunSLot();
 
 private:
      bool isRun;

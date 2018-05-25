@@ -94,7 +94,7 @@ void MainWindow::setBusName(int index)
     double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->ratedLab->setText(QString::number(rateCur));
 
-    ui->busNameLab->setText("");
+    ui->busNameLab->setText("0" + QString::number(index+1) + tr(" 主路源"));
     ui->ratedLab->setText("V1.0.1");
 }
 

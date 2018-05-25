@@ -17,6 +17,8 @@ public:
 
 signals:
 
+protected slots:
+    void initFunSLot();
 
 private:
      DpTgThread *mTgThread;

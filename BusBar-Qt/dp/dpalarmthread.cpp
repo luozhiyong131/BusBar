@@ -12,16 +12,20 @@ DpAlarmThread::DpAlarmThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
     shm = get_share_mem(); // 获取共享内存
-
-    timer = new QTimer(this);
-    timer->start(3*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    QTimer::singleShot(15*1000,this,SLOT(initFunSLot())); //延时初始化
 }
 
 DpAlarmThread::~DpAlarmThread()
 {
     isRun = false;
     wait();
+}
+
+void DpAlarmThread::initFunSLot()
+{
+    timer = new QTimer(this);
+    timer->start(3*1000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 void DpAlarmThread::timeoutDone()

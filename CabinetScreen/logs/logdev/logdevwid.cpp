@@ -23,11 +23,14 @@ void LogDevWid::initTable()
 
 void LogDevWid::clearTableSlot()
 {
+#if SQL_DEL_MODE
     model->model->setTable("markingtable");
     DbDevEle* db = DbDevEle::bulid();
     db->clear();
     db->createTable();
     initTable();
-//    if(model->removeRow(0))
-//        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+#else
+    if(model->removeRow(0))
+        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+#endif
 }

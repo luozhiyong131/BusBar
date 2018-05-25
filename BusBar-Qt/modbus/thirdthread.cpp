@@ -34,8 +34,8 @@ void ThirdThread::transData()
     int rtn = mSerial->recvData(buf, 5); //接收数据-
     if(rtn > 0 ) {
         if(!validateData(rtn)) return; //解析并验证数据
-        uchar id = mThr->addr % 64;
-        uchar addr = mThr->addr % 4;
+        uchar id = mThr->addr / 32;
+        uchar addr = mThr->addr % 32;
         if(id >=BUS_NUM || addr >= BOX_NUM) return;
         if(mThr->fn == Fn_Get){ //获取数据 _ [未加长度位0时该回复数据]
             sDataPacket *shm = get_share_mem(); // 获取共享内存

@@ -626,7 +626,7 @@ color: rgb(255, 255, 255);</string>
        <property name="minimumSize">
         <size>
          <width>120</width>
-         <height>0</height>
+         <height>40</height>
         </size>
        </property>
        <property name="maximumSize">

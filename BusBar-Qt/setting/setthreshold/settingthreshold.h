@@ -44,6 +44,7 @@ private:
     void saveLoopData();
     void setSuffex(QString str);
     bool checkData(int min,int crmin,int crmax,int max);
+    void initSpinBox();
 
 private:
     Ui::SettingThreshold *ui;
