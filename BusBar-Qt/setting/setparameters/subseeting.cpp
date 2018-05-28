@@ -37,18 +37,11 @@ void SubSeeting::initTableWidget()
     horHead<< tr("插接箱");
 
     if(mDc){ //交流9个
-        for(int i = 0; i < LINE_NUM; ++i){
-            int id = i;
-            int divisor   =  id/3; //除数
-            int remainder =  id%3;//余数
-            QString nameStr = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
-            horHead << nameStr;
-        }
+        for(int i = 0; i < LINE_NUM; ++i)
+            horHead << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
     }else{ //直流4个
-        for(int i = 0; i < 4; i++){
-            QString nameStr = "D" + QString("%1").arg(i + 1);
-            horHead << nameStr;
-        }
+        for(int i = 0; i < 4; i++)
+            horHead << "D" + QString("%1").arg(i + 1);
     }
 
     mWidget->setColumnCount(horHead.size());
@@ -77,15 +70,10 @@ void SubSeeting::resetWidget()
     for(int i = 0 ;  i < boxNum ; i++)
     {
         mWidget->insertRow(i);
-        int len;
-       // int dc = mPacket ? mPacket->box[0].dc : 0;
-        if(mDc){ //交流9个
-            len = LINE_NUM;
-        }else{
-            len = 4;
-        }
-        for(int j = 0 ;  j <= LINE_NUM; j++)
-        {
+        int len = LINE_NUM; //交流9个
+        if(!mDc) len = 4;
+
+        for(int j=0; j<=len; j++){
             QTableWidgetItem * item = new QTableWidgetItem("---");
             item->setTextAlignment(Qt::AlignCenter);
             mWidget->setItem(i, j ,item);
@@ -161,11 +149,12 @@ void SubSeeting::setTableItem(int row, int column)
     sBoxData *box = &(mPacket->box[row+1]);
 
     if(box->offLine > 0 && column <= box->rate) { //追加判断条件_ By_MW 2018.3.21
-
-        sDataUnit *unit = &(box->data.cur);
-        double value = unit->value[column-1] / COM_RATE_CUR;
-        str = QString::number(value,'f', 1) + "A";
-        setAlarmStatus(item, unit, column-1);
+        if(column <= box->loopNum) {
+            sDataUnit *unit = &(box->data.cur);
+            double value = unit->value[column-1] / COM_RATE_CUR;
+            str = QString::number(value,'f', 1) + "A";
+            setAlarmStatus(item, unit, column-1);
+        }
     }
     item->setText(str);
 }

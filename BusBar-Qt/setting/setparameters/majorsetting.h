@@ -33,12 +33,8 @@ private:
     void upDataLine3(bool show);
     void showSum(int value);
 
-public slots:
-    void indexChanged(int index);
-
 private slots:
     void barClicked(bool isCur,int index);
-    void on_pushButton_clicked();
 
 private:
     Ui::MajorSetting *ui;

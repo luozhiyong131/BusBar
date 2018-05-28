@@ -44,6 +44,7 @@ static bool update_fun(const QString &str)
         if(ret < 0) {
             qDebug() << str.toLatin1() << " err ";
         }
+        sleep(1);
         system("reboot");
     } else {
         ret = false;

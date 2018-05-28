@@ -6,6 +6,7 @@ PassordSettingDlg::PassordSettingDlg(QWidget *parent) :
     ui(new Ui::PassordSettingDlg)
 {
     ui->setupUi(this);
+    com_setBackColour(tr("设置界面"), this);
     //    sys_configFile_writeParam("password","admin");
 
     //    QString password = getPassword();

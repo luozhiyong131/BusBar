@@ -8,6 +8,7 @@ SettingThreshold::SettingThreshold(int bus,bool isCur,int index ,QWidget *parent
     ui(new Ui::SettingThreshold)
 {
     ui->setupUi(this);
+    com_setBackColour(tr("阀值设置"), this);
 
     mBus = bus;
     mIsCur = isCur;
@@ -180,7 +181,7 @@ void SettingThreshold::setSuffex(QString str)
 /**
  * @brief 保存数据
  */
-void SettingThreshold::saveData()
+bool SettingThreshold::saveData()
 {
     DbThresholdItem item;
     int aret;
@@ -196,7 +197,7 @@ void SettingThreshold::saveData()
     item.crmax = ui->spinBox_4->value()*aret;
 
     if(!checkData(item.min,item.crmin,item.crmax,item.max))
-        return;
+        return false;
 
     item.bus = mBus;
     if(mIsCur)
@@ -210,7 +211,7 @@ void SettingThreshold::saveData()
         //qDebug() << "统一设置";
         if(!SetBOXThread::bulid()->send(2, item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-            return; // 跳出设置
+            return false; // 跳出设置
         }
         if(mIsCur){
             mShm->setLineCurAll(item);
@@ -223,16 +224,18 @@ void SettingThreshold::saveData()
         // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-            return; // 跳出设置
+            return false; // 跳出设置
         }
         mShm->saveItem(item);
     }
+
+    return true;
 }
 
 /**
  * @brief 保存插接箱数据
  */
-void SettingThreshold::saveLoopData()
+bool SettingThreshold::saveLoopData()
 {
     DbThresholdItem item;
     int rate;
@@ -248,7 +251,7 @@ void SettingThreshold::saveLoopData()
     item.crmax = ui->spinBox_4->value()*rate;
 
     if(!checkData(item.min,item.crmin,item.crmax,item.max))
-        return;
+        return false;
     item.bus = mBusNum;
 
     if((mLineNum != 0) && (mTemNum == 0))
@@ -275,7 +278,7 @@ void SettingThreshold::saveLoopData()
         // qDebug() << "统一设置";
         if(!SetBOXThread::bulid()->send(2,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-            return; // 跳出设置
+            return false; // 跳出设置
         }
         if((mLineNum != 0) && (mTemNum == 0))
             mShm->setLoopCurAll(item); //电流统一设置
@@ -292,10 +295,12 @@ void SettingThreshold::saveLoopData()
         // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
-            return; // 跳出设置
+            return false; // 跳出设置
         }
         mShm->saveItem(item);
     }
+
+    return true;
 }
 
 
@@ -306,12 +311,13 @@ void SettingThreshold::on_cancelBtn_clicked()
 
 void SettingThreshold::on_saveBtn_clicked()
 {
+    bool ret = true;
     if(!isBox)
-        saveData();
+        ret = saveData();
     else
-        saveLoopData();
+        ret = saveLoopData();
 
-    on_cancelBtn_clicked();
+    if(ret) on_cancelBtn_clicked();
 }
 
 void SettingThreshold::onGetFocusSlot1()

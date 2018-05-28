@@ -49,23 +49,23 @@ MainWindow::~MainWindow()
  */
 void MainWindow::initSerial()
 {
-   rtu[0] = new RtuThread(this);
-   rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
+    rtu[0] = new RtuThread(this);
+    rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
 #if BUS_NUM > 1
-   rtu[1] = new RtuThread(this);
-   rtu[1]->init(SERIAL_COM2, 2);
+    rtu[1] = new RtuThread(this);
+    rtu[1]->init(SERIAL_COM2, 2);
 #endif
 #if BUS_NUM > 2
-   rtu[2] = new RtuThread(this);
-   rtu[2]->init(SERIAL_COM3, 3);
+    rtu[2] = new RtuThread(this);
+    rtu[2]->init(SERIAL_COM3, 3);
 #endif
 #if BUS_NUM > 3
-   rtu[3] = new RtuThread(this);
-   rtu[3]->init(SERIAL_COM4, 4);
+    rtu[3] = new RtuThread(this);
+    rtu[3]->init(SERIAL_COM4, 4);
 #endif
 
-   thr = new ThirdThread(this);
-   thr->init(SERIAL_COM5);
+    thr = new ThirdThread(this);
+    thr->init(SERIAL_COM5);
 }
 
 void MainWindow::updateTime()
@@ -79,22 +79,32 @@ void MainWindow::timeoutDone()
     updateTime();
     checkAlarm();
     setBusName(mIndex);
+
+    for(int i=0; i<BUS_NUM; ++i)
+        updateBusName(i);
+}
+
+void MainWindow::updateBusName(int index)
+{
+     sDataPacket *shm = get_share_mem();
+     char *name = shm->data[index].busName;
+
+     QString str = "0" + QString::number(index+1) + " " + name;
+     ui->comboBox->setItemText(index, str);
 }
 
 void MainWindow::setBusName(int index)
 {
     sDataPacket *shm = get_share_mem();
     char *name = shm->data[index].busName;
-
-    QString str(name);
+    QString str = "0" + QString::number(index+1) + " " + name;
     ui->busNameLab->setText(str);
+
     mIndex = index;
 
     sBusData *busData = &(shm->data[index]);
     double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->ratedLab->setText(QString::number(rateCur));
-
-    ui->busNameLab->setText("0" + QString::number(index+1) + tr(" 主路源"));
     ui->ratedLab->setText("V1.0.1");
 }
 

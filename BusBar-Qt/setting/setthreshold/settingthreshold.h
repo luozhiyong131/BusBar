@@ -40,8 +40,8 @@ private slots:
 private:
     void initWidget();
     void initData(sDataUnit *unit, int index, int rate);
-    void saveData();
-    void saveLoopData();
+    bool saveData();
+    bool saveLoopData();
     void setSuffex(QString str);
     bool checkData(int min,int crmin,int crmax,int max);
     void initSpinBox();

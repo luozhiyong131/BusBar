@@ -50,7 +50,7 @@ void BoxLoopTableWid::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("名称") <<tr("开关") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能");// << tr("温度");
+    header <<tr("回路") <<tr("名称") <<tr("开关") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能");// << tr("温度");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -116,10 +116,7 @@ void BoxLoopTableWid::initTableWid()
     initTableWidget();
     checkTable();
 
-    int size =mData->lineNum; // 获取插接箱的数量
-
-  //  size = 9; //===========
-    for(int i=0; i<size; ++i)
+    for(int i=0; i<mData->lineNum; ++i)
         initTable();
 }
 
@@ -131,9 +128,9 @@ bool BoxLoopTableWid::checkTable()
 {
     bool ret = false;
 
-#if 0
+#if 1
     int size = mData->lineNum;
-    if(size <= 0 || size > 9) {
+    if(size < 0 || size > 9) {
         mData->lineNum = size = 3;
     }
 #else
@@ -168,17 +165,22 @@ void BoxLoopTableWid::clearTable()
     }
 }
 
-void BoxLoopTableWid::setName(int id, int column)
+
+void BoxLoopTableWid::setLoop(int id, int column)
 {
     QString name;
     if(mDc){
-        int divisor   =  id/3; //除数
-        int remainder =  id%3;//余数
-        name = QString((char)('A' + remainder))+ QString("%1").arg(divisor + 1);
+        name = QString((char)('A' + id%3))+ QString("%1").arg(id/3 + 1);
     }else{
         name = "D" + QString("%1").arg(id + 1);
     }
 
+    setTableItem(id, column, name);
+}
+
+void BoxLoopTableWid::setName(int id, int column)
+{
+    QString name = mBoxData->loopName[id];
     setTableItem(id, column, name);
 }
 
@@ -283,8 +285,7 @@ void BoxLoopTableWid::setTemp(int id, int column)
 void BoxLoopTableWid::updateData()
 {
     bool ret = checkTable();
-    if(ret)
-        initTableWid(); // 重新建立表格
+    if(ret) initTableWid(); // 重新建立表格
 
     if(mBoxData->offLine)
     {
@@ -292,6 +293,7 @@ void BoxLoopTableWid::updateData()
         for(int i=0; i<row; ++i)
         {
             int k=0;
+            setLoop(i, k++);
             setName(i, k++); // 设置输出位名称
 
             setSw(i, k++);

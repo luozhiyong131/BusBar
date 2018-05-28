@@ -15,7 +15,7 @@ TimeSettingDlg::TimeSettingDlg(QWidget *parent) :
     ui(new Ui::TimeSettingDlg)
 {
     ui->setupUi(this);
-    //    com_setBackColour(tr("时间设置"),this);
+//    com_setBackColour(tr("时间设置"),this);
 
     QDate date = QDate::currentDate();
     ui->yearSpin->setValue(date.year());

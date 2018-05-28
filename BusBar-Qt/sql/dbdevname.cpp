@@ -102,6 +102,17 @@ bool DbDevName::saveItem(DbNameItem &item)
     return ret;
 }
 
+bool DbDevName::setName(int busId, int typeId, int num, const QString &name)
+{
+    DbNameItem item;
+    item.bus = busId;
+    item.type = typeId;
+    item.num = num;
+    item.name = name;
+
+    return saveItem(item);
+}
+
 QString DbDevName::getName(int busId, int typeId, int num)
 {
     DbNameItem item;

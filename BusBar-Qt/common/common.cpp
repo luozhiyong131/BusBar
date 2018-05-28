@@ -30,6 +30,7 @@ void com_setBackColour(const QString &str,QWidget *target)
 }
 
 
+
 /***
   * 获取程序数据目录
   */

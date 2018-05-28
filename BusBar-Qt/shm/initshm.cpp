@@ -124,7 +124,7 @@ void InitShm::initBusName()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
-        initNameUnit(i, 1, 0, busData->busName, QString("bus-%1").arg(i+1)); //母线名称各处统一
+        initNameUnit(i, 1, 0, busData->busName, QString("BUS-%1").arg(i+1)); //母线名称各处统一
     }
 }
 

@@ -29,6 +29,7 @@ protected:
     bool checkTable();
 
     void setTableItem(int id, int column, const QString &str);
+    void setLoop(int id, int column);
     void setName(int id, int column);
 
     void setAlarmStatus(int id, int column, int alarm, int crAlarm);

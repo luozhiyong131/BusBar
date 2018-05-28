@@ -16,7 +16,9 @@ HEADERS += \
     $$PWD/setparameters/startboxwid.h \
     $$PWD/setthreshold/setkey.h \
     $$PWD/setthreshold/myspinbox.h \
-    $$PWD/setthreshold/mylabel.h
+    $$PWD/setthreshold/mylabel.h \
+    $$PWD/setnames/setnameswid.h \
+    $$PWD/setnames/setnamedlg.h
     
     
    
@@ -35,7 +37,9 @@ SOURCES += \
     $$PWD/setparameters/startboxwid.cpp \
     $$PWD/setthreshold/setkey.cpp \
     $$PWD/setthreshold/myspinbox.cpp \
-    $$PWD/setthreshold/mylabel.cpp
+    $$PWD/setthreshold/mylabel.cpp \
+    $$PWD/setnames/setnameswid.cpp \
+    $$PWD/setnames/setnamedlg.cpp
     
     
 
@@ -52,7 +56,9 @@ FORMS += \
     $$PWD/setsystem/checkpassworddlg.ui \
     $$PWD/setparameters/temsettingwid.ui \
     $$PWD/setparameters/startboxwid.ui \
-    $$PWD/setthreshold/setkey.ui
+    $$PWD/setthreshold/setkey.ui \
+    $$PWD/setnames/setnameswid.ui \
+    $$PWD/setnames/setnamedlg.ui
 
 
 
