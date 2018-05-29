@@ -130,7 +130,7 @@ void DpTgThread::dcLineTgObj(sObjData *obj, sLineTgObjData *tg, int line, int le
             tg->pf[i] = (tg->pow[i] * 100.0 / tg->apPow[i]);
         else
             tg->pf[i] = 0;
-         if(tg->pf[i]>99) tg->pf[i] = 99;
+        if(tg->pf[i]>99) tg->pf[i] = 99;
     }
 }
 
@@ -153,6 +153,7 @@ void DpTgThread::tgBox(sBoxData *box)
     }else {
         memset(tgBox, 0, sizeof(sTgObjData));
         memset(linTgBox, 0, sizeof(sLineTgObjData));
+        memset(&(box->env), 0, sizeof(sEnvData));
     }
 }
 

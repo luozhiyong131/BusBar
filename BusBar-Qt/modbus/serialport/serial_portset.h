@@ -13,6 +13,7 @@
 #define SERIAL_COM2     "ttyS2"
 #define SERIAL_COM3     "ttyS7"
 #define SERIAL_COM4     "ttyS4"
+#define SERIAL_COM5     "ttyS1"
 #elif ARM_LINUX == 2  //机柜屏
 #define SERIAL_COM1     "ttymxc2"
 #define SERIAL_COM2     "ttymxc3"
