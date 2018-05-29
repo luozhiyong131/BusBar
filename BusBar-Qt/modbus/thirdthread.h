@@ -38,13 +38,15 @@ protected:
     void run();
     void transData();
     bool validateData(int rtn);
+    void setCrc(uchar *buf, int len);
+    void setting();
 
 private:
     Serial_Trans *mSerial;
     bool isRun;
     uchar *mBuf;
     ThrData *mThr;
-
+    sDataPacket *mShm;
 };
 
 #endif // THIRDTHREAD_H
