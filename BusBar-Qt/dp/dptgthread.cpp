@@ -150,6 +150,9 @@ void DpTgThread::tgBox(sBoxData *box)
         }
 
         tgBox->tem = averData(box->env.tem.value);
+    }else {
+        memset(tgBox, 0, sizeof(sTgObjData));
+        memset(linTgBox, 0, sizeof(sLineTgObjData));
     }
 }
 
