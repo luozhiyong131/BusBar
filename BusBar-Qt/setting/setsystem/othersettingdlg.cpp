@@ -44,6 +44,9 @@ static bool update_fun(const QString &str)
         if(ret < 0) {
             qDebug() << str.toLatin1() << " err ";
         }
+        cstr = QString("cp /mnt/%1/busbar/app_start/pinyin.db /opt/").arg(str);
+        ret = system(cstr.toLatin1());
+
         sleep(1);
         system("reboot");
     } else {

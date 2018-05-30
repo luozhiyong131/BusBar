@@ -66,7 +66,7 @@ void frmInput::InitForm()
 #if 1
     mDb = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "pinyin"));
     mDb->setDatabaseName(qApp->applicationDirPath() + "/pinyin.db");
-    //    qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
+    //   qDebug()<<"applicationDirPath:"<<qApp->applicationDirPath();
     if(!mDb->open()) {
         qDebug()<<mDb->lastError().text();
         qDebug("DbConn.open failed");
@@ -524,7 +524,7 @@ void frmInput::selectChinese()
     QString currentPY = ui->labPY->text();
     //    QString sql = "select [word] from [pinyin] where [pinyin]='" + currentPY + "';";
     QString sql = "select [chinese] from [hzpy] where [pinyin]='" + currentPY + "'order by type desc;";
-    query.exec(sql);
+    bool ret = query.exec(sql);
     //逐个将查询到的字词加入汉字队列
     while(query.next()) {
         QString result = query.value(0).toString();
