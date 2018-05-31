@@ -39,7 +39,7 @@ void HomeBoxWid::interfaceChangedSlot(int id)
     if(id == 1) {
         isRun = true;
     } else {
-         isRun = false;
+        isRun = false;
     }
 }
 
@@ -96,11 +96,13 @@ void HomeBoxWid::updateAlarmStatus()
         updateAlarmIcon(ui->iconLab_1,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_2,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_3,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
-    } else { // 离线        
+    } else { // 离线
         setBackgroundImage(ui->iconLab_1, "boxoffine");
         setBackgroundImage(ui->iconLab_2, "boxoffine");
         setBackgroundImage(ui->iconLab_3, "boxoffine");
-        if(mID > mBoxNum) this->setHidden(true);
+        bool hidden = false;
+        if(mID > mBoxNum) hidden = true;
+        this->setHidden(hidden);
     }
 }
 
