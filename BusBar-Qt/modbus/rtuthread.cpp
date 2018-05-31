@@ -35,7 +35,6 @@ bool RtuThread::init(const QString& name, int id)
 {
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     mBusData = &(shm->data[id-1]);
-    mSrcData = &(shm->srcData[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
     if(ret)
@@ -128,7 +127,7 @@ void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
     {
         RtuRecvLine *data = &(pkt->data[i]);
         loopObjData(loop, i, data);
-    }   
+    }
 }
 
 void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
@@ -165,19 +164,12 @@ int RtuThread::transData(int addr)
                 box->version = pkt->version;
             }
 
-            uchar *srcArray = mSrcData->array[addr];
-            uchar *srcLen  = &(mSrcData->len[addr]);
-            uchar *cbuf = buf;
-            *srcLen = rtn;
-            for(int i = 0; i < *srcLen; i++){
-                *srcArray++ = *cbuf++;
+            box->rtuLen = rtn;
+            for(int i = 0; i < rtn; i++){
+                box->rtuArray[i] = buf[i];
             }
         }else{
-            //数据出错清零
-            uchar *srcArray = mSrcData->array[addr];
-            uchar *srcLen  = &(mSrcData->len[addr]);
-            *srcLen = 0;
-            memset(srcArray,0,sizeof(SRC_DATA_LEN_MAX));
+           box->rtuLen = 0;  //数据出错清零
         }
     }
 
@@ -200,7 +192,7 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             if(transData(i) == 0 ) {
-                 msleep(1100);
+                msleep(1100);
                 transData(i);
             } else {
                 msleep(865);

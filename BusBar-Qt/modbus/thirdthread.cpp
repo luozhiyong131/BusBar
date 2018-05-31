@@ -5,7 +5,7 @@ ThirdThread::ThirdThread(QObject *parent)
 {
     mThr = new ThrData;
     mBuf = (uchar *)malloc(RTU_BUF_SIZE); //申请内存  -- 随便用
-    mSerial = new Serial_Trans(this); //串口线程    
+    mSerial = new Serial_Trans(this); //串口线程
     mShm = get_share_mem(); // 获取共享内存
 }
 
@@ -51,10 +51,15 @@ void ThirdThread::transData()
         uchar id = mThr->addr / BOX_NUM;
         uchar addr = mThr->addr % BOX_NUM;
         if(id >=BUS_NUM || addr >= BOX_NUM) return;
+        sBoxData *box = &(mShm->data[id].box[addr]); //共享内存
+
         if(mThr->fn == Fn_Get){ //获取数据 _ [未加长度位0时该回复数据]
-            sSrcData *srcData = &(mShm->srcData[id]);
-            mSerial->sendData(srcData->array[addr], srcData->len[addr]);
-        }else if(mThr->fn == Fn_Set){ //发送数据
+            if(box->rtuLen > 0) {
+                mSerial->sendData(box->rtuArray, box->rtuLen);
+            } else {
+                mSerial->sendData(buf, rtn);
+            }
+        } else if(mThr->fn == Fn_Set){ //发送数据
             mSerial->sendData(buf, rtn); //先回应同样的数据
             if(rtu[id] != NULL) {
                 buf[0] = addr;
@@ -64,10 +69,9 @@ void ThirdThread::transData()
         }else{ //功能码不合法
 
         }
-       // qDebug() << "len:" << len;
-        //qDebug() << "**********buf" << QByteArray((char*)mBuf, rtn).toHex();
+
     }else{
-       // qDebug() << "get Ro" << rtn;
+
     }
 }
 
