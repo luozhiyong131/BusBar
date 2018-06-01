@@ -45,16 +45,18 @@ void ThirdThread::setting()
 void ThirdThread::transData()
 {
     uchar *buf = mBuf;
-    int rtn = mSerial->recvData(buf, 2); //接收数据-
+    int rtn = mSerial->recvData(buf, 5); //接收数据-
     if(rtn > 2 ) {
         if(!validateData(rtn)) return; //解析并验证数据
-        uchar id = mThr->addr / BOX_NUM;
-        uchar addr = mThr->addr % BOX_NUM;
+        uchar id = mThr->addr / 0x20;
+        uchar addr = mThr->addr % 0x20;
         if(id >=BUS_NUM || addr >= BOX_NUM) return;
         sBoxData *box = &(mShm->data[id].box[addr]); //共享内存
 
         if(mThr->fn == Fn_Get){ //获取数据 _ [未加长度位0时该回复数据]
             if(box->rtuLen > 0) {
+                box->rtuArray[0] = mThr->addr;
+                setCrc(box->rtuArray, box->rtuLen);
                 mSerial->sendData(box->rtuArray, box->rtuLen);
             } else {
                 mSerial->sendData(buf, rtn);
