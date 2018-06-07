@@ -37,7 +37,7 @@ void DpEleSlaveThread::timeoutDone()
 void DpEleSlaveThread::saveBox(int bus, sBoxData  &box)
 {
     double rate = 10;
-//    if(box.offLine == 0) return; //不保存
+    if(box.offLine == 0) return; //不保存
     sObjData *data = &(box.data);
 
     DbBranchEleItem item;
