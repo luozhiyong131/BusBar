@@ -22,6 +22,7 @@ protected:
 
 private slots:
     void on_saveBtn_clicked();
+    void on_cancelBtn_clicked();
 
 private:
     Ui::SetNameDlg *ui;

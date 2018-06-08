@@ -48,8 +48,17 @@ void SetNameDlg::on_saveBtn_clicked()
 {
     QString str = ui->nameEdit->text();
     if(!str.isEmpty()) {
-        if(save()) close();
+        if(save())
+        {
+            BeepThread::bulid()->beep();
+            close();
+        }
     } else {
         CriticalMsgBox box(this, tr("名称不能为空!!"));
     }
+}
+void SetNameDlg::on_cancelBtn_clicked()
+{
+    BeepThread::bulid()->beep();
+    close();
 }

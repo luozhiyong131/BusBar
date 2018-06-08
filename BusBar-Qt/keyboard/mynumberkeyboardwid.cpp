@@ -48,7 +48,7 @@ void MyNumberKeyboardWid::buttonClicked()
     QString objectName = btn->objectName();
     QString text = btn->text();
     bool isnum = btn->property("number").toBool();
-
+    BeepThread::bulid()->beep();
     if(isnum)
     {
         insertValue(text);

@@ -70,6 +70,7 @@ void LogMainEleWid::initTableSlot(int id)
 
 bool LogMainEleWid::refreshTable(const QString &table)
 {
+    BeepThread::bulid()->beep();
     bool ret = model->refreshTable(table);
     if(ret) {
         m_table = table;
@@ -82,6 +83,7 @@ bool LogMainEleWid::refreshTable(const QString &table)
 
 void LogMainEleWid::clearTableSlot()
 {
+
 #if SQL_DEL_MODE
     model->model->setTable("markingtable");
     DbMainEle* db = db_mainEle_obj(mid);
@@ -101,6 +103,7 @@ void LogMainEleWid::refreshSlot()
 
 void LogMainEleWid::doubleSlot(QModelIndex)
 {
+    BeepThread::bulid()->beep();
     QString str = tr("是否删除这条记录?");
     QuMsgBox box(this, str);
     bool ret = box.Exec();

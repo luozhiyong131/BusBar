@@ -186,6 +186,7 @@ void SetNamesWid::on_saveBtn_clicked()
     mSetShm->setLineRatedCur(mIndex,ui->rateCurSpin->value() * COM_RATE_CUR);
     mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
+        BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }
 }

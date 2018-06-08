@@ -62,7 +62,7 @@ SettingThreshold::~SettingThreshold()
 void SettingThreshold::initSpinBox()
 {
     ui->spinBox_3->setEnabled(false);
-    connect(ui->spinBox, SIGNAL(valueChanged(int)),  ui->spinBox_2, SLOT(setValue(int)));
+    connect(ui->spinBox, SIGNAL(valueChanged(int)),  ui->spinBox_3, SLOT(setValue(int)));
 
     ui->spinBox_4->setEnabled(false);
     connect(ui->spinBox_2, SIGNAL(valueChanged(int)),  ui->spinBox_4, SLOT(setValue(int)));
@@ -306,12 +306,14 @@ bool SettingThreshold::saveLoopData()
 
 void SettingThreshold::on_cancelBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     this->close();
 }
 
 void SettingThreshold::on_saveBtn_clicked()
 {
     bool ret = true;
+    BeepThread::bulid()->beep();
     if(!isBox)
         ret = saveData();
     else

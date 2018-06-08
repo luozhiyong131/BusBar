@@ -168,6 +168,7 @@ void TemSettingWid::itemDoubleClicked(QTableWidgetItem *item)
     int column = item->column();
     if(column > 0)
     {
+        BeepThread::bulid()->beep();
         SettingThreshold settingWid(this);
         settingWid.initWidget(index,boxNum,lineNum ,column); //初始化界面
         settingWid.exec();

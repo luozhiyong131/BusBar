@@ -35,6 +35,8 @@ void SettingWid::initWidget()
 
     mSetNamesWid = new SetNamesWid(ui->stackedWidget); //名称
     ui->stackedWidget->addWidget(mSetNamesWid);
+
+    setButtonColor(ui->pushButton);
 }
 
 void SettingWid::initFunSLot()
@@ -88,12 +90,25 @@ void SettingWid::interfaceChangedSlot(int id)
     }
 }
 
+void SettingWid::setButtonColor(QPushButton *button)
+{
+    ui->pushButton->setStyleSheet("");
+    ui->pushButton_2->setStyleSheet("");
+    ui->pushButton_3->setStyleSheet("");
+    ui->pushButton_tem->setStyleSheet("");
+    ui->nameBtn->setStyleSheet("");
+
+    button->setStyleSheet("background-color: rgb(96,238,250);");
+}
+
 /**
  * @brief 主路设置
  */
 void SettingWid::on_pushButton_clicked()
 {
+    setButtonColor(ui->pushButton);
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -101,7 +116,9 @@ void SettingWid::on_pushButton_clicked()
  */
 void SettingWid::on_pushButton_2_clicked()
 {
+    setButtonColor(ui->pushButton_2);
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -109,7 +126,9 @@ void SettingWid::on_pushButton_2_clicked()
  */
 void SettingWid::on_pushButton_3_clicked()
 {   
+    setButtonColor(ui->pushButton_3);
     ui->stackedWidget->setCurrentWidget(mSystemDlg);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -117,10 +136,14 @@ void SettingWid::on_pushButton_3_clicked()
  */
 void SettingWid::on_pushButton_tem_clicked()
 {
+    setButtonColor(ui->pushButton_tem);
     ui->stackedWidget->setCurrentWidget(mTemWid);
+    BeepThread::bulid()->beep();
 }
 
 void SettingWid::on_nameBtn_clicked()
 {
+    setButtonColor(ui->nameBtn);
     ui->stackedWidget->setCurrentWidget(mSetNamesWid);
+    BeepThread::bulid()->beep();
 }

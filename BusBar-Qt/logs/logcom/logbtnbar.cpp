@@ -30,6 +30,7 @@ LogBtnBar::~LogBtnBar()
 
 void LogBtnBar::on_dateBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     LogCalendarDlg dlg(this);
     dlg.exec();
 
@@ -39,6 +40,7 @@ void LogBtnBar::on_dateBtn_clicked()
 
 void LogBtnBar::on_queryBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QString date = ui->dateEdit->date().toString("yyyy-MM-dd");
     QString str = tr("date like '%%1%'").arg(date);
     emit querySig(str);
@@ -46,11 +48,13 @@ void LogBtnBar::on_queryBtn_clicked()
 
 void LogBtnBar::on_exportBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     mExportDlg->show();
 }
 
 void LogBtnBar::on_clearBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QuMsgBox box(this, tr("确认清空数据?"));
     if(box.Exec())
         emit clearSig();
@@ -58,5 +62,6 @@ void LogBtnBar::on_clearBtn_clicked()
 
 void LogBtnBar::on_comboBox_currentIndexChanged(int index)
 {
+    BeepThread::bulid()->beep();
     LogSignal::get()->changeType(index);
 }

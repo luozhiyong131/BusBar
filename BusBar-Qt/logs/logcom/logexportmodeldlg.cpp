@@ -35,6 +35,7 @@ LogExportModelDlg::~LogExportModelDlg()
 
 void LogExportModelDlg::on_startDateBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     LogCalendarDlg dlg(this);
     int ret = dlg.exec();
     if(ret == QDialog::Accepted) {
@@ -44,6 +45,7 @@ void LogExportModelDlg::on_startDateBtn_clicked()
 
 void LogExportModelDlg::on_endDateBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     LogCalendarDlg dlg(this);
     int ret = dlg.exec();
     if(ret == QDialog::Accepted) {
@@ -100,6 +102,7 @@ bool LogExportModelDlg::checkInput()
 
 void LogExportModelDlg::on_exportBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     bool ret = checkInput();
     if(ret) {
         emit exportSig(0);
@@ -132,11 +135,13 @@ void LogExportModelDlg::on_yearBtn_clicked()
 
 void LogExportModelDlg::on_quitBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     this->close();
 }
 
 void LogExportModelDlg::on_pushButton_clicked()
 {
+    BeepThread::bulid()->beep();
     QFileDialog dlg(this,tr("路径选择"));
     dlg.setFileMode(QFileDialog::DirectoryOnly);
     dlg.setDirectory("/mnt/sda1/");

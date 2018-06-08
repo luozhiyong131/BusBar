@@ -5,7 +5,7 @@
 #include <QLineEdit>
 #include <QDebug>
 #include <QSpinBox>
-
+#include "beepthread.h"
 namespace Ui {
 class MyNumberKeyboardWid;
 }

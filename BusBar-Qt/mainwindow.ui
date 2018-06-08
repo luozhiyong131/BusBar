@@ -95,7 +95,7 @@ color: rgb(255, 255, 255);</string>
          <property name="font">
           <font>
            <family>URW Bookman L</family>
-           <pointsize>15</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>

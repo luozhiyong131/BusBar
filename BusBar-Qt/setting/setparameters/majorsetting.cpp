@@ -82,6 +82,7 @@ void MajorSetting::updateWidget(int index)
  */
 void MajorSetting::barClicked(bool isCur,int index)
 {
+    BeepThread::bulid()->beep();
     mSettingThroldWid  = new SettingThreshold(mIndex,isCur,index,this);
     mSettingThroldWid->exec();
 }

@@ -209,6 +209,7 @@ void MainWindow::on_alarmBtn_clicked()
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
+    BeepThread::bulid()->beep();
     setBusName(index);
 }
 

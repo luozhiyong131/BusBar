@@ -24,6 +24,7 @@ public:
 
 private:
     void initWidget();
+    void setButtonColor(QPushButton *button);
 
 signals:
     void indexChanged(int index);

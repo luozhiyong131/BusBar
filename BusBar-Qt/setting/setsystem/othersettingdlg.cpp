@@ -58,6 +58,7 @@ static bool update_fun(const QString &str)
 
 void OtherSettingDlg::on_updateBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QuMsgBox box(this, tr("是否升级系统?"));
     if(box.Exec()) {
         bool ret = update_fun("sda1");
@@ -69,6 +70,7 @@ void OtherSettingDlg::on_updateBtn_clicked()
 
 void OtherSettingDlg::on_resetBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QuMsgBox box(this, tr("是否重启系统?"));
     if(box.Exec()) {
         system("reboot");
@@ -84,6 +86,7 @@ void OtherSettingDlg::on_timeSetBtn_clicked()
 
 void OtherSettingDlg::on_pwdSetBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     PassordSettingDlg *passwordDlg = new PassordSettingDlg(this);
     passwordDlg->show();
 }
