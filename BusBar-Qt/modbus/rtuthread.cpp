@@ -169,7 +169,7 @@ int RtuThread::transData(int addr)
                 box->rtuArray[i] = buf[i];
             }
         }else{
-           box->rtuLen = 0;  //数据出错清零
+            box->rtuLen = 0;  //数据出错清零
         }
     }
 
@@ -192,12 +192,11 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             if(transData(i) == 0 ) {
-                msleep(1100);
+                msleep(450);
                 transData(i);
-            } else {
-                msleep(865);
             }
+            msleep(450);
         }
-        msleep(1800);
+        msleep(700);
     }
 }
