@@ -92,7 +92,6 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab,int volAlarm, int curALarm, int env
 void HomeBoxWid::updateAlarmStatus()
 {
     if(mData->offLine) {
-        this->setHidden(false);
         updateAlarmIcon(ui->iconLab_1,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_2,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_3,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
@@ -100,10 +99,11 @@ void HomeBoxWid::updateAlarmStatus()
         setBackgroundImage(ui->iconLab_1, "boxoffine");
         setBackgroundImage(ui->iconLab_2, "boxoffine");
         setBackgroundImage(ui->iconLab_3, "boxoffine");
-        bool hidden = false;
-        if(mID > mBoxNum) hidden = true;
-        this->setHidden(hidden);
     }
+
+    bool hidden = false;
+    if(mID > mBoxNum) hidden = true;
+    this->setHidden(hidden);
 }
 
 void HomeBoxWid::timeoutDone()
