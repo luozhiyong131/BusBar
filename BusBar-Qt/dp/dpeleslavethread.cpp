@@ -67,11 +67,7 @@ void DpEleSlaveThread::saveBus(int id)
     item.line_3 = data->ele[line++]/rate;
     item.line = busBox->tgBox.ele/rate;
     db_mainEle_obj(id)->insertItem(item);
-<<<<<<< HEAD
     msleep(50);
-=======
-    msleep(15);
->>>>>>> master
 
     static int count=0;
     if(count++ % 24 == 0)  {
