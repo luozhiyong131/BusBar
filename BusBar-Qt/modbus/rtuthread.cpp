@@ -192,11 +192,9 @@ void RtuThread::run()
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             if(transData(i) == 0 ) {
-                msleep(450);
                 transData(i);
             }
             msleep(450);
         }
-        msleep(700);
     }
 }
