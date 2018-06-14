@@ -170,25 +170,30 @@ void DpAlarmSlave::unitAlarmVA(sBoxData &box, QString &typeStr, QString &msg, sD
 
 void DpAlarmSlave::boxAlarm(sBoxData &box)
 {
-    if(box.boxAlarm)
-    {
-        QString typeStr = tr("回路电流");
-        if(box.boxCurAlarm) {
-            QString msg = tr("插接箱：%1，").arg(box.boxName);
-            unitAlarmVA(box, typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
-        }
+    if(box.offLine) {
+        if(box.boxAlarm)  {
+            QString typeStr = tr("回路电流");
+            if(box.boxCurAlarm) {
+                QString msg = tr("插接箱：%1，").arg(box.boxName);
+                unitAlarmVA(box, typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
+            }
 
-        typeStr = tr("回路电压");
-        if(box.boxVolAlarm) {
-            QString msg = tr("插接箱：%1，").arg(box.boxName);
-            unitAlarmVA(box, typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
-        }
+            typeStr = tr("回路电压");
+            if(box.boxVolAlarm) {
+                QString msg = tr("插接箱：%1，").arg(box.boxName);
+                unitAlarmVA(box, typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
+            }
 
-        typeStr = tr("插接箱温度");
-        if(box.boxEnvAlarm) {
-            QString msg = tr("插接箱：%1，温度").arg(box.boxName);
-            unitAlarm(typeStr, msg, box.env.tem, COM_RATE_TEM, "°C");
+            typeStr = tr("插接箱温度");
+            if(box.boxEnvAlarm) {
+                QString msg = tr("插接箱：%1，温度").arg(box.boxName);
+                unitAlarm(typeStr, msg, box.env.tem, COM_RATE_TEM, "°C");
+            }
         }
+    } else {
+        mAlarmStr << shm->data[mBusId].busName;
+        mAlarmStr << tr("插接箱离线");
+        mAlarmStr << tr("插接箱：%1 已离线").arg(box.boxName);
     }
 }
 
