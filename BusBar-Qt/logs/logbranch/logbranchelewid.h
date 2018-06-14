@@ -41,6 +41,7 @@ private:
     SqlTableModel *model;
     QString m_table;
     QStringList mHeadList;
+    int mCount;
 };
 
 #endif // LOGBRANCHELEWID_H

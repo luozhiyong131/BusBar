@@ -40,7 +40,7 @@ private:
     SqlTableModel *model;
     QString m_table;
     QStringList mHeadList;
-
+    int mCount;
 };
 
 #endif // LOGALARMWID_H

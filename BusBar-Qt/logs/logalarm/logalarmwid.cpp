@@ -16,6 +16,7 @@ LogAlarmWid::LogAlarmWid(QWidget *parent) :
 {
     ui->setupUi(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    mCount = 0;
 }
 
 LogAlarmWid::~LogAlarmWid()
@@ -84,11 +85,18 @@ bool LogAlarmWid::refreshTable(const QString &table)
 void LogAlarmWid::clearTableSlot()
 {
 #if SQL_DEL_MODE
-    model->model->setTable("markingtable");
+
+    int row = model->model->rowCount();
     DbAlarm* db = db_alarm_obj(mid);
-    db->clear();
-    db->createTable();
-    initTableSlot(mid);
+    if(mCount++ % 2 ==0)
+    {
+        model->model->setTable("markingtable");
+        db->clear();
+        QTimer::singleShot(row*5,this,SLOT(clearTableSlot()));
+    } else {
+        db->createTable();
+        initTableSlot(mid);
+    }
 #else
     if(model->removeRow(0))
         QTimer::singleShot(1,this,SLOT(clearTableSlot()));
