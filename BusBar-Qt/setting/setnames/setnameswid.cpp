@@ -1,6 +1,6 @@
 #include "setnameswid.h"
 #include "ui_setnameswid.h"
-
+extern void set_box_num(int id, int num);
 
 SetNamesWid::SetNamesWid(QWidget *parent) :
     QWidget(parent),
@@ -186,6 +186,8 @@ void SetNamesWid::on_saveBtn_clicked()
     mSetShm->setLineRatedCur(mIndex,ui->rateCurSpin->value() * COM_RATE_CUR);
     mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
+        set_box_num(mIndex, ui->boxNumSpin->value());
+
         BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }

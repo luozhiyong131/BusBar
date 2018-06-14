@@ -50,12 +50,6 @@ void SetBOXThread::busChangedSlot(int cBusID)
     mBusID = cBusID;
 }
 
-int SetBOXThread::transmit(int addr, ushort reg, ushort len, int busID)
-{
-    if(busID == -1) busID = mBusID;
-    if(rtu[busID] == NULL) return -1;
-    return rtu[busID]->transmit(addr, reg, len);
-}
 
 int SetBOXThread::sendData(int addr, ushort reg, ushort len, int busID, bool value)
 {

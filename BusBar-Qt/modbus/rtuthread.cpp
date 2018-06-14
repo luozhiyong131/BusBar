@@ -8,7 +8,13 @@
  */
 #include "rtuthread.h"
 
-#include <QDateTime>
+static ushort gBoxArray[4] = {0, 0, 0, 0};
+
+void set_box_num(int id, int num)
+{
+    gBoxArray[id] = num;
+}
+
 
 
 RtuThread::RtuThread(QObject *parent) :
@@ -37,12 +43,11 @@ bool RtuThread::init(const QString& name, int id)
     mBusData = &(shm->data[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
-    if(ret)
-    {
+    if(ret) {
         QTimer::singleShot(3*1000,this,SLOT(start()));  // 启动线程
     }
 
-    mId = id;
+    mId = id-1;
 
     return ret;
 }
@@ -97,6 +102,14 @@ int RtuThread::sendData(uchar *pBuff, int nCount, int msec)
 {
     return mSerial->sendData(pBuff, nCount, msec);
 }
+
+
+void RtuThread::setBoxNum(ushort num)
+{
+    sendData(0, 0x1040, num, false);
+}
+
+
 
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
@@ -189,6 +202,12 @@ void RtuThread::run()
     isRun = true;
     while(isRun)
     {
+        ushort num = gBoxArray[mId];
+        if(num) {
+            setBoxNum(num);
+            gBoxArray[mId] = 0;
+        }
+
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             if(transData(i) == 0 ) {
