@@ -34,6 +34,11 @@ static bool update_fun(const QString &str)
     QFileInfo fi(QString("/mnt/%1/busbar/app").arg(str));
     if(fi.exists()) {
         QString cstr;
+
+#if ARM_LINUX == 2
+        cstr = QString("sh /mnt/%1/busbar/app_start/runMe.sh ").arg(str);
+        system(cstr.toLatin1());
+#else
         cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
         int ret = system("rm -rf /mnt/mtdblock3/app");
         if(ret < 0) {
@@ -49,6 +54,7 @@ static bool update_fun(const QString &str)
 
         sleep(1);
         system("reboot");
+#endif
     } else {
         ret = false;
     }
