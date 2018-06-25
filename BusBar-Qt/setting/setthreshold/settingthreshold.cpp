@@ -123,14 +123,14 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
         //----------[区分始端箱和插接箱]----------------------By_MW 2018.3.21
         QString nameStr;
         if(boxNUm){ //接插
-            nameStr = QString("插接箱%1").arg(boxNUm);
+            nameStr = QString("插接箱%1").arg(data->data[index].box[boxNUm].boxName);
         }else{
             nameStr = "始端箱";
         }
         //-------------------------------------------------
         str = "A";
         rate = COM_RATE_CUR;
-        title = tr("母线%1 %2 输入%3 电流设置").arg(index+1).arg(nameStr).arg(lineNum);
+        title = tr("母线%1 %2 输入%3 电流设置").arg(data->data[index].busName).arg(nameStr).arg(lineNum);
         unit = &(data->data[index].box[boxNUm].data.cur);
         initData(unit , lineNum -1,rate);
     }
@@ -139,14 +139,14 @@ void SettingThreshold::initWidget(int index , int boxNUm , int lineNum, int temN
         //----------[区分始端箱和插接箱]----------------------By_MW 2018.3.21
         QString nameStr;
         if(boxNUm){ //接插
-            nameStr = QString("插接箱%1").arg(boxNUm);
+            nameStr = QString("插接箱%1").arg(data->data[index].box[boxNUm].boxName);
         }else{
             nameStr = "始端箱";
         }
         //-------------------------------------------------
         str = "℃";
         rate = COM_RATE_TEM;
-        title = tr("母线%1 %2 温度%3设置").arg(index+1).arg(nameStr).arg(temNum);
+        title = tr("母线%1 %2 温度%3设置").arg(data->data[index].busName).arg(nameStr).arg(temNum);
         unit = &(data->data[index].box[boxNUm].env.tem);
         initData(unit , temNum-1 ,rate);
     }

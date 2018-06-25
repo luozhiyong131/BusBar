@@ -97,7 +97,7 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
     int max = data->max[index];
     if(max > 0)
     {
-        int value = data->value[index];
+        double value = data->value[index]*1.0;
         int ret = (value/max)*100;
         bar->setValue(ret);
     }else
