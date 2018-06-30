@@ -34,21 +34,25 @@ static bool update_fun(const QString &str)
     QFileInfo fi(QString("/mnt/%1/busbar/app").arg(str));
     if(fi.exists()) {
         QString cstr;
-        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
+
+#if ARM_LINUX == 2
+        cstr = QString("sh /mnt/%1/busbar/app_start/runMe.sh ").arg(str);
+        system(cstr.toLatin1());
+#else
         int ret = system("rm -rf /mnt/mtdblock3/app");
         if(ret < 0) {
-            qDebug() << "rm -rf /mnt/opt/app err ";
+            qDebug() << "rm -rf /mnt/mtdblock3/app err ";
         }
-        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
+
+        cstr = QString("cp /mnt/%1/busbar/app /mnt/mtdblock3/app").arg(str);
         ret = system(cstr.toLatin1());
         if(ret < 0) {
             qDebug() << str.toLatin1() << " err ";
         }
-        cstr = QString("cp /mnt/%1/busbar/app_start/pinyin.db /opt/").arg(str);
-        ret = system(cstr.toLatin1());
 
-        sleep(1);
+        sleep(2);
         system("reboot");
+#endif
     } else {
         ret = false;
     }
