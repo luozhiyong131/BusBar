@@ -213,7 +213,7 @@ void RtuThread::run()
             if(transData(i) == 0 ) {
                 transData(i);
             }
-            msleep(450);
+            msleep(750);
         }
     }
 }
