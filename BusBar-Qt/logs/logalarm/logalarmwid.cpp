@@ -85,14 +85,13 @@ bool LogAlarmWid::refreshTable(const QString &table)
 void LogAlarmWid::clearTableSlot()
 {
 #if SQL_DEL_MODE
-
     int row = model->model->rowCount();
     DbAlarm* db = db_alarm_obj(mid);
     if(mCount++ % 2 ==0)
     {
         model->model->setTable("markingtable");
         db->clear();
-        QTimer::singleShot(row*5,this,SLOT(clearTableSlot()));
+        QTimer::singleShot(row*8,this,SLOT(clearTableSlot()));
     } else {
         db->createTable();
         initTableSlot(mid);
