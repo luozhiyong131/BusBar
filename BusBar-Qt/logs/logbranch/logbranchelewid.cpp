@@ -121,7 +121,7 @@ void LogBranchEleWid::clearTableSlot()
     {
         model->model->setTable("markingtable");
         db->clear();
-        QTimer::singleShot(row*5,this,SLOT(clearTableSlot()));
+        QTimer::singleShot(row*8,this,SLOT(clearTableSlot()));
     } else {
         db->createTable();
         initTableSlot(mid);
