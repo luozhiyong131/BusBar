@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     dataRecvWS = new WebSocket();
-            qDebug()<<"create websocket!";
+    qDebug()<<"create websocket!";
 }
 
 MainWindow::~MainWindow()
