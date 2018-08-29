@@ -2,16 +2,17 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/beepthread.h
+    $$PWD/timesettingdlg.h
     
    
 	
 SOURCES += \
-    $$PWD/beepthread.cpp
+    $$PWD/timesettingdlg.cpp
     
     
 
 FORMS += \
+    $$PWD/timesettingdlg.ui
 
 
 

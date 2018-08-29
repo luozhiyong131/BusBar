@@ -14,7 +14,7 @@ public:
     int sendData(uchar *pBuff, int nCount, int msec=100);
 
     int recvData(uchar *pBuf, int msecs);
-    int transmit(uchar *sent, int len, uchar *recv);
+    int transmit(uchar *sent, int len, uchar *recv, int msecs=5);
 
 signals:
 

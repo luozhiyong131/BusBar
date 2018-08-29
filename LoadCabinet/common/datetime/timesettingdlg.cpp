@@ -6,7 +6,7 @@
 #include "ui_timesettingdlg.h"
 #include <QMessageBox>
 #include <QTextCharFormat>
-#include "msgbox.h"
+#include "box/msgbox.h"
 
 extern void com_setBackColour(const QString &str,QWidget *target);
 

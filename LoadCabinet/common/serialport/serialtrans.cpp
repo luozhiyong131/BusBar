@@ -63,11 +63,11 @@ int SerialTrans::recvData(uchar *pBuf, int msecs)
   * 出口参数：recv -> 接收缓冲区
   * 返回值：读取的实际长度  <=0 出错
   */
-int SerialTrans::transmit(uchar *sent, int len, uchar *recv)
+int SerialTrans::transmit(uchar *sent, int len, uchar *recv, int msecs)
 {
     int ret = sendData(sent, len, 100);
     if(ret > 0) {
-        ret = recvData(recv, 5);
+        ret = recvData(recv, msecs);
         //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
     }
     return ret;
