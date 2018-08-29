@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "beepthread.h"
 
 BeepThread::BeepThread(QObject *parent) : QThread(parent)

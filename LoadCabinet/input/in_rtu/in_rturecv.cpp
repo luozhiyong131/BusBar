@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "in_rturecv.h"
 
 IN_RtuRecv::IN_RtuRecv()

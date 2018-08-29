@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "serialport.h"
 #include <stdlib.h>
 #include <unistd.h>
