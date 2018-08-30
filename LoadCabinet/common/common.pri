@@ -14,7 +14,9 @@ HEADERS += \
     $$PWD/box/msgbox.h \
     $$PWD/chars/qcustomplot.h \
     $$PWD/rtucom/rtusentcom.h \
-    $$PWD/datapacket.h
+    $$PWD/datapacket.h \
+    $$PWD/tablewid/comtablewid.h \
+    $$PWD/tablewid/linetablewid.h
 
    
 	
@@ -23,10 +25,13 @@ SOURCES += \
     $$PWD/common.cpp \
     $$PWD/box/msgbox.cpp \
     $$PWD/chars/qcustomplot.cpp \
-    $$PWD/rtucom/rtusentcom.cpp
+    $$PWD/rtucom/rtusentcom.cpp \
+    $$PWD/tablewid/comtablewid.cpp \
+    $$PWD/tablewid/linetablewid.cpp
     
     
 
 FORMS += \
+    $$PWD/tablewid/comtablewid.ui
 
 
