@@ -12,7 +12,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-void com_setBackColour(const QString &str,QWidget *target)
+void com_setBackColour(const QString &str, QWidget *target)
 {
     target->setWindowTitle(str);
     //target->setWindowFlags(Qt::FramelessWindowHint);
@@ -74,19 +74,6 @@ bool cm_isIPaddress(const QString& ip)
     return false;
 }
 
-/***
-  * 获取共享内存
-  */
-//sDataPacket *get_share_mem()
-//{
-//    static sDataPacket *shm = NULL;
-//    if(shm == NULL) {
-//        shm = share_mem_get();
-//        share_mem_init();
-//    }
-
-//    return shm;
-//}
 
 void set_background_icon(QWidget *widget, const QString &icon)
 {
@@ -115,6 +102,18 @@ void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
     widget->setPalette(palette);
 }
 
+void btnBlue_style_sheet(QWidget *target)
+{
+    target->setStyleSheet("QPushButton{background-color:rgb(12,62,180); color:rgb(255, 255, 255);}"
+                          "QPushButton:hover{background-color:rgb(91, 237, 238);color:rgb(0, 0, 0);}"
+                          "QPushButton:pressed{background-color:rgb(143, 185, 181);color:rgb(0, 0, 0);}");
+    target->setFont(QFont("微软雅黑",12));
+}
 
-
+void groupBox_background_icon(QWidget *target)
+{
+    set_background_icon(target,":/image/box_back.jpg");
+    btnBlue_style_sheet(target);
+//    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
+}
 

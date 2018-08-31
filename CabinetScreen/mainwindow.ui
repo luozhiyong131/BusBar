@@ -148,7 +148,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resource.qrc">
+      <iconset resource="../LoadCabinet/resource.qrc">
        <normaloff>:/image/home_select.png</normaloff>:/image/home_select.png</iconset>
      </property>
      <property name="iconSize">
@@ -174,7 +174,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resource.qrc">
+      <iconset resource="../LoadCabinet/resource.qrc">
        <normaloff>:/image/data.png</normaloff>
        <normalon>:/image/data_select.png</normalon>:/image/data.png</iconset>
      </property>
@@ -201,7 +201,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resource.qrc">
+      <iconset resource="../LoadCabinet/resource.qrc">
        <normaloff>:/image/setting.png</normaloff>
        <normalon>:/image/setting_select.png</normalon>:/image/setting.png</iconset>
      </property>
@@ -503,9 +503,9 @@
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>520</y>
+      <y>510</y>
       <width>271</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="palette">
@@ -678,8 +678,6 @@
    <header location="global">ctoolbutton.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

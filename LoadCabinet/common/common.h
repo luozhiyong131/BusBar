@@ -23,7 +23,7 @@
 #define    BTN_FOCUS_BACK_COLOR    "QPushButton:focus{background-color: rgb(96,238,250);}"
 
 /* 设置窗口背景色函数 */
-extern void com_setBackColour(const QString &,QWidget *target);
+extern void com_setBackColour(const QString &, QWidget *target);
 
 
 
@@ -36,5 +36,6 @@ bool cm_isIPaddress(const QString& ip);
 void set_background_icon(QWidget *widget, const QString &icon);
 void set_background_color(QWidget *widget, const QColor &color);
 void set_background_icon(QWidget *widget, const QString &icon, const QSize &size);
+void groupBox_background_icon(QWidget *target);
 
 #endif // COMMON_H

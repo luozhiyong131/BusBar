@@ -8,13 +8,14 @@
 #include "comtablewid.h"
 #include "ui_comtablewid.h"
 #include <QGridLayout>
+#include "in_com/in_datapackets.h"
 
 ComTableWid::ComTableWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ComTableWid)
 {
     ui->setupUi(this);
-//    set_background_icon(this);
+    groupBox_background_icon(this);
 
     mSwValue = 1;
     mPackets = nullptr;
@@ -22,9 +23,11 @@ ComTableWid::ComTableWid(QWidget *parent) :
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 
-    //    QGridLayout *gridLayout = new QGridLayout(parent);
-    //    gridLayout->setContentsMargins(0, 0, 0, 0);
-    //    gridLayout->addWidget(this);
+//QGridLayout *gridLayout = new QGridLayout(parent);
+//gridLayout->setContentsMargins(0, 0, 0, 0);
+//gridLayout->addWidget(this);
+
+    mPackets = IN_DataPackets::bulid()->packets;
 }
 
 ComTableWid::~ComTableWid()

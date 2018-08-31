@@ -9,7 +9,7 @@ QT       += sql
 QT       += network
 #QT       += charts
 #QT       += websockets
-QT       += printsupport
+#QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -40,3 +40,11 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    images/image.qrc
+
+target.path = /opt
+INSTALLS += target
+
+
