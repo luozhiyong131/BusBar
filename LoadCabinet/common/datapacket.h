@@ -4,6 +4,7 @@
 
 #define LINE_NUM  3
 #define LOOP_NUM  9
+#define INPUT_NUM 10
 #define OUTPUT_NUM 42
 #define SENOR_NUM 3
 #define NAME_SIZE 32
@@ -66,9 +67,9 @@ struct sEnvData
     sDataUnit tem[SENOR_NUM]; // 温度
     sDataUnit hum[SENOR_NUM]; // 湿度
 
-    uchar door; // 门禁
-    uchar water; // 水浸
-    uchar smoke; // 烟雾
+    uchar door[SENOR_NUM]; // 门禁
+    uchar water[SENOR_NUM]; // 水浸
+    uchar smoke[SENOR_NUM]; // 烟雾
 };
 
 /**
@@ -81,6 +82,9 @@ struct sDevData
 
     uchar loopNum;
     sObjData loop[LOOP_NUM]; // 回路数据
+
+    uchar inputNum;
+    sObjData input[INPUT_NUM]; //输入数据
 
     uchar outputNum;
     sObjData output[OUTPUT_NUM]; //位数据
@@ -116,6 +120,7 @@ struct sDataPacket
     uchar offLine; //离线标志 > 0在线
 
     char ip[NAME_SIZE]; //设备IP
+    char mac[NAME_SIZE]; // MAC地址
     char name[NAME_SIZE]; // 设备名称
 
     sDevData data; //设备数据

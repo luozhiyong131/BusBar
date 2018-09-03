@@ -9,7 +9,7 @@ QT       += sql
 QT       += network
 #QT       += charts
 #QT       += websockets
-QT       += printsupport
+#QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 include(common/common.pri)
+include(input/input.pri)
 
 SOURCES += \
         main.cpp \
@@ -39,3 +40,11 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    images/image.qrc
+
+target.path = /opt
+INSTALLS += target
+
+
