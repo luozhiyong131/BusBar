@@ -14,6 +14,8 @@ IN_SetEnvWid::IN_SetEnvWid(QWidget *parent) :
     ui(new Ui::IN_SetEnvWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     QTimer::singleShot(2500,this,SLOT(on_updateBtn_clicked())); //延时初始化
 }
 

@@ -7,13 +7,15 @@
 #include "in_mainwid.h"
 #include "ui_in_mainwid.h"
 #include "in_rtu/in_rtuthread.h"
-
+#include "common.h"
 IN_MainWid::IN_MainWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::IN_MainWid)
 {
     ui->setupUi(this);
     groupBox_background_icon(ui->groupBox);
+    set_background_icon(ui->stackedWid,":/image/box_back.jpg");
+    btnBlue_style_sheet(ui->stackedWid);
     QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 
