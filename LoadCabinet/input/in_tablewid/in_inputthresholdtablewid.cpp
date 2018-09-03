@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "in_inputthresholdtablewid.h"
 
 IN_InputThresholdTableWid::IN_InputThresholdTableWid(QWidget *parent) : IN_InputTableWid(parent)

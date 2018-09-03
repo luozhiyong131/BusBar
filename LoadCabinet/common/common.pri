@@ -16,7 +16,8 @@ HEADERS += \
     $$PWD/rtucom/rtusentcom.h \
     $$PWD/datapacket.h \
     $$PWD/tablewid/comtablewid.h \
-    $$PWD/tablewid/linetablewid.h
+    $$PWD/tablewid/linetablewid.h \
+    $$PWD/rtucom/rtuthread.h
 
    
 	
@@ -27,7 +28,8 @@ SOURCES += \
 #    $$PWD/chars/qcustomplot.cpp \
     $$PWD/rtucom/rtusentcom.cpp \
     $$PWD/tablewid/comtablewid.cpp \
-    $$PWD/tablewid/linetablewid.cpp
+    $$PWD/tablewid/linetablewid.cpp \
+    $$PWD/rtucom/rtuthread.cpp
     
     
 

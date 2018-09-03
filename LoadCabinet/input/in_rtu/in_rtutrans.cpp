@@ -33,6 +33,13 @@ void IN_RtuTrans::init(SerialTrans *serial)
     mSerial = serial;
 }
 
+void IN_RtuTrans::sleep(unsigned int msec)
+{
+    QTime dieTime = QTime::currentTime().addMSecs(msec);
+    while( QTime::currentTime() < dieTime )
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+
 
 /**
  * @brief 发送设置命令
@@ -47,6 +54,7 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     static uchar buf[IN_ARRAY_LEN] = {0};
     QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf;
+    sleep(300);
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
@@ -58,8 +66,14 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
                 qDebug() << "IN si sent Set Cmd Err";
         }
     }
+    sleep(300);
 
     return ret;
+}
+
+bool IN_RtuTrans::sentSetCmd(sRtuSentCom &cmd, int msecs)
+{
+    return sentSetCmd(cmd.addr, cmd.reg, cmd.len, msecs);
 }
 
 /**
@@ -70,6 +84,7 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
 {
     char offLine = 0;
+    QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf, *recv = mRecvBuf;
 
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, sent); // 把数据打包成通讯格式的数据
@@ -91,15 +106,28 @@ int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
 }
 
 
+void IN_RtuTrans::getAlarm(sDataUnit &data)
+{
+    if((data.value < data.min) || (data.value > data.max)) {
+        if(data.alarm == 0)
+            data.alarm = 1;
+    } else {
+        data.alarm = 0;
+    }
+}
+
+
 void IN_RtuTrans::objData(IN_sRtuLine *data, sObjData *obj)
 {
     obj->vol.value = data->vol;
     obj->vol.min = data->minVol;
     obj->vol.max = data->maxVol;
+    getAlarm(obj->vol);
 
     obj->cur.value = data->cur;
     obj->cur.min = data->minCur;
     obj->cur.max = data->maxCur;
+    getAlarm(obj->cur);
 
     obj->pow = data->pow;
     obj->ele = data->ele;
@@ -130,6 +158,7 @@ void IN_RtuTrans::envData(IN_sRtuRecv *pkt, sDevData *dev)
         env->value = pkt->env[i].tem.value;
         env->min = pkt->env[i].tem.min;
         env->max = pkt->env[i].tem.max;
+        getAlarm(*env);
     }
 }
 

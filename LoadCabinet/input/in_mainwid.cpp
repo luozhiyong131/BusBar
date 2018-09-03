@@ -1,5 +1,12 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "in_mainwid.h"
 #include "ui_in_mainwid.h"
+#include "in_rtu/in_rtuthread.h"
 
 IN_MainWid::IN_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -28,13 +35,15 @@ void IN_MainWid::initWidget()
 
     mEnvTableWid = new IN_EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
+
+    mSetMainWid = new IN_setMainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSetMainWid);
 }
 
 void IN_MainWid::initFunSLot()
 {
     initWidget();
-//    on_realBtn_clicked();
-
+    IN_RtuThread::bulid(this);
 }
 
 void IN_MainWid::on_realBtn_clicked()
@@ -55,4 +64,9 @@ void IN_MainWid::on_transBtn_clicked()
 void IN_MainWid::on_envBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mEnvTableWid);
+}
+
+void IN_MainWid::on_setBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mSetMainWid);
 }

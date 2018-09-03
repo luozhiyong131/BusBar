@@ -13,14 +13,17 @@ public:
     void init(SerialTrans *serial);
     int transmit(int addr, sDataPacket *packet, int msecs); //发送数据并回收
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
+    bool sentSetCmd(sRtuSentCom &cmd, int msecs);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
 protected:
+    void getAlarm(sDataUnit &data);
     void objData(IN_sRtuLine *data, sObjData *obj);
     void devData(IN_sRtuRecv *pkt, sDevData *dev);
     void envData(IN_sRtuRecv *pkt, sDevData *dev);
     int transData(int addr, IN_sRtuRecv *pkt, int msecs);
+    void sleep(unsigned int msec);
 
 private:
     uchar *mSentBuf, *mRecvBuf;

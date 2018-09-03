@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "in_envtablewid.h"
 
 IN_EnvTableWid::IN_EnvTableWid(QWidget *parent) : LineTableWid(parent)

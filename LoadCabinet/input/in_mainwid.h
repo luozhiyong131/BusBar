@@ -2,6 +2,7 @@
 #define IN_MAINWID_H
 
 #include "in_tablewid/in_inputthresholdtablewid.h"
+#include "in_set/in_setmainwid.h"
 
 namespace Ui {
 class IN_MainWid;
@@ -25,6 +26,8 @@ private slots:
     void on_transBtn_clicked();
     void on_envBtn_clicked();
 
+    void on_setBtn_clicked();
+
 private:
     Ui::IN_MainWid *ui;
 
@@ -32,6 +35,7 @@ private:
     IN_InputThresholdTableWid *mInputThresholdTableWid;
     IN_TransTableWid *mTransTableWid;
     IN_EnvTableWid *mEnvTableWid;
+    IN_setMainWid *mSetMainWid;
 };
 
 #endif // IN_MAINWID_H
