@@ -1,6 +1,7 @@
 #ifndef ELOAD_RTUSENT_H
 #define ELOAD_RTUSENT_H
 #include "rtucom/rtusentcom.h"
+#include "serialtrans.h"
 
 enum {
     ELoad_FN_Set = 0x11, //	设置数据参数
@@ -28,18 +29,32 @@ enum {
 
 class ELoad_RtuSent
 {
-public:
     ELoad_RtuSent();
+public:
+    static ELoad_RtuSent *bulid();
 
-    int setData(uchar addr, ushort reg, ushort value, uchar *buf);
-    int setBaudRate(uchar addr, ushort reg, uchar value, uchar *buf);
-    int switchCtr(uchar addr,ushort reg, uchar value, uchar *buf);
+    int setData(uchar addr, ushort reg, ushort value);
+    int setBaudRate(uchar addr, ushort reg, ushort value);
 
-    int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t, uchar *buf );
-    int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t, uchar *buf);
+    int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t);
+    int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t);
+
+    int getHandshake(uchar addr);
+    int setBigCur(uchar addr, uchar sw);
+
+    int switchCloseCtr(uchar addr,  uchar bit);
+    int switchOpenCtr(uchar addr,  uchar bit);
+
+    int switchOpenAll(uchar addr);
+    int switchCloseAll(uchar addr);
 
 protected:
-    int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value, uchar *buf);
+    int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value);
+
+private:
+    SerialTrans *mSerial;
+    uchar *mSentBuf;
+    int mSentLen;
 };
 
 #endif // ELOAD_RTUSENT_H

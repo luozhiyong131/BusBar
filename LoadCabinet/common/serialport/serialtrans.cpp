@@ -10,6 +10,7 @@ SerialTrans::SerialTrans(QObject *parent) : QThread(parent)
 {
     mutex = new QMutex();
     mSerial = new SerialPort();
+    openSerial(SERIAL_COM1);
 }
 
 SerialTrans:: ~SerialTrans()
@@ -29,7 +30,6 @@ SerialTrans *SerialTrans::bulid(QObject *parent)
     static SerialTrans* sington = nullptr;
     if(sington == nullptr) {
         sington = new SerialTrans(parent);
-        openSerial(SERIAL_COM1);
     }
     return sington;
 }
@@ -41,7 +41,7 @@ SerialTrans *SerialTrans::bulid(QObject *parent)
   */
 int SerialTrans::sendData(uchar *pBuff, int nCount, int msec)
 {
-    QMutexLocker locker(mutex);
+    QMutexLocker locker(mutex); msleep(msec);
     int ret = mSerial->send(pBuff, nCount);
     if(ret>=0) msleep(msec);
 
@@ -84,7 +84,7 @@ int SerialTrans::transmit(uchar *sent, int len, uchar *recv, int msecs)
     int ret = sendData(sent, len, 100);
     if(ret > 0) {
         ret = recvData(recv, msecs);
-        //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
+        // if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
     }
     return ret;
 }

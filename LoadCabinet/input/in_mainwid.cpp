@@ -14,6 +14,7 @@ IN_MainWid::IN_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
     groupBox_background_icon(ui->groupBox);
+    IN_RtuThread::bulid(this);
     QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -43,7 +44,6 @@ void IN_MainWid::initWidget()
 void IN_MainWid::initFunSLot()
 {
     initWidget();
-    IN_RtuThread::bulid(this);
 }
 
 void IN_MainWid::on_realBtn_clicked()
