@@ -15,7 +15,7 @@ ComTableWid::ComTableWid(QWidget *parent) :
     ui(new Ui::ComTableWid)
 {
     ui->setupUi(this);
-
+    groupBox_background_icon(ui->groupBox);
 
     mSwValue = 1;
     mPackets = nullptr;
