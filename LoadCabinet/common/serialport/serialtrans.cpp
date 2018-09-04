@@ -24,6 +24,16 @@ bool SerialTrans::openSerial(const QString &name)
 }
 
 
+SerialTrans *SerialTrans::bulid(QObject *parent)
+{
+    static SerialTrans* sington = nullptr;
+    if(sington == nullptr) {
+        sington = new SerialTrans(parent);
+        openSerial(SERIAL_COM1);
+    }
+    return sington;
+}
+
 /**
   * 功　能：发送数据
   * 入口参数：pBuff -> 缓冲区   nCount -> 长度

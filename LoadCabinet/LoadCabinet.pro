@@ -30,6 +30,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(common/common.pri)
 include(input/input.pri)
+include(eload/eload.pri)
 
 SOURCES += \
         main.cpp \

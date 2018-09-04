@@ -8,6 +8,7 @@ class SerialTrans : public QThread
     Q_OBJECT
 public:
     explicit SerialTrans(QObject *parent = nullptr);
+    static SerialTrans *bulid(QObject *parent = nullptr);
     ~SerialTrans();
 
     bool openSerial(const QString &name);
