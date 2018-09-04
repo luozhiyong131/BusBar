@@ -37,5 +37,6 @@ void set_background_icon(QWidget *widget, const QString &icon);
 void set_background_color(QWidget *widget, const QColor &color);
 void set_background_icon(QWidget *widget, const QString &icon, const QSize &size);
 void groupBox_background_icon(QWidget *target);
+void btnBlue_style_sheet(QWidget *target);
 
 #endif // COMMON_H
