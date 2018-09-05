@@ -79,11 +79,9 @@ int ELoad_RtuSent::switchOpenCtr(uchar addr,  uchar bit)
     return mSerial->sendData(buf, offset);
 }
 
-
-int ELoad_RtuSent::switchOpenAll(uchar addr)
+int ELoad_RtuSent::switchOpenAll()
 {
-    uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
-    cmd[3+addr] = 0xFF;
+    uchar cmd[16] = {0x7B, 0xA1, 0x10, 0xFF, 0xFF, 0xFF, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
 
     int offset = 14;
     ushort crc =rtu_crc(cmd, offset);
@@ -95,7 +93,6 @@ int ELoad_RtuSent::switchOpenAll(uchar addr)
 
     return mSerial->sendData(buf, offset);
 }
-
 
 int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
 {
@@ -115,10 +112,9 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
     return mSerial->sendData(buf, offset);
 }
 
-int ELoad_RtuSent::switchCloseAll(uchar addr)
+int ELoad_RtuSent::switchCloseAll()
 {
-    uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
-     cmd[9+addr] = 0xFF;
+    uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0xFF, 0xFF, 0xFF, 0xD7, 0xD8, 0xD9, 0x25};
 
     int offset = 14;
     ushort crc =rtu_crc(cmd, offset);
@@ -128,7 +124,7 @@ int ELoad_RtuSent::switchCloseAll(uchar addr)
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-   return mSerial->sendData(buf, offset);
+    return mSerial->sendData(buf, offset);
 }
 
 int ELoad_RtuSent::setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t)
@@ -182,6 +178,12 @@ int ELoad_RtuSent::setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t
     return mSerial->sendData(buf, offset);
 }
 
+int ELoad_RtuSent::setAllDpAdjust()
+{
+    for(int i=0; i<3; ++i)
+        setAllDpAdjust(i+1, 0, 1000, 10);
+}
+
 int ELoad_RtuSent::setBigCur(uchar addr, uchar sw)
 {
     uchar cmd[16] = {0x7B, 0xA6, 0x01, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xCD};
@@ -196,7 +198,7 @@ int ELoad_RtuSent::setBigCur(uchar addr, uchar sw)
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-   return mSerial->sendData(buf, offset);
+    return mSerial->sendData(buf, offset);
 }
 
 int ELoad_RtuSent::getHandshake(uchar addr)

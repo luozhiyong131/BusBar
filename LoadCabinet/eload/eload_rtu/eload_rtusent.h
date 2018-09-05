@@ -38,6 +38,7 @@ public:
 
     int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t);
     int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t);
+    int setAllDpAdjust();
 
     int getHandshake(uchar addr);
     int setBigCur(uchar addr, uchar sw);
@@ -45,8 +46,8 @@ public:
     int switchCloseCtr(uchar addr,  uchar bit);
     int switchOpenCtr(uchar addr,  uchar bit);
 
-    int switchOpenAll(uchar addr);
-    int switchCloseAll(uchar addr);
+    int switchOpenAll();
+    int switchCloseAll();
 
 protected:
     int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value);
