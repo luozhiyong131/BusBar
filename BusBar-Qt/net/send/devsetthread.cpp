@@ -181,11 +181,11 @@ bool DevSetThread::saveLocal(DbThresholdItem &item)
     if(0x00 == Low){ //统一设置
         switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度 6 回路电压阈值
         {
-        case 1: mShm->setLineVolAll(item);  break; /* 主路电压阈值 */
+        case 1: mShm->setVolAll(item);  break; /* 主路电压阈值 */
         case 2: mShm->setLineCurAll(item);  break; /* 主路电流阈值 */
         case 3: mShm->setLoopCurAll(item);  break; /* 回路电流阈值 */
         case 4: mShm->setLineTempAll(item); break; /* 始端箱温度 */
-        case 5: mShm->setTempAll(item);     break; /* 插接箱温度 */
+        case 5: mShm->setLoopTempAll(item);     break; /* 插接箱温度 */
         case 6: break;
         }
     }else{ //单项
@@ -214,7 +214,7 @@ bool DevSetThread::saveFarend(DbThresholdItem &item)
 void DevSetThread::setNameNum(dev_data &cData, int type)
 {
     /* 2 - name   3 - A   4 - mun */
-    qDebug() << "Type" << type;
+//    qDebug() << "Type" << type;
     switch (type) {
     case 2: setName(cData);break;
     case 3: setLineRatedCur(cData);break;

@@ -18,7 +18,13 @@ HEADERS += \
     $$PWD/setthreshold/myspinbox.h \
     $$PWD/setthreshold/mylabel.h \
     $$PWD/setnames/setnameswid.h \
-    $$PWD/setnames/setnamedlg.h
+    $$PWD/setnames/setnamedlg.h \
+    $$PWD/setline/setlineitem.h \
+    $$PWD/setline/setlinewid.h \
+    $$PWD/setloop/setloopwid.h \
+    $$PWD/setloop/settempwid.h \
+    $$PWD/setline/setlinetem.h \
+    $$PWD/setthreshold/setthresholddlg.h
     
     
    
@@ -39,7 +45,13 @@ SOURCES += \
     $$PWD/setthreshold/myspinbox.cpp \
     $$PWD/setthreshold/mylabel.cpp \
     $$PWD/setnames/setnameswid.cpp \
-    $$PWD/setnames/setnamedlg.cpp
+    $$PWD/setnames/setnamedlg.cpp \
+    $$PWD/setline/setlineitem.cpp \
+    $$PWD/setline/setlinewid.cpp \
+    $$PWD/setloop/setloopwid.cpp \
+    $$PWD/setloop/settempwid.cpp \
+    $$PWD/setline/setlinetem.cpp \
+    $$PWD/setthreshold/setthresholddlg.cpp
     
     
 
@@ -58,7 +70,11 @@ FORMS += \
     $$PWD/setparameters/startboxwid.ui \
     $$PWD/setthreshold/setkey.ui \
     $$PWD/setnames/setnameswid.ui \
-    $$PWD/setnames/setnamedlg.ui
+    $$PWD/setnames/setnamedlg.ui \
+    $$PWD/setline/setlineitem.ui \
+    $$PWD/setline/setlinewid.ui \
+    $$PWD/setline/setlinetem.ui \
+    $$PWD/setthreshold/setthresholddlg.ui
 
 
 

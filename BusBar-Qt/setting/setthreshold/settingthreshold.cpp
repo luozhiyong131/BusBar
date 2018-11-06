@@ -216,10 +216,11 @@ bool SettingThreshold::saveData()
         if(mIsCur){
             mShm->setLineCurAll(item);
         }else{
-            mShm->setLineVolAll(item);
+            mShm->setVolAll(item);
         }
 
-    }else //单独设置
+    }
+    else //单独设置
     {
         // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
@@ -284,15 +285,13 @@ bool SettingThreshold::saveLoopData()
             mShm->setLoopCurAll(item); //电流统一设置
         else if((mLineNum == 0) && (mTemNum != 0)){
             if(item.type == 5){ //插接箱
-                mShm->setTempAll(item);
-            }else{  //始端箱
+                mShm->setLoopTempAll(item);
+            }else{
                 mShm->setLineTempAll(item); //温度统一设置
             }
-
         }
     }else //单独设置
     {
-        // qDebug() << "单一设置";
         if(!SetBOXThread::bulid()->send(1,item)) { //正有其它参数在设置
             InfoMsgBox box(this, tr("当前正有其它参数在设置，请稍后再试！"));
             return false; // 跳出设置

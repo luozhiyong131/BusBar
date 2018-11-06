@@ -16,8 +16,7 @@ protected:
     void run();
     void initBoxNum();
 
-    void initThresholdUnit(int bus, int type, int num, sDataUnit &unit, int max);
-    void initThresholdUnit(int bus, int type, int num, int id, sDataUnit &unit, int max);
+    void initThresholdUnit(int id, sDataUnit &unit, int max);
     void initBoxThreshold();
     void initBusThreshold();
     void initThreshold();

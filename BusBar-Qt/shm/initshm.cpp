@@ -23,35 +23,12 @@ void InitShm::initBoxNum()
     }
 }
 
-void InitShm::initThresholdUnit(int bus, int type, int num, int id, sDataUnit &unit, int max)
+void InitShm::initThresholdUnit(int id, sDataUnit &unit, int max)
 {
-    DbThresholdItem item;
-    item.bus = bus;
-    item.type = type;
-    item.num = num;
-
-    bool ret = DbThreshold::bulid()->getItem(item);
-    if(ret) {
-        unit.min[id] = item.min;
-        unit.max[id] = item.max;
-        unit.crMin[id] = item.crmin;
-        unit.crMax[id] = item.crmax;
-    } else {
-        unit.max[id] = max;
-        unit.crMax[id] = max;
-
-        item.min = 0;
-        item.max = max;
-        item.crmin = 0;
-        item.crmax = max;
-        DbThreshold::bulid()->saveItem(item);
-    }
+    unit.max[id] = max;
+    unit.crMax[id] = max;
 }
 
-void InitShm::initThresholdUnit(int bus, int type, int num, sDataUnit &unit, int max)
-{
-    initThresholdUnit(bus, type, num, num, unit, max);
-}
 
 void InitShm::initBoxThreshold()
 {    
@@ -63,17 +40,13 @@ void InitShm::initBoxThreshold()
             sBoxData *box = &(busData->box[j]); //插接葙
             for(int k=0; k<LINE_NUM_MAX; ++k) //三相
             {
-                int num = (j-1)*LINE_NUM_MAX + k; // 回路编号规划
-                initThresholdUnit(i, 3, num, k, box->data.cur, 3200);
-                initThresholdUnit(i, 6, num, k, box->data.vol, 480);  ////=====
-                num++;
+                initThresholdUnit(k, box->data.cur, 3200);
+                initThresholdUnit(k, box->data.vol, 480);
             }
 
             for(int k=0; k<SENSOR_NUM; ++k) //两个传感器
             {
-                int num = (j-1)*SENSOR_NUM + k; // 回路编号规划
-                initThresholdUnit(i, 5, num, k, box->env.tem, 99);
-                num++;
+                initThresholdUnit(k, box->env.tem, 99);
             }
         }
     }
@@ -86,17 +59,17 @@ void InitShm::initBusThreshold()
         sBoxData *bus = &(shm->data[i].box[0]);
         for(int k=0; k<3; ++k)
         {
-            initThresholdUnit(i, 1, k, bus->data.vol, 275);
-            initThresholdUnit(i, 2, k, bus->data.cur, 6000);
-            initThresholdUnit(i, 4, k, bus->env.tem, 99);
+            initThresholdUnit( k, bus->data.vol, 275);
+            initThresholdUnit( k, bus->data.cur, 6000);
+            initThresholdUnit( k, bus->env.tem, 99);
         }
     }
 }
 
 void InitShm::initThreshold()
 {
-    initBusThreshold(); //统一母线 l1 l3 l3 在共享内存 及 SQL 中的一些标准值 [数据库中的数据优先考虑]
-    initBoxThreshold(); //统一更细节的数据标准
+    initBusThreshold();
+    initBoxThreshold();
 }
 
 void InitShm::initNameUnit(int bus, int type, int num, char *buf, const QString &name)
@@ -133,7 +106,7 @@ void InitShm::initBoxName()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
-        for(int j=1; j<BOX_NUM/*busData->boxNum*/; ++j)
+        for(int j=1; j<BOX_NUM; ++j)
         {
             sBoxData *box = &(busData->box[j]);
             initNameUnit(i, 2, j, box->boxName, QString("iBox-%1").arg(j));//插接箱名称各处统一

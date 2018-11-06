@@ -14,10 +14,10 @@ public:
 
     bool saveItem(DbThresholdItem &item); // 单一设置
 
+    void setVolAll(DbThresholdItem &item); // 设置成有主路电压
     void setLoopCurAll(DbThresholdItem &item); // 设置所有回路电流
-    void setTempAll(DbThresholdItem &item); // 设置所有插接箱温度
+    void setLoopTempAll(DbThresholdItem &item); // 设置所有插接箱温度
 
-    void setLineVolAll(DbThresholdItem &item); // 设置成有主路电压
     void setLineCurAll(DbThresholdItem &item); // 设置成有主路电流
     void setLineTempAll(DbThresholdItem &item); // 设置始插箱温度
 
@@ -34,7 +34,6 @@ public slots:
 
 private:
     sDataPacket *shm;
-//    QSettings *mSetting;
 };
 
 #endif // SETSHM_H
