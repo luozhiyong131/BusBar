@@ -15,10 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 //    ui->titleWid->setStyleSheet("background-color:#0064CD;");
-
     set_background_icon(ui->titleWid,":/image/title_back.jpg");
-
-
     QTimer::singleShot(10,this,SLOT(initFunSLot())); //延时初始化
 }
 
