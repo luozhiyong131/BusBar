@@ -14,11 +14,11 @@ void InitShm::initBoxNum()
 {
     for(int i=0; i<BUS_NUM; ++i) {
         int boxNum = getBoxNum(i);  //插接箱数
-        if(boxNum <= 0) boxNum = 18;
+        if(boxNum < 0) boxNum = 18;
         shm->data[i].boxNum = boxNum; // 18个插接箱
 
         int rateCur = getRateCur(i); // rateCur
-        if(rateCur <= 0) rateCur = 2600;
+        if(rateCur < 0) rateCur = 2600;
         shm->data[i].box[0].ratedCur = rateCur; // 额定电流
     }
 }
@@ -124,7 +124,7 @@ void InitShm::initBusName()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
-        initNameUnit(i, 1, 0, busData->busName, QString("bus-%1").arg(i+1)); //母线名称各处统一
+        initNameUnit(i, 1, 0, busData->busName, QString("BUS-%1").arg(i+1)); //母线名称各处统一
     }
 }
 

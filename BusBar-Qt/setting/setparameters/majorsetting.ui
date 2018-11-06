@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>814</width>
+    <width>823</width>
     <height>441</height>
    </rect>
   </property>
@@ -21,208 +21,13 @@
 	border-bottom:2px solid rgb(228,228,228);
 }</string>
   </property>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>10</y>
-     <width>801</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>16777215</width>
-     <height>50</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border:none;</string>
-      </property>
-      <property name="text">
-       <string>母线名称</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:1px solid rgb(12,62,180);
-	background-color: transparent;
-}</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>104</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border:none;</string>
-      </property>
-      <property name="text">
-       <string>额定电流</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_2">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:1px solid rgb(12,62,180);
-background-color: transparent;
-}</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer_2">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>104</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border:none;</string>
-      </property>
-      <property name="text">
-       <string>插接箱数量</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_3">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit{
-	border-left:none;
-	border-right:none;
-	border-top: none;
-	border-bottom:1px solid rgb(12,62,180);
-background-color: transparent;
-}</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>保存</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>80</y>
+     <x>0</x>
+     <y>10</y>
      <width>811</width>
-     <height>381</height>
+     <height>451</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -232,8 +37,8 @@ background-color: transparent;
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>801</width>
+      <y>-10</y>
+      <width>821</width>
       <height>61</height>
      </rect>
     </property>
@@ -374,7 +179,7 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>264</x>
+      <x>270</x>
       <y>70</y>
       <width>161</width>
       <height>25</height>
@@ -398,7 +203,7 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_1_cur">
     <property name="geometry">
      <rect>
-      <x>407</x>
+      <x>420</x>
       <y>70</y>
       <width>127</width>
       <height>25</height>
@@ -422,7 +227,7 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>264</x>
+      <x>270</x>
       <y>110</y>
       <width>161</width>
       <height>25</height>
@@ -494,7 +299,7 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_1_vol">
     <property name="geometry">
      <rect>
-      <x>407</x>
+      <x>420</x>
       <y>110</y>
       <width>127</width>
       <height>25</height>
@@ -518,8 +323,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>164</y>
+      <x>270</x>
+      <y>184</y>
       <width>161</width>
       <height>21</height>
      </rect>
@@ -543,7 +348,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>8</x>
-      <y>160</y>
+      <y>180</y>
       <width>131</width>
       <height>25</height>
      </rect>
@@ -567,7 +372,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>8</x>
-      <y>200</y>
+      <y>220</y>
       <width>131</width>
       <height>25</height>
      </rect>
@@ -590,8 +395,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_2_vol">
     <property name="geometry">
      <rect>
-      <x>407</x>
-      <y>200</y>
+      <x>420</x>
+      <y>220</y>
       <width>127</width>
       <height>25</height>
      </rect>
@@ -614,8 +419,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_2_cur">
     <property name="geometry">
      <rect>
-      <x>407</x>
-      <y>160</y>
+      <x>420</x>
+      <y>180</y>
       <width>127</width>
       <height>25</height>
      </rect>
@@ -639,7 +444,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>164</y>
+      <y>184</y>
       <width>161</width>
       <height>61</height>
      </rect>
@@ -662,8 +467,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_27">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>200</y>
+      <x>270</x>
+      <y>220</y>
       <width>161</width>
       <height>25</height>
      </rect>
@@ -686,8 +491,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_3_vol">
     <property name="geometry">
      <rect>
-      <x>407</x>
-      <y>294</y>
+      <x>420</x>
+      <y>344</y>
       <width>127</width>
       <height>21</height>
      </rect>
@@ -710,8 +515,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_3_cur">
     <property name="geometry">
      <rect>
-      <x>407</x>
-      <y>250</y>
+      <x>420</x>
+      <y>300</y>
       <width>127</width>
       <height>25</height>
      </rect>
@@ -735,7 +540,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>8</x>
-      <y>290</y>
+      <y>340</y>
       <width>131</width>
       <height>25</height>
      </rect>
@@ -759,7 +564,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>8</x>
-      <y>250</y>
+      <y>300</y>
       <width>131</width>
       <height>25</height>
      </rect>
@@ -782,8 +587,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_34">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>290</y>
+      <x>270</x>
+      <y>340</y>
       <width>151</width>
       <height>25</height>
      </rect>
@@ -807,7 +612,7 @@ color: rgb(0,0,0);</string>
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>254</y>
+      <y>304</y>
       <width>161</width>
       <height>61</height>
      </rect>
@@ -830,8 +635,8 @@ color: rgb(0,0,0);</string>
    <widget class="QLabel" name="label_38">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>250</y>
+      <x>270</x>
+      <y>300</y>
       <width>151</width>
       <height>25</height>
      </rect>
@@ -854,7 +659,7 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>546</x>
       <y>70</y>
       <width>250</width>
       <height>23</height>
@@ -870,7 +675,7 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar_2">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>546</x>
       <y>110</y>
       <width>250</width>
       <height>23</height>
@@ -883,8 +688,8 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar_3">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>160</y>
+      <x>546</x>
+      <y>180</y>
       <width>250</width>
       <height>23</height>
      </rect>
@@ -896,8 +701,8 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar_4">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>200</y>
+      <x>546</x>
+      <y>220</y>
       <width>250</width>
       <height>23</height>
      </rect>
@@ -909,8 +714,8 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar_5">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>250</y>
+      <x>546</x>
+      <y>300</y>
       <width>250</width>
       <height>23</height>
      </rect>
@@ -922,8 +727,8 @@ color: rgb(0,0,0);</string>
    <widget class="MyProgressBar" name="progressBar_6">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>290</y>
+      <x>546</x>
+      <y>340</y>
       <width>250</width>
       <height>23</height>
      </rect>

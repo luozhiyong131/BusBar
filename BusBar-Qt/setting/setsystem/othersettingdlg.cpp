@@ -34,17 +34,25 @@ static bool update_fun(const QString &str)
     QFileInfo fi(QString("/mnt/%1/busbar/app").arg(str));
     if(fi.exists()) {
         QString cstr;
-        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
+
+#if ARM_LINUX == 2
+        cstr = QString("sh /mnt/%1/busbar/app_start/runMe.sh ").arg(str);
+        system(cstr.toLatin1());
+#else
         int ret = system("rm -rf /mnt/mtdblock3/app");
         if(ret < 0) {
-            qDebug() << "rm -rf /mnt/opt/app err ";
+            qDebug() << "rm -rf /mnt/mtdblock3/app err ";
         }
-        cstr = QString("cp /mnt/%1/busbar/app /opt/app").arg(str);
+
+        cstr = QString("cp /mnt/%1/busbar/app /mnt/mtdblock3/app").arg(str);
         ret = system(cstr.toLatin1());
         if(ret < 0) {
             qDebug() << str.toLatin1() << " err ";
         }
+
+        sleep(2);
         system("reboot");
+#endif
     } else {
         ret = false;
     }
@@ -54,6 +62,7 @@ static bool update_fun(const QString &str)
 
 void OtherSettingDlg::on_updateBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QuMsgBox box(this, tr("是否升级系统?"));
     if(box.Exec()) {
         bool ret = update_fun("sda1");
@@ -65,6 +74,7 @@ void OtherSettingDlg::on_updateBtn_clicked()
 
 void OtherSettingDlg::on_resetBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     QuMsgBox box(this, tr("是否重启系统?"));
     if(box.Exec()) {
         system("reboot");
@@ -80,6 +90,7 @@ void OtherSettingDlg::on_timeSetBtn_clicked()
 
 void OtherSettingDlg::on_pwdSetBtn_clicked()
 {
+    BeepThread::bulid()->beep();
     PassordSettingDlg *passwordDlg = new PassordSettingDlg(this);
     passwordDlg->show();
 }

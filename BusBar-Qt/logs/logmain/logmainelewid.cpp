@@ -16,6 +16,7 @@ LogMainEleWid::LogMainEleWid(QWidget *parent) :
 {
     ui->setupUi(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    mCount = 0;
 }
 
 LogMainEleWid::~LogMainEleWid()
@@ -70,6 +71,7 @@ void LogMainEleWid::initTableSlot(int id)
 
 bool LogMainEleWid::refreshTable(const QString &table)
 {
+    BeepThread::bulid()->beep();
     bool ret = model->refreshTable(table);
     if(ret) {
         m_table = table;
@@ -83,11 +85,18 @@ bool LogMainEleWid::refreshTable(const QString &table)
 void LogMainEleWid::clearTableSlot()
 {
 #if SQL_DEL_MODE
-    model->model->setTable("markingtable");
+
+    int row = model->model->rowCount();
     DbMainEle* db = db_mainEle_obj(mid);
-    db->clear();
-    db->createTable();
-    initTableSlot(mid);
+    if(mCount++ % 2 ==0)
+    {
+        model->model->setTable("markingtable");
+        db->clear();
+        QTimer::singleShot(row*8,this,SLOT(clearTableSlot()));
+    } else {
+        db->createTable();
+        initTableSlot(mid);
+    }
 #else
     if(model->removeRow(0))
         QTimer::singleShot(1,this,SLOT(clearTableSlot()));
@@ -101,6 +110,7 @@ void LogMainEleWid::refreshSlot()
 
 void LogMainEleWid::doubleSlot(QModelIndex)
 {
+    BeepThread::bulid()->beep();
     QString str = tr("是否删除这条记录?");
     QuMsgBox box(this, str);
     bool ret = box.Exec();

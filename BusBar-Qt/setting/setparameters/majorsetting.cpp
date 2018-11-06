@@ -38,8 +38,6 @@ void MajorSetting::initWidget()
 
     ui->progressBar_6->setPacket(false,2);
     connect(ui->progressBar_6,SIGNAL(clicked(bool ,int )),this,SLOT(barClicked(bool ,int )));
-
-    indexChanged(0);
 }
 
 /**
@@ -50,10 +48,7 @@ void MajorSetting::updateWidget(int index)
 {
     mIndex = index; //主路源编号
     sBusData *busData = &(mPacket->data[index]);
-    //    ui->lineEdit->setText(busData->busName);
 
-    //-----------------------------------------------------------
-    /* 区分交直流界面 _ By_MW 2018.3.21 */
     int dc = busData->box[0].dc;
     if(dc){ //交流
         showSum(3);
@@ -61,13 +56,6 @@ void MajorSetting::updateWidget(int index)
         int len = busData->box[0].rate ? busData->box[0].rate : 1;
         showSum(len);
     }
-    //-----------------------------------------------------------
-
-    //    int boxNum = busData->boxNum;
-    //    double rateCur = busData->ratedCur/COM_RATE_CUR;
-
-    //    ui->lineEdit_2->setText(QString::number(rateCur));
-    //    ui->lineEdit_3->setText(QString::number(boxNum,10));
 
     sObjData  *objData = &(busData->box[0].data);
     ui->label_1_cur->setText(QString::number(objData ->cur.value[0]/COM_RATE_CUR,'f', 1)+"A");
@@ -85,21 +73,6 @@ void MajorSetting::updateWidget(int index)
     setProgressbarValue(ui->progressBar_6,&(objData->vol),2);
 }
 
-/**
- * @brief MajorSetting::indexChanged
- * @param index  index 改变，刷新额定电流和插接箱数量
- */
-void MajorSetting::indexChanged(int index)
-{
-    sBusData *busData = &(mPacket->data[index]);
-    ui->lineEdit->setText(busData->busName);
-
-    int boxNum = busData->boxNum;
-    double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
-
-    ui->lineEdit_2->setText(QString::number(rateCur));
-    ui->lineEdit_3->setText(QString::number(boxNum,10));
-}
 
 /**
  * @brief MajorSetting::barClicked
@@ -109,7 +82,7 @@ void MajorSetting::indexChanged(int index)
  */
 void MajorSetting::barClicked(bool isCur,int index)
 {
-    //    QMessageBox::information(this,tr("helolo"),tr("nn"));
+    BeepThread::bulid()->beep();
     mSettingThroldWid  = new SettingThreshold(mIndex,isCur,index,this);
     mSettingThroldWid->exec();
 }
@@ -124,7 +97,7 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
     int max = data->max[index];
     if(max > 0)
     {
-        int value = data->value[index];
+        double value = data->value[index]*1.0;
         int ret = (value/max)*100;
         bar->setValue(ret);
     }else
@@ -139,51 +112,6 @@ void MajorSetting::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int i
     else
         setProcessBarColor(bar,"green"); //正常
 
-}
-
-/**
- * @brief MajorSetting::on_pushButton_clicked 改变母线名称
- */
-void MajorSetting::on_pushButton_clicked()
-{
-    //    qDebug() << "cliced";
-    bool saveSuccess = true;
-    DbNameItem item;
-    item.bus = mIndex;
-    item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
-    item.num = 0; // 编号
-    QString name = ui->lineEdit->text();
-    if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
-        item.name = name;
-        mShm->setName(item);
-    }else
-        saveSuccess = false;
-
-    QString rateCurStr = ui->lineEdit_2->text();
-    if((!rateCurStr.isEmpty()) && (cm_isDigitStr(rateCurStr)))
-    {
-        mShm->setLineRatedCur(mIndex,rateCurStr.toInt() * COM_RATE_CUR);
-    }else
-    {
-        QMessageBox::information(this,tr("information"),tr("请检查电流输入格式！"));
-        saveSuccess = false;
-    }
-
-    QString boxNumStr = ui->lineEdit_3->text();
-    if((!boxNumStr.isEmpty()) && (cm_isDigitStr(boxNumStr)))
-    {
-        mShm->setLineBoxNum(mIndex,boxNumStr.toInt());
-    }else
-    {
-        QMessageBox::information(this,tr("information"),tr("请检查插接箱数量输入格式！"));
-        saveSuccess = false;
-    }
-
-
-    if(saveSuccess)
-        QMessageBox::information(this,tr("information"),tr("保存成功！"),tr("确定"));
-    else
-        QMessageBox::information(this,tr("information"),tr("保存失败！"),tr("确定"));
 }
 
 /**

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>805</width>
-    <height>478</height>
+    <height>548</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -33,7 +33,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>13</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="text">
@@ -118,7 +118,7 @@
      <x>-7</x>
      <y>14</y>
      <width>20</width>
-     <height>441</height>
+     <height>540</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -140,7 +140,7 @@
      <x>790</x>
      <y>10</y>
      <width>20</width>
-     <height>451</height>
+     <height>540</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -160,7 +160,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>460</y>
+     <y>535</y>
      <width>800</width>
      <height>20</height>
     </rect>
@@ -181,7 +181,7 @@
      <x>10</x>
      <y>210</y>
      <width>781</width>
-     <height>251</height>
+     <height>331</height>
     </rect>
    </property>
    <property name="font">
@@ -196,8 +196,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>40</y>
+     <x>30</x>
+     <y>30</y>
      <width>41</width>
      <height>17</height>
     </rect>
@@ -209,8 +209,8 @@
   <widget class="QLabel" name="version">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>40</y>
+     <x>80</x>
+     <y>30</y>
      <width>67</width>
      <height>17</height>
     </rect>

@@ -8,7 +8,13 @@
  */
 #include "rtuthread.h"
 
-#include <QDateTime>
+static ushort gBoxArray[4] = {0, 0, 0, 0};
+
+void set_box_num(int id, int num)
+{
+    gBoxArray[id] = num;
+}
+
 
 
 RtuThread::RtuThread(QObject *parent) :
@@ -35,15 +41,13 @@ bool RtuThread::init(const QString& name, int id)
 {
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     mBusData = &(shm->data[id-1]);
-    mSrcData = &(shm->srcData[id-1]);
 
     bool ret = mSerial->openSerial(name); // 打开串口
-    if(ret)
-    {
+    if(ret) {
         QTimer::singleShot(3*1000,this,SLOT(start()));  // 启动线程
     }
 
-    mId = id;
+    mId = id-1;
 
     return ret;
 }
@@ -99,6 +103,14 @@ int RtuThread::sendData(uchar *pBuff, int nCount, int msec)
     return mSerial->sendData(pBuff, nCount, msec);
 }
 
+
+void RtuThread::setBoxNum(ushort num)
+{
+    sendData(0, 0x1040, num, false);
+}
+
+
+
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
     loop->vol.value[id] = data->vol;
@@ -128,7 +140,7 @@ void RtuThread::loopData(sBoxData *box, Rtu_recv *pkt)
     {
         RtuRecvLine *data = &(pkt->data[i]);
         loopObjData(loop, i, data);
-    }   
+    }
 }
 
 void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
@@ -157,7 +169,7 @@ int RtuThread::transData(int addr)
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it
         if(ret) {
             if(addr == pkt->addr) { //回收地址和发送地址同
-                offLine = 1;
+                offLine = 2;
                 loopData(box, pkt); //更新数据
                 envData(&(box->env), pkt);
                 box->rate = pkt->rate;
@@ -165,19 +177,12 @@ int RtuThread::transData(int addr)
                 box->version = pkt->version;
             }
 
-            uchar *srcArray = mSrcData->array[addr];
-            uchar *srcLen  = &(mSrcData->len[addr]);
-            uchar *cbuf = buf;
-            *srcLen = rtn;
-            for(int i = 0; i < *srcLen; i++){
-                *srcArray++ = *cbuf++;
+            box->rtuLen = rtn;
+            for(int i = 0; i < rtn; i++){
+                box->rtuArray[i] = buf[i];
             }
         }else{
-            //数据出错清零
-            uchar *srcArray = mSrcData->array[addr];
-            uchar *srcLen  = &(mSrcData->len[addr]);
-            *srcLen = 0;
-            memset(srcArray,0,sizeof(SRC_DATA_LEN_MAX));
+            box->rtuLen = 0;  //数据出错清零
         }
     }
 
@@ -197,15 +202,18 @@ void RtuThread::run()
     isRun = true;
     while(isRun)
     {
+        ushort num = gBoxArray[mId];
+        if(num) {
+            setBoxNum(num);
+            gBoxArray[mId] = 0;
+        }
+
         for(int i=0; i<=mBusData->boxNum; ++i)
         {
             if(transData(i) == 0 ) {
-                 msleep(1100);
                 transData(i);
-            } else {
-                msleep(865);
             }
+            msleep(750);
         }
-        msleep(1800);
     }
 }

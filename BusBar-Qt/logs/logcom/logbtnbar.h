@@ -5,7 +5,7 @@
 #include "logexportmodeldlg.h"
 #include "logsignal.h"
 
-#define SQL_DEL_MODE 0
+#define SQL_DEL_MODE 1
 
 namespace Ui {
 class LogBtnBar;

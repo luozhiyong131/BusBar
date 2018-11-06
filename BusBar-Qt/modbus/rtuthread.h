@@ -30,13 +30,13 @@ protected:
     void loopData(sBoxData *box, Rtu_recv *pkt);
 
     void envData(sEnvData *env, Rtu_recv *pkt);
+    void setBoxNum(ushort num);
 
 private:
     uchar *mBuf;
     Serial_Trans *mSerial;
     Rtu_recv *mRtuPkt;
     sBusData *mBusData;
-    sSrcData *mSrcData;
     int mId;
     bool isRun;
 };

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QDate>
-
+#include "beepthread.h"
 namespace Ui {
 class LogCalendarDlg;
 }

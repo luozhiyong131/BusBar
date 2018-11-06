@@ -27,6 +27,7 @@ LogCalendarDlg::~LogCalendarDlg()
 
 void LogCalendarDlg::selectionChangedSLot()
 {
+    BeepThread::bulid()->beep();
     mDate= ui->calendarWidget->selectedDate();
 
     QString str = mDate.toString("yyyy-MM-dd");
@@ -36,6 +37,7 @@ void LogCalendarDlg::selectionChangedSLot()
 
 void LogCalendarDlg::on_pushButton_clicked()
 {
+    BeepThread::bulid()->beep();
     mDate= ui->calendarWidget->selectedDate();
       this->accept(); //接受
 }

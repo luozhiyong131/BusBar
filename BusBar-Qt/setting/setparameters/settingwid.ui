@@ -48,6 +48,13 @@ border-radius:15px
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QPushButton" name="nameBtn">
+      <property name="text">
+       <string>名称设置</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>主路设置</string>

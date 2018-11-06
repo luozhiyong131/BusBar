@@ -7,7 +7,6 @@ CurrentAlarmsDlg::CurrentAlarmsDlg(QWidget *parent) :
     ui(new Ui::CurrentAlarmsDlg)
 {
     ui->setupUi(this);
-//    this->setWindowTitle(tr("当前告警内容"));
     com_setBackColour(tr("当前告警内容"),this);
 
     QTimer::singleShot(100,this,SLOT(on_refreshBtn_clicked())); //延时初始化

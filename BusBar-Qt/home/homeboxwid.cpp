@@ -14,7 +14,7 @@ HomeBoxWid::HomeBoxWid(QWidget *parent) :
 
     isRun = true;
     timer = new QTimer(this);
-    timer->start(1500 + rand()%100); //防止所有对象同时申请刷新
+    timer->start(1000 + rand()%100); //防止所有对象同时申请刷新
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
 }
@@ -39,7 +39,7 @@ void HomeBoxWid::interfaceChangedSlot(int id)
     if(id == 1) {
         isRun = true;
     } else {
-         isRun = false;
+        isRun = false;
     }
 }
 
@@ -92,16 +92,18 @@ void HomeBoxWid::updateAlarmIcon(QLabel *lab,int volAlarm, int curALarm, int env
 void HomeBoxWid::updateAlarmStatus()
 {
     if(mData->offLine) {
-        this->setHidden(false);
         updateAlarmIcon(ui->iconLab_1,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_2,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
         updateAlarmIcon(ui->iconLab_3,  mData->boxVolAlarm, mData->boxCurAlarm, mData->boxEnvAlarm);
-    } else { // 离线        
+    } else { // 离线
         setBackgroundImage(ui->iconLab_1, "boxoffine");
         setBackgroundImage(ui->iconLab_2, "boxoffine");
         setBackgroundImage(ui->iconLab_3, "boxoffine");
-        if(mID > mBoxNum) this->setHidden(true);
     }
+
+    bool hidden = false;
+    if(mID > mBoxNum) hidden = true;
+    this->setHidden(hidden);
 }
 
 void HomeBoxWid::timeoutDone()

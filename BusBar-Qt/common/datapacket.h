@@ -112,6 +112,9 @@ typedef struct _sBoxData {
     int ratedCur; // 额定电流
     int rate; // 电压频率
     char dc; // 交直流标志位
+
+    u_char rtuLen;
+    u_char rtuArray[SRC_DATA_LEN_MAX];
 }sBoxData;
 
 /**
@@ -119,23 +122,13 @@ typedef struct _sBoxData {
  */
 typedef struct _sBusData{
     int boxNum; // 插接箱数量
-    sBoxData   box[BOX_NUM];  // 最多20个插接箱
+    sBoxData   box[BOX_NUM+1];  // 最多20个插接箱
     char busName[NAME_LEN]; // 母线名称
 }sBusData;
-
-/**
- * 转发动环数据： 所有接插相原始数据
- */
-typedef struct _sSrcData{
-    u_char len[BOX_NUM];
-    u_char array[BOX_NUM][SRC_DATA_LEN_MAX];
-}sSrcData;
-
 
 typedef struct _sDataPacket
 {
     sBusData data[BUS_NUM];  // 四条母线数据
-    sSrcData srcData[BUS_NUM];  //放一起[申请到共享内存]
 }sDataPacket;
 
 /**

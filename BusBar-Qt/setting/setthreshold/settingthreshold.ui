@@ -80,7 +80,7 @@
      <x>19</x>
      <y>83</y>
      <width>100</width>
-     <height>35</height>
+     <height>40</height>
     </rect>
    </property>
    <property name="font">
@@ -101,7 +101,7 @@
      <x>350</x>
      <y>83</y>
      <width>91</width>
-     <height>35</height>
+     <height>40</height>
     </rect>
    </property>
    <property name="maximum">
@@ -159,7 +159,7 @@
      <x>250</x>
      <y>83</y>
      <width>100</width>
-     <height>35</height>
+     <height>40</height>
     </rect>
    </property>
    <property name="font">
@@ -218,7 +218,7 @@
      <x>121</x>
      <y>83</y>
      <width>101</width>
-     <height>35</height>
+     <height>40</height>
     </rect>
    </property>
    <property name="suffix">

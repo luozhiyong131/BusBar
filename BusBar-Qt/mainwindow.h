@@ -28,6 +28,7 @@ protected:
     void initBackground();
     void checkAlarm();
     void setBusName(int index);
+    void updateBusName(int index);
     void setButtonImage(QToolButton *button, QString name);
     void setButtonClickedImage(QToolButton *button, QString name);
     void updateTime();

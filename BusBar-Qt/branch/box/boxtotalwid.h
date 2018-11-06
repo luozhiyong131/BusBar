@@ -20,6 +20,7 @@ public:
 
 protected:
     void updateData();
+    void updateAll();
     void setLabeColor(QLabel *, int , int);
 
 protected slots:

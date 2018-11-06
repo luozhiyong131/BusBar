@@ -7,6 +7,7 @@ SettingWid::SettingWid(QWidget *parent) :
     ui(new Ui::SettingWid)
 {
     ui->setupUi(this);
+    this->setStyleSheet(BTN_FOCUS_BACK_COLOR);
 
     isRun = false;
     mIndex = 0;
@@ -31,6 +32,11 @@ void SettingWid::initWidget()
 
     mSystemDlg = new SystemSettingDlg(ui->stackedWidget); //系统
     ui->stackedWidget->addWidget(mSystemDlg);
+
+    mSetNamesWid = new SetNamesWid(ui->stackedWidget); //名称
+    ui->stackedWidget->addWidget(mSetNamesWid);
+
+    setButtonColor(ui->pushButton);
 }
 
 void SettingWid::initFunSLot()
@@ -44,10 +50,10 @@ void SettingWid::initFunSLot()
 
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(updateWid()));
-    timer->start(5*1000);
-
-    connect(this,SIGNAL(indexChanged(int)),majorSettingWidget,SLOT(indexChanged(int)));
+    timer->start(2*1000);
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
+
+    ui->pushButton->setChecked(true);
 }
 
 /**
@@ -60,8 +66,7 @@ void SettingWid::busChangedSlot(int index)
     majorSettingWidget->updateWidget(index);
     mSubsettingWid->updateWid(index);
     mTemWid->updateWid(index);
-
-    emit indexChanged(index);
+    mSetNamesWid->indexChanged(index);
 }
 
 void SettingWid::updateWid()
@@ -71,6 +76,7 @@ void SettingWid::updateWid()
         majorSettingWidget->updateWidget(index);
         mSubsettingWid->updateWid(index);
         mTemWid->updateWid(index);
+        mSetNamesWid->updateWid(index);
     }
 }
 
@@ -84,12 +90,25 @@ void SettingWid::interfaceChangedSlot(int id)
     }
 }
 
+void SettingWid::setButtonColor(QPushButton *button)
+{
+    ui->pushButton->setStyleSheet("");
+    ui->pushButton_2->setStyleSheet("");
+    ui->pushButton_3->setStyleSheet("");
+    ui->pushButton_tem->setStyleSheet("");
+    ui->nameBtn->setStyleSheet("");
+
+    button->setStyleSheet("background-color: rgb(96,238,250);");
+}
+
 /**
  * @brief 主路设置
  */
 void SettingWid::on_pushButton_clicked()
 {
+    setButtonColor(ui->pushButton);
     ui->stackedWidget->setCurrentWidget(majorSettingWidget);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -97,7 +116,9 @@ void SettingWid::on_pushButton_clicked()
  */
 void SettingWid::on_pushButton_2_clicked()
 {
+    setButtonColor(ui->pushButton_2);
     ui->stackedWidget->setCurrentWidget(mSubsettingWid);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -105,7 +126,9 @@ void SettingWid::on_pushButton_2_clicked()
  */
 void SettingWid::on_pushButton_3_clicked()
 {   
+    setButtonColor(ui->pushButton_3);
     ui->stackedWidget->setCurrentWidget(mSystemDlg);
+    BeepThread::bulid()->beep();
 }
 
 /**
@@ -113,5 +136,14 @@ void SettingWid::on_pushButton_3_clicked()
  */
 void SettingWid::on_pushButton_tem_clicked()
 {
+    setButtonColor(ui->pushButton_tem);
     ui->stackedWidget->setCurrentWidget(mTemWid);
+    BeepThread::bulid()->beep();
+}
+
+void SettingWid::on_nameBtn_clicked()
+{
+    setButtonColor(ui->nameBtn);
+    ui->stackedWidget->setCurrentWidget(mSetNamesWid);
+    BeepThread::bulid()->beep();
 }

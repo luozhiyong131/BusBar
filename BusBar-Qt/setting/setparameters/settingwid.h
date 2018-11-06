@@ -8,6 +8,7 @@
 #include "setsystem/systemsettingdlg.h"
 #include "setsystem/checkpassworddlg.h"
 #include "temsettingwid.h"
+#include "setnames/setnameswid.h"
 
 namespace Ui {
 class SettingWid;
@@ -23,6 +24,7 @@ public:
 
 private:
     void initWidget();
+    void setButtonColor(QPushButton *button);
 
 signals:
     void indexChanged(int index);
@@ -40,12 +42,15 @@ private slots:
     void interfaceChangedSlot(int id);
     void initFunSLot();
 
+    void on_nameBtn_clicked();
+
 private:
     Ui::SettingWid *ui;
     MajorSetting *majorSettingWidget;
     SubSeeting *mSubsettingWid;
     TemSettingWid *mTemWid;
     SystemSettingDlg *mSystemDlg;
+    SetNamesWid *mSetNamesWid;
     int mIndex;
     bool isRun;
 };
