@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/setthreshold/myspinbox.h \
     $$PWD/setthreshold/mylabel.h \
     $$PWD/setnames/setnameswid.h \
-    $$PWD/setnames/setnamedlg.h
+    $$PWD/setnames/setnamedlg.h \
+    $$PWD/setsystem/ipsettingdlg.h
     
     
    
@@ -39,7 +40,8 @@ SOURCES += \
     $$PWD/setthreshold/myspinbox.cpp \
     $$PWD/setthreshold/mylabel.cpp \
     $$PWD/setnames/setnameswid.cpp \
-    $$PWD/setnames/setnamedlg.cpp
+    $$PWD/setnames/setnamedlg.cpp \
+    $$PWD/setsystem/ipsettingdlg.cpp
     
     
 
@@ -58,7 +60,8 @@ FORMS += \
     $$PWD/setparameters/startboxwid.ui \
     $$PWD/setthreshold/setkey.ui \
     $$PWD/setnames/setnameswid.ui \
-    $$PWD/setnames/setnamedlg.ui
+    $$PWD/setnames/setnamedlg.ui \
+    $$PWD/setsystem/ipsettingdlg.ui
 
 
 

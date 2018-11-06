@@ -7,7 +7,8 @@ SystemSettingDlg::SystemSettingDlg(QWidget *parent) :
     ui(new Ui::SystemSettingDlg)
 {
     ui->setupUi(this);
-    mEmailWid = new EmailWid(ui->smtpWid);
+    //mEmailWid = new EmailWid(ui->smtpWid);
+    mIpWid = new IpSettingDlg(ui->smtpWid);
     mNetWid = new NetSettingDlg(ui->netWid);
     mOtherWid = new OtherSettingDlg(ui->otherWid);
 }

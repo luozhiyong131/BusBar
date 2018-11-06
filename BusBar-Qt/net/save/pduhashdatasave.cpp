@@ -134,7 +134,10 @@ void pdu_hashData_save(pdu_devData_packet *packet)
         int devType = get_pdu_devCode(packet->code->devCode); // 获取设备类型码
         if(devType > 0)
         {
-            int num = packet->data->num;
+//            int num = packet->data->num;
+
+            int num = getByIp(packet->ip);
+
             int addr = packet->data->addr;
             boxDev  = &(dataPacket->data[num].box[addr]);
 
