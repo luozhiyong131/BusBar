@@ -14,8 +14,8 @@ IN_MainWid::IN_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
     groupBox_background_icon(ui->groupBox);
-    set_background_icon(ui->stackedWid,":/image/box_back.jpg");
-    btnBlue_style_sheet(ui->stackedWid);
+
+
     QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 

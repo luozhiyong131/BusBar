@@ -78,7 +78,7 @@ int NetDataAnalyze::recvData(void)
                     mIP.remove("::ffff:"); // IPV4删除这个字符串
                     mPduData->ip = mIP;
 
-                    mPduData->code = &mPacket->code;
+                    mPduData->code = &(mPacket->code);
                     mPduData->data = mDevData;
                     pdu_hashData_save(mPduData); // 进行数据的保存
                 }
