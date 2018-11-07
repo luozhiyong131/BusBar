@@ -7,8 +7,8 @@
 #include "linewid.h"
 #include "branchwid.h"
 #include "logswid.h"
-#include "setparameters/settingwid.h"
 #include "network.h"
+#include "setmainwid.h"
 
 namespace Ui {
 class MainWindow;
@@ -65,10 +65,10 @@ private:
     LineWid *mLineWid;
     BranchWid *mBranchWid;
     LogsWid *mLogsWid;
-    SettingWid *mSettingWid;
-     CheckPasswordDlg *mCheckDlg;
+    SetMainWid *mSettingWid;
+    CheckPasswordDlg *mCheckDlg;
 
-     NetWork *mNetWork;
+    NetWork *mNetWork;
 
 };
 

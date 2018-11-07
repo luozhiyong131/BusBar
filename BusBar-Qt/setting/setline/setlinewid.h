@@ -14,6 +14,7 @@ class SetLineWid : public QWidget
 public:
     explicit SetLineWid(QWidget *parent = 0);
     ~SetLineWid();
+    void updateWid(int index);
 
 private:
     Ui::SetLineWid *ui;

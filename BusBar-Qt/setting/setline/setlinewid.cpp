@@ -20,3 +20,9 @@ SetLineWid::~SetLineWid()
 {
     delete ui;
 }
+
+void SetLineWid::updateWid(int index)
+{
+    for(int i=0; i<3; ++i)
+        mItem[i]->updateBus(index);
+}

@@ -96,7 +96,7 @@ void SetLoopWid::itemClicked(QTableWidgetItem *it)
     if(column > 0)
     {
         BeepThread::bulid()->beep();
-        DbThresholdItem item;
+        sThresholdItem item;
         item.bus = mBus;
         item.box = it->row()+1;
         item.num = column-1;

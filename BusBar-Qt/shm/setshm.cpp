@@ -5,7 +5,7 @@ SetShm::SetShm(QObject *parent) : QObject(parent)
     shm = get_share_mem(); // 获取共享内存
 }
 
-void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
+void SetShm::setThresholdUnit(int id, sThresholdItem &item, sDataUnit &unit)
 {
     unit.min[id] = item.min;
     unit.max[id] = item.max;
@@ -13,7 +13,7 @@ void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
     unit.crMax[id] = item.crmax;
 }
 
-void SetShm::setVolAll(DbThresholdItem &item)
+void SetShm::setVolAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -28,7 +28,7 @@ void SetShm::setVolAll(DbThresholdItem &item)
     }
 }
 
-void SetShm::setLoopCurAll(DbThresholdItem &item)
+void SetShm::setLoopCurAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -43,7 +43,7 @@ void SetShm::setLoopCurAll(DbThresholdItem &item)
     }
 }
 
-void SetShm::setLineCurAll(DbThresholdItem &item)
+void SetShm::setLineCurAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -53,7 +53,7 @@ void SetShm::setLineCurAll(DbThresholdItem &item)
     }
 }
 
-void SetShm::setLineTempAll(DbThresholdItem &item)
+void SetShm::setLineTempAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -63,7 +63,7 @@ void SetShm::setLineTempAll(DbThresholdItem &item)
     }
 }
 
-void SetShm::setLoopTempAll(DbThresholdItem &item)
+void SetShm::setLoopTempAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
@@ -78,9 +78,8 @@ void SetShm::setLoopTempAll(DbThresholdItem &item)
     }
 }
 
-bool SetShm::saveItem(DbThresholdItem &item)
+void SetShm::saveItem(sThresholdItem &item)
 {
-    bool ret = false;
     sDataUnit *unit=NULL;
 
     sBusData *bus = &(shm->data[item.bus]);
@@ -104,7 +103,25 @@ bool SetShm::saveItem(DbThresholdItem &item)
         setThresholdUnit(item.num, item, (*unit));
     }
 
-    return ret;
+}
+
+void SetShm::setItem(sThresholdItem &item)
+{
+    if(item.box == 0xFF) {
+        switch (item.type) {
+        case 1:  setVolAll(item); break;
+        case 2:  setLoopCurAll(item); break;
+        case 3:  setLoopTempAll(item); break;
+        }
+    } else if(item.bus == 0xFF) {
+        switch (item.type) {
+        case 1:  setVolAll(item); break;
+        case 2:  setLineCurAll(item); break;
+        case 3:  setLineTempAll(item); break;
+        }
+    }else {
+        saveItem(item);
+    }
 }
 
 void SetShm::setName(DbNameItem &item)

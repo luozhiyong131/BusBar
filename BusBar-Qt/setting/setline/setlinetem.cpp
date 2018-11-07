@@ -42,7 +42,7 @@ void SetLineTem::timeoutDone()
 
 void SetLineTem::setTem(int id)
 {
-    DbThresholdItem item;
+    sThresholdItem item;
     item.bus = mBus;
     item.box = 0;
     item.num = id;

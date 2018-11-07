@@ -17,21 +17,20 @@ public:
     ~SetThresholdDlg();
 
 
-    void set(DbThresholdItem &item);
+    void set(sThresholdItem &item);
 
 protected:
     bool checkData();
-    void setTitle(DbThresholdItem &item);
-    void initSpinBox(DbThresholdItem &item);
+    void setTitle(sThresholdItem &item);
+    void initSpinBox(sThresholdItem &item);
 
 private slots:
     void on_saveBtn_clicked();
-
     void on_cancelBtn_clicked();
 
 private:
     Ui::SetThresholdDlg *ui;
-    DbThresholdItem mItem;
+    sThresholdItem mItem;
 };
 
 #endif // SETTHRESHOLDDLG_H

@@ -1,5 +1,4 @@
 #include "initshm.h"
-#include "dbthreshold.h"
 #include "dbdevname.h"
 
 InitShm::InitShm(QObject *parent) : QThread(parent)

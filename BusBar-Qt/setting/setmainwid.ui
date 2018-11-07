@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SettingWid</class>
- <widget class="QWidget" name="SettingWid">
+ <class>SetMainWid</class>
+ <widget class="QWidget" name="SetMainWid">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,8 +16,8 @@
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>1</x>
+     <y>20</y>
      <width>831</width>
      <height>430</height>
     </rect>
@@ -31,8 +31,8 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>859</x>
-     <y>30</y>
+     <x>860</x>
+     <y>50</y>
      <width>152</width>
      <height>361</height>
     </rect>
@@ -55,28 +55,28 @@ border-radius:15px
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="lineBtn">
       <property name="text">
        <string>主路设置</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="loopBtn">
       <property name="text">
        <string>支路设置</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_tem">
+     <widget class="QPushButton" name="temBtn">
       <property name="text">
        <string>温度设置</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="sysBtn">
       <property name="text">
        <string>系统设置</string>
       </property>

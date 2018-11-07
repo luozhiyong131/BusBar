@@ -32,8 +32,8 @@ protected:
 
 protected slots:
     virtual void timeoutDone(){}
-    virtual void itemDoubleClicked(QTableWidgetItem* item){}
-    virtual void itemClicked(QTableWidgetItem* item){}
+    virtual void itemDoubleClicked(QTableWidgetItem* ){}
+    virtual void itemClicked(QTableWidgetItem* ){}
 
 protected:
     QTimer *timer;

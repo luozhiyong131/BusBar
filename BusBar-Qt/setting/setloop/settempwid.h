@@ -9,7 +9,6 @@ class SetTempWid : public ComTableWid
 public:
     explicit SetTempWid(QWidget *parent = nullptr);
 
-
     void setBus(int bus) {mBus=bus;}
 
 protected slots:

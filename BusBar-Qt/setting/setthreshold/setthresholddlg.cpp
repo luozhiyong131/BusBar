@@ -14,7 +14,7 @@ SetThresholdDlg::~SetThresholdDlg()
 }
 
 
-void SetThresholdDlg::initSpinBox(DbThresholdItem &item)
+void SetThresholdDlg::initSpinBox(sThresholdItem &item)
 {
     ui->minBox->setValue(item.min);
     ui->maxBox->setValue(item.max);
@@ -34,7 +34,7 @@ void SetThresholdDlg::initSpinBox(DbThresholdItem &item)
     ui->maxBox->setMaximum(range);
 }
 
-void SetThresholdDlg::setTitle(DbThresholdItem &item)
+void SetThresholdDlg::setTitle(sThresholdItem &item)
 {
     QString str;
     switch (item.type) {
@@ -52,7 +52,7 @@ void SetThresholdDlg::setTitle(DbThresholdItem &item)
     ui->titleLab->setText(title);
 }
 
-void SetThresholdDlg::set(DbThresholdItem &item)
+void SetThresholdDlg::set(sThresholdItem &item)
 {
     sBusData *busData = &(share_mem_get()->data[item.bus]);
     sObjData *obj = &(busData->box[item.box].data);
@@ -92,6 +92,10 @@ void SetThresholdDlg::on_saveBtn_clicked()
 {
     bool ret = checkData();
     if(ret) {
+        if(ui->checkBox->isChecked()) {
+            if(mItem.box) mItem.box = 0xFF;
+            else mItem.bus = 0xFf;
+        }
 
     }
 }

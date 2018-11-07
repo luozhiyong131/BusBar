@@ -88,7 +88,7 @@ void SetLineItem::curBarClicked()
 {
     BeepThread::bulid()->beep();
 
-    DbThresholdItem item;
+    sThresholdItem item;
     item.bus = mBus;
     item.box = 0;
     item.num = mLine;
@@ -103,7 +103,7 @@ void SetLineItem::volBarClicked()
 {
     BeepThread::bulid()->beep();
 
-    DbThresholdItem item;
+    sThresholdItem item;
     item.bus = mBus;
     item.box = 0;
     item.num = mLine;
