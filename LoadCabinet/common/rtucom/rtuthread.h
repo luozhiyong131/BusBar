@@ -2,6 +2,7 @@
 #define RTUTHREAD_H
 
 #include "datapacket.h"
+#include "serialtrans.h"
 
 class RtuThread : public QThread
 {
@@ -15,7 +16,6 @@ protected:
     virtual void workDown()=0;
     void sentOkCmd(sRtuCount &count);
     void saveErrCmd(int id, sRtuCount &count);
-//    virtual void writeErrCmd(int id)=0;
     void setOffLine();
     void clearCount();
 
@@ -31,6 +31,7 @@ protected slots:
 protected:
     bool isRun;
     sDevPackets *mPackets;
+    SerialTrans *mSerial;
 };
 
 #endif // RTUTHREAD_H

@@ -6,7 +6,6 @@
 NetSendThread::NetSendThread(QObject *parent) : QThread(parent)
 {
     AppTcpServer::bulid()->start(); //secv data
-    DevSetThread::bulid()->start(); //set data
 }
 
 NetSendThread *NetSendThread::bulid()

@@ -9,7 +9,7 @@ void MyProgressBar::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
     {
-        emit clicked(mIsCur,mIndex);
+        emit clicked();
     }
 }
 

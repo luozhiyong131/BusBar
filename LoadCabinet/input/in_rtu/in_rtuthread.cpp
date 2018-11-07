@@ -17,10 +17,8 @@ IN_RtuThread *IN_RtuThread::bulid(QObject *parent)
 void IN_RtuThread::initSlot()
 {
     mPackets = IN_DataPackets::bulid()->packets;
+    mSerial = SerialTrans::bulid(this);
     mRtu = IN_RtuTrans::bulid();
-
-    mSerial = new SerialTrans(this);
-    mSerial->openSerial(SERIAL_COM1);
     mRtu->init(mSerial);
 }
 

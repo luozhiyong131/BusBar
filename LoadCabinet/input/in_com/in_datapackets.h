@@ -10,6 +10,8 @@ public:
 
     sDevPackets *packets;
     sDataPacket *getDev(int num);
+
+    int getTgValue(int mode);
 };
 
 #endif // I_DATAPACKETS_H

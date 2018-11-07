@@ -7,7 +7,6 @@ HEADERS += \
     sql/dbalarm.h \
     $$PWD/dbmainele.h \
     $$PWD/dbbranchele.h \
-    $$PWD/dbthreshold.h \
     $$PWD/dbdevname.h
     
    
@@ -18,7 +17,6 @@ SOURCES += \
     sql/dbalarm.cpp \
     $$PWD/dbmainele.cpp \
     $$PWD/dbbranchele.cpp \
-    $$PWD/dbthreshold.cpp \
     $$PWD/dbdevname.cpp
     
     

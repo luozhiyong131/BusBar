@@ -9,6 +9,7 @@ struct DbNameItem{
     int id;
     int bus; // 母线编号 0~3
     int type; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
+    int box;
     int num; // 编号
     QString name;
 };

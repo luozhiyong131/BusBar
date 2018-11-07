@@ -30,16 +30,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(common/common.pri)
 include(input/input.pri)
+include(eload/eload.pri)
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    home/h_mainwid.cpp \
+    home/e_statushomewid.cpp \
+    home/e_inputunitwid.cpp \
+    home/e_inputhomewid.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    home/h_mainwid.h \
+    home/e_statushomewid.h \
+    home/e_inputunitwid.h \
+    home/e_inputhomewid.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    home/h_mainwid.ui \
+    home/e_statushomewid.ui \
+    home/e_inputunitwid.ui \
+    home/e_inputhomewid.ui
 
 RESOURCES += \
     images/image.qrc

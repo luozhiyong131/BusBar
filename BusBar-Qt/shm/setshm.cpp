@@ -3,10 +3,9 @@
 SetShm::SetShm(QObject *parent) : QObject(parent)
 {
     shm = get_share_mem(); // 获取共享内存
-    //    mSetting = new QSettings("line.ini",QSettings::IniFormat);
 }
 
-void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
+void SetShm::setThresholdUnit(int id, sThresholdItem &item, sDataUnit &unit)
 {
     unit.min[id] = item.min;
     unit.max[id] = item.max;
@@ -14,171 +13,115 @@ void SetShm::setThresholdUnit(int id, DbThresholdItem &item, sDataUnit &unit)
     unit.crMax[id] = item.crmax;
 }
 
-
-void SetShm::setLoopCurAll(DbThresholdItem &item)
+void SetShm::setVolAll(sThresholdItem &item)
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
-        for(int j=1; j<=busData->boxNum; ++j)
+        for(int j=0; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            int len;
-            if(box->dc){ //交流
-                len = LINE_NUM;
-            }else{
-                len = 4; //目前未作为宏
-            }
-
-            for(int k=0; k<len; ++k) {
+            for(int k=0; k<LINE_NUM; ++k) {
                 setThresholdUnit( k, item, box->data.cur);
             }
         }
     }
-    DbThreshold::bulid()->setLoopCurAll(item);
 }
 
-
-void SetShm::setLineVolAll(DbThresholdItem &item)
+void SetShm::setLoopCurAll(sThresholdItem &item)
 {
-    for(int i=0; i<BUS_NUM; ++i)
-    {
-        sBoxData *bus = &(shm->data[i].box[0]);
-        int len;
-        if(bus->dc){ //交流
-            len = 3;
-        }else{
-            len = bus->rate;
-        }
-
-        for(int k=0; k<len; ++k)
-        {
-            setThresholdUnit(k, item, bus->data.vol);
-        }
-    }
-    DbThreshold::bulid()->setLineVolAll(item);
-}
-
-
-void SetShm::setLineCurAll(DbThresholdItem &item)
-{
-    for(int i=0; i<BUS_NUM; ++i)
-    {
-        sBoxData *bus = &(shm->data[i].box[0]);
-        int len;
-        if(bus->dc){ //交流
-            len = 3;
-        }else{
-            len = bus->rate;
-        }
-
-        for(int k=0; k<len; ++k)
-        {
-            setThresholdUnit(k, item, bus->data.cur);
-        }
-    }
-    DbThreshold::bulid()->setLineCurAll(item);
-}
-
-
-
-void SetShm::setLineTempAll(DbThresholdItem &item)
-{
-    for(int i=0; i<BUS_NUM; ++i)
-    {
-         sBoxData *bus = &(shm->data[i].box[0]);
-         int len;
-         if(bus->dc){ //交流
-             len = 3;
-         }else{
-             len = bus->rate;
-         }
-
-        for(int k=0; k<len; ++k)
-        {
-            setThresholdUnit(k, item, bus->env.tem);
-        }
-    }
-
-    DbThreshold::bulid()->setLineTempAll(item);
-}
-
-
-void SetShm::setTempAll(DbThresholdItem &item)
-{
-    /*
-    for(int i=0; i<BUS_NUM; ++i)
-    {
-         sBoxData *bus = &(shm->data[i].box[0]);
-        for(int k=0; k<3; ++k)
-        {
-            setThresholdUnit(k, item, bus->env.tem);
-        }
-    }*/
-
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *busData = &(shm->data[i]);
         for(int j=1; j<=busData->boxNum; ++j)
         {
             sBoxData *box = &(busData->box[j]);
-            int len;
-            if(box->dc){ //交流
-                len = SENSOR_NUM;
-            }else{
-                len = box->rate; //直流为输入总数
+            for(int k=0; k<LINE_NUM; ++k) {
+                setThresholdUnit( k, item, box->data.cur);
             }
-            for(int k=0; k<len; ++k) {
+        }
+    }
+}
+
+void SetShm::setLineCurAll(sThresholdItem &item)
+{
+    for(int i=0; i<BUS_NUM; ++i)
+    {
+        sBoxData *bus = &(shm->data[i].box[0]);
+        for(int k=0; k<LINE_NUM; ++k)
+            setThresholdUnit(k, item, bus->data.cur);
+    }
+}
+
+void SetShm::setLineTempAll(sThresholdItem &item)
+{
+    for(int i=0; i<BUS_NUM; ++i)
+    {
+        sBoxData *bus = &(shm->data[i].box[0]);
+        for(int k=0; k<SENSOR_NUM; ++k)
+            setThresholdUnit(k, item, bus->env.tem);
+    }
+}
+
+void SetShm::setLoopTempAll(sThresholdItem &item)
+{
+    for(int i=0; i<BUS_NUM; ++i)
+    {
+        sBusData *busData = &(shm->data[i]);
+        for(int j=1; j<=busData->boxNum; ++j)
+        {
+            sBoxData *box = &(busData->box[j]);
+            for(int k=0; k<SENSOR_NUM; ++k) {
                 setThresholdUnit( k, item, box->env.tem);
             }
         }
     }
-    DbThreshold::bulid()->setTempAll(item);
 }
 
-bool SetShm::saveItem(DbThresholdItem &item)
+void SetShm::saveItem(sThresholdItem &item)
 {
-    bool ret = false;
     sDataUnit *unit=NULL;
-    int boxNum=0, num = item.num;
 
-    //qDebug() <<"bus" <<item.bus << "Type" << item.type << "num" << item.num;
-
-    sBusData *box = &(shm->data[item.bus]);
-    sBoxData *bus = &(box->box[0]);
-    switch(item.type) // 阈值类型 1 主路电压阈值  2 主路电流阈值  3 回路电流阈值  4始端箱温度 5插接箱温度
+    sBusData *bus = &(shm->data[item.bus]);
+    sBoxData *box = &(bus->box[item.box]);
+    switch(item.type) // 阈值类型 1 电压阈值  2 电流阈值 3 温度
     {
     case 1:
-        unit = &(bus->data.vol);
+        unit = &(box->data.vol);
         break;
 
     case 2:
-        unit = &(bus->data.cur);
+        unit = &(box->data.cur);
         break;
 
     case 3:
-        boxNum = num / LINE_NUM + 1;
-        num = num % LINE_NUM ;
-        unit = &(box->box[boxNum].data.cur);
-        break;
-
-    case 4:
-        unit = &(bus->env.tem);
-        break;
-
-    case 5:
-        boxNum = num / SENSOR_NUM + 1;
-        num = num % SENSOR_NUM ;
-        unit = &(box->box[boxNum].env.tem);
+        unit = &(box->env.tem);
         break;
     }
 
     if(unit) {
-        setThresholdUnit(num, item, (*unit));
-        ret = DbThreshold::bulid()->saveItem(item);
+        setThresholdUnit(item.num, item, (*unit));
     }
 
-    return ret;
+}
+
+void SetShm::setItem(sThresholdItem &item)
+{
+    if(item.box == 0xFF) {
+        switch (item.type) {
+        case 1:  setVolAll(item); break;
+        case 2:  setLoopCurAll(item); break;
+        case 3:  setLoopTempAll(item); break;
+        }
+    } else if(item.bus == 0xFF) {
+        switch (item.type) {
+        case 1:  setVolAll(item); break;
+        case 2:  setLineCurAll(item); break;
+        case 3:  setLineTempAll(item); break;
+        }
+    }else {
+        saveItem(item);
+    }
 }
 
 void SetShm::setName(DbNameItem &item)

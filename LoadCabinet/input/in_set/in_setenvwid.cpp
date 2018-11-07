@@ -71,7 +71,7 @@ void IN_SetEnvWid::sendCmd()
 void IN_SetEnvWid::on_setBtn_clicked()
 {
     QuMsgBox box(this, tr("确定要修改阈值？？"));
-    if(box.Exec())    {
+    if(box.Exec()) {
         sendCmd();
         QTimer::singleShot(12500,this,SLOT(on_updateBtn_clicked())); //延时初始化
         InfoMsgBox msg(this, tr("需要十秒数据才能重新刷新!!"));

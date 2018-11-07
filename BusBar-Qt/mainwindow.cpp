@@ -8,7 +8,6 @@
 #include "datetime/timesettingdlg.h"
 #include "net/send/netsendthread.h"
 
-#include "shm/setbox.h"
 #include "modbus/thirdthread.h"
 
 RtuThread *rtu[4] = {NULL, NULL, NULL, NULL};
@@ -33,9 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
     BeepThread::bulid()->longBeep(); // 线程 -- 'bi~'
 
     for(int i=0; i < 4; i++) rtu[i] = NULL;
-
-    //修改数据线程
-    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), SetBOXThread::bulid(), SLOT(busChangedSlot(int)));
 }
 
 MainWindow::~MainWindow()
@@ -156,7 +152,7 @@ void MainWindow::initWidget()
     ui->stackedWid->addWidget(mLogsWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mLogsWid, SIGNAL(busChangedSig(int)));
 
-    mSettingWid = new SettingWid(ui->stackedWid); //配置
+    mSettingWid = new SetMainWid(ui->stackedWid); //配置
     ui->stackedWid->addWidget(mSettingWid);
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), mSettingWid, SLOT(busChangedSlot(int)));
 }

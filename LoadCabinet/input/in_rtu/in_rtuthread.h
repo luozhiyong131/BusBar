@@ -21,7 +21,6 @@ protected slots:
 
 private:
     IN_RtuTrans *mRtu;
-    SerialTrans *mSerial;
     QList<sRtuSentCom> mCmdList;
 };
 

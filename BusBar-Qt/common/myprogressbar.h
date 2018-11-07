@@ -16,6 +16,7 @@ public:
 
 signals:
     void clicked(bool isCur,int index);
+    void clicked();
 
 private :
 //    int mBus;

@@ -10,6 +10,7 @@ SerialTrans::SerialTrans(QObject *parent) : QThread(parent)
 {
     mutex = new QMutex();
     mSerial = new SerialPort();
+    openSerial(SERIAL_COM1);
 }
 
 SerialTrans:: ~SerialTrans()
@@ -24,6 +25,15 @@ bool SerialTrans::openSerial(const QString &name)
 }
 
 
+SerialTrans *SerialTrans::bulid(QObject *parent)
+{
+    static SerialTrans* sington = nullptr;
+    if(sington == nullptr) {
+        sington = new SerialTrans(parent);
+    }
+    return sington;
+}
+
 /**
   * 功　能：发送数据
   * 入口参数：pBuff -> 缓冲区   nCount -> 长度
@@ -31,7 +41,7 @@ bool SerialTrans::openSerial(const QString &name)
   */
 int SerialTrans::sendData(uchar *pBuff, int nCount, int msec)
 {
-    QMutexLocker locker(mutex);
+    QMutexLocker locker(mutex); msleep(msec);
     int ret = mSerial->send(pBuff, nCount);
     if(ret>=0) msleep(msec);
 
@@ -74,7 +84,7 @@ int SerialTrans::transmit(uchar *sent, int len, uchar *recv, int msecs)
     int ret = sendData(sent, len, 100);
     if(ret > 0) {
         ret = recvData(recv, msecs);
-        //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
+        // if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
     }
     return ret;
 }

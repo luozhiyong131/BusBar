@@ -65,8 +65,6 @@ void RtuThread::sentOkCmd(sRtuCount &count)
 {
     count.count++;
     count.okCount ++;
-
-//    mDpThread->start();
 }
 
 
@@ -78,8 +76,6 @@ void RtuThread::saveErrCmd(int id, sRtuCount &count)
 {
     count.count += 1;
     count.errCount += 1;
-
-//    writeErrCmd(id);
 }
 
 
