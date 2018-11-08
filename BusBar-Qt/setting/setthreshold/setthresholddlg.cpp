@@ -96,7 +96,6 @@ void SetThresholdDlg::on_saveBtn_clicked()
             if(mItem.box) mItem.box = 0xFF;
             else mItem.bus = 0xFf;
         }
-
     }
 }
 
