@@ -63,7 +63,7 @@ void SetThresholdDlg::set(sThresholdItem &item)
     case 2: unit = &(obj->cur); break;
     }
     item.min = unit->min[item.num];
-    item.max = unit->min[item.max];
+    item.max = unit->max[item.num];
 
     mItem = item;
     setTitle(item);

@@ -1,10 +1,12 @@
 #include "settempwid.h"
-
+#include <QGridLayout>
 SetTempWid::SetTempWid(QWidget *parent) : ComTableWid(parent)
 {
     mBus = 0;
     mPacket =  &(get_share_mem()->data[mBus]);
     initWid();
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 

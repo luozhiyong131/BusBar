@@ -71,10 +71,10 @@ void IpSettingDlg::initData()
     mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
 
     BusIPMap.clear();
-    BusIPMap.insert(0,mIP1);
-    BusIPMap.insert(1,mIP2);
-    BusIPMap.insert(2,mIP3);
-    BusIPMap.insert(3,mIP4);
+    for(int i = 0 ; i < BUS_NUM ; ++i)
+    {
+        BusIPMap.insert(i,mIPTotal[i]);
+    }
     set_hb_IP(mIPTotal);
 }
 
@@ -134,10 +134,10 @@ void IpSettingDlg::on_saveBtn_clicked()
         saveData();
         mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
 
-        BusIPMap[0] = mIP1;
-        BusIPMap[1] = mIP2;
-        BusIPMap[2] = mIP3;
-        BusIPMap[3] = mIP4;
+        for(int i = 0 ; i < BUS_NUM ; ++i)
+        {
+            BusIPMap[i] = mIPTotal[i];
+        }
         set_hb_IP(mIPTotal);
     }
 }

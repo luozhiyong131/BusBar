@@ -1,6 +1,5 @@
 #include "setloopwid.h"
 
-
 SetLoopWid::SetLoopWid(QWidget *parent) : ComTableWid(parent)
 {
     mDc = 1;
