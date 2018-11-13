@@ -1,14 +1,14 @@
 #include "ipsettingdlg.h"
 #include "ui_ipsettingdlg.h"
 
-QMap<int, QString> BusIPMap;
+QMap<int, QString> busIPMap;
 
 
 int getByIp(const QString &ip)
 {
     for(int i = 0 ; i < BUS_NUM ; ++i)
     {
-        if(BusIPMap[i] == ip)
+        if(busIPMap[i] == ip)
             return i;
     }
     return -1;
@@ -34,23 +34,15 @@ void IpSettingDlg::initData()
     if(ret)
     {
         QString str = sys_configFile_readStr("IP1");
-        if(str.isEmpty())
-            str = IP1;
         mIP1 = str;
 
         str = sys_configFile_readStr("IP2");
-        if(str.isEmpty())
-            str = IP2;
         mIP2 = str;
 
         str = sys_configFile_readStr("IP3");
-        if(str.isEmpty())
-            str = IP3;
         mIP3 = str;
 
         str = sys_configFile_readStr("IP4");
-        if(str.isEmpty())
-            str = IP4;
         mIP4 = str;
 
         sys_configFile_close();
@@ -58,9 +50,6 @@ void IpSettingDlg::initData()
     else
     {
         mIP1 = IP1;
-        mIP2 = IP2;
-        mIP3 = IP3;
-        mIP4 = IP4;
     }
 
     ui->IP1lineEdit->setText(mIP1);
@@ -68,13 +57,17 @@ void IpSettingDlg::initData()
     ui->IP3lineEdit->setText(mIP3);
     ui->IP4lineEdit->setText(mIP4);
     mIPTotal.clear();
-    mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
+    if(!mIP1.isEmpty()) mIPTotal<<mIP1;
+    if(!mIP2.isEmpty()) mIPTotal<<mIP2;
+    if(!mIP3.isEmpty()) mIPTotal<<mIP3;
+    if(!mIP4.isEmpty()) mIPTotal<<mIP4;
 
-    BusIPMap.clear();
-    for(int i = 0 ; i < BUS_NUM ; ++i)
-    {
-        BusIPMap.insert(i,mIPTotal[i]);
-    }
+    busIPMap.clear();
+    if(!mIP1.isEmpty()) busIPMap.insert(0,mIP1);
+    if(!mIP2.isEmpty()) busIPMap.insert(1,mIP2);
+    if(!mIP3.isEmpty()) busIPMap.insert(2,mIP3);
+    if(!mIP4.isEmpty()) busIPMap.insert(3,mIP4);
+
     set_hb_IP(mIPTotal);
 }
 
@@ -132,12 +125,15 @@ void IpSettingDlg::on_saveBtn_clicked()
     if(ret) {
         mIPTotal.clear();
         saveData();
-        mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
+        if(!mIP1.isEmpty()) mIPTotal<<mIP1;
+        if(!mIP2.isEmpty()) mIPTotal<<mIP2;
+        if(!mIP3.isEmpty()) mIPTotal<<mIP3;
+        if(!mIP4.isEmpty()) mIPTotal<<mIP4;
 
-        for(int i = 0 ; i < BUS_NUM ; ++i)
-        {
-            BusIPMap[i] = mIPTotal[i];
-        }
+        if(!mIP1.isEmpty()) busIPMap[0] = mIP1;
+        if(!mIP2.isEmpty()) busIPMap[1] = mIP2;
+        if(!mIP3.isEmpty()) busIPMap[2] = mIP3;
+        if(!mIP4.isEmpty()) busIPMap[3] = mIP4;
         set_hb_IP(mIPTotal);
     }
 }

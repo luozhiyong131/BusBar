@@ -36,7 +36,7 @@ void SetMainWid::initWidget()
     ui->stackedWidget->addWidget(mSetNamesWid);
 
     setButtonColor(ui->lineBtn);
-    ui->stackedWidget->setCurrentWidget(mSetLineWid);
+//    ui->stackedWidget->setCurrentWidget(mSetLineWid);
 }
 
 

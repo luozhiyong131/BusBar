@@ -23,7 +23,7 @@ void SetThresholdDlg::initSpinBox(sThresholdItem &item)
     QString str = "A";
     switch (item.type) {
     case 1:  str = "V"; range = 400;  break;
-    case 2: if(!item.box) range = 630; str = "A";  break;
+    case 2: if(!item.box) range = 300; str = "A";  break;
     case 3: str = "℃"; range = 99;  break;
     }
 
@@ -76,7 +76,7 @@ bool SetThresholdDlg::checkData()
     bool ret = true;
     int min = ui->minBox->value();
     int max = ui->maxBox->value();
-    if(max < min)  {
+    if(min < max)  {
         mItem.min = min;
         mItem.max = max;
     } else {
