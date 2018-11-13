@@ -1,17 +1,30 @@
 #include "ipsettingdlg.h"
 #include "ui_ipsettingdlg.h"
 
+<<<<<<< HEAD
 QMap<int, QString> busIPMap;
+=======
+QMap<int, QString> gBusIPMap;
+>>>>>>> origin/lzy
 
 
 int getByIp(const QString &ip)
 {
     for(int i = 0 ; i < BUS_NUM ; ++i)
     {
+<<<<<<< HEAD
         if(busIPMap[i] == ip)
+=======
+        if(gBusIPMap[i] == ip)
+>>>>>>> origin/lzy
             return i;
     }
     return -1;
+}
+
+QString getIpByKey(int key)
+{
+    return gBusIPMap[key];
 }
 
 IpSettingDlg::IpSettingDlg(QWidget *parent) :
@@ -33,7 +46,9 @@ void IpSettingDlg::initData()
     bool ret = sys_configFile_open();
     if(ret)
     {
+        QStringList ips;
         QString str = sys_configFile_readStr("IP1");
+<<<<<<< HEAD
         mIP1 = str;
 
         str = sys_configFile_readStr("IP2");
@@ -44,9 +59,39 @@ void IpSettingDlg::initData()
 
         str = sys_configFile_readStr("IP4");
         mIP4 = str;
+=======
+        if(!str.isEmpty()) {
+            ips << str;
+            gBusIPMap.insert(0,str);
+            ui->IP1lineEdit->setText(str);
+        }
+
+        str = sys_configFile_readStr("IP2");
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(1,str);
+            ui->IP2lineEdit->setText(str);
+        }
+
+        str = sys_configFile_readStr("IP3");
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(2,str);
+            ui->IP3lineEdit->setText(str);
+        }
+
+        str = sys_configFile_readStr("IP4");
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(3,str);
+            ui->IP3lineEdit->setText(str);
+        }
+>>>>>>> origin/lzy
 
         sys_configFile_close();
+        if(ips.size()) set_hb_IP(ips);
     }
+<<<<<<< HEAD
     else
     {
         mIP1 = IP1;
@@ -69,58 +114,36 @@ void IpSettingDlg::initData()
     if(!mIP4.isEmpty()) busIPMap.insert(3,mIP4);
 
     set_hb_IP(mIPTotal);
+=======
+>>>>>>> origin/lzy
 }
 
 /**
  * @brief IP地址验证
  * @return
  */
-bool IpSettingDlg::ipCheck()
+bool IpSettingDlg::ipCheck(int i, QLineEdit * edit)
 {
-    QString str = ui->IP1lineEdit->text();
-    bool ret1 = cm_isIPaddress(str);
-    if(ret1 == false)
-        CriticalMsgBox box(this, "IP1地址错误!");
+    bool ret = true;
+    QString str = edit->text();
+    if(!str.isEmpty()) {
+        ret = cm_isIPaddress(str);
+        if(ret){
+            gBusIPMap[i] = str;
+        } else {
+            CriticalMsgBox box(this, tr("IP%1地址错误!").arg(i+1));
+        }
+    }
+    sys_configFile_writeParam(tr("IP%1").arg(i+1), str);
 
-    str = ui->IP2lineEdit->text();
-    bool ret2 = cm_isIPaddress(str);
-    if(ret2 == false)
-        CriticalMsgBox box(this, "IP2地址错误!");
+    return ret;
 
-    str = ui->IP3lineEdit->text();
-    bool ret3 = cm_isIPaddress(str);
-    if(ret3 == false)
-        CriticalMsgBox box(this, "IP3地址错误!");
-
-    str = ui->IP2lineEdit->text();
-    bool ret4 = cm_isIPaddress(str);
-    if(ret4 == false)
-        CriticalMsgBox box(this, "IP4地址错误!");
-
-    return ret1 && ret2 && ret3 && ret4;
-}
-
-/**
- * @brief 保存数据
- */
-void IpSettingDlg::saveData()
-{
-    mIP1 = ui->IP1lineEdit->text();
-    sys_configFile_writeParam("IP1", mIP1);
-
-    mIP2 = ui->IP2lineEdit->text();
-    sys_configFile_writeParam("IP2", mIP2);
-
-    mIP3 = ui->IP3lineEdit->text();
-    sys_configFile_writeParam("IP3", mIP3);
-
-    mIP4 = ui->IP4lineEdit->text();
-    sys_configFile_writeParam("IP4", mIP4);
 }
 
 
 void IpSettingDlg::on_saveBtn_clicked()
 {
+<<<<<<< HEAD
     bool ret = ipCheck();
     if(ret) {
         mIPTotal.clear();
@@ -135,5 +158,14 @@ void IpSettingDlg::on_saveBtn_clicked()
         if(!mIP3.isEmpty()) busIPMap[2] = mIP3;
         if(!mIP4.isEmpty()) busIPMap[3] = mIP4;
         set_hb_IP(mIPTotal);
+=======
+    QStringList ips;
+    QLineEdit *edit[4] = {ui->IP1lineEdit, ui->IP2lineEdit, ui->IP3lineEdit, ui->IP4lineEdit};
+
+    for(int i=0; i<4; ++i) {
+         bool ret = ipCheck(i, edit[1]);
+         if(ret) ips << edit[1]->text();
+>>>>>>> origin/lzy
     }
+    set_hb_IP(ips);
 }

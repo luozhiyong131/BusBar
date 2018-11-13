@@ -26,7 +26,7 @@ void SetRtuCmd::sendReg(int reg, sThresholdItem &item)
 
 void SetRtuCmd::send(sThresholdItem &item)
 {
-    int reg;
+    int reg=0;
     switch (item.type) {
     case 1: reg = VoltageMAX_L1 + item.num*2; break;
     case 2: reg = CurrentMAX_L1 + item.num*2; break;

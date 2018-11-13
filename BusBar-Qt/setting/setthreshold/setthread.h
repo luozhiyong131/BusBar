@@ -1,7 +1,7 @@
 #ifndef SETTHREAD_H
 #define SETTHREAD_H
 
-#include "setrtucmd.h"
+#include "setnetcmd.h"
 
 class SetThread : public QThread
 {
@@ -19,8 +19,10 @@ protected:
 private:
     bool isRun;
     QList<sThresholdItem> mItems;
+
     SetShm *mSetShm;
     SetRtuCmd *mRtuCmd;
+    SetNetCmd *mNetCmd;
 };
 
 #endif // SETTHREAD_H
