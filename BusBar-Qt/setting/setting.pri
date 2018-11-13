@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/setthreshold/setthread.h \
     $$PWD/setthreshold/setrtucmd.h \
     $$PWD/setmainwid.h \
-    $$PWD/setloop/settemmain.h
+    $$PWD/setloop/settemmain.h \
+    $$PWD/setsystem/ipsettingdlg.h
     
     
    
@@ -46,7 +47,8 @@ SOURCES += \
     $$PWD/setthreshold/setthread.cpp \
     $$PWD/setthreshold/setrtucmd.cpp \
     $$PWD/setmainwid.cpp \
-    $$PWD/setloop/settemmain.cpp
+    $$PWD/setloop/settemmain.cpp \
+    $$PWD/setsystem/ipsettingdlg.cpp
     
     
 
@@ -64,7 +66,8 @@ FORMS += \
     $$PWD/setline/setlinetem.ui \
     $$PWD/setthreshold/setthresholddlg.ui \
     $$PWD/setmainwid.ui \
-    $$PWD/setloop/settemmain.ui
+    $$PWD/setloop/settemmain.ui \
+    $$PWD/setsystem/ipsettingdlg.ui
 
 
 

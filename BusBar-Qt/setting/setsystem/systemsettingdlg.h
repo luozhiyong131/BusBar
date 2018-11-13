@@ -9,6 +9,7 @@
 #include "smtp/emailwid.h"
 #include "netsettingdlg.h"
 #include "othersettingdlg.h"
+#include "ipsettingdlg.h"
 
 namespace Ui {
 class SystemSettingDlg;
@@ -29,6 +30,7 @@ private:
     EmailWid *mEmailWid;
     NetSettingDlg *mNetWid;
     OtherSettingDlg *mOtherWid;
+    IpSettingDlg* mIpWid;
 };
 
 #endif // SYSTEMSETTINGDLG_H
