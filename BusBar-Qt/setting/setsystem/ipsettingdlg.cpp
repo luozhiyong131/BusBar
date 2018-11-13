@@ -1,17 +1,22 @@
 #include "ipsettingdlg.h"
 #include "ui_ipsettingdlg.h"
 
-QMap<int, QString> BusIPMap;
+QMap<int, QString> gBusIPMap;
 
 
 int getByIp(const QString &ip)
 {
     for(int i = 0 ; i < BUS_NUM ; ++i)
     {
-        if(BusIPMap[i] == ip)
+        if(gBusIPMap[i] == ip)
             return i;
     }
     return -1;
+}
+
+QString getIpByKey(int key)
+{
+    return gBusIPMap[key];
 }
 
 IpSettingDlg::IpSettingDlg(QWidget *parent) :
@@ -33,111 +38,71 @@ void IpSettingDlg::initData()
     bool ret = sys_configFile_open();
     if(ret)
     {
+        QStringList ips;
         QString str = sys_configFile_readStr("IP1");
-        if(str.isEmpty())
-            str = IP1;
-        mIP1 = str;
+        if(!str.isEmpty()) {
+            ips << str;
+            gBusIPMap.insert(0,str);
+            ui->IP1lineEdit->setText(str);
+        }
 
         str = sys_configFile_readStr("IP2");
-        if(str.isEmpty())
-            str = IP2;
-        mIP2 = str;
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(1,str);
+            ui->IP2lineEdit->setText(str);
+        }
 
         str = sys_configFile_readStr("IP3");
-        if(str.isEmpty())
-            str = IP3;
-        mIP3 = str;
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(2,str);
+            ui->IP3lineEdit->setText(str);
+        }
 
         str = sys_configFile_readStr("IP4");
-        if(str.isEmpty())
-            str = IP4;
-        mIP4 = str;
+        if(!str.isEmpty()){
+            ips << str;
+            gBusIPMap.insert(3,str);
+            ui->IP3lineEdit->setText(str);
+        }
 
         sys_configFile_close();
+        if(ips.size()) set_hb_IP(ips);
     }
-    else
-    {
-        mIP1 = IP1;
-        mIP2 = IP2;
-        mIP3 = IP3;
-        mIP4 = IP4;
-    }
-
-    ui->IP1lineEdit->setText(mIP1);
-    ui->IP2lineEdit->setText(mIP2);
-    ui->IP3lineEdit->setText(mIP3);
-    ui->IP4lineEdit->setText(mIP4);
-    mIPTotal.clear();
-    mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
-
-    BusIPMap.clear();
-    BusIPMap.insert(0,mIP1);
-    BusIPMap.insert(1,mIP2);
-    BusIPMap.insert(2,mIP3);
-    BusIPMap.insert(3,mIP4);
-    set_hb_IP(mIPTotal);
 }
 
 /**
  * @brief IP地址验证
  * @return
  */
-bool IpSettingDlg::ipCheck()
+bool IpSettingDlg::ipCheck(int i, QLineEdit * edit)
 {
-    QString str = ui->IP1lineEdit->text();
-    bool ret1 = cm_isIPaddress(str);
-    if(ret1 == false)
-        CriticalMsgBox box(this, "IP1地址错误!");
+    bool ret = true;
+    QString str = edit->text();
+    if(!str.isEmpty()) {
+        ret = cm_isIPaddress(str);
+        if(ret){
+            gBusIPMap[i] = str;
+        } else {
+            CriticalMsgBox box(this, tr("IP%1地址错误!").arg(i+1));
+        }
+    }
+    sys_configFile_writeParam(tr("IP%1").arg(i+1), str);
 
-    str = ui->IP2lineEdit->text();
-    bool ret2 = cm_isIPaddress(str);
-    if(ret2 == false)
-        CriticalMsgBox box(this, "IP2地址错误!");
+    return ret;
 
-    str = ui->IP3lineEdit->text();
-    bool ret3 = cm_isIPaddress(str);
-    if(ret3 == false)
-        CriticalMsgBox box(this, "IP3地址错误!");
-
-    str = ui->IP2lineEdit->text();
-    bool ret4 = cm_isIPaddress(str);
-    if(ret4 == false)
-        CriticalMsgBox box(this, "IP4地址错误!");
-
-    return ret1 && ret2 && ret3 && ret4;
-}
-
-/**
- * @brief 保存数据
- */
-void IpSettingDlg::saveData()
-{
-    mIP1 = ui->IP1lineEdit->text();
-    sys_configFile_writeParam("IP1", mIP1);
-
-    mIP2 = ui->IP2lineEdit->text();
-    sys_configFile_writeParam("IP2", mIP2);
-
-    mIP3 = ui->IP3lineEdit->text();
-    sys_configFile_writeParam("IP3", mIP3);
-
-    mIP4 = ui->IP4lineEdit->text();
-    sys_configFile_writeParam("IP4", mIP4);
 }
 
 
 void IpSettingDlg::on_saveBtn_clicked()
 {
-    bool ret = ipCheck();
-    if(ret) {
-        mIPTotal.clear();
-        saveData();
-        mIPTotal<<mIP1<<mIP2<<mIP3<<mIP4;
+    QStringList ips;
+    QLineEdit *edit[4] = {ui->IP1lineEdit, ui->IP2lineEdit, ui->IP3lineEdit, ui->IP4lineEdit};
 
-        BusIPMap[0] = mIP1;
-        BusIPMap[1] = mIP2;
-        BusIPMap[2] = mIP3;
-        BusIPMap[3] = mIP4;
-        set_hb_IP(mIPTotal);
+    for(int i=0; i<4; ++i) {
+         bool ret = ipCheck(i, edit[1]);
+         if(ret) ips << edit[1]->text();
     }
+    set_hb_IP(ips);
 }

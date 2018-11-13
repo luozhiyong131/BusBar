@@ -21,19 +21,13 @@ public:
     explicit IpSettingDlg(QWidget *parent = 0);
     ~IpSettingDlg();
     void initData();
-    void saveData();
-    bool ipCheck();
+    bool ipCheck(int i, QLineEdit *edit);
 
 private slots:
     void on_saveBtn_clicked();
 
 private:
     Ui::IpSettingDlg *ui;
-    QString mIP1;
-    QString mIP2;
-    QString mIP3;
-    QString mIP4;
-    QStringList mIPTotal;
 };
 int getByIp(const QString &ip);
 #endif // IPSETTINGDLG_H
