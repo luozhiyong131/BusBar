@@ -49,68 +49,16 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
         pdu_hashDevData_save(dev, data);
         break;
 
-        //    case PDU_CMD_DEVINFO: // 设备信息
-        //        pdu_hashDevInfo_save(dev->info, data);
-        //        break;
-
-        //    case PDU_CMD_DEVUSR: // 设备用户信息
-        //        pdu_hashDevUsr_save(dev->usr, data);
-        //        break;
-
-        //    case PDU_CMD_DEVNET: // 设备网络信息
-        //        pdu_hashDevNet_save(dev->net,data);
-        //        break;
-
-        //    case PDU_CMD_DEVMAN: // 基本设置信息
-        //        pdu_hashDevSet_save(dev->manage, data);
-        //        break;
-
-        //    case PDU_CMD_DEVCHART: // 设备图表信息
-        //        pdu_hashDevChart_save(dev->chart, data);
-        //        break;
+    case PDU_CMD_DEVINFO: // 设备信息
+        sprintf(dev->boxName, "%s",data->data);
+        break;
 
         //    case PDU_CMD_OUTPUT_NAME: // 输出位名称
         //        pdu_output_name(dev->output->name, data);
         //        break;
 
-        //    case PDU_CMD_OUTPUT_GROUP: // 输出位分组信息
-        //        pdu_output_group(dev->manage->groupInfo, data);
-        //        break;
-
-        //    case PDU_CMD_OUTPUT_CUT: // 输出位超限断电
-        //        pdu_output_cutOff(dev->manage->cutOff, data);
-        //        break;
-
-        //    case PDU_CMD_OUTPUT_SW_CTRL: // 输出位控制开关
-        //        pdu_output_SWctrl(dev->manage->sw, data);
-        //        break;
-
-        //    case PDU_CMD_OUTPUT_TIME: // 输出位定时开关
-        //        pdu_output_time(dev->manage->timeSW, data);
-        //        break;
-
-        //    case PDU_CMD_OUTPUT_SORT: // 输出位排序
-        //        pdu_output_sort(dev->output->sort, data);
-        //        break;
-
-        //    case PDU_CMD_GROUP_CUT: // 组管理，超时断电
-        //        pdu_group_cutOff(dev->manage->cutOff, data);
-        //        break;
-
-        //    case PDU_CMD_GROUP_SW_CTRL: // 组管理，控制开关
-        //        pdu_group_SWctrl(dev->manage->sw, data);
-        //        break;
-
-        //    case PDU_CMD_ALL_SW_CTRL: // 输出位全开、全断
-        //        pdu_all_SWctrl(dev->manage->sw, data);
-        //        break;
-
-        //     case PDU_CMD_GROUP_TIME: // 组定时上下电
-        //        pdu_group_time(dev->manage->timeSW, data);
-        //        break;
-
     default:
-//        qDebug() << "pdu_hashData_function err" << fc;
+        //        qDebug() << "pdu_hashData_function err" << fc;
         break;
     }
 }
@@ -135,10 +83,7 @@ void pdu_hashData_save(pdu_devData_packet *packet)
         int devType = get_pdu_devCode(packet->code->devCode); // 获取设备类型码
         if(devType > 0)
         {
-//            int num = packet->data->num;
-
             int num = getByIp(packet->ip);
-
             int addr = packet->data->addr;
             boxDev  = &(dataPacket->data[num].box[addr]);
 
