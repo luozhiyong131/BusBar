@@ -1,5 +1,6 @@
 #include "setthresholddlg.h"
 #include "ui_setthresholddlg.h"
+#include "setthread.h"
 
 SetThresholdDlg::SetThresholdDlg(QWidget *parent) :
     QDialog(parent),
@@ -97,6 +98,7 @@ void SetThresholdDlg::on_saveBtn_clicked()
             if(mItem.box) mItem.box = 0xFF;
             else mItem.bus = 0xFf;
         }
+        SetThread::bulid()->append(mItem);
     }
 }
 

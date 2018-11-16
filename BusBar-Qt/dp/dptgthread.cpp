@@ -86,7 +86,8 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
             tg->cur[i] += obj->cur.value[i+j*3];
             tg->pow[i] += obj->pow[i+j*3];
             tg->ele[i] += obj->ele[i+j*3];
-            tg->apPow[i] += obj->apPow[i+j*3];
+          //  tg->apPow[i] += obj->apPow[i+j*3];
+              tg->apPow[i] += obj->cur.value[i+j*3] * obj->vol.value[i+j*3]/10;
         }
     }
 
@@ -96,7 +97,6 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
         if(tg->pf[i]>99) tg->pf[i] = 99;
         if(tg->pow[i] > tg->apPow[i]) tg->pow[i] = tg->apPow[i];
     }
-
 }
 
 
@@ -142,7 +142,6 @@ void DpTgThread::tgBox(sBoxData *box)
 
     if(box->offLine) {
         tgObj(loop, tgBox);
-
         if(box->dc) {
             lineTgObj(loop, linTgBox);
         } else  {

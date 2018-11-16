@@ -36,6 +36,7 @@ protected:
 private slots:
     void on_saveBtn_clicked();
     void itemDoubleClicked(QTableWidgetItem *item);
+    void updateWidSlot();
 
 private:
     Ui::SetNamesWid *ui;
