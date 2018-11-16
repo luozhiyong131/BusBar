@@ -123,7 +123,6 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
         pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
 }
 
-
 /**
  * @brief 环境数据的处理
  * @param env
@@ -167,6 +166,18 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 
 
 /**
+ * @brief 设置输出位的名称
+ * @param name
+ * @param data
+ */
+void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
+{
+    int l = data->fn[1];
+    sprintf(dev->loopName[l], "%s",data->data);
+}
+
+
+/**
  * @brief 保存设备数据 主要针对PduDevData类操作
  * @param dev
  * @param data
@@ -181,7 +192,7 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
         break;
 
     case PDU_CMD_OUTPUT: // 输出位电气参数
-//        pdu_hash_objData(dev->output, data);
+        pdu_output_name(dev, data);
         break;
 
     case PDU_CMD_ENV: //环境数据

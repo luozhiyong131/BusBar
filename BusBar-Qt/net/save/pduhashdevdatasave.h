@@ -43,6 +43,7 @@ typedef enum {
     PDU_CMD_LINE, //相电参数
     PDU_CMD_OUTPUT,//输出位
     PDU_CMD_ENV, //环境数据
+    PDU_CMD_DEVINFO
 }PDU_CMD_ID_DEV_DATA;
 
 
