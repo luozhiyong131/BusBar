@@ -9,7 +9,7 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui->setupUi(this);
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
-    QTimer::singleShot(3000,this,SLOT(updateWidSlot()));
+    QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
 }
 
 SetNamesWid::~SetNamesWid()

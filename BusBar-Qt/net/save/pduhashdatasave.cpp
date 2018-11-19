@@ -44,13 +44,14 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
         break;
 
     case PDU_CMD_LINE: // 设备相参数
-    case PDU_CMD_OUTPUT: // 设备输出位
+    case PDU_CMD_OUTPUTNAME: // 设备输出位
     case PDU_CMD_ENV: //环境数据
         pdu_hashDevData_save(dev, data);
         break;
 
     case PDU_CMD_DEVINFO: // 设备信息
-        sprintf(dev->boxName, "%s",data->data);
+        // sprintf(dev->boxName, "%s",data->data);
+        // dev->boxName[data->len] = 0;
         break;
 
         //    case PDU_CMD_OUTPUT_NAME: // 输出位名称

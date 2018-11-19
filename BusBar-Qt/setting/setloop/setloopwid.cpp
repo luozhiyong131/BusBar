@@ -91,18 +91,25 @@ void SetLoopWid::timeoutDone()
 void SetLoopWid::itemClicked(QTableWidgetItem *it)
 {
     if(it->text().compare("---") == 0) return;  //为空不设置
-    int column = it->column();
-    if(column > 0)
+    static int i = 0;//防止弹出多次对话框
+    i++;
+    if(i % 3 == 1)
     {
-        BeepThread::bulid()->beep();
-        sThresholdItem item;
-        item.bus = mBus;
-        item.box = it->row()+1;
-        item.num = column-1;
-        item.type = 2;
 
-        SetThresholdDlg dlg(this);
-        dlg.set(item);
-        dlg.exec();
+        int column = it->column();
+        if(column > 0)
+        {
+            BeepThread::bulid()->beep();
+            sThresholdItem item;
+            item.bus = mBus;
+            item.box = it->row()+1;
+            item.num = column-1;
+            item.type = 2;
+
+            SetThresholdDlg dlg(this);
+            dlg.set(item);
+            dlg.exec();
+            i = 1;
+        }
     }
 }
