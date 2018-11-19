@@ -19,6 +19,7 @@ public:
 
 protected:
     bool save();
+    void saveToDev();
 
 private slots:
     void on_saveBtn_clicked();
