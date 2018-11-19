@@ -1,10 +1,12 @@
 #include "settempwid.h"
-
+#include <QGridLayout>
 SetTempWid::SetTempWid(QWidget *parent) : ComTableWid(parent)
 {
     mBus = 0;
     mPacket =  &(get_share_mem()->data[mBus]);
     initWid();
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 
@@ -45,10 +47,10 @@ int SetTempWid::updateDev(sBoxData *dev, int row)
             setItemColor(row, i+1, unit->alarm[i]);
         }
 
-        setTableRow(row++, list);
+        setTableRow(row, list);
     }
 
-    return row;
+    return ++row;
 }
 
 /**
@@ -61,7 +63,7 @@ void SetTempWid::updateData()
     for(int i=1; i<=mPacket->boxNum; ++i)
     {
         sBoxData *box = &(mPacket->box[i]);
-        row = updateDev(box, i);
+        row = updateDev(box, row);
     }
 
     checkTableRow(row);

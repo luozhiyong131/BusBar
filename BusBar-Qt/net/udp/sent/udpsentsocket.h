@@ -20,8 +20,9 @@ public:
     bool sentBroadcastData(uchar *buf, ushort len, quint16 port);
     bool sentBroadcastData(QByteArray &msg, quint16 port);
 
-private:
     QUdpSocket *mUdpSocket;
+private:
+
     QReadWriteLock  *sentLock;
 };
 

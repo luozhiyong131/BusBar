@@ -4,6 +4,8 @@
 #include "setshm.h"
 #include "setthreshold/setnetcmd.h"
 
+extern int net_data_packets(net_dev_data *pkt, uchar *buf);
+
 SetNameDlg::SetNameDlg(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SetNameDlg)
@@ -25,7 +27,7 @@ void SetNameDlg::init(int bus, int box, int loop, const QString &name)
     ui->nameLab->setText(name);
 }
 
-void SetNameDlg::saveToDev()
+bool SetNameDlg::saveToDev()
 {
     uchar array[64] = {0};
     net_dev_data pkt;
@@ -36,7 +38,7 @@ void SetNameDlg::saveToDev()
 
     QString name = ui->nameEdit->text();
     pkt.len = name.size();
-    pkt.data = name.toLocal8Bit().data();
+    pkt.data =(uchar*) name.toLocal8Bit().data();
     int len = net_data_packets(&pkt, array);
 
     return SetNetCmd::bulid()->sentNetData(mBusId, array, len);

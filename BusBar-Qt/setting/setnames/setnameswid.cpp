@@ -9,7 +9,7 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui->setupUi(this);
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
-    updateWid(0);
+    QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
 }
 
 SetNamesWid::~SetNamesWid()
@@ -26,7 +26,7 @@ void SetNamesWid::initTableWidget()
     QStringList horHead;
     horHead<< tr("插接箱");
 
-    int dc = mPacket ? mPacket->box[0].dc : 0;
+    int dc = mPacket ? mPacket->box[0].dc : 1;
     if(dc){ //交流9个
         for(int i = 0; i < LINE_NUM; ++i)
             horHead << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
@@ -78,7 +78,7 @@ void SetNamesWid::checkBus()
     int row = ui->tableWidget->rowCount();
     int col = ui->tableWidget->columnCount();
 
-    int dc = mPacket ? mPacket->box[0].dc : 0;
+    int dc = mPacket ? mPacket->box[0].dc : 1;
     int len = dc ? LINE_NUM : 4;
     if(mPacket->boxNum != row || col != len+1) { //修改判断条件——  2018.3.21——By>MW
         clearWidget();
@@ -88,7 +88,7 @@ void SetNamesWid::checkBus()
 
 void SetNamesWid::indexChanged(int index)
 {
-    if(mIndex == index)  return;
+//    if(mIndex == index)  return;
 
     mIndex = index;
     mPacket = &(get_share_mem()->data[index]);
@@ -112,6 +112,11 @@ void SetNamesWid::updateWid(int index)
             setTableItem(i, j);
         }
     }
+}
+
+void SetNamesWid::updateWidSlot()
+{
+    updateWid(0);
 }
 
 void SetNamesWid::setName(int row, int column)

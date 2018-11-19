@@ -12,6 +12,7 @@ HEADERS += \
     $$PWD/setthreshold/mylabel.h \
     $$PWD/setnames/setnameswid.h \
     $$PWD/setnames/setnamedlg.h \
+    $$PWD/setsystem/ipsettingdlg.h \
     $$PWD/setline/setlineitem.h \
     $$PWD/setline/setlinewid.h \
     $$PWD/setloop/setloopwid.h \
@@ -22,7 +23,6 @@ HEADERS += \
     $$PWD/setthreshold/setrtucmd.h \
     $$PWD/setmainwid.h \
     $$PWD/setloop/settemmain.h \
-    $$PWD/setsystem/ipsettingdlg.h \
     $$PWD/setthreshold/setnetcmd.h
     
     
@@ -39,6 +39,7 @@ SOURCES += \
     $$PWD/setthreshold/mylabel.cpp \
     $$PWD/setnames/setnameswid.cpp \
     $$PWD/setnames/setnamedlg.cpp \
+    $$PWD/setsystem/ipsettingdlg.cpp \
     $$PWD/setline/setlineitem.cpp \
     $$PWD/setline/setlinewid.cpp \
     $$PWD/setloop/setloopwid.cpp \
@@ -49,7 +50,6 @@ SOURCES += \
     $$PWD/setthreshold/setrtucmd.cpp \
     $$PWD/setmainwid.cpp \
     $$PWD/setloop/settemmain.cpp \
-    $$PWD/setsystem/ipsettingdlg.cpp \
     $$PWD/setthreshold/setnetcmd.cpp
     
     
@@ -63,13 +63,13 @@ FORMS += \
     $$PWD/setthreshold/setkey.ui \
     $$PWD/setnames/setnameswid.ui \
     $$PWD/setnames/setnamedlg.ui \
+    $$PWD/setsystem/ipsettingdlg.ui \
     $$PWD/setline/setlineitem.ui \
     $$PWD/setline/setlinewid.ui \
     $$PWD/setline/setlinetem.ui \
     $$PWD/setthreshold/setthresholddlg.ui \
     $$PWD/setmainwid.ui \
-    $$PWD/setloop/settemmain.ui \
-    $$PWD/setsystem/ipsettingdlg.ui
+    $$PWD/setloop/settemmain.ui
 
 
 

@@ -1,6 +1,7 @@
 #include "ipsettingdlg.h"
 #include "ui_ipsettingdlg.h"
 
+
 QMap<int, QString> gBusIPMap;
 
 
@@ -8,6 +9,7 @@ int getByIp(const QString &ip)
 {
     for(int i = 0 ; i < BUS_NUM ; ++i)
     {
+
         if(gBusIPMap[i] == ip)
             return i;
     }
@@ -64,7 +66,7 @@ void IpSettingDlg::initData()
         if(!str.isEmpty()){
             ips << str;
             gBusIPMap.insert(3,str);
-            ui->IP3lineEdit->setText(str);
+            ui->IP4lineEdit->setText(str);
         }
 
         sys_configFile_close();
@@ -76,7 +78,7 @@ void IpSettingDlg::initData()
  * @brief IP地址验证
  * @return
  */
-bool IpSettingDlg::ipCheck(int i, QLineEdit * edit)
+bool IpSettingDlg::ipCheck(int i, QLineEdit *edit)
 {
     bool ret = true;
     QString str = edit->text();
@@ -101,8 +103,8 @@ void IpSettingDlg::on_saveBtn_clicked()
     QLineEdit *edit[4] = {ui->IP1lineEdit, ui->IP2lineEdit, ui->IP3lineEdit, ui->IP4lineEdit};
 
     for(int i=0; i<4; ++i) {
-         bool ret = ipCheck(i, edit[1]);
-         if(ret) ips << edit[1]->text();
+         bool ret = ipCheck(i, edit[i]);
+         if(ret) ips << edit[i]->text();
     }
     set_hb_IP(ips);
 }

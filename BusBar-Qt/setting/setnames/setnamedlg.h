@@ -16,6 +16,7 @@ public:
     ~SetNameDlg();
 
     void init(int bus, int box, int loop, const QString &name);
+    bool saveToDev();
 
 protected:
     bool save();

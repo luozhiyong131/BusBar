@@ -37,7 +37,7 @@ UdpHeartBeat::~UdpHeartBeat()
  */
 void UdpHeartBeat::startSent(void)
 {
-//    mSocket = new UdpSentSocket();
+    mSocket = new UdpSentSocket();
 
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
@@ -46,8 +46,8 @@ void UdpHeartBeat::startSent(void)
 
 void UdpHeartBeat::timeoutDone(void)
 {
-        start(); // 在定时器中启动线程
-//    run();
+  start(); // 在定时器中启动线程
+   //run();
 }
 
 /**
@@ -57,15 +57,21 @@ void UdpHeartBeat::heartbeatPacket(void)
 {
 //    static QByteArray msg = UDP_HEARTBEAT_MSG;
 
-//    if(mSocket) {
+    if(mSocket) {
         for(int i=0; i<mIpList.size(); ++i) {
 //            QString ip = mIpList.at(i);
 //            QHostAddress addr(ip);
+
+
 //            mSocket->sentData(addr, msg, UDP_HB_PORT);
+
               udp_sent_data(mIpList.at(i), UDP_HB_PORT,
                             (uchar *)UDP_HEARTBEAT_MSG,
                             strlen(UDP_HEARTBEAT_MSG));
-//        }
+
+
+              sleep(1);
+        }
         //        mSocket->sentBroadcastData(msg,UDP_HB_PORT);
     }
 }

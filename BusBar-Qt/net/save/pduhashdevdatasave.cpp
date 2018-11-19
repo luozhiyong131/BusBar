@@ -173,8 +173,13 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
 {
     int l = data->fn[1];
-    sprintf(dev->loopName[l], "%s",data->data);
-}
+    if(data->len) {
+        sprintf(dev->loopName[l], "%s",data->data);
+        dev->loopName[l][data->len] = 0;
+    }
+
+//    qDebug() << "AAAAAAAAA" << data->addr << l <<data->len<< dev->loopName[l];
+ }
 
 
 /**
@@ -191,7 +196,7 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
         pdu_hash_objData(&(dev->data), data);
         break;
 
-    case PDU_CMD_OUTPUT: // 输出位电气参数
+    case PDU_CMD_OUTPUTNAME: // 输出位电气参数
         pdu_output_name(dev, data);
         break;
 

@@ -18,11 +18,12 @@ protected:
 
 private:
     bool isRun;
-    QList<sThresholdItem> mItems;
+
 
     SetShm *mSetShm;
     SetRtuCmd *mRtuCmd;
     SetNetCmd *mNetCmd;
+    QList<sThresholdItem> mItems;
 };
 
 #endif // SETTHREAD_H
