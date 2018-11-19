@@ -8,6 +8,15 @@ SetNetCmd::SetNetCmd(QObject *parent) : QObject(parent)
     mSocket = new UdpSentSocket();
 }
 
+SetNetCmd *SetNetCmd::bulid(QObject *parent)
+{
+    static SetNetCmd* sington = NULL;
+    if(sington == NULL) {
+        sington = new SetNetCmd(parent);
+    }
+    return sington;
+}
+
 /**
  * @brief 发送网络模式数据
  * @return

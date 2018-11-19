@@ -2,6 +2,7 @@
 #include "ui_setnamedlg.h"
 #include "common.h"
 #include "setshm.h"
+#include "setthreshold/setnetcmd.h"
 
 SetNameDlg::SetNameDlg(QWidget *parent) :
     QDialog(parent),
@@ -22,6 +23,23 @@ void SetNameDlg::init(int bus, int box, int loop, const QString &name)
     mBox = box;
     mLoop = loop;
     ui->nameLab->setText(name);
+}
+
+void SetNameDlg::saveToDev()
+{
+    uchar array[64] = {0};
+    net_dev_data pkt;
+    pkt.num = mBusId; // 母线
+    pkt.addr = mBox; // 插接箱
+    pkt.fn[0] = 4;
+    pkt.fn[1] = mLoop; // 相
+
+    QString name = ui->nameEdit->text();
+    pkt.len = name.size();
+    pkt.data = name.toLocal8Bit().data();
+    int len = net_data_packets(&pkt, array);
+
+    return SetNetCmd::bulid()->sentNetData(mBusId, array, len);
 }
 
 bool SetNameDlg::save()
