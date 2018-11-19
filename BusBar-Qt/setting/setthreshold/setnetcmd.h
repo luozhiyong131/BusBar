@@ -7,13 +7,15 @@
 class SetNetCmd : public QObject
 {
     Q_OBJECT
-public:
     explicit SetNetCmd(QObject *parent = nullptr);
+public:
+    static SetNetCmd *bulid(QObject *parent = nullptr);
 
     bool send(sThresholdItem &item);
+    bool sentNetData(int bus, uchar *buf, int len);
+
 protected:
     uchar *getData(sThresholdItem &item, int rate);
-    bool sentNetData(int bus, uchar *buf, int len);
     bool sentNetDatas(int bus, uchar *buf, int len);
 
 private:
