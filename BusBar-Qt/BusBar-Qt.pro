@@ -39,9 +39,6 @@ include(logs/logs.pri)
 include(setting/setting.pri)
 include(services/services.pri)
 include(shm/shm.pri)
-include(keyboard/keyboard.pri)
-include(customdialplot/customdialplot.pri)
-include(beep/beep.pri)
 include(net/net.pri)
 
 SOURCES += \

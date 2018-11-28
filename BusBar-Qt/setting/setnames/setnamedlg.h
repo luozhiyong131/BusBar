@@ -16,11 +16,9 @@ public:
     ~SetNameDlg();
 
     void init(int bus, int box, int loop, const QString &name);
-    bool saveToDev();
-
 protected:
     bool save();
-    void saveToDev();
+    bool saveToDev();
 
 private slots:
     void on_saveBtn_clicked();
