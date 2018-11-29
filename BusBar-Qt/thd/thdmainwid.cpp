@@ -8,12 +8,7 @@ ThdMainWid::ThdMainWid(QWidget *parent) :
     ui->setupUi(this);
 
     mChartWid = new ThdChartWid(ui->chartwid);
-
     mTableWid = new ThdTableWid(ui->tablewid);
-    QGridLayout *layout = new QGridLayout(ui->tablewid);
-    layout->addWidget(mTableWid);
-    layout->setSpacing(0);
-    layout->setContentsMargins(5, 0, 5, 0);
 
     ushort buf[40];
 

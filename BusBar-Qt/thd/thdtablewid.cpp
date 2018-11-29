@@ -3,6 +3,10 @@
 
 ThdTableWid::ThdTableWid(QWidget *parent) : ComTableWid(parent)
 {
+        QGridLayout *layout = new QGridLayout(parent);
+        layout->addWidget(this);
+        layout->setSpacing(0);
+        layout->setContentsMargins(0, 0, 0, 0);
     initWid();
 }
 
