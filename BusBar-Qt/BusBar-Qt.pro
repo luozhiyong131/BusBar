@@ -40,6 +40,7 @@ include(setting/setting.pri)
 include(services/services.pri)
 include(shm/shm.pri)
 include(net/net.pri)
+include(thd/thd.pri)
 
 SOURCES += \
         main.cpp \
