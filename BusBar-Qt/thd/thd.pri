@@ -4,18 +4,18 @@ INCLUDEPATH += $$PWD
 HEADERS += \	
     $$PWD/thdtablewid.h \
     $$PWD/thdchartwid.h \
-    $$PWD/thdmainwid.h
+    $$PWD/thdmaindlg.h
     
    
 	
 SOURCES += \	
     $$PWD/thdtablewid.cpp \
     $$PWD/thdchartwid.cpp \
-    $$PWD/thdmainwid.cpp
+    $$PWD/thdmaindlg.cpp
     
     
 
 FORMS += \
-    $$PWD/thdmainwid.ui
+    $$PWD/thdmaindlg.ui
 
 

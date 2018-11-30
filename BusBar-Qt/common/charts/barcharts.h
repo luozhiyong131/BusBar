@@ -16,7 +16,7 @@ public:
 
     void setXRange(int data);
     void setYRange(int data);
-    void setData(int id, int data);
+    void setData(int id, double data);
     void clearData();
 
 signals:

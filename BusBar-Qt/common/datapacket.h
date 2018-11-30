@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <QtCore>
 
 #define LINE_NUM 9 // 三相
 #define LINE_NUM_MAX 9 // 三相
@@ -31,8 +32,8 @@
 typedef struct _sTgObjData {
     int vol; // 电压
     int cur;  // 电流
-
     int pow; // 功率
+
     int ele; // 电能
     int pf; // 功率因素
     int apPow; // 袖在功率
@@ -79,6 +80,10 @@ typedef struct _sObjData {
     int apPow[LINE_NUM_MAX]; // 视在功率
     int ratedCur[LINE_NUM_MAX]; // 额定电流
     int wave[LINE_NUM_MAX]; // 谐波值
+
+    int pl[3]; // 负载百分比
+    int curThd[3]; // 电流谐波含量
+    int volThd[3]; // 电压谐波含量
 }sObjData;
 
 
@@ -90,12 +95,13 @@ typedef struct _sEnvData {
     sDataUnit hum; // 湿度
 }sEnvData;
 
+
 /**
  * 插接箱数据结构体：包括最多三个插接位，插接箱名称
  */
 typedef struct _sBoxData {
     char offLine; // 离线标识
-    int loopNum; // 回路数量
+    char loopNum; // 回路数量
     char version;
 
     sObjData data; // 回路数据
@@ -112,10 +118,18 @@ typedef struct _sBoxData {
     int ratedCur; // 额定电流
     int rate; // 电压频率
     char dc; // 交直流标志位
+    uchar lps; // 防雷开关
 
-    u_char rtuLen;
-    u_char rtuArray[SRC_DATA_LEN_MAX];
+    uchar rtuLen;
+    uchar rtuArray[SRC_DATA_LEN_MAX];
 }sBoxData;
+
+
+typedef struct _sThdData {
+    ushort curThd[3][35]; // 电流谐波含量
+    ushort volThd[3][35]; // 电压谐波含量
+}sThdData;
+
 
 /**
  * 母线数据结构体：包括插接箱数据，电压频率 母线名称
@@ -124,12 +138,15 @@ typedef struct _sBusData{
     int boxNum; // 插接箱数量
     sBoxData   box[BOX_NUM+1];  // 最多20个插接箱
     char busName[NAME_LEN]; // 母线名称
+    sThdData thdData;
 }sBusData;
 
 typedef struct _sDataPacket
 {
     sBusData data[BUS_NUM];  // 四条母线数据
 }sDataPacket;
+
+
 
 /**
  * 设置地址枚举：包括各种参数的地址

@@ -14,13 +14,13 @@ static int rtu_recv_len_dc(uchar *buf, int len)
 
     if(len < rtn) {
         ret = -1;
-//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
+        //        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
         ret = -2;
-//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+        //        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
-//        len = buf[2]*256 + buf[3];
-         len = buf[2];
+        //        len = buf[2]*256 + buf[3];
+        len = buf[2];
         if(len != RTU_SENT_DC_LEN) {
             ret = -3;
             qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_DC_LEN;
@@ -47,13 +47,13 @@ static int rtu_recv_len(uchar *buf, int len)
 
     if(len < rtn) {  //判断是否为交流数据
         ret = -1;
-//        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
+        //        qDebug() << "rtu recv Err: len too short!!" << len  << rtn;
     } else if(len > rtn) {
         ret = -2;
-//        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
+        //        qDebug() << "rtu recv Err: len too long!!" << len << rtn ;
     } else {
-//        len = buf[2]*256 + buf[3];
-         len = buf[2];
+        //        len = buf[2]*256 + buf[3];
+        len = buf[2];
         if(len != RTU_SENT_LEN) {
             ret = -3;
             qDebug() << "rtu recv len Err!!"<< len << rtn  << RTU_SENT_LEN;
@@ -144,6 +144,24 @@ static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
 }
 
 
+static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
+{
+    msg->lps = *(ptr++); // 防雷开关
+
+     // 读取负载百分比
+    for(int i=0; i<3; ++i) msg->pl[i] = *(ptr++);
+    msg->hc = *(ptr++);
+
+    int len = 32;
+    if(msg->addr) len = 3;
+    for(int i=0; i<len; ++i){
+        msg->thd[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return 69;
+}
+
+
 
 /**
   * 功　能：还原数据包
@@ -171,22 +189,25 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         ptr += 2;
 
         int lineSum = 0;
-        if(pkt->dc)//交流
-            lineSum = RTU_LINE_NUM;
-        else
-            lineSum = 4; //[暂时未加宏]
+        if(pkt->dc) lineSum = RTU_LINE_NUM; //交流
+        else lineSum = 4; //[暂时未加宏]
+
         for(int i=0; i<lineSum; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
-        //----------------------[二分二路直流][显示]----------------------------
-        if(2 == pkt->rate && 2 == pkt->lineNum && 0 == pkt->dc){ //交换2-3数据
-            RtuRecvLine data;
-            data = pkt->data[1];
-            pkt->data[1] = pkt->data[2];
-            pkt->data[2] = data;
-            //swap(pkt->data[1], pkt->data[2]);
+        if(pkt->dc) { // 交流
+            ptr += rtu_recv_thd(ptr, pkt);
+        } else {
+            //----------------------[二分二路直流][显示]----------------------------
+            if(2 == pkt->rate && 2 == pkt->lineNum ){ //交换2-3数据
+                RtuRecvLine data;
+                data = pkt->data[1];
+                pkt->data[1] = pkt->data[2];
+                pkt->data[2] = data;
+                //swap(pkt->data[1], pkt->data[2]);
+            }
+            //---------------------------------------------------------------
         }
-        //---------------------------------------------------------------
 
         pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
         ret = rtu_recv_crc(buf, len, pkt); //校验码

@@ -31,6 +31,7 @@ protected:
 
     void envData(sEnvData *env, Rtu_recv *pkt);
     void setBoxNum(ushort num);
+    void thdData(Rtu_recv *pkt);
 
 private:
     uchar *mBuf;

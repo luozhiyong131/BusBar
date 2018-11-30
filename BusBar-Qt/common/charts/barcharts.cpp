@@ -73,7 +73,7 @@ void BarCharts::setXRange(int data)
     }
 }
 
-void BarCharts::setData(int id, int data)
+void BarCharts::setData(int id, double data)
 {
     QVector<double> ticks;
     ticks << id;

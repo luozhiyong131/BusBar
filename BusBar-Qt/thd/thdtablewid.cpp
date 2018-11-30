@@ -3,10 +3,10 @@
 
 ThdTableWid::ThdTableWid(QWidget *parent) : ComTableWid(parent)
 {
-        QGridLayout *layout = new QGridLayout(parent);
-        layout->addWidget(this);
-        layout->setSpacing(0);
-        layout->setContentsMargins(0, 0, 0, 0);
+    QGridLayout *layout = new QGridLayout(parent);
+    layout->addWidget(this);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     initWid();
 }
 
@@ -27,7 +27,7 @@ int ThdTableWid::updateLine(QList<ushort> &datas, int row)
 
     for(int i=0; i<datas.size(); ++i)
     {
-        double value = datas.at(i) / 100;
+        double value = datas.at(i) / 100.0;
         list << QString::number(value,'f', 2);
         // setItemColor(row, i+1, unit->alarm[i]);
     }

@@ -155,6 +155,34 @@ void RtuThread::envData(sEnvData *env, Rtu_recv *pkt)
     }
 }
 
+void RtuThread::thdData(Rtu_recv *pkt)
+{
+    sBoxData *box = &(mBusData->box[pkt->addr]);
+
+    box->lps = pkt->lps;
+    for(int i=0; i<3; ++i) {
+        box->data.pl[i] = pkt->pl[i];
+    }
+
+    if(pkt->addr == 0) {
+        ushort *thd = mBusData->thdData.curThd[pkt->hc % 3];
+        if(pkt->hc < 3) thd = mBusData->thdData.volThd[pkt->hc % 3];
+        for(int i=0; i<32; ++i) thd[i] = pkt->thd[i];
+
+        for(int i=0; i<3; ++i) {
+            box->data.curThd[i] = mBusData->thdData.curThd[i][0];
+            mBusData->thdData.curThd[i][0] = 0;
+
+            box->data.volThd[i] = mBusData->thdData.volThd[i][0];
+            mBusData->thdData.volThd[i][0] = 0;
+        }
+    } else {
+         int *thd = box->data.curThd;
+         for(int i=0; i<3; ++i) {
+             thd[i] = pkt->thd[i];
+         }
+    }
+}
 
 int RtuThread::transData(int addr)
 {
@@ -175,6 +203,8 @@ int RtuThread::transData(int addr)
                 box->rate = pkt->rate;
                 box->dc = pkt->dc;
                 box->version = pkt->version;
+
+                thdData(pkt);
             }
 
             box->rtuLen = rtn;
