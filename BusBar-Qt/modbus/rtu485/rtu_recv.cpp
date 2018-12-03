@@ -147,10 +147,9 @@ static bool rtu_recv_crc(uchar *buf, int len, Rtu_recv *msg)
 static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
 {
     msg->lps = *(ptr++); // 防雷开关
-
      // 读取负载百分比
     for(int i=0; i<3; ++i) msg->pl[i] = *(ptr++);
-    msg->hc = *(ptr++);
+    msg->hc = *(ptr++);    
 
     int len = 32;
     if(msg->addr) len = 3;
@@ -158,7 +157,7 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
         msg->thd[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     }
 
-    return 69;
+    return (1+3+1+len*2);
 }
 
 
@@ -173,25 +172,23 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 {
     bool ret = false;
 
-    //qDebug() << len << RTU_SENT_DC_LEN;
     int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
-        //qDebug() << len << RTU_SENT_DC_LEN;
         uchar *ptr=buf;
         ptr += rtu_recv_head(ptr, pkt); //指针偏移
 
         pkt->dc = *(ptr++);  //[交直流]
         pkt->rate = *(ptr++);
+
         for(int i=0; i<RTU_TH_NUM; ++i) // 读取环境 数据
             ptr += rtu_recv_env(ptr, &(pkt->env[i].tem));
+
         pkt->lineNum = *(ptr++); //[输出位]
-        pkt->version = *(ptr++); //[输出位]
+        pkt->version = *(ptr++); // 版本
         ptr += 2;
 
-        int lineSum = 0;
-        if(pkt->dc) lineSum = RTU_LINE_NUM; //交流
-        else lineSum = 4; //[暂时未加宏]
-
+        int lineSum = pkt->lineNum; //交流
+        if(!pkt->dc) lineSum = 4; //[暂时未加宏]
         for(int i=0; i<lineSum; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
@@ -209,9 +206,12 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
             //---------------------------------------------------------------
         }
 
+#if 0
         pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
         ret = rtu_recv_crc(buf, len, pkt); //校验码
-        //qDebug() <<  ret;
+#else
+        ret = true;
+#endif
     }
     return ret;
 }

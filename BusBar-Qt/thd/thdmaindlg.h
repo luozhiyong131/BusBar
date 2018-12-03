@@ -30,6 +30,7 @@ private slots:
     void on_curAbtn_clicked();
     void on_curBbtn_clicked();
     void on_curCbtn_clicked();
+    void on_quitBtn_clicked();
 
 private:
     Ui::ThdMainDlg *ui;

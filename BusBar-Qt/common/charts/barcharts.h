@@ -8,6 +8,7 @@ class BarCharts : public QWidget
     Q_OBJECT
 public:
     explicit BarCharts(QWidget *parent = nullptr);
+    ~BarCharts();
 
     void createBars(int num);
     void initXAxis(QVector<QString> &labels);
@@ -17,7 +18,9 @@ public:
     void setXRange(int data);
     void setYRange(int data);
     void setData(int id, double data);
+
     void clearData();
+    void replot() {mDraw->replot();}
 
 signals:
 
@@ -25,6 +28,7 @@ public slots:
 
 
 private:
+    int mXrange, mYrange;
     BarDraw *mDraw;
     QList<QCPBars *> mBars;
 };

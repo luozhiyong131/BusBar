@@ -31,7 +31,7 @@ void ThdMainDlg::initBus(int id)
 
 void ThdMainDlg::timeoutDone()
 {
-    QString str = QString::number(*mLineThd,'f', 2) + " %";
+    QString str = QString::number((*mLineThd/100.0),'f', 2) + " %";
     ui->thdLab->setText(str);
 
     mChartWid->updateData(mThd, 30);
@@ -41,8 +41,8 @@ void ThdMainDlg::timeoutDone()
 void ThdMainDlg::setLine(int i, int l)
 {
     if(i) {
-        mThd = mBusData->thdData.curThd[0];
-        mLineThd = &(mBusData->box[0].data.curThd[0]);
+        mThd = mBusData->thdData.curThd[l];
+        mLineThd = &(mBusData->box[0].data.curThd[l]);
     } else {
         mThd = mBusData->thdData.volThd[l];
         mLineThd = &(mBusData->box[0].data.volThd[l]);
@@ -78,4 +78,9 @@ void ThdMainDlg::on_curBbtn_clicked()
 void ThdMainDlg::on_curCbtn_clicked()
 {
     setLine(1, 2);
+}
+
+void ThdMainDlg::on_quitBtn_clicked()
+{
+    this->close();
 }

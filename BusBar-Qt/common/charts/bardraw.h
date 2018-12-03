@@ -8,6 +8,7 @@ class BarDraw : public QWidget
     Q_OBJECT
 public:
     explicit BarDraw(QWidget *parent = nullptr);
+    ~BarDraw();
 
     QCPBars *createBar(const QString &);
     void initXAxis(QVector<QString> &);
@@ -20,6 +21,7 @@ public:
     void setYLabel(const QString &lab);
 
     void initLegend(void);
+    void replot() {customPlot->replot();}
 
 private:
     QCustomPlot *customPlot;

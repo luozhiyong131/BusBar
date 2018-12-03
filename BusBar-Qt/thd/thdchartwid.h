@@ -8,6 +8,7 @@ class ThdChartWid : public QWidget
     Q_OBJECT
 public:
     explicit ThdChartWid(QWidget *parent = nullptr);
+    ~ThdChartWid();
 
     void updateData(ushort *buf, int len);
 signals:

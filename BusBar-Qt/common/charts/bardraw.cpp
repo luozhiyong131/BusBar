@@ -19,6 +19,11 @@ BarDraw::BarDraw(QWidget *parent) : QWidget(parent)
     // initLegend();
 }
 
+BarDraw::~BarDraw()
+{
+    delete customPlot;
+}
+
 /**
  * @brief 创建Bar
  * @param name

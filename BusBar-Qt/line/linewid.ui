@@ -122,13 +122,13 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>269</y>
+     <y>259</y>
      <width>1001</width>
-     <height>111</height>
+     <height>161</height>
     </rect>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -360,7 +360,6 @@ border-bottom:2px solid rgb(228,228,228);
 border-bottom:2px solid rgb(228,228,228);
 };</string>
       </property>
-      <zorder>line1Wid</zorder>
      </widget>
     </item>
     <item>

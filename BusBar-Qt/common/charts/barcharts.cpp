@@ -11,7 +11,13 @@ BarCharts::BarCharts(QWidget *parent) : QWidget(parent)
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
+    mYrange = mXrange = 0;
     setYRange(15);
+}
+
+BarCharts::~BarCharts()
+{
+    delete mDraw;
 }
 
 /**
@@ -55,21 +61,19 @@ void BarCharts::initXAxis(QVector<QString> &labels)
  */
 void BarCharts::setYRange(int data)
 {
-    static int range=0;
-    if(range < data)
+    if(mYrange < data)
     {
-        range = data ; // + data/5;
-        mDraw->setYRange(range);
+        mYrange = data ; // + data/5;
+        mDraw->setYRange(mYrange);
     }
 }
 
 void BarCharts::setXRange(int data)
 {
-    static int range=0;
-    if(range < data)
+    if(mXrange < data)
     {
-        range = data ; //+ data/5;
-        mDraw->setXRange(range);
+        mXrange = data ; //+ data/5;
+        mDraw->setXRange(mXrange);
     }
 }
 
