@@ -246,8 +246,6 @@ void RtuThread::run()
                 transData(i);
             }
             msleep(750);
-
-            break; //////========== 测试用 请去掉
         }
     }
 }
