@@ -103,19 +103,19 @@ void LineWid::initTotalWid()
     mCurPlot = new CustomDialPlot(ui->totalWid);
     mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
-    //    mPfPlot = new CustomDialPlot(ui->totalWid);
+    // mPfPlot = new CustomDialPlot(ui->totalWid);
 
     layout->addWidget(mVolPlot);
     layout->addWidget(mCurPlot);
     layout->addWidget(mPwPlot);
-    //    layout->addWidget(mPfPlot);
+    // layout->addWidget(mPfPlot);
 
     mVolPlot->setUnit("V");
     mCurPlot->setUnit("A");
     mPwPlot->setUnit("kW");
 
-    //    mPfPlot->setUnit("");
-    //    mPfPlot->setRange(0,1);
+    // mPfPlot->setUnit("");
+    // mPfPlot->setRange(0,1);
 }
 
 void LineWid::updateTotalWid()
