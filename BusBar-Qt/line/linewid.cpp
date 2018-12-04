@@ -73,6 +73,7 @@ void LineWid::timeoutDone()
             ui->rateLab->setText(str); //频率
             ui->label->setText("频率：");
 
+            ui->thdBtn->setHidden(false);
             ui->widget->setHidden(false);
             mLineTable->updateData(mData->box[0]);
         }else{
@@ -80,6 +81,7 @@ void LineWid::timeoutDone()
             ui->rateLab->setText(str); //频率
             ui->label->setText("输入：");
 
+            ui->thdBtn->setHidden(true);
             ui->widget->setHidden(true);
         }
 
