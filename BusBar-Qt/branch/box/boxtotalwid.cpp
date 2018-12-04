@@ -77,6 +77,7 @@ void BoxTotalWid::updateData()
     }else{
         ui->CWid->hide();
     }
+    ui->CWid->hide();
 
     QLabel *curLab[] = { ui->curA,  ui->curB,  ui->curC};
     QLabel *volLab[] = { ui->volA,  ui->volB,  ui->volC};
@@ -85,6 +86,8 @@ void BoxTotalWid::updateData()
     QLabel *pfLab[] = { ui->tPfA,  ui->tPfB,  ui->tPfC};
     QLabel *eleLab[] = { ui->tEleA,  ui->tEleB,  ui->tEleC};
     QLabel *temLab[] = {ui->temA, ui->temB, ui->temC};
+    QLabel *plLab[] = { ui->plA,  ui->plB,  ui->plC};
+    QLabel *thdLab[] = {ui->thdA, ui->thdB, ui->thdC};
 
     for(int i=0; i<3; ++i) {
         QString str = "---";
@@ -94,6 +97,12 @@ void BoxTotalWid::updateData()
 
             str= QString::number(mLineTgBox->cur[i]/COM_RATE_CUR, 'f', 1) + "A";
             curLab[i]->setText(str);
+
+            str= QString::number(mBox->data.pl[i]/COM_RATE_CUR, 'f', 1) ;
+            plLab[i]->setText(str);
+
+            str= QString::number(mBox->data.curThd[i]/100.0, 'f', 2) + "%";
+            thdLab[i]->setText(str);
 
             str =  QString::number(mLineTgBox->pow[i]/COM_RATE_POW, 'f', 3) + "kW";
             powLab[i]->setText(str);
@@ -115,12 +124,15 @@ void BoxTotalWid::updateData()
         }else{
             volLab[i]->setText(str);
             curLab[i]->setText(str);
+            plLab[i]->setText(str);
+            thdLab[i]->setText(str);
             powLab[i]->setText(str);
             tApPowLab[i]->setText(str);
             pfLab[i]->setText(str);
             eleLab[i]->setText(str);
             temLab[i]->setText(str);
         }
+         if(mBox->dc == 0) thdLab[i]->setText("---");
     }
 }
 

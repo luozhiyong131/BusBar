@@ -5,8 +5,8 @@
 #include <QHBoxLayout>
 #include <QTimer>
 #include "linetotalwid.h"
-#include "lineroadwid.h"
 #include "customdialplot.h"
+#include "linetable.h"
 
 namespace Ui {
 class LineWid;
@@ -35,12 +35,19 @@ protected slots:
     void indexChanged(int index);
     void interfaceChangedSlot(int id);
 
+private slots:
+    void on_thdBtn_clicked();
+
 private:
     Ui::LineWid *ui;
+
     QTimer *timer;
+    LineTable *mLineTable;
     LineTotalWid *mTotalWid;
     LineRoadWid *mLine[3];
     sBusData *mData;
+
+
     CustomDialPlot *mCurPlot;
     CustomDialPlot *mVolPlot;
     CustomDialPlot *mPwPlot;

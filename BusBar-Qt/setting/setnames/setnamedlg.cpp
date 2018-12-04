@@ -77,6 +77,7 @@ void SetNameDlg::on_saveBtn_clicked()
         CriticalMsgBox box(this, tr("名称不能为空!!"));
     }
 }
+
 void SetNameDlg::on_cancelBtn_clicked()
 {
     BeepThread::bulid()->beep();
