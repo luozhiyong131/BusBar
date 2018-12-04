@@ -103,13 +103,10 @@ int RtuThread::sendData(uchar *pBuff, int nCount, int msec)
     return mSerial->sendData(pBuff, nCount, msec);
 }
 
-
 void RtuThread::setBoxNum(ushort num)
 {
     sendData(0, 0x1040, num, false);
 }
-
-
 
 void RtuThread::loopObjData(sObjData *loop, int id, RtuRecvLine *data)
 {
