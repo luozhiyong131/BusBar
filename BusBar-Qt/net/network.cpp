@@ -12,7 +12,7 @@ NetWork::NetWork(QObject *parent) : QObject(parent)
 //    set_hb_IP(ips); // 设置目标IP ，也就是把心跳1包发给住
     mNetDataAnalyze = new NetDataAnalyze(this); // 接收IP 模块数据
 
-//    NetSendThread::bulid()->start(); //平板端连接
+    NetSendThread::bulid()->start(); //平板端连接
 }
 
 
