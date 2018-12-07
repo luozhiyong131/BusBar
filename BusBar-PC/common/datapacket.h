@@ -58,6 +58,10 @@ struct sObjData
     uint wave; // 谐波值
     uint tem;
     uchar delay;
+
+    ushort pl; // 负载百分比
+    ushort curThd; // 电流谐波含量
+    ushort volThd; // 电压谐波含量
 };
 
 /**
@@ -129,6 +133,7 @@ struct sDataPacket
     sDevData data; //设备数据
     sRtuCount rtuCount; // 传输情况
 
+    uchar lps; // 防雷开关
     uchar dc; // 交直流标志位
     uchar hz; // 电压频率
     ushort br;  // 00	表示波特率9600(00默认9600，01为4800，02为9600，03为19200，04为38400)
@@ -137,10 +142,15 @@ struct sDataPacket
     ushort reserve;
 };
 
+struct sThdData {
+    ushort curThd[35]; // 电流谐波含量
+    ushort volThd[35]; // 电压谐波含量
+};
 
 struct sDevPackets{
     uchar devNum; // 高数数量
     sDataPacket   dev[DEV_NUM+1];
+    sThdData thd[LINE_NUM];  // 谐波含量
 };
 
 #endif // DATAPACKET_H
