@@ -38,11 +38,11 @@ SnmpThread::~SnmpThread()
 
 void SnmpThread::startRun()
 {
-    int msec = 0;
+    int msec = 500;
     QString addr = "192.168.1.163";
     if(mItem) {
-        addr = mItem->ip;
-        msec = mItem->msecs * 100;
+//        addr = mItem->ip;
+//        msec = mItem->msecs * 100;
     }
 
     m_address = addr;    

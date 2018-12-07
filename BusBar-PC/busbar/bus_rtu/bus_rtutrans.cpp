@@ -24,14 +24,6 @@ BUS_RtuTrans::~BUS_RtuTrans()
     wait();
 }
 
-BUS_RtuTrans *BUS_RtuTrans::bulid(QObject *parent)
-{
-    static BUS_RtuTrans* sington = NULL;
-    if(sington == NULL) {
-        sington = new BUS_RtuTrans(parent);
-    }
-    return sington;
-}
 
 /**
  * @brief 设置串口并开启线程

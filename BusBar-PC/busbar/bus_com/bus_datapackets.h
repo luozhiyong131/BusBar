@@ -1,9 +1,7 @@
 #ifndef BUS_PACKETS_H
 #define BUS_PACKETS_H
 #include "datapacket.h"
-
-#define BUS_NUM 4  // 四条母线
-
+#include "bus_configfile.h"
 
 /**
  * 母线数据结构体：包括插接箱数据，电压频率 母线名称

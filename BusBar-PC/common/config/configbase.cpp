@@ -8,15 +8,7 @@
 
 ConfigBase::ConfigBase()
 {
-    item = new sConfigItem();
-    item->setMode = Test_SNMP;
-    item->devNum = 1;
-    item->lineNum = 1;
-    item->cmdModel = 1;
-    item->msecs = 10;
-    item->outputNum = 24;
-    item->serial = nullptr;
-    item->v = 0;
+//    item = new sConfigItem();
 }
 
 
@@ -24,10 +16,10 @@ ConfigBase::ConfigBase()
  * @brief 获取串口名称
  * @return 串口名
  */
-QString ConfigBase::getSerialName()
+QString ConfigBase::getSerialName(int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_COM").arg(prefix);
+    QString str = QString("%1_COM_%2").arg(prefix).arg(id);
     return sys_configFile_readStr(str, prefix);
 }
 
@@ -35,47 +27,23 @@ QString ConfigBase::getSerialName()
  * @brief 设置串口名
  * @param name
  */
-void ConfigBase::setSerialName(const QString &name)
+void ConfigBase::setSerialName(const QString &name, int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_COM").arg(prefix);
+    QString str = QString("%1_COM_%2").arg(prefix).arg(id);
     sys_configFile_writeParam(str, name, prefix);
 }
 
 
-/**
- * @brief 获取相数
- * @return
- */
-int ConfigBase::getTestMode()
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_test_mode").arg(prefix);
-    int ret = sys_configFile_readInt(str, prefix);
-    if(ret < 0)  ret = 0;
-    return ret;
-}
-
-/**
- * @brief 设置相数
- * @param num
- */
-void ConfigBase::setTestMode(int mode)
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_test_mode").arg(prefix);
-    sys_configFile_writeParam(str, QString::number(mode), prefix);
-}
-
 
 /**
  * @brief 获取串口名称
  * @return 串口名
  */
-QString ConfigBase::getIp()
+QString ConfigBase::getIp(int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_ip").arg(prefix);
+    QString str = QString("%1_ip_%2").arg(prefix).arg(id);
     return sys_configFile_readStr(str, prefix);
 }
 
@@ -83,35 +51,11 @@ QString ConfigBase::getIp()
  * @brief 设置串口名
  * @param name
  */
-void ConfigBase::setIp(const QString &ip)
+void ConfigBase::setIp(const QString &ip, int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_ip").arg(prefix);
+    QString str = QString("%1_ip_%2").arg(prefix).arg(id);
     sys_configFile_writeParam(str, ip, prefix);
-}
-
-/**
- * @brief 获取相数
- * @return
- */
-int ConfigBase::getLineNum()
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_line_num").arg(prefix);
-    int ret = sys_configFile_readInt(str, prefix);
-    if(ret <= 0)  ret = 1;
-    return ret;
-}
-
-/**
- * @brief 设置相数
- * @param num
- */
-void ConfigBase::setLineNum(int num)
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_line_num").arg(prefix);
-    sys_configFile_writeParam(str, QString::number(num), prefix);
 }
 
 
@@ -119,10 +63,10 @@ void ConfigBase::setLineNum(int num)
  * @brief 获取级联数量
  * @return
  */
-int ConfigBase::getDevNum()
+int ConfigBase::getDevNum( int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_dev_num").arg(prefix);
+    QString str = QString("%1_devnum_%2").arg(prefix).arg(id);
     int ret = sys_configFile_readInt(str, prefix);
     if(ret <= 0)  ret = 1;
 
@@ -133,12 +77,13 @@ int ConfigBase::getDevNum()
  * @brief 设置级联数据
  * @param num
  */
-void ConfigBase::setDevNum(int num)
+void ConfigBase::setDevNum(int num, int id)
 {
     QString prefix = getPrefix();
-    QString str = QString("%1_dev_num").arg(prefix);
+    QString str = QString("%1_devnum_%2").arg(prefix).arg(id);
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
+
 
 /**
  * @brief 获取Modbus命令模式的模式
@@ -188,7 +133,6 @@ void ConfigBase::setModbusTime(int num)
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
 
-
 /**
  * @brief 获取日志存储时间隔
  * @return
@@ -213,44 +157,3 @@ void ConfigBase::setLogTime(int num)
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
 
-
-int ConfigBase::getOutputNum()
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_output_num").arg(prefix);
-    int ret = sys_configFile_readInt(str, prefix);
-    if(ret <= 0)  ret = 24;
-    return ret;
-}
-
-/**
- * @brief 设置相数
- * @param num
- */
-void ConfigBase::setOutputNum(int num)
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_output_num").arg(prefix);
-    sys_configFile_writeParam(str, QString::number(num), prefix);
-}
-
-
-int ConfigBase::getVersion()
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_version_num").arg(prefix);
-    int ret = sys_configFile_readInt(str, prefix);
-    if(ret <= 0)  ret = 0;
-    return ret;
-}
-
-/**
- * @brief 设置相数
- * @param num
- */
-void ConfigBase::setVersion(int num)
-{
-    QString prefix = getPrefix();
-    QString str = QString("%1_version_num").arg(prefix);
-    sys_configFile_writeParam(str, QString::number(num), prefix);
-}

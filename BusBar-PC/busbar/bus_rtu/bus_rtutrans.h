@@ -8,7 +8,6 @@ class BUS_RtuTrans : public RtuTrans
 {
 public:
     explicit BUS_RtuTrans(QObject *parent = nullptr);
-    static BUS_RtuTrans *bulid(QObject *parent = nullptr);
     ~BUS_RtuTrans();
 
     void init(SerialPort *serial);

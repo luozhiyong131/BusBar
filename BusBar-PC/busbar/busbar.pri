@@ -7,7 +7,8 @@ HEADERS += \
     $$PWD/bus_rtu/bus_rtusent.h \
     $$PWD/bus_rtu/bus_rtutrans.h \
     $$PWD/bus_rtu/bus_rtuthread.h \
-    $$PWD/bus_com/bus_datapackets.h
+    $$PWD/bus_com/bus_datapackets.h \
+    $$PWD/bus_com/bus_configfile.h
 
 	
 SOURCES += \
@@ -15,7 +16,8 @@ SOURCES += \
     $$PWD/bus_rtu/bus_rtusent.cpp \
     $$PWD/bus_rtu/bus_rtutrans.cpp \
     $$PWD/bus_rtu/bus_rtuthread.cpp \
-    $$PWD/bus_com/bus_datapackets.cpp
+    $$PWD/bus_com/bus_datapackets.cpp \
+    $$PWD/bus_com/bus_configfile.cpp
 
 FORMS += \
 
