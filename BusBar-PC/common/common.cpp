@@ -41,7 +41,7 @@ void com_setBackColour(const QString &str,QWidget *target)
 QString cm_pathOfData(const QString& name)
 {
     QDir dataDir(QDir::home());
-    QString dirName = ".CleverTestSystem";
+    QString dirName = ".CleverBusBar";
     if(!dataDir.exists(dirName))
         dataDir.mkdir(dirName);
     dataDir.cd(dirName);
