@@ -73,6 +73,7 @@ void LineWid::timeoutDone()
             ui->rateLab->setText(str); //频率
             ui->label->setText("频率：");
 
+            ui->thdBtn->setHidden(false);
             ui->widget->setHidden(false);
             mLineTable->updateData(mData->box[0]);
         }else{
@@ -80,6 +81,7 @@ void LineWid::timeoutDone()
             ui->rateLab->setText(str); //频率
             ui->label->setText("输入：");
 
+            ui->thdBtn->setHidden(true);
             ui->widget->setHidden(true);
         }
 
@@ -101,19 +103,19 @@ void LineWid::initTotalWid()
     mCurPlot = new CustomDialPlot(ui->totalWid);
     mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
-    //    mPfPlot = new CustomDialPlot(ui->totalWid);
+    // mPfPlot = new CustomDialPlot(ui->totalWid);
 
     layout->addWidget(mVolPlot);
     layout->addWidget(mCurPlot);
     layout->addWidget(mPwPlot);
-    //    layout->addWidget(mPfPlot);
+    // layout->addWidget(mPfPlot);
 
     mVolPlot->setUnit("V");
     mCurPlot->setUnit("A");
     mPwPlot->setUnit("kW");
 
-    //    mPfPlot->setUnit("");
-    //    mPfPlot->setRange(0,1);
+    // mPfPlot->setUnit("");
+    // mPfPlot->setRange(0,1);
 }
 
 void LineWid::updateTotalWid()

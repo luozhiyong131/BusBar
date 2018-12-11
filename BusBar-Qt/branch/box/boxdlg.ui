@@ -43,19 +43,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="totalWid" native="true">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>761</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
@@ -175,24 +162,6 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="loopWid" native="true">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>210</y>
-     <width>781</width>
-     <height>331</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Ubuntu</family>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -217,6 +186,19 @@
    </property>
    <property name="text">
     <string>0.0</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>771</width>
+     <height>461</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
    </property>
   </widget>
  </widget>
