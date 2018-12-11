@@ -1,5 +1,5 @@
-#ifndef BRANCHWID_H
-#define BRANCHWID_H
+#ifndef BUS_BRANCHWID_H
+#define BUS_BRANCHWID_H
 
 #include "bus_branchtablewid.h"
 

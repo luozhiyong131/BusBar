@@ -1,5 +1,5 @@
-#ifndef BOXDLG_H
-#define BOXDLG_H
+#ifndef BUS_BOXDLG_H
+#define BUS_BOXDLG_H
 
 #include <QDialog>
 #include "bus_boxlinetablewid.h"
