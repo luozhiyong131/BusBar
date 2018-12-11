@@ -2,7 +2,6 @@
 #define BUS_BOXLOOPTABLEWID_H
 
 #include "comtablewid.h"
-#include "datapacket.h"
 #include "bus_com/bus_datapackets.h"
 
 class BUS_BoxLoopTableWid : public ComTableWid

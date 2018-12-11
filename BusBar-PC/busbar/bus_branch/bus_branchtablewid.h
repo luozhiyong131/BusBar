@@ -14,6 +14,7 @@ public:
 protected slots:
     void busChangeSlot(int);
     void timeoutDone();
+    void itemDoubleClicked(QTableWidgetItem* );
 
 protected:
     virtual void initWid();
@@ -23,6 +24,7 @@ protected:
     virtual void updateData();
 
 protected:
+    int mBusID;
     sDevPackets *mPackets;
 };
 

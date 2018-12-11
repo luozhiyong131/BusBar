@@ -19,6 +19,7 @@ void BUS_BranchTableWid::initWid()
 
 void BUS_BranchTableWid::initFun(int bus)
 {
+    mBusID = bus;
     mPackets = BUS_DataPackets::bulid()->getBus(bus);
 }
 
@@ -92,4 +93,15 @@ void BUS_BranchTableWid::timeoutDone()
 void BUS_BranchTableWid::busChangeSlot(int id)
 {
     initFun(id);
+}
+
+void BUS_BranchTableWid::itemDoubleClicked(QTableWidgetItem* )
+{
+//    int row = ui->tableWidget->currentRow();
+
+    int row = 1; ////=======
+
+    BUS_BoxDlg dlg(this);
+    dlg.initBox(mBusID, row+1);
+    dlg.exec();
 }
