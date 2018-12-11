@@ -71,7 +71,7 @@ int BUS_BoxLineTableWid::updateDev(sDataPacket *dev, int row)
 {
     if(dev->offLine)
     {
-        int num = dev->data.loopNum;
+        int num = dev->data.lineNum;
         for(int i=0; i<num; ++i)
         {
             QStringList list;

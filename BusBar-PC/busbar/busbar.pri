@@ -14,7 +14,9 @@ HEADERS += \
     $$PWD/bus_thd/bus_thdtablewid.h \
     $$PWD/bus_box/bus_boxlooptablewid.h \
     $$PWD/bus_box/bus_boxlinetablewid.h \
-    $$PWD/bus_box/bus_boxdlg.h
+    $$PWD/bus_box/bus_boxdlg.h \
+    $$PWD/bus_branch/bus_branchtablewid.h \
+    $$PWD/bus_branch/bus_branchwid.h
 
 	
 SOURCES += \
@@ -29,11 +31,14 @@ SOURCES += \
     $$PWD/bus_thd/bus_thdtablewid.cpp \
     $$PWD/bus_box/bus_boxlooptablewid.cpp \
     $$PWD/bus_box/bus_boxlinetablewid.cpp \
-    $$PWD/bus_box/bus_boxdlg.cpp
+    $$PWD/bus_box/bus_boxdlg.cpp \
+    $$PWD/bus_branch/bus_branchtablewid.cpp \
+    $$PWD/bus_branch/bus_branchwid.cpp
 
 FORMS += \
     $$PWD/bus_thd/bus_thdmaindlg.ui \
-    $$PWD/bus_box/bus_boxdlg.ui
+    $$PWD/bus_box/bus_boxdlg.ui \
+    $$PWD/bus_branch/bus_branchwid.ui
 
 
 
