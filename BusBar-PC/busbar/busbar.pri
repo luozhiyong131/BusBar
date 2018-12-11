@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/bus_line/bus_linewid.h \
     $$PWD/bus_sql/bus_dbalarm.h \
     $$PWD/bus_sql/bus_dbbranchele.h \
-    $$PWD/bus_sql/bus_dbname.h
+    $$PWD/bus_sql/bus_dbname.h \
+    $$PWD/bus_sql/bus_dblineele.h
 
 	
 SOURCES += \
@@ -43,7 +44,8 @@ SOURCES += \
     $$PWD/bus_line/bus_linewid.cpp \
     $$PWD/bus_sql/bus_dbalarm.cpp \
     $$PWD/bus_sql/bus_dbbranchele.cpp \
-    $$PWD/bus_sql/bus_dbname.cpp
+    $$PWD/bus_sql/bus_dbname.cpp \
+    $$PWD/bus_sql/bus_dblineele.cpp
 
 FORMS += \
     $$PWD/bus_thd/bus_thdmaindlg.ui \

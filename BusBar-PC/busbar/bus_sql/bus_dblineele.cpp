@@ -6,14 +6,14 @@
  *  Created on: 2017年10月1日
  *      Author: Lzy
  */
-#include "dbmainele.h"
+#include "bus_dblineele.h"
 
-DbMainEle::DbMainEle()
+BUS_DbLineEle::BUS_DbLineEle()
 {
-    createTable();
+
 }
 
-void DbMainEle::createTable()
+void BUS_DbLineEle::createTable()
 {
     QString cmd =
             "create table if not exists %1("
@@ -31,7 +31,7 @@ void DbMainEle::createTable()
     }
 }
 
-bool DbMainEle::insertItem(DbMainEleItem& item)
+bool BUS_DbLineEle::insertItem(DbLineEleItem& item)
 {
     bool ret = false;
     item.id = maxId()+1;
@@ -45,7 +45,7 @@ bool DbMainEle::insertItem(DbMainEleItem& item)
 }
 
 
-bool DbMainEle::modifyItem(const DbMainEleItem &item, const QString &cmd)
+bool BUS_DbLineEle::modifyItem(const DbLineEleItem &item, const QString &cmd)
 {
     bool ret = false;
     QSqlQuery query;
@@ -63,7 +63,7 @@ bool DbMainEle::modifyItem(const DbMainEleItem &item, const QString &cmd)
     return ret;
 }
 
-void DbMainEle::selectItem(QSqlQuery &query,DbMainEleItem &item)
+void BUS_DbLineEle::selectItem(QSqlQuery &query,DbLineEleItem &item)
 {
     item.id = query.value("id").toInt();
     item.date = query.value("date").toString();
@@ -74,14 +74,14 @@ void DbMainEle::selectItem(QSqlQuery &query,DbMainEleItem &item)
     item.line = query.value("line").toDouble();
 }
 
-DbMainEle* db_mainEle_obj(int id)
+BUS_DbLineEle* bus_lineEle_db(int id)
 {
-    static DbMainEle* sington1  = new DbMainEle();
-    static DbMainEle2* sington2  = new DbMainEle2();
-    static DbMainEle3* sington3  = new DbMainEle3();
-    static DbMainEle4* sington4  = new DbMainEle4();
+    static DbLineEle1* sington1  = new DbLineEle1();
+    static DbLineEle2* sington2  = new DbLineEle2();
+    static DbLineEle3* sington3  = new DbLineEle3();
+    static DbLineEle4* sington4  = new DbLineEle4();
 
-    DbMainEle* sington = NULL;
+    BUS_DbLineEle* sington = NULL;
     switch (id)
     {
     case 0:
