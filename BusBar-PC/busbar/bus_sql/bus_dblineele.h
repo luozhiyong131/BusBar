@@ -9,7 +9,6 @@ struct DbLineEleItem : public DbBasicItem{
     double line_1, line_2, line_3, line;
 };
 
-
 class BUS_DbLineEle : public SqlBasic<DbLineEleItem>
 {
 public:
