@@ -1,11 +1,18 @@
 #include "bus_rtuthread.h"
 
+BUS_RtuTrans *g_RtuTrans[4] = {nullptr, nullptr, nullptr, nullptr};
+
 BUS_RtuThread::BUS_RtuThread(QObject *parent) : RtuThread(parent)
 {
-    mBusId = 0;
+    init(0);
     mRtu = new BUS_RtuTrans(this);
 }
 
+void BUS_RtuThread::init(int id)
+{
+    mBusId=id;
+    g_RtuTrans[id] = mRtu;
+}
 
 
 void BUS_RtuThread::initSlot()

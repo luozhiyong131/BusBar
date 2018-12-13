@@ -17,9 +17,9 @@ public:
     sDataPacket *getBox(int bus, int box) {return &(mBus[bus].dev[box]);}
 
 protected:
-    void initData();
-    void initBox();
-    void initBus();
+    int getBoxNum(int index);
+    int getRateCur(int index);
+    void initName();
 
 private:
     sDevPackets mBus[BUS_NUM];

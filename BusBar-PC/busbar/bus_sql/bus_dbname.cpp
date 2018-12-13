@@ -107,24 +107,9 @@ bool BUS_DbName::saveItem(DbNameItem &item)
     return ret;
 }
 
-bool BUS_DbName::setName(int busId, int typeId, int num, const QString &name)
+
+QString BUS_DbName::getName(DbNameItem &item)
 {
-    DbNameItem item;
-    item.bus = busId;
-    item.type = typeId;
-    item.num = num;
-    item.name = name;
-
-    return saveItem(item);
-}
-
-QString BUS_DbName::getName(int busId, int typeId, int num)
-{
-    DbNameItem item;
-    item.bus = busId;
-    item.type = typeId;
-    item.num = num;
-
     int id = getId(item);
     if(id > 0) {
         item.name = findById(id).name;

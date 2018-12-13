@@ -97,9 +97,7 @@ void BUS_BranchTableWid::busChangeSlot(int id)
 
 void BUS_BranchTableWid::itemDoubleClicked(QTableWidgetItem* )
 {
-//    int row = ui->tableWidget->currentRow();
-
-    int row = 1; ////=======
+    int row = currentRow();
 
     BUS_BoxDlg dlg(this);
     dlg.initBox(mBusID, row+1);

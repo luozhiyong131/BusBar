@@ -8,7 +8,7 @@ class BUS_RtuThread : public RtuThread
     Q_OBJECT
 public:
     explicit BUS_RtuThread(QObject *parent = nullptr);
-    void init(int id) {mBusId=id;}
+    void init(int id);
 
 protected:
     void workDown();

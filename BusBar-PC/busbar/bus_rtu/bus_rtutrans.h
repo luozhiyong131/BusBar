@@ -12,7 +12,7 @@ public:
 
     void init(SerialPort *serial);
     int transmit(int addr, sDevPackets *packets, int msecs); //发送数据并回收
-    bool sentSetCmd(int addr, int reg, ushort value, int msecs);
+    bool sentSetCmd(int addr, int reg, ushort value, int msecs=3);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 

@@ -21,9 +21,7 @@ class BUS_DbName : public SqlBasic<DbNameItem>
 public:
     static BUS_DbName* bulid();
     bool saveItem(DbNameItem &item);
-
-    bool setName(int busId, int typeId, int num, const QString &name);
-    QString getName(int busId, int typeId, int num);
+    QString getName(DbNameItem &item);
 
 protected:
     void createTable();

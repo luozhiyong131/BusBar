@@ -26,6 +26,10 @@ ComTableWid::~ComTableWid()
     delete ui;
 }
 
+int ComTableWid::currentRow()
+{
+    return ui->tableWidget->currentRow();
+}
 
 /**
  * @brief 初始化窗口

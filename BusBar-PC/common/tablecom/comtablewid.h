@@ -30,6 +30,7 @@ protected:
     void delTable();
     void setBackgroundColor(int id);
     void setItemColor(int id, int column, int alarm);
+    int currentRow();
 
 protected slots:
     virtual void timeoutDone(){}

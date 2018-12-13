@@ -132,6 +132,7 @@ struct sDataPacket
 
     sDevData data; //设备数据
     sRtuCount rtuCount; // 传输情况
+    int ratedCur;
 
     uchar lps; // 防雷开关
     uchar dc; // 交直流标志位
