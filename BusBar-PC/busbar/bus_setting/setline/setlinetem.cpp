@@ -31,7 +31,7 @@ void SetLineTem::updateWid()
 void SetLineTem::indexChanged(int index)
 {
     mBus = index;
-    startBoxTem = &(BUS_DataPackets::bulid()->getBox(bus, 0)->data.env); //获取共享内存
+    startBoxTem = &(BUS_DataPackets::bulid()->getBox(index, 0)->data.env); //获取共享内存
 }
 
 
