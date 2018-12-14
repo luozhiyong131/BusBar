@@ -4,6 +4,7 @@ BUS_BoxLoopTableWid::BUS_BoxLoopTableWid(QWidget *parent) : ComTableWid(parent)
 {
     mPacket = nullptr;
     initWid();
+    initFun(0, 0);
 }
 
 void BUS_BoxLoopTableWid::initWid()

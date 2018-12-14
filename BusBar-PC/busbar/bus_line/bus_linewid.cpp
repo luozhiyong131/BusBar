@@ -8,8 +8,8 @@ BUS_LineWid::BUS_LineWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    indexChanged(0);
     mLineTable = new BUS_LineTableWid(ui->widget) ;
+    indexChanged(0);
 
     timer = new QTimer(this);
     timer->start(2*1000);
