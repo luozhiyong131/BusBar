@@ -1,10 +1,9 @@
-#include "currentalarmsdlg.h"
+#include "bus_currentalarmsdlg.h"
 #include "ui_currentalarmsdlg.h"
-#include "dpalarmslave.h"
 
-CurrentAlarmsDlg::CurrentAlarmsDlg(QWidget *parent) :
+BUS_CurrentAlarmsDlg::BUS_CurrentAlarmsDlg(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::CurrentAlarmsDlg)
+    ui(new Ui::BUS_CurrentAlarmsDlg)
 {
     ui->setupUi(this);
     com_setBackColour(tr("当前告警内容"),this);
@@ -12,7 +11,7 @@ CurrentAlarmsDlg::CurrentAlarmsDlg(QWidget *parent) :
     QTimer::singleShot(100,this,SLOT(on_refreshBtn_clicked())); //延时初始化
 }
 
-CurrentAlarmsDlg::~CurrentAlarmsDlg()
+BUS_CurrentAlarmsDlg::~BUS_CurrentAlarmsDlg()
 {
     delete ui;
 }
@@ -21,7 +20,7 @@ CurrentAlarmsDlg::~CurrentAlarmsDlg()
 /**
  * @brief 初始化窗口
  */
-void CurrentAlarmsDlg::initTableWidget()
+void BUS_CurrentAlarmsDlg::initTableWidget()
 {
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);        //设置行数/
@@ -44,7 +43,7 @@ void CurrentAlarmsDlg::initTableWidget()
  * @param column 列
  * @param content 信息
  */
-void CurrentAlarmsDlg::addItemContent(int row, int column, const QString &content)
+void BUS_CurrentAlarmsDlg::addItemContent(int row, int column, const QString &content)
 {
     QTableWidgetItem *item = new QTableWidgetItem(content);
 //    if(column > 1)
@@ -55,7 +54,7 @@ void CurrentAlarmsDlg::addItemContent(int row, int column, const QString &conten
     ui->tableWidget->setItem(row, column, item);
 }
 
-void CurrentAlarmsDlg::addRowContent(QStringList &list)
+void BUS_CurrentAlarmsDlg::addRowContent(QStringList &list)
 {
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);
@@ -68,7 +67,7 @@ void CurrentAlarmsDlg::addRowContent(QStringList &list)
 }
 
 
-void CurrentAlarmsDlg::updateData()
+void BUS_CurrentAlarmsDlg::updateData()
 {
     QStringList alarmStr = get_alarm_str();
 
@@ -82,15 +81,13 @@ void CurrentAlarmsDlg::updateData()
 }
 
 
-void CurrentAlarmsDlg::on_refreshBtn_clicked()
+void BUS_CurrentAlarmsDlg::on_refreshBtn_clicked()
 {
-    BeepThread::bulid()->beep();
     initTableWidget();
     updateData();
 }
 
-void CurrentAlarmsDlg::on_quitBtn_clicked()
+void BUS_CurrentAlarmsDlg::on_quitBtn_clicked()
 {
-    BeepThread::bulid()->beep();
     this->close();
 }

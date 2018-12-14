@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    mBusWid = new BUS_MainWid(ui->widget);
 }
 
 MainWindow::~MainWindow()

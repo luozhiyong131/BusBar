@@ -2,9 +2,10 @@
 #define SETMAINWID_H
 
 #include "setnames/setnameswid.h"
-#include "setloop/settemmain.h"
 #include "setsystem/systemsettingdlg.h"
 #include "setsystem/checkpassworddlg.h"
+#include "settem/settemmain.h"
+
 namespace Ui {
 class SetMainWid;
 }

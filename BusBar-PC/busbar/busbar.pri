@@ -51,7 +51,10 @@ HEADERS += \
     $$PWD/bus_dp/bus_dpalarmthread.h \
     $$PWD/bus_dp/bus_dpeleslavethread.h \
     $$PWD/bus_dp/bus_dptgthread.h \
-    $$PWD/bus_dp/bus_dpthread.h
+    $$PWD/bus_dp/bus_dpthread.h \
+    $$PWD/bus_main/bus_currentalarmsdlg.h \
+    $$PWD/bus_main/bus_mainwid.h \
+    $$PWD/bus_setting/setmainwid.h
 
 	
 SOURCES += \
@@ -103,7 +106,10 @@ SOURCES += \
     $$PWD/bus_dp/bus_dpalarmthread.cpp \
     $$PWD/bus_dp/bus_dpeleslavethread.cpp \
     $$PWD/bus_dp/bus_dptgthread.cpp \
-    $$PWD/bus_dp/bus_dpthread.cpp
+    $$PWD/bus_dp/bus_dpthread.cpp \
+    $$PWD/bus_main/bus_currentalarmsdlg.cpp \
+    $$PWD/bus_main/bus_mainwid.cpp \
+    $$PWD/bus_setting/setmainwid.cpp
 
 FORMS += \
     $$PWD/bus_thd/bus_thdmaindlg.ui \
@@ -124,7 +130,10 @@ FORMS += \
     $$PWD/bus_setting/setsystem/ipsettingdlg.ui \
     $$PWD/bus_setting/setsystem/passordsettingdlg.ui \
     $$PWD/bus_setting/setsystem/systemsettingdlg.ui \
-    $$PWD/bus_logs/bus_logswid.ui
+    $$PWD/bus_logs/bus_logswid.ui \
+    $$PWD/bus_main/bus_currentalarmsdlg.ui \
+    $$PWD/bus_main/bus_mainwid.ui \
+    $$PWD/bus_setting/setmainwid.ui
 
 
 

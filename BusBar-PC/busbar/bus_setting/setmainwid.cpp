@@ -49,7 +49,6 @@ void SetMainWid::setButtonColor(QPushButton *button)
     ui->sysBtn->setStyleSheet("");
 
     button->setStyleSheet("background-color: rgb(96,238,250);");
-    BeepThread::bulid()->beep();
 }
 
 void SetMainWid::busChangedSlot(int index)

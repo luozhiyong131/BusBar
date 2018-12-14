@@ -1,19 +1,19 @@
 #ifndef CURRENTALARMSDLG_H
 #define CURRENTALARMSDLG_H
 
-#include <QDialog>
+#include "../bus_dp/bus_dpthread.h"
 
 namespace Ui {
-class CurrentAlarmsDlg;
+class BUS_CurrentAlarmsDlg;
 }
 
-class CurrentAlarmsDlg : public QDialog
+class BUS_CurrentAlarmsDlg : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit CurrentAlarmsDlg(QWidget *parent = 0);
-    ~CurrentAlarmsDlg();
+    explicit BUS_CurrentAlarmsDlg(QWidget *parent = 0);
+    ~BUS_CurrentAlarmsDlg();
 
 protected:
     void initTableWidget();
@@ -27,7 +27,7 @@ private slots:
     void on_quitBtn_clicked();
 
 private:
-    Ui::CurrentAlarmsDlg *ui;
+    Ui::BUS_CurrentAlarmsDlg *ui;
 };
 
 #endif // CURRENTALARMSDLG_H
