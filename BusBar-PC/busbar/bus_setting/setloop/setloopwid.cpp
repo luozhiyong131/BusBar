@@ -3,8 +3,7 @@
 SetLoopWid::SetLoopWid(QWidget *parent) : ComTableWid(parent)
 {
     mDc = 1;
-    mBus = 0;
-    mPacket =  &(get_share_mem()->data[mBus]);
+    checkBus(0);
     initWid();
 }
 
@@ -16,7 +15,7 @@ void SetLoopWid::initWid()
     header<< tr("插接箱");
 
     if(mDc){ //交流9个
-        for(int i = 0; i < LINE_NUM; ++i)
+        for(int i = 0; i < LOOP_NUM; ++i)
             header << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
     }else{ //直流4个
         for(int i = 0; i < 4; i++)
@@ -30,12 +29,10 @@ void SetLoopWid::initWid()
 
 void SetLoopWid::checkBus(int index)
 {
-    if(mBus != index) {
-        mBus = index;
-        mPacket = &(get_share_mem()->data[mBus]);
-    }
+    mBus = index;
+    mPackets = BUS_DataPackets::bulid()->getBus(mBus);
 
-    int dc = mPacket ? mPacket->box[0].dc : 0;
+    int dc = mPackets->dev[0].dc;
     if(mDc != dc ) {
         mDc = dc;
         initWid();
@@ -43,20 +40,20 @@ void SetLoopWid::checkBus(int index)
 }
 
 
-int SetLoopWid::updateDev(sBoxData *dev, int row)
+int SetLoopWid::updateDev(sDataPacket *dev, int row)
 {
     if(dev->offLine)
     {
         QStringList list;
-        list << dev->boxName;
+        list << dev->name;
 
-        sDataUnit *unit = &(dev->data.cur);
-        int line = dev->data.lineNum;
+        int line = dev->data.loopNum;
         for(int i=0; i<line; ++i)
         {
-            double value = unit->value[i] / COM_RATE_CUR;
+            sDataUnit *unit = &(dev->data.loop[i].cur);
+            double value = unit->value / COM_RATE_CUR;
             list << QString::number(value,'f', 1) + "A";
-            setItemColor(row, i+1, unit->alarm[i]);
+            setItemColor(row, i+1, unit->alarm);
         }
 
         setTableRow(row, list);
@@ -72,9 +69,9 @@ void SetLoopWid::updateData()
 {
     int row = 0;
 
-    for(int i=1; i<=mPacket->boxNum; ++i)
+    for(int i=1; i<=mPackets->devNum; ++i)
     {
-        sBoxData *box = &(mPacket->box[i]);
+        sDataPacket *box = &(mPackets->dev[i]);
         row = updateDev(box, row);
     }
 
@@ -99,7 +96,6 @@ void SetLoopWid::itemClicked(QTableWidgetItem *it)
         int column = it->column();
         if(column > 0)
         {
-            BeepThread::bulid()->beep();
             sThresholdItem item;
             item.bus = mBus;
             item.box = it->row()+1;

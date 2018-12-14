@@ -1,7 +1,7 @@
 #ifndef SETTEMMAIN_H
 #define SETTEMMAIN_H
 
-#include "settempwid.h"
+#include "setlooptemwid.h"
 
 namespace Ui {
 class SetTemMain;
@@ -19,7 +19,7 @@ private:
     Ui::SetTemMain *ui;
 
     SetLineTem *mLineTem;
-    SetTempWid *mLoopTem;
+    SetLoopTemWid *mLoopTem;
 };
 
 #endif // SETTEMMAIN_H

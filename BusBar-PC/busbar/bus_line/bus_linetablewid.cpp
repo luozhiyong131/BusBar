@@ -44,3 +44,32 @@ void BUS_LineTableWid::setObjUnit(sObjData *unit, QStringList &list)
     value = unit->ele / COM_RATE_ELE;
     list << QString::number(value) + "KWh";
 }
+
+int BUS_LineTableWid::updateDev(sDataPacket *dev, int row)
+{
+    if(dev->offLine)
+    {
+        int num = dev->data.loopNum;
+        for(int i=0; i<num; ++i)
+        {
+            QStringList list;
+            if(dev->dc)  list << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
+            else list << "D" + QString("%1").arg(i + 1);
+
+            sObjData *obj = &(dev->data.loop[i]);
+            list << obj->name;
+
+            setObjUnit(obj,  list);
+            setAlarm(obj,  row);
+
+            sDataUnit *unit = &(dev->data.env.tem[i]);
+            double value =unit->value / COM_RATE_TEM;
+            list << QString::number(value) + "C";
+            setTemAlarm(unit, row);
+
+            setTableRow(row++, list);
+        }
+    }
+
+    return row;
+}

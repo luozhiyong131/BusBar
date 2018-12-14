@@ -35,7 +35,23 @@ HEADERS += \
     $$PWD/bus_setting/setline/setlineitem.h \
     $$PWD/bus_setting/setline/myprogressbar.h \
     $$PWD/bus_setting/setline/setlinewid.h \
-    $$PWD/bus_setting/setline/setlinetem.h
+    $$PWD/bus_setting/settem/setlinetem.h \
+    $$PWD/bus_setting/setloop/setloopwid.h \
+    $$PWD/bus_setting/settem/settemmain.h \
+    $$PWD/bus_setting/settem/setlooptemwid.h \
+    $$PWD/bus_setting/setnames/setnamedlg.h \
+    $$PWD/bus_setting/setnames/setnameswid.h \
+    $$PWD/bus_setting/setsystem/checkpassworddlg.h \
+    $$PWD/bus_setting/setsystem/mynumberkeyboardwid.h \
+    $$PWD/bus_setting/setsystem/ipsettingdlg.h \
+    $$PWD/bus_setting/setsystem/passordsettingdlg.h \
+    $$PWD/bus_setting/setsystem/systemsettingdlg.h \
+    $$PWD/bus_logs/bus_logswid.h \
+    $$PWD/bus_dp/bus_dpalarmslave.h \
+    $$PWD/bus_dp/bus_dpalarmthread.h \
+    $$PWD/bus_dp/bus_dpeleslavethread.h \
+    $$PWD/bus_dp/bus_dptgthread.h \
+    $$PWD/bus_dp/bus_dpthread.h
 
 	
 SOURCES += \
@@ -71,7 +87,23 @@ SOURCES += \
     $$PWD/bus_setting/setline/setlineitem.cpp \
     $$PWD/bus_setting/setline/myprogressbar.cpp \
     $$PWD/bus_setting/setline/setlinewid.cpp \
-    $$PWD/bus_setting/setline/setlinetem.cpp
+    $$PWD/bus_setting/settem/setlinetem.cpp \
+    $$PWD/bus_setting/setloop/setloopwid.cpp \
+    $$PWD/bus_setting/settem/settemmain.cpp \
+    $$PWD/bus_setting/settem/setlooptemwid.cpp \
+    $$PWD/bus_setting/setnames/setnamedlg.cpp \
+    $$PWD/bus_setting/setnames/setnameswid.cpp \
+    $$PWD/bus_setting/setsystem/checkpassworddlg.cpp \
+    $$PWD/bus_setting/setsystem/mynumberkeyboardwid.cpp \
+    $$PWD/bus_setting/setsystem/ipsettingdlg.cpp \
+    $$PWD/bus_setting/setsystem/passordsettingdlg.cpp \
+    $$PWD/bus_setting/setsystem/systemsettingdlg.cpp \
+    $$PWD/bus_logs/bus_logswid.cpp \
+    $$PWD/bus_dp/bus_dpalarmslave.cpp \
+    $$PWD/bus_dp/bus_dpalarmthread.cpp \
+    $$PWD/bus_dp/bus_dpeleslavethread.cpp \
+    $$PWD/bus_dp/bus_dptgthread.cpp \
+    $$PWD/bus_dp/bus_dpthread.cpp
 
 FORMS += \
     $$PWD/bus_thd/bus_thdmaindlg.ui \
@@ -83,7 +115,16 @@ FORMS += \
     $$PWD/bus_setting/setthreshold/setthresholddlg.ui \
     $$PWD/bus_setting/setline/setlineitem.ui \
     $$PWD/bus_setting/setline/setlinewid.ui \
-    $$PWD/bus_setting/setline/setlinetem.ui
+    $$PWD/bus_setting/settem/setlinetem.ui \
+    $$PWD/bus_setting/settem/settemmain.ui \
+    $$PWD/bus_setting/setnames/setnamedlg.ui \
+    $$PWD/bus_setting/setnames/setnameswid.ui \
+    $$PWD/bus_setting/setsystem/checkpassworddlg.ui \
+    $$PWD/bus_setting/setsystem/mynumberkeyboardwid.ui \
+    $$PWD/bus_setting/setsystem/ipsettingdlg.ui \
+    $$PWD/bus_setting/setsystem/passordsettingdlg.ui \
+    $$PWD/bus_setting/setsystem/systemsettingdlg.ui \
+    $$PWD/bus_logs/bus_logswid.ui
 
 
 

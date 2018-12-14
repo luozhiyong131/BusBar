@@ -1,9 +1,7 @@
 #include "ipsettingdlg.h"
 #include "ui_ipsettingdlg.h"
 
-
 QMap<int, QString> gBusIPMap;
-
 
 int getByIp(const QString &ip)
 {
@@ -70,7 +68,7 @@ void IpSettingDlg::initData()
         }
 
         sys_configFile_close();
-        if(ips.size()) set_hb_IP(ips);
+//        if(ips.size()) set_hb_IP(ips);
     }
 }
 
@@ -106,5 +104,5 @@ void IpSettingDlg::on_saveBtn_clicked()
          bool ret = ipCheck(i, edit[i]);
          if(ret) ips << edit[i]->text();
     }
-    set_hb_IP(ips);
+//    set_hb_IP(ips);
 }

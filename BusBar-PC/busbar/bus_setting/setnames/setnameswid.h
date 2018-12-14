@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "common.h"
-#include "setshm.h"
 #include <QTableWidgetItem>
 #include "setnamedlg.h"
 
@@ -43,8 +42,8 @@ private:
     SetNameDlg *mSetNameDlg;
 
     int mIndex;
-    SetShm *mSetShm;
-    sBusData *mPacket ;
+    BUS_SetShm *mSetShm;
+    sDevPackets *mPackets;
 };
 
 #endif // SETNAMESWID_H

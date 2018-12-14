@@ -1,7 +1,7 @@
 #ifndef SETLINETEM_H
 #define SETLINETEM_H
 
-#include "setlinewid.h"
+#include "../setloop/setloopwid.h"
 
 namespace Ui {
 class SetLineTem;

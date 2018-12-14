@@ -78,7 +78,7 @@ int BUS_BoxLineTableWid::updateDev(sDataPacket *dev, int row)
             if(dev->dc)  list << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
             else list << "D" + QString("%1").arg(i + 1);
 
-            sObjData *obj = &(dev->data.loop[i]);
+            sObjData *obj = &(dev->data.line[i]);
             list << obj->name;
 
             setObjUnit(obj,  list);

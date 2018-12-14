@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BUS_LogsWid</class>
+ <widget class="QWidget" name="BUS_LogsWid">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>989</width>
+    <height>454</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QStackedWidget" name="stackedWid">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>11</y>
+     <width>841</width>
+     <height>432</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="lineBtn">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>30</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>主路电量</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="loopBtn">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>120</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>支路电量</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="alarmBtn">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>180</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>告警日志</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

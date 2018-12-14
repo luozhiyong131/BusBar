@@ -1,13 +1,13 @@
 #include "setnameswid.h"
 #include "ui_setnameswid.h"
-extern void set_box_num(int id, int num);
 
 SetNamesWid::SetNamesWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SetNamesWid)
 {
     ui->setupUi(this);
-    mSetShm = new SetShm;
+    mIndex = 0;
+    mSetShm = new BUS_SetShm;
     mSetNameDlg = new SetNameDlg(this);
     QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
 }
@@ -26,7 +26,7 @@ void SetNamesWid::initTableWidget()
     QStringList horHead;
     horHead<< tr("插接箱");
 
-    int dc = mPacket ? mPacket->box[0].dc : 1;
+    int dc = mPackets ? mPackets->dev[0].dc : 1;
     if(dc){ //交流9个
         for(int i = 0; i < LINE_NUM; ++i)
             horHead << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
@@ -56,13 +56,13 @@ void SetNamesWid::clearWidget()
 void SetNamesWid::resetWidget()
 {
     initTableWidget();
-    int boxNum = mPacket->boxNum;
+    int boxNum = mPackets->devNum;
 
     for(int i = 0 ;  i < boxNum ; i++)
     {
         ui->tableWidget->insertRow(i);
-        int len = LINE_NUM; //交流9个
-        if(!mPacket->box[0].dc) len = 4;
+        int len = LOOP_NUM; //交流9个
+        if(!mPackets->dev[0].dc) len = 4;
 
         for(int j=0; j<=len; j++){
             QTableWidgetItem * item = new QTableWidgetItem("---");
@@ -72,15 +72,14 @@ void SetNamesWid::resetWidget()
     }
 }
 
-
 void SetNamesWid::checkBus()
 {
     int row = ui->tableWidget->rowCount();
     int col = ui->tableWidget->columnCount();
 
-    int dc = mPacket ? mPacket->box[0].dc : 1;
-    int len = dc ? LINE_NUM : 4;
-    if(mPacket->boxNum != row || col != len+1) { //修改判断条件——  2018.3.21——By>MW
+    int dc = mPackets ? mPackets->dev[0].dc : 1;
+    int len = dc ? LOOP_NUM : 4;
+    if(mPackets->devNum != row || col != len+1) { //修改判断条件——  2018.3.21——By>MW
         clearWidget();
         resetWidget();
     }
@@ -88,10 +87,8 @@ void SetNamesWid::checkBus()
 
 void SetNamesWid::indexChanged(int index)
 {
-//    if(mIndex == index)  return;
-
     mIndex = index;
-    mPacket = &(get_share_mem()->data[index]);
+    mPackets = BUS_DataPackets::bulid()->getBus(index);
     initWid(index);
 }
 
@@ -116,54 +113,46 @@ void SetNamesWid::updateWid(int index)
 
 void SetNamesWid::updateWidSlot()
 {
-    updateWid(0);
+    updateWid(mIndex);
 }
 
 void SetNamesWid::setName(int row, int column)
 {
     QTableWidgetItem *item = ui->tableWidget->item(row,column);
-    QString str = mPacket->box[row+1].boxName;  //第0个为始端箱，所以从第一个开始
+    QString str = mPackets->dev[row+1].name;  //第0个为始端箱，所以从第一个开始
     item->setText(str);
 }
-
 
 void SetNamesWid::setTableItem(int row, int column)
 {
     QString str = "---";
     QTableWidgetItem *item = ui->tableWidget->item(row,column);
-    sBoxData *box = &(mPacket->box[row+1]);
+    sDataPacket *box = &(mPackets->dev[row+1]);
 
-    if(box->offLine > 0 && column <= box->rate) {
-        if(column <= box->loopNum) {
-           str = box->loopName[column-1];
+    if(box->offLine > 0 && column <= box->hz) {
+        if(column <= box->data.loopNum) {
+           str = box->data.loop[column-1].name;
         }
     }
     item->setText(str);
 }
 
-
 void SetNamesWid::itemDoubleClicked(QTableWidgetItem *item)
 {
     if(item->text().compare("---") == 0) return;  //为空不设置
-    disconnect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
+
     int boxNum = item->row() + 1 ;
     int column = item->column();
     mSetNameDlg->init(mIndex, boxNum, column, item->text());
     mSetNameDlg->show();
-
-    connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
-
-
-
 
 void SetNamesWid::initWid(int index)
 {
-    sBusData *busData = &(get_share_mem()->data[index]);
-    ui->nameEdit->setText(busData->busName);
-    ui->boxNumSpin->setValue(busData->boxNum);
+    ui->nameEdit->setText(mPackets->dev[0].name);
+    ui->boxNumSpin->setValue(mPackets->devNum);
 
-    double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
+    double rateCur = mPackets->dev[0].ratedCur/COM_RATE_CUR;
     ui->rateCurSpin->setValue(rateCur);
 }
 
@@ -175,7 +164,7 @@ bool SetNamesWid::saveBusName()
     item.type = 1; // 名称类型 1 母线名称   2 插接箱名称  3 回路名称
     item.num = 0; // 编号
     QString name = ui->nameEdit->text();
-    if( (!name.isEmpty()) && (!(name.size() > NAME_LEN))) {
+    if( (!name.isEmpty()) && (!(name.size() > 256))) {
         item.name = name;
         mSetShm->setName(item);
     }else {
@@ -185,15 +174,11 @@ bool SetNamesWid::saveBusName()
     return ret;
 }
 
-
 void SetNamesWid::on_saveBtn_clicked()
 {
-    mSetShm->setLineRatedCur(mIndex,ui->rateCurSpin->value() * COM_RATE_CUR);
-    mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
+    mSetShm->setRatedCur(mIndex,ui->rateCurSpin->value() * COM_RATE_CUR);
+    mSetShm->setBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
-        set_box_num(mIndex, ui->boxNumSpin->value());
-
-        BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }
 }

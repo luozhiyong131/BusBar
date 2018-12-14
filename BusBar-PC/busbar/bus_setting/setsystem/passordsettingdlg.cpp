@@ -24,7 +24,6 @@ void PassordSettingDlg::on_pushButton_2_clicked()
 
     if(ret)
     {
-        BeepThread::bulid()->beep();
         sys_configFile_writeParam("password",newPassword);
         QMessageBox::information(this,"information",tr("密码设置成功，点击确定退出！"),tr("确定"));
         this->close();
@@ -36,7 +35,7 @@ void PassordSettingDlg::on_pushButton_2_clicked()
 bool PassordSettingDlg::checkJurisdiction()
 {
     QString old = ui->lineEdit->text();
-    if(old == getPassword())
+    if(old == bus_getPassword())
         return true;
 
     return false;

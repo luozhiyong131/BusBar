@@ -2,7 +2,7 @@
 #define SETLOOPWID_H
 
 #include "comtablewid.h"
-#include "setline/setlinetem.h"
+#include "../setline/setlinewid.h"
 
 class SetLoopWid : public ComTableWid
 {
@@ -19,12 +19,12 @@ protected slots:
 protected:
     void initWid();
     void checkBus(int index);
-    int updateDev(sBoxData *dev, int row);
+    int updateDev(sDataPacket *dev, int row);
     void updateData();
 
 private:
     int mDc, mBus;
-    sBusData *mPacket ;
+    sDevPackets *mPackets ;
 };
 
 #endif // SETLOOPWID_H

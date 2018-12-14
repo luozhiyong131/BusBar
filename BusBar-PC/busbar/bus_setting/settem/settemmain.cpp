@@ -7,7 +7,7 @@ SetTemMain::SetTemMain(QWidget *parent) :
 {
     ui->setupUi(this);
     mLineTem = new SetLineTem(ui->widget_1);
-    mLoopTem = new SetTempWid(ui->widget_2);
+    mLoopTem = new SetLoopTemWid(ui->widget_2);
 }
 
 SetTemMain::~SetTemMain()

@@ -25,4 +25,6 @@ protected:
     QString getPrefix(){return "bus";}
 };
 
+QString bus_getPassword();
+
 #endif // BUS_CONFIGFILE_H

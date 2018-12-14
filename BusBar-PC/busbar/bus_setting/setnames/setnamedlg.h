@@ -2,6 +2,7 @@
 #define SETNAMEDLG_H
 
 #include <QDialog>
+#include "bus_com/bus_setshm.h"
 
 namespace Ui {
 class SetNameDlg;
@@ -18,7 +19,6 @@ public:
     void init(int bus, int box, int loop, const QString &name);
 protected:
     bool save();
-    bool saveToDev();
 
 private slots:
     void on_saveBtn_clicked();

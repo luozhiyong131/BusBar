@@ -3,8 +3,9 @@
 
 #include <QDialog>
 #include <QHBoxLayout>
+#include "bus_com/bus_datapackets.h"
 #include "common.h"
-#include "keyboard/mynumberkeyboardwid.h"
+#include "mynumberkeyboardwid.h"
 
 namespace Ui {
 class CheckPasswordDlg;

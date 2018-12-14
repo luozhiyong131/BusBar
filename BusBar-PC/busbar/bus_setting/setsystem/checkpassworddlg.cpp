@@ -1,6 +1,5 @@
 #include "checkpassworddlg.h"
 #include "ui_checkpassworddlg.h"
-//#include "frminput.h"
 
 CheckPasswordDlg::CheckPasswordDlg(QWidget *parent) :
     QDialog(parent),
@@ -27,7 +26,7 @@ void CheckPasswordDlg::clear()
 
 void CheckPasswordDlg::on_pushButton_clicked()
 {
-    QString str = getPassword();
+    QString str = bus_getPassword();
     QString linestr = ui->lineEdit->text();
     if(str == linestr)
         mResult = true;

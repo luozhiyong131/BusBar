@@ -12,6 +12,7 @@ public:
 protected:
     void initWid();
     void setObjUnit(sObjData *unit, QStringList &list);
+    int updateDev(sDataPacket *dev, int row);
 };
 
 #endif // BUS_LINETABLEWID_H
