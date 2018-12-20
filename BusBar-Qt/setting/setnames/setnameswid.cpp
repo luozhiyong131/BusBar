@@ -9,9 +9,19 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui->setupUi(this);
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
-    QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
+    mIndex = 0;
+    QTimer::singleShot(100,this,SLOT(initFunSLot()));
     connect(mSetNameDlg,SIGNAL(updateTablesig(int)),this,SLOT(updateSlot(int)));
 }
+
+void SetNamesWid::initFunSLot()
+{
+    indexChanged(mIndex);
+    mTimer = new QTimer(this);
+    mTimer->start(3*1000);
+    connect(mTimer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+}
+
 
 SetNamesWid::~SetNamesWid()
 {
@@ -87,6 +97,10 @@ void SetNamesWid::checkBus()
     }
 }
 
+/**
+ * @brief 刷新界面
+ * @param index 主路源编号
+ */
 void SetNamesWid::indexChanged(int index)
 {
 //    if(mIndex == index)  return;
@@ -96,13 +110,9 @@ void SetNamesWid::indexChanged(int index)
     initWid(index);
 }
 
-/**
- * @brief 刷新界面
- * @param index 主路源编号
- */
-void SetNamesWid::updateWid(int index)
+void SetNamesWid::updateWid(/*int index*/)
 {
-    indexChanged(index);
+    //indexChanged(index);
     checkBus();
 
     int row = ui->tableWidget->rowCount();
@@ -115,10 +125,11 @@ void SetNamesWid::updateWid(int index)
     }
 }
 
-void SetNamesWid::updateWidSlot()
+void SetNamesWid::timeoutDone()
 {
-    updateWid(0);
+    updateWid();
 }
+
 
 void SetNamesWid::setName(int row, int column)
 {
@@ -134,7 +145,8 @@ void SetNamesWid::setTableItem(int row, int column)
     QTableWidgetItem *item = ui->tableWidget->item(row,column);
     sBoxData *box = &(mPacket->box[row+1]);
 
-    if(box->offLine > 0 && column <= box->rate) {
+    //if(box->offLine > 0 && column <= box->rate) {
+    if(box->offLine > 0 ) {
         if(column <= box->loopNum) {
            str = box->loopName[column-1];
         }
@@ -154,9 +166,6 @@ void SetNamesWid::itemDoubleClicked(QTableWidgetItem *item)
 
     connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
-
-
-
 
 void SetNamesWid::initWid(int index)
 {
@@ -203,14 +212,14 @@ void SetNamesWid::on_saveBtn_clicked()
     mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
         set_box_num(mIndex, ui->boxNumSpin->value());
-        updateWid(mIndex);                               //2018-12-17保存插接箱数量的同时，更新名称设置列表 pmd
+        updateWid();                               //2018-12-17保存插接箱数量的同时，更新名称设置列表 pmd
 
         BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }
 }
 
-void SetNamesWid::updateSlot(int index)
+void SetNamesWid::updateSlot(/*int index*/)
 {
-    this->updateWid(index);
+    this->updateWid();
 }

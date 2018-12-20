@@ -305,7 +305,6 @@ void BoxLoopTableWid::updateData()
             setEle(i, k++);
            // setTemp(i, k++); //温度
         }
-        mBoxData->loopNum = row;
     } else {
         clearTable();
     }

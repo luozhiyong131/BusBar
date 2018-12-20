@@ -34,7 +34,7 @@ bool SetNameDlg::saveToDev()
     pkt.num = mBusId; // 母线
     pkt.addr = mBox; // 插接箱
     pkt.fn[0] = 6;
-    pkt.fn[1] = mLoop; // 相
+    pkt.fn[1] = mLoop-1; // 相
 
     QString name = ui->nameEdit->text();
     pkt.len = name.size();
@@ -60,6 +60,8 @@ bool SetNameDlg::save()
     item.num = num;
     item.name = ui->nameEdit->text();
     shm.setName(item);
+
+    saveToDev();//IP-BUSBAR设置loop名称
 
     return true;
 }

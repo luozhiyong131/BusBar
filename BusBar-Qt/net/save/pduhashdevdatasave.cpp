@@ -173,6 +173,8 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
 {
     int l = data->fn[1];
+    if(l+1 > dev->loopNum )//获取IP-BUSBAR的回路个数  2018-12-20 pmd
+       dev->loopNum = l+1 ;
     if(data->len) {
         sprintf(dev->loopName[l], "%s",data->data);
         dev->loopName[l][data->len] = 0;
