@@ -168,12 +168,11 @@ void RtuThread::thdData(Rtu_recv *pkt)
         for(int i=0; i<32; ++i) thd[i] = pkt->thd[i];
 
         if(pkt->hc < 3) {
-            box->data.volThd[line] = mBusData->thdData.volThd[line][0];
-            mBusData->thdData.volThd[line][0] = 0;
+            box->data.volThd[line] = thd[0];
         } else {
-            box->data.curThd[line] = mBusData->thdData.curThd[line][0];
-            mBusData->thdData.curThd[line][0] = 0;
+            box->data.curThd[line] = thd[0];
         }
+        thd[0] = 0;
 
     } else {
         int *thd = box->data.curThd;

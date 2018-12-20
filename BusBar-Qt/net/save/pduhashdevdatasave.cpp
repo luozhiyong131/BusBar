@@ -106,14 +106,17 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
         ptr = obj->sw;
         break;
 
-//    case PDU_CMD_CA: // 排碳量
-//        ptr = obj->carbon;
-//        break;
+    case PDU_CMD_PL:
+        ptr = obj->pl;
+        break;
 
-//    case PDU_CMD_RATE: //电压频率
-//        ptr = obj->rate;
-//        break;
+    case PDU_CMD_CTHD:
+        ptr = obj->curThd;
+        break;
 
+    case PDU_CMD_VTHD:
+        ptr = obj->volThd;
+        break;
     default:
         qDebug() << "pdu_hash_objData err" << fc;
         break;
@@ -179,9 +182,7 @@ void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
         sprintf(dev->loopName[l], "%s",data->data);
         dev->loopName[l][data->len] = 0;
     }
-
-//    qDebug() << "AAAAAAAAA" << data->addr << l <<data->len<< dev->loopName[l];
- }
+}
 
 
 /**
@@ -203,6 +204,10 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
         break;
 
     case PDU_CMD_ENV: //环境数据
+        pdu_hash_envData(&(dev->env), data);
+        break;
+
+    case PDU_CMD_THD: //环境数据
         pdu_hash_envData(&(dev->env), data);
         break;
 

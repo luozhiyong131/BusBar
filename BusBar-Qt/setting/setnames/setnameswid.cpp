@@ -7,6 +7,7 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui(new Ui::SetNamesWid)
 {
     ui->setupUi(this);
+    mIndex = 0;
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
     mIndex = 0;
@@ -110,9 +111,8 @@ void SetNamesWid::indexChanged(int index)
     initWid(index);
 }
 
-void SetNamesWid::updateWid(/*int index*/)
+void SetNamesWid::updateWid()
 {
-    //indexChanged(index);
     checkBus();
 
     int row = ui->tableWidget->rowCount();
@@ -219,7 +219,7 @@ void SetNamesWid::on_saveBtn_clicked()
     }
 }
 
-void SetNamesWid::updateSlot(/*int index*/)
+void SetNamesWid::updateSlot()
 {
     this->updateWid();
 }
