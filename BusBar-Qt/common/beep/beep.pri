@@ -15,7 +15,5 @@ SOURCES += \
 
 FORMS += \
 
-DISTFILES += \
-    $$PWD/beep.pri
 
 

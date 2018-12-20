@@ -7,6 +7,7 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui(new Ui::SetNamesWid)
 {
     ui->setupUi(this);
+    mIndex = 0;
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
     QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
@@ -116,7 +117,7 @@ void SetNamesWid::updateWid(int index)
 
 void SetNamesWid::updateWidSlot()
 {
-    updateWid(0);
+    updateWid(mIndex);
 }
 
 void SetNamesWid::setName(int row, int column)

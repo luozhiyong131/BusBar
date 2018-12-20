@@ -80,7 +80,7 @@ void LogBranchEleWid::updateColumnHidden()
     ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
     ui->tableView->setColumnHidden(0, true);
     ui->tableView->setColumnHidden(13, true);
-    //        ui->tableView->resizeColumnsToContents();
+    //ui->tableView->resizeColumnsToContents();
 }
 
 void LogBranchEleWid::initTableSlot(int id)
