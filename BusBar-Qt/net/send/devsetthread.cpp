@@ -23,7 +23,7 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     item.num = pkt.fn[1];
 
     if(item.num) item.num--;
-    else item.box = 0xFF;
+    else item.box = 0xff;
 
     int i=0, rate=1;
     if((item.type==1) || (item.type==3)) rate = 10;

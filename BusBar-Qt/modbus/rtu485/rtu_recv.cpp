@@ -171,7 +171,6 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
 bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 {
     bool ret = false;
-
     int rtn = rtu_recv_len(buf, len); //判断回收的数据是否完全
     if(rtn == 0) {
         uchar *ptr=buf;
@@ -195,6 +194,12 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         if(pkt->dc) { // 交流
             ptr += rtu_recv_thd(ptr, pkt);
         } else {
+
+            ptr++; // 直流此字节没有用
+             // 读取负载百分比
+            for(int i=0; i<2; ++i) pkt->pl[i] = *(ptr++);
+            ptr++; // 此字节没有用，直流只有两路负载百分比
+            ptr++; // 此字节没有用，直流谐波通道预留位
             //----------------------[二分二路直流][显示]----------------------------
             if(2 == pkt->rate && 2 == pkt->lineNum ){ //交换2-3数据
                 RtuRecvLine data;

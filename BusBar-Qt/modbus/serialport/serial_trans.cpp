@@ -148,6 +148,7 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 {
     QMutexLocker locker(&mutex);
     int ret;
+
     for(int i = 0; i < 3; i++){ //连发三次
         ret = sendData(pBuff, nCount);
         msleep(msec);
@@ -155,7 +156,6 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
     if(ret > 0) {
         if(msec > 0) msleep(msec);
     }
-
     return ret;
 }
 

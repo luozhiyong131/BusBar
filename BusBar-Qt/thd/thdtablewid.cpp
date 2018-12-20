@@ -12,7 +12,7 @@ ThdTableWid::ThdTableWid(QWidget *parent) : ComTableWid(parent)
 
 void ThdTableWid::initWid()
 {
-    QString title = tr("名次谐波含量THD(%)");
+    QString title = tr("各次谐波含量THD(%)");
     QStringList header;
 
     for(int i = 0; i < 10; i++)

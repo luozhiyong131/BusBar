@@ -81,7 +81,7 @@ void LineWid::timeoutDone()
             ui->rateLab->setText(str); //频率
             ui->label->setText("输入：");
 
-            ui->thdBtn->setHidden(true);
+            ui->thdBtn->setHidden(false);
             ui->widget->setHidden(true);
         }
 

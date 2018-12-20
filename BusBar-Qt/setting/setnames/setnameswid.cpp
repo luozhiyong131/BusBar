@@ -10,6 +10,7 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
     QTimer::singleShot(10000,this,SLOT(updateWidSlot()));
+    connect(mSetNameDlg,SIGNAL(updateTablesig(int)),this,SLOT(updateSlot(int)));
 }
 
 SetNamesWid::~SetNamesWid()
@@ -165,6 +166,16 @@ void SetNamesWid::initWid(int index)
 
     double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->rateCurSpin->setValue(rateCur);
+
+    checkBus();//切换通道，更新表格名称  2018-12-20 pmd
+    int row = ui->tableWidget->rowCount();
+    for(int i = 0 ; i < row ; i++)
+    {
+        setName(i,0);
+        for(int j=1; j<ui->tableWidget->columnCount(); ++j) {
+            setTableItem(i, j);
+        }
+    }
 }
 
 bool SetNamesWid::saveBusName()
@@ -192,8 +203,14 @@ void SetNamesWid::on_saveBtn_clicked()
     mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
         set_box_num(mIndex, ui->boxNumSpin->value());
+        updateWid(mIndex);                               //2018-12-17保存插接箱数量的同时，更新名称设置列表 pmd
 
         BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }
+}
+
+void SetNamesWid::updateSlot(int index)
+{
+    this->updateWid(index);
 }

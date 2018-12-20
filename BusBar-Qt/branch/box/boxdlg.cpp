@@ -37,7 +37,7 @@ void BoxDlg::initWid(int bus, int box)
 
     mLineWid = new BoxLoopTableWid(ui->tabWidget);
     mLineWid->initLine(bus, box);
-    ui->tabWidget->addTab(mTotalWid, tr("各回路信息"));
+    ui->tabWidget->addTab(mLineWid, tr("各回路信息"));
 }
 
 void BoxDlg::on_pushButton_clicked()

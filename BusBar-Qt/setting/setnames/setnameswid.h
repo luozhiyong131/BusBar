@@ -32,11 +32,11 @@ protected:
     void setName(int row, int column);
     void setTableItem(int row, int column);
 
-
 private slots:
     void on_saveBtn_clicked();
     void itemDoubleClicked(QTableWidgetItem *item);
     void updateWidSlot();
+    void updateSlot(int index);
 
 private:
     Ui::SetNamesWid *ui;
