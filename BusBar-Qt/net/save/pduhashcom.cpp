@@ -88,7 +88,7 @@ static int uchar_to_int(int *dest, ushort len, uchar *buf, int size)
  * @param data
  * @param sizeBit
  */
-void pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit)
+int pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit)
 {
     static int buf[512] = {0};
 
@@ -100,8 +100,9 @@ void pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit)
             ptr[i] = buf[i];
         }
     }
-}
 
+    return rtn;
+}
 
 bool char_to_string(QString &str, uchar *data, ushort len)
 {

@@ -12,13 +12,22 @@
  */
 #include "pduhashdatasave.h"
 #include "pduhashdevdatasave.h"
-//#include "pduhashoutputsave.h"
-//#include "pduhashdevinfosave.h"
-//#include "pduhashdevusrsave.h"
-//#include "pduhashdevnetsave.h"
-//#include "pduhashmanslave.h"
-//#include "pduhashdevchartsave.h"
 
+
+static void thd_hash_objData(sThdData *thd,pdu_dev_data *data)
+{
+    int array[64] = {0};
+    int rtn = pdu_saveHash_intData(array, data->len, data->data, 2);
+
+    int vc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
+    int line = data->fn[1] & 0x0f; // 处理功能码，第二字节的低四位数据
+
+    ushort *ptr = thd->curThd[line];;
+    if(vc) ptr = thd->volThd[line];
+    for(int i=0; i<rtn; ++i) {
+        ptr[i+1] = array[i];
+    }
+}
 
 
 
@@ -27,7 +36,7 @@
  * @param dev
  * @param data
  */
-static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
+static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data, sThdData *thd)
 {
     int fc = data->fn[0]; //根据功能码，进行分支处理
 
@@ -49,14 +58,14 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
         pdu_hashDevData_save(dev, data);
         break;
 
+    case PDU_CMD_THD:
+        thd_hash_objData(thd, data);
+        break;
+
     case PDU_CMD_DEVINFO: // 设备信息
         // sprintf(dev->boxName, "%s",data->data);
         // dev->boxName[data->len] = 0;
         break;
-
-        //    case PDU_CMD_OUTPUT_NAME: // 输出位名称
-        //        pdu_output_name(dev->output->name, data);
-        //        break;
 
     default:
         //        qDebug() << "pdu_hashData_function err" << fc;
@@ -94,7 +103,8 @@ void pdu_hashData_save(pdu_devData_packet *packet)
                 //   dev->devNum = packet->data->addr; // 设备地址
                 //   dev->ip->set(packet->ip); //设备IP
                 boxDev->offLine = OFF_LINE_TIME; //设备在线标识
-                pdu_hashData_function(boxDev, packet->data); //功能预处理
+                sThdData *thd = &(dataPacket->data[num].thdData);
+                pdu_hashData_function(boxDev, packet->data, thd); //功能预处理
             }
             else
                 qDebug() << "NET DATA VERSION err";
