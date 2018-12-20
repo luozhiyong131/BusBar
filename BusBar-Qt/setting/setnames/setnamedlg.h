@@ -2,7 +2,6 @@
 #define SETNAMEDLG_H
 
 #include <QDialog>
-
 namespace Ui {
 class SetNameDlg;
 }
@@ -19,6 +18,9 @@ public:
 protected:
     bool save();
     bool saveToDev();
+
+signals:
+    void updateTablesig(int index);
 
 private slots:
     void on_saveBtn_clicked();

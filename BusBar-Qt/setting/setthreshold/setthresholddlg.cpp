@@ -95,8 +95,8 @@ void SetThresholdDlg::on_saveBtn_clicked()
     bool ret = checkData();
     if(ret) {
         if(ui->checkBox->isChecked()) {
-            if(mItem.box) mItem.box = 0xFF;
-            else mItem.bus = 0xFf;
+            if(mItem.box) mItem.box = 0xff;
+            else mItem.bus = 0xff;
         }
         SetThread::bulid()->append(mItem);
     }

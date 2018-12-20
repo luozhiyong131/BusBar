@@ -77,7 +77,6 @@ void BoxTotalWid::updateData()
     }else{
         ui->CWid->hide();
     }
-    ui->CWid->hide();
 
     QLabel *curLab[] = { ui->curA,  ui->curB,  ui->curC};
     QLabel *volLab[] = { ui->volA,  ui->volB,  ui->volC};

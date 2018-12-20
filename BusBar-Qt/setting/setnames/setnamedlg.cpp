@@ -33,7 +33,7 @@ bool SetNameDlg::saveToDev()
     net_dev_data pkt;
     pkt.num = mBusId; // 母线
     pkt.addr = mBox; // 插接箱
-    pkt.fn[0] = 4;
+    pkt.fn[0] = 6;
     pkt.fn[1] = mLoop; // 相
 
     QString name = ui->nameEdit->text();
@@ -70,6 +70,7 @@ void SetNameDlg::on_saveBtn_clicked()
     if(!str.isEmpty()) {
         if(save())
         {
+            emit updateTablesig(mBusId);
             BeepThread::bulid()->beep();
             close();
         }
