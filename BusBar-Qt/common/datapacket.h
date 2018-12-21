@@ -41,28 +41,28 @@ typedef struct _sTgObjData {
 }sTgObjData;
 
 typedef struct _sLineTgObjData {
-    int vol[3]; // 电压
-    int cur[3];  // 电流
+    ushort vol[3]; // 电压
+    ushort cur[3];  // 电流
 
-    int pow[3]; // 功率
-    int ele[3]; // 电能
-    int pf[3]; // 功率因素
-    int apPow[3]; // 袖在功率
-    int tem[3];
+    uint pow[3]; // 功率
+    uint ele[3]; // 电能
+    ushort pf[3]; // 功率因素
+    ushort apPow[3]; // 袖在功率
+    ushort tem[3];
 }sLineTgObjData;
 
 /**
  * 数据单元：包括当前值，阈值，临界值，告警状态等
  */
 typedef struct _sDataUnit {
-    int value[LINE_NUM_MAX]; // 值
-    int min[LINE_NUM_MAX]; // 最小值
-    int max[LINE_NUM_MAX]; // 最大值
-    int alarm[LINE_NUM_MAX]; // 告警值 0表示未告警  1表示已告警 2表示已记录
+    ushort value[LINE_NUM_MAX]; // 值
+    ushort min[LINE_NUM_MAX]; // 最小值
+    ushort max[LINE_NUM_MAX]; // 最大值
+    uchar alarm[LINE_NUM_MAX]; // 告警值 0表示未告警  1表示已告警 2表示已记录
 
-    int crMin[LINE_NUM_MAX]; // 临界最小值
-    int crMax[LINE_NUM_MAX]; // 临界最大值
-    int crAlarm[LINE_NUM_MAX]; // 临界告警值
+    ushort crMin[LINE_NUM_MAX]; // 临界最小值
+    ushort crMax[LINE_NUM_MAX]; // 临界最大值
+    uchar crAlarm[LINE_NUM_MAX]; // 临界告警值
 }sDataUnit;
 
 /**
@@ -73,17 +73,17 @@ typedef struct _sObjData {
     sDataUnit vol; // 电压
     sDataUnit cur;  // 电流
 
-    int pow[LINE_NUM_MAX]; // 功率
-    int ele[LINE_NUM_MAX]; // 电能
-    int pf[LINE_NUM_MAX]; // 功率因素
-    int sw[LINE_NUM_MAX]; // 开关状态
-    int apPow[LINE_NUM_MAX]; // 视在功率
-    int ratedCur[LINE_NUM_MAX]; // 额定电流
-    int wave[LINE_NUM_MAX]; // 谐波值
+    uint pow[LINE_NUM_MAX]; // 功率
+    uint ele[LINE_NUM_MAX]; // 电能
+    ushort pf[LINE_NUM_MAX]; // 功率因素
+    uchar sw[LINE_NUM_MAX]; // 开关状态
+    ushort apPow[LINE_NUM_MAX]; // 视在功率
+    ushort ratedCur[LINE_NUM_MAX]; // 额定电流
+    ushort wave[LINE_NUM_MAX]; // 谐波值
 
-    int pl[3]; // 负载百分比
-    int curThd[3]; // 电流谐波含量
-    int volThd[3]; // 电压谐波含量
+    ushort pl[3]; // 负载百分比
+    ushort curThd[3]; // 电流谐波含量
+    ushort volThd[3]; // 电压谐波含量
 }sObjData;
 
 

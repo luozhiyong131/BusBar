@@ -16,7 +16,7 @@
  */
 static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 {
-    int *ptr = NULL;
+    ushort *ptr = NULL;
     int sizeBit = 2;
 
     int fc = data->fn[1] & 0x0f; // 处理功能码，第二字节的低四位数据
@@ -36,7 +36,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 
     case PDU_CMD_ALARM:
         sizeBit = 1;
-        ptr = unit->alarm;
+        // ptr = unit->alarm;
         return; /////====
 
     case PDU_CDM_CRMIN:
@@ -49,7 +49,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 
     case PDU_CMD_CRALARM:
         sizeBit = 1;
-        ptr = unit->crAlarm;
+        // ptr = unit->crAlarm;
         break;
 
     default:
@@ -58,7 +58,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
     }
 
     if(ptr)
-        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
+        pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
 }
 
 
@@ -69,7 +69,9 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
  */
 static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 {
-    int *ptr = NULL;
+    ushort *ptr = NULL;
+    uint *iPtr = NULL;
+    uchar *cPtr=NULL;
     int sizeBit = 2;
 
     int fc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
@@ -89,12 +91,12 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 
     case PDU_CMD_POW: // 功率
         sizeBit = 4;
-        ptr = obj->pow;
+        iPtr = obj->pow;
         break;
 
     case PDU_CMD_ELE: // 电能
         sizeBit = 4;
-        ptr = obj->ele;
+        iPtr = obj->ele;
         break;
 
     case PDU_CMD_PF: // 功率因素
@@ -103,7 +105,7 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 
     case PDU_CMD_SW: // 开关状态
         sizeBit = 1;
-        ptr = obj->sw;
+        cPtr = obj->sw;
         break;
 
     case PDU_CMD_PL:
@@ -121,9 +123,9 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
         qDebug() << "pdu_hash_objData err" << fc;
         break;
     }
-
-    if(ptr)
-        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
+    if(iPtr) pdu_saveHash_toData(iPtr, data->len, data->data, sizeBit);
+    if(ptr)  pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
+    if(cPtr) pdu_saveHash_toData(cPtr, data->len, data->data, sizeBit);
 }
 
 /**
@@ -133,7 +135,7 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
  */
 static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 {
-    int *ptr = NULL;
+    uint *ptr = NULL;
     int sizeBit = 1;
 
     int fc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
@@ -164,7 +166,7 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
         break;
     }
     if(ptr)
-        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
+        pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
 }
 
 

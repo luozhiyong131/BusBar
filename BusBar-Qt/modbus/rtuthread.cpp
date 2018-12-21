@@ -175,7 +175,7 @@ void RtuThread::thdData(Rtu_recv *pkt)
         thd[0] = 0;
 
     } else {
-        int *thd = box->data.curThd;
+        ushort *thd = box->data.curThd;
         for(int i=0; i<3; ++i) {
             thd[i] = pkt->thd[i];
         }

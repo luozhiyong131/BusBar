@@ -16,17 +16,12 @@
 
 static void thd_hash_objData(sThdData *thd,pdu_dev_data *data)
 {
-    int array[64] = {0};
-    int rtn = pdu_saveHash_intData(array, data->len, data->data, 2);
-
     int vc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
     int line = data->fn[1] & 0x0f; // 处理功能码，第二字节的低四位数据
 
     ushort *ptr = thd->curThd[line];;
     if(vc) ptr = thd->volThd[line];
-    for(int i=0; i<rtn; ++i) {
-        ptr[i+1] = array[i];
-    }
+    pdu_saveHash_toData(ptr, data->len, data->data, 2);
 }
 
 

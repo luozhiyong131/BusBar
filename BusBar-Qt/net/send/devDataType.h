@@ -12,7 +12,7 @@
 /*数据单元结构体*/
 typedef struct
 {
-	ushort		*value; // 当前值
+    ushort		*value; // 当前值
 
     ushort 		*min; //最小值
     ushort 		*max; //最大值
@@ -25,27 +25,29 @@ typedef struct
 
 typedef struct
 {
-	ushort 		len; // 长度
-	_devDataUnit		vol; // 电流
-	_devDataUnit 		cur; //电压
+    ushort 		len; // 长度
+    _devDataUnit		vol; // 电流
+    _devDataUnit 		cur; //电压
 
-	uint 		*pow; // 功率
+    uint 		*pow; // 功率
     uint 		*ele; // 电能
 
     ushort 		*pf; //功率因素
     uchar 		*sw; //开关状态
 
-    ushort		*carbon; // 排C量
     ushort 		*rate; //电压频率
     ushort 		*apPow; // 视在功率
-    ushort 		*wave; // 谐波值
+
+    ushort		*pl; //
+    ushort		*curThd; //
+    ushort		*volThd; //
 }_devDataObj;
 
 typedef struct
 {
-	uchar 		len; // 长度
-	_devDataUnit		tem; // 温度
-	_devDataUnit 		hum; //湿度
+    uchar 		len; // 长度
+    _devDataUnit		tem; // 温度
+    _devDataUnit 		hum; //湿度
     uchar 		*door; // 门禁
     uchar 		*water; // 水浸
     uchar 		*smoke; //烟雾
@@ -53,10 +55,10 @@ typedef struct
 
 typedef struct
 {
-	_devDataObj		    line; // 输入相
+    _devDataObj		    line; // 输入相
     _devDataObj		    loop; // 输入相
-	_devDataObj 		output; //输出位
-	_envDataObjct 		env; // 环境
+    _devDataObj 		output; //输出位
+    _envDataObjct 		env; // 环境
 }pduDevData;
 
 

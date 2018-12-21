@@ -35,7 +35,7 @@ void DpTgThread::timeoutDone()
  * @brief 获取平均数据 0视无效数据
  * @param data
  */
-int DpTgThread::averData(int *data, int len)
+int DpTgThread::averData(ushort *data, int len)
 {
     int size=0, value=0,temp;
 
