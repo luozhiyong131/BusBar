@@ -227,11 +227,10 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
     msg->len = len;
     sent_packet(msg);
 
-    /*排C量*/
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->carbon,len,buf);
+    msg->len = shortToChar(obj->apPow,len,buf);
     sent_packet(msg);
 
     /*电压频率*/
@@ -241,16 +240,23 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
     msg->len = shortToChar(obj->rate,len,buf); // 功率
     sent_packet(msg);
 
+    /**/
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->apPow,len,buf);
+    msg->len = shortToChar(obj->pl,len,buf);
     sent_packet(msg);
 
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->wave,len,buf);
+    msg->len = shortToChar(obj->curThd,len,buf);
+    sent_packet(msg);
+
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->volThd,len,buf);
     sent_packet(msg);
 }
 
