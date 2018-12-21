@@ -454,16 +454,18 @@ void sent_dev_data(void)
 {
     uchar id = currentBus - '0';
     sDataPacket *shm = get_share_mem(); // 获取共享内存
+    static pduDevData *devData = nullptr;
+    if(!devData) devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
+
     int len = shm->data[id].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
-
-        static pduDevData *devData = nullptr;
-        if(!devData) devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
-
         sBoxData *box =  &(shm->data[id].box[i]);
+
+        if(box->offLine < 1) continue; //不在线就跳过
+        else box->offLine--;
+
         init_dataLoop(&(devData->loop), &(box->data));
         init_dataLine(&(devData->line), &(box->lineTgBox), &(box->data));
 
