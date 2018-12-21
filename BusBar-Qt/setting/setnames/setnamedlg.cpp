@@ -54,15 +54,13 @@ bool SetNameDlg::save()
     if(mLoop) {
         type = 3;
         num = (mBox-1)*LINE_NUM + mLoop-1 ;
+        saveToDev();//IP-BUSBAR设置loop名称
     }
 
     item.type = type;
     item.num = num;
     item.name = ui->nameEdit->text();
     shm.setName(item);
-
-    saveToDev();//IP-BUSBAR设置loop名称
-
     return true;
 }
 

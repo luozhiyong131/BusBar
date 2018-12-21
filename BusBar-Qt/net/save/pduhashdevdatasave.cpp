@@ -176,8 +176,6 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
 {
     int l = data->fn[1];
-    if(l+1 > dev->loopNum )//获取IP-BUSBAR的回路个数  2018-12-20 pmd
-       dev->loopNum = l+1 ;
     if(data->len) {
         sprintf(dev->loopName[l], "%s",data->data);
         dev->loopName[l][data->len] = 0;
@@ -197,6 +195,7 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
     {
     case PDU_CMD_LINE: //相电气参数
         pdu_hash_objData(&(dev->data), data);
+        dev->loopNum = dev->data.lineNum;
         break;
 
     case PDU_CMD_OUTPUTNAME: // 输出位电气参数
@@ -204,10 +203,6 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
         break;
 
     case PDU_CMD_ENV: //环境数据
-        pdu_hash_envData(&(dev->env), data);
-        break;
-
-    case PDU_CMD_THD: //环境数据
         pdu_hash_envData(&(dev->env), data);
         break;
 

@@ -190,6 +190,7 @@ int RtuThread::transData(int addr)
     sBoxData *box = &(mBusData->box[addr]); //共享内存
 
     int rtn = rtu_sent_buff(addr,buf); // 把数据打包成通讯格式的数据
+    //int rtn = rtu_sent_buff(addr,buf)-6; // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf); // 传输数据，发送同时接收
     if(rtn > 0) {
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it

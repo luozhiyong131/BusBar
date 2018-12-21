@@ -20,6 +20,6 @@ void NetSendThread::run()
 {
     while (1) {
         sent_dev_data(); //send data
-        // sleep(1);
+        sleep(1);
     }
 }
