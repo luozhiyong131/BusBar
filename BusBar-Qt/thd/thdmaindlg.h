@@ -36,7 +36,7 @@ private:
     Ui::ThdMainDlg *ui;
     QTimer *timer;
     ushort *mThd;
-    int *mLineThd;
+    ushort *mLineThd;
     sBusData *mBusData;
 
     ThdChartWid *mChartWid;
