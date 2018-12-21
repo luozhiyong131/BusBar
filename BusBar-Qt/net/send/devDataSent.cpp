@@ -464,7 +464,7 @@ void sent_dev_data(void)
         sBoxData *box =  &(shm->data[id].box[i]);
 
         if(box->offLine < 1) continue; //不在线就跳过
-        else box->offLine--;
+        else if(box->boxSpec) box->offLine--;
 
         init_dataLoop(&(devData->loop), &(box->data));
         init_dataLine(&(devData->line), &(box->lineTgBox), &(box->data));
