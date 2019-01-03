@@ -32,6 +32,9 @@ private slots:
     void on_temBtn_clicked();
     void on_sysBtn_clicked();
 
+signals:
+    void busChangedSig(int);
+
 private:
     Ui::SetMainWid *ui;
 

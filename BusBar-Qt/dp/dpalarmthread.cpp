@@ -60,16 +60,16 @@ void DpAlarmThread::alarmDataUnit(sDataUnit &unit, int lineNum, bool cr)
 }
 
 
-char DpAlarmThread::alarmFlag(sDataUnit &unit, bool cr)
+char DpAlarmThread::alarmFlag(sDataUnit &unit, int line, bool cr)
 {
     char flag=0;
 
-    for(int i=0; i<LINE_NUM_MAX; ++i) {
+    for(int i=0; i<line; ++i) {
         flag += unit.alarm[i];
         if(flag) return 2;
     }
 
-    for(int i=0; i<LINE_NUM_MAX; ++i) {
+    for(int i=0; i<line; ++i) {
         if(cr) flag += unit.crAlarm[i];
         if(flag) return 1;
     }
@@ -82,11 +82,10 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
     if(box.offLine > 0) {
         int lineNum = box.data.lineNum;
         alarmDataUnit(box.data.cur, lineNum); // 回路是否有告警
-        box.boxCurAlarm = alarmFlag(box.data.cur);
+        box.boxCurAlarm = alarmFlag(box.data.cur, lineNum);
 
-        lineNum = box.data.lineNum;
         alarmDataUnit(box.data.vol, lineNum); // 回路是否有告警
-        box.boxVolAlarm = alarmFlag(box.data.vol);
+        box.boxVolAlarm = alarmFlag(box.data.vol, lineNum);
 
         //--------------[限制存在才告警]----------------- By_MW 2018.3.23
         if(box.dc){ //交流
@@ -97,7 +96,7 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
         //---------------------------------------------
 
         alarmDataUnit(box.env.tem, lineNum);
-        box.boxEnvAlarm =  alarmFlag(box.env.tem);
+        box.boxEnvAlarm =  alarmFlag(box.env.tem, lineNum);
 
         box.boxAlarm = box.boxCurAlarm + box.boxVolAlarm + box.boxEnvAlarm;
     } else {

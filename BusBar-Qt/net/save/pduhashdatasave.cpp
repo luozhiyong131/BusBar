@@ -57,6 +57,10 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data, sThdData *th
         thd_hash_objData(thd, data);
         break;
 
+    case PDU_CMD_VERSION:
+        dev->version = data->data[0];
+        break;
+
     case PDU_CMD_DEVINFO: // 设备信息
         // sprintf(dev->boxName, "%s",data->data);
         // dev->boxName[data->len] = 0;

@@ -70,7 +70,6 @@ void SetNameDlg::on_saveBtn_clicked()
     if(!str.isEmpty()) {
         if(save())
         {
-            emit updateTablesig(mBusId);
             BeepThread::bulid()->beep();
             close();
         }

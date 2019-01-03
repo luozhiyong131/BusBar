@@ -87,7 +87,9 @@ bool IpSettingDlg::ipCheck(int i, QLineEdit *edit)
         if(ret){
             gBusIPMap[i] = str;
         } else {
+            edit->setText(gBusIPMap[i]);
             CriticalMsgBox box(this, tr("IP%1地址错误!").arg(i+1));
+            return false;
         }
     }
     sys_configFile_writeParam(tr("IP%1").arg(i+1), str);

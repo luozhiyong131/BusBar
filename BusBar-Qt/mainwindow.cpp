@@ -47,6 +47,7 @@ void MainWindow::initSerial()
 {
     rtu[0] = new RtuThread(this);
     rtu[0]->init(SERIAL_COM1, 1); //只操作母线1
+#if (SI_RTUWIFI==0)
 #if BUS_NUM > 1
     rtu[1] = new RtuThread(this);
     rtu[1]->init(SERIAL_COM2, 2);
@@ -58,6 +59,7 @@ void MainWindow::initSerial()
 #if BUS_NUM > 3
     rtu[3] = new RtuThread(this);
     rtu[3]->init(SERIAL_COM4, 4);
+#endif
 #endif
 
     thr = new ThirdThread(this);

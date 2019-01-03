@@ -10,6 +10,7 @@
 #include "netsettingdlg.h"
 #include "othersettingdlg.h"
 #include "ipsettingdlg.h"
+#include "channelsettingdlg.h"
 
 namespace Ui {
 class SystemSettingDlg;
@@ -23,7 +24,8 @@ public:
     explicit SystemSettingDlg(QWidget *parent = 0);
     ~SystemSettingDlg();
 
-private slots:
+signals:
+    void busChangedSig(int);
 
 private:
     Ui::SystemSettingDlg *ui;
@@ -31,6 +33,7 @@ private:
     NetSettingDlg *mNetWid;
     OtherSettingDlg *mOtherWid;
     IpSettingDlg* mIpWid;
+    ChannelSettingDlg* mChannelWid;
 };
 
 #endif // SYSTEMSETTINGDLG_H

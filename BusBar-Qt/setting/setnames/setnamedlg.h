@@ -19,9 +19,6 @@ protected:
     bool save();
     bool saveToDev();
 
-signals:
-    void updateTablesig(int index);
-
 private slots:
     void on_saveBtn_clicked();
     void on_cancelBtn_clicked();

@@ -7,7 +7,7 @@
  *      Author: Lzy
  */
 #include "rtuthread.h"
-
+#include <QMultiHash>
 static ushort gBoxArray[4] = {0, 0, 0, 0};
 
 void set_box_num(int id, int num)
@@ -15,7 +15,40 @@ void set_box_num(int id, int num)
     gBoxArray[id] = num;
 }
 
+#if (SI_RTUWIFI==1)
+#include "setting/setsystem/channelsettingdlg.h"
+static QStringList mChList;
+static int mIndex;
+struct sBusCmd{
+    int addr;
+    ushort reg;
+    ushort len;
 
+    bool operator==(const sBusCmd& obj)
+    { return ((addr==obj.addr)&&(reg==obj.reg)&&(len==obj.len));}
+};
+QMultiHash<int,sBusCmd> gBusCmd;
+
+void insertBusCmd(int busID, int addr, ushort reg, ushort len)
+{
+    sBusCmd cmd;
+    cmd.addr = addr;
+    cmd.reg = reg;
+    cmd.len = len;
+    if(busID == 0xff || addr == 0xff){
+        for(int i = 0 ; i < BUS_NUM ; ++i)
+        gBusCmd.insertMulti(i , cmd);
+    }
+    else
+        gBusCmd.insertMulti(busID , cmd);
+}
+
+void set_ch(const QStringList &chs,int recordindex)
+{
+    mChList = chs;
+    mIndex = recordindex;
+}
+#endif
 
 RtuThread::RtuThread(QObject *parent) :
     QThread(parent)
@@ -85,14 +118,14 @@ int RtuThread::sendData(int addr, ushort reg, ushort len, bool value)
     if(addr == 0xff){
         uchar *buf = mBuf;
         int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-        return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+        return mSerial->sendData(buf, rtn, 250); //发送 -- 并占用串口250ms
     }else{
         sBoxData *box = &(mBusData->box[addr]); //共享内存
         if((box->offLine > 0) || value){ //在线
             //打包数据
             uchar *buf = mBuf;
             int rtn = rtu_sent_buff(addr, reg, len, buf); // 把数据打包成通讯格式的数据
-            return mSerial->sendData(buf, rtn, 800); //发送 -- 并占用串口800ms
+            return mSerial->sendData(buf, rtn, 250); //发送 -- 并占用串口250ms 以前800ms
         }
     }
     return -1;
@@ -190,8 +223,8 @@ int RtuThread::transData(int addr)
     sBoxData *box = &(mBusData->box[addr]); //共享内存
 
     int rtn = rtu_sent_buff(addr,buf); // 把数据打包成通讯格式的数据
-    //int rtn = rtu_sent_buff(addr,buf)-6; // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf); // 传输数据，发送同时接收
+
     if(rtn > 0) {
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it
         if(ret) {
@@ -225,24 +258,128 @@ int RtuThread::transData(int addr)
     return offLine;
 }
 
+#if (SI_RTUWIFI==1)
+bool RtuThread::SendCmdToWifi(int& steps,int len ,const QString& send,QString& recv)
+{
+    bool flag = false;
+    int i = 0;//发送次数计数
+    int times = 2;//重复发送次数
+    steps ++;
+    QString recvstr = tr("");
+    uchar *buf = mBuf;
+    while(i < times)//重复发两次
+    {
+        mSerial->transmit((uchar*)send.toLatin1().data(),len,buf);
+        recvstr = QString((char*)buf);
+        if( !(recvstr.contains(recv)) ) //接收"a"
+        {if(i == 1)return flag;}
+        else
+            flag = true;
+        if(flag) break;
+        i++;
+    }
+    recv = recvstr;
+    return flag;
+}
+
+void RtuThread::ChangeBusCh(int ch,int index)
+{
+    QString  sendstr("+++");
+    QString  recvstr("a");
+
+    int steps = 0;//计算步骤数目
+
+    //发送+++ 接收a  进入命令模式步骤1
+    if(SendCmdToWifi(steps,sendstr.length() ,sendstr,recvstr)){
+        sendstr = tr("a");
+        recvstr = tr("OK");
+        //发送a 接收OK 进入命令模式步骤2
+        if(SendCmdToWifi(steps,sendstr.length() ,sendstr,recvstr)){
+            sendstr = QString("AT+CH=%1\r\n").arg( ch- 398);
+            recvstr = tr("OK");
+            //发送AT+CH=%1\r\n 接收OK 更改频道命令
+            if(SendCmdToWifi(steps,sendstr.length() ,sendstr,recvstr)){
+                sendstr = QString("AT+CH\r\n");
+                recvstr = tr("OK");
+                //发送AT+CH\r\n 接收OK 查询频道命令
+                if(SendCmdToWifi(steps,sendstr.length() ,sendstr,recvstr)){
+
+                QStringList channel = recvstr.trimmed().simplified().split(":");
+                int chInt = channel.at(1).split(" ").at(0).toInt()+398;
+                qDebug()<<channel.at(1)<<chInt;
+                if(index == mIndex)
+                    getHZ(chInt);
+                }
+                sendstr = QString("AT+Z\r\n");
+                recvstr = tr("OK");
+                //发送AT+Z\r\n 接收OK 退出命令模式
+                if(SendCmdToWifi(steps,sendstr.length() ,sendstr,recvstr)){
+                }
+            }
+        }
+    }
+}
+
+void RtuThread::sendSettingCmdData(int index)
+{
+    QList<sBusCmd> cmds = gBusCmd.values(index);
+    if(!cmds.isEmpty()){
+
+        for(int i = 0 ; i < cmds.size(); ++i){
+            sendData(cmds.at(i).addr , cmds.at(i).reg , cmds.at(i).len , false);
+            gBusCmd.remove(index , cmds.at(i));
+        }
+        //gBusCmd.remove(index);
+    }
+}
+#endif
+
+void RtuThread::BusTransData()
+{
+    for(int i=0; i<=mBusData->boxNum; ++i)
+    {
+        if(transData(i) == 0 ) {
+            transData(i);
+        }
+        #if( SI_RTUWIFI == 0)
+        msleep(750);
+        #endif
+        #if( SI_RTUWIFI == 1)
+        msleep(1500);
+        #endif
+    }
+}
+
 
 void RtuThread::run()
 {
     isRun = true;
     while(isRun)
     {
+#if( SI_RTUWIFI == 0)
         ushort num = gBoxArray[mId];
         if(num) {
             setBoxNum(num);
             gBoxArray[mId] = 0;
         }
-
-        for(int i=0; i<=mBusData->boxNum; ++i)
+        BusTransData();
+#endif
+#if( SI_RTUWIFI == 1)
+        for(int k = 1 ; k <= 4 ; ++k)
         {
-            if(transData(i) == 0 ) {
-                transData(i);
+            sDataPacket *shm = get_share_mem(); // 获取共享内存
+            mBusData = &(shm->data[k-1]);
+            ChangeBusCh(mChList.at(k-1).toInt(),k-1);
+
+            ushort num = gBoxArray[k-1];
+            if(num) {
+                setBoxNum(num);
+                gBoxArray[k-1] = 0;
             }
-            msleep(750);
+            sendSettingCmdData(k-1);
+            BusTransData();
         }
+#endif
+
     }
 }

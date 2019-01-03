@@ -12,7 +12,6 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     mSetNameDlg = new SetNameDlg(this);
     mIndex = 0;
     QTimer::singleShot(100,this,SLOT(initFunSLot()));
-    connect(mSetNameDlg,SIGNAL(updateTablesig(int)),this,SLOT(updateSlot(int)));
 }
 
 void SetNamesWid::initFunSLot()
@@ -145,12 +144,13 @@ void SetNamesWid::setTableItem(int row, int column)
     QTableWidgetItem *item = ui->tableWidget->item(row,column);
     sBoxData *box = &(mPacket->box[row+1]);
 
-    //if(box->offLine > 0 && column <= box->rate) {
-    if(box->offLine > 0 ) {
+    //box->rate 直流的情况下，box->rate代表路数
+    if(box->offLine > 0 /* && column <= box->rate */) {
         if(column <= box->loopNum) {
            str = box->loopName[column-1];
         }
     }
+    if(!str.isEmpty())
     item->setText(str);
 }
 
@@ -219,7 +219,3 @@ void SetNamesWid::on_saveBtn_clicked()
     }
 }
 
-void SetNamesWid::updateSlot()
-{
-    this->updateWid();
-}

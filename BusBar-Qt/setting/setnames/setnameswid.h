@@ -35,7 +35,6 @@ protected:
 private slots:
     void on_saveBtn_clicked();
     void itemDoubleClicked(QTableWidgetItem *item);
-    void updateSlot();
     void initFunSLot();
     void timeoutDone();
 

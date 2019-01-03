@@ -48,6 +48,7 @@ typedef enum {
     PDU_CMD_DEVINFO,
     PDU_CMD_OUTPUTNAME,
     PDU_CMD_THD,
+    PDU_CMD_VERSION,
 }PDU_CMD_ID_DEV_DATA;
 
 

@@ -151,6 +151,13 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 
     for(int i = 0; i < 3; i++){ //连发三次
         ret = sendData(pBuff, nCount);
+        QByteArray array;
+        QString strArray;
+        array.append((char *)pBuff, nCount);
+        strArray = array.toHex(); // 十六进制
+        for(int i=0; i<array.size(); ++i)
+            strArray.insert(2+3*i, " "); // 插入空格
+        qDebug()<< "send:" << strArray;
         msleep(msec);
     }
     if(ret > 0) {
@@ -209,6 +216,13 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
 {
     QMutexLocker locker(&mutex);
     int ret = sendData(sent, len);
+    QByteArray array;
+    QString strArray;
+    array.append((char *)sent, len);
+    strArray = array.toHex(); // 十六进制
+    for(int i=0; i<array.size(); ++i)
+        strArray.insert(2+3*i, " "); // 插入空格
+    //qDebug()<< "send:" << strArray;
     if(ret > 0) {
         ret = recvData(recv, 5);
         //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;

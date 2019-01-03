@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/setthreshold/setrtucmd.h \
     $$PWD/setmainwid.h \
     $$PWD/setloop/settemmain.h \
-    $$PWD/setthreshold/setnetcmd.h
+    $$PWD/setthreshold/setnetcmd.h \
+    $$PWD/setsystem/channelsettingdlg.h
     
     
    
@@ -50,7 +51,8 @@ SOURCES += \
     $$PWD/setthreshold/setrtucmd.cpp \
     $$PWD/setmainwid.cpp \
     $$PWD/setloop/settemmain.cpp \
-    $$PWD/setthreshold/setnetcmd.cpp
+    $$PWD/setthreshold/setnetcmd.cpp \
+    $$PWD/setsystem/channelsettingdlg.cpp
     
     
 
@@ -69,7 +71,8 @@ FORMS += \
     $$PWD/setline/setlinetem.ui \
     $$PWD/setthreshold/setthresholddlg.ui \
     $$PWD/setmainwid.ui \
-    $$PWD/setloop/settemmain.ui
+    $$PWD/setloop/settemmain.ui \
+    $$PWD/setsystem/channelsettingdlg.ui
 
 
 

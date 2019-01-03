@@ -32,7 +32,7 @@
     <string>取消</string>
    </property>
   </widget>
-  <widget class="MySpinBox" name="maxBox">
+  <widget class="QSpinBox" name="maxBox">
    <property name="geometry">
     <rect>
      <x>350</x>
