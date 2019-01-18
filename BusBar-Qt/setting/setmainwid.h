@@ -31,9 +31,10 @@ private slots:
     void on_loopBtn_clicked();
     void on_temBtn_clicked();
     void on_sysBtn_clicked();
-
+#if ( SI_RTUWIFI == 1 )
 signals:
     void busChangedSig(int);
+#endif
 
 private:
     Ui::SetMainWid *ui;

@@ -24,6 +24,7 @@ protected:
 private:
     int mBus;
     sBusData *mPacket ;
+    QTimer* timer;
 };
 
 #endif // SETTEMPWID_H

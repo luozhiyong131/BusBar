@@ -92,6 +92,8 @@ bool IpSettingDlg::ipCheck(int i, QLineEdit *edit)
             return false;
         }
     }
+    else
+        ret = false;
     sys_configFile_writeParam(tr("IP%1").arg(i+1), str);
 
     return ret;

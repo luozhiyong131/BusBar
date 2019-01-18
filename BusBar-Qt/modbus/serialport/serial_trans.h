@@ -30,6 +30,7 @@ public:
     int sendData(uchar *pBuff, int nCount);
     int recvData(uchar *pBuf, int msecs);
     int transmit(uchar *sent, int len, uchar *recv);
+    int transmit_p(uchar *sent, int len, uchar *recv);
 
 protected:
     int readData(uchar *pBuf, int nCount);

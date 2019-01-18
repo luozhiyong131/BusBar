@@ -4,11 +4,16 @@
 
 class NetWork : public QObject
 {
+    Q_OBJECT
 public:
     NetWork(QObject *parent = 0);
+signals:
+    void sendNetBusSig(int index);
 
 private:
     NetDataAnalyze *mNetDataAnalyze;
+
+
 };
 
 #endif // NETWORK_H

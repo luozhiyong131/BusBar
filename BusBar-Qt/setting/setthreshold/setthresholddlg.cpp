@@ -97,6 +97,7 @@ void SetThresholdDlg::on_saveBtn_clicked()
         if(ui->checkBox->isChecked()) {
             if(mItem.box) mItem.box = 0xff;
             else mItem.bus = 0xff;
+            SetThread::bulid()->append(mItem);//统一设置发两遍
         }
         SetThread::bulid()->append(mItem);
     }

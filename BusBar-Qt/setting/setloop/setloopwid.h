@@ -25,6 +25,7 @@ protected:
 private:
     int mDc, mBus;
     sBusData *mPacket ;
+    QTimer* timer;
 };
 
 #endif // SETLOOPWID_H

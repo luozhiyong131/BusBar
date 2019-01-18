@@ -6,6 +6,7 @@
 NetSendThread::NetSendThread(QObject *parent) : QThread(parent)
 {
     AppTcpServer::bulid()->start(); //secv data
+    mIndex = 0;
 }
 
 NetSendThread *NetSendThread::bulid()
@@ -19,7 +20,12 @@ NetSendThread *NetSendThread::bulid()
 void NetSendThread::run()
 {
     while (1) {
-        sent_dev_data(); //send data
+        sent_dev_data(mIndex); //send data
         sleep(1);
     }
+}
+
+void NetSendThread::recvBusSlot(int index)
+{
+    mIndex = index;
 }

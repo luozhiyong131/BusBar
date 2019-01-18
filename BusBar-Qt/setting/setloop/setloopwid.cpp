@@ -6,6 +6,10 @@ SetLoopWid::SetLoopWid(QWidget *parent) : ComTableWid(parent)
     mBus = 0;
     mPacket =  &(get_share_mem()->data[mBus]);
     initWid();
+
+    timer = new QTimer(this);
+    timer->start(2000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 
@@ -30,10 +34,10 @@ void SetLoopWid::initWid()
 
 void SetLoopWid::checkBus(int index)
 {
-    if(mBus != index) {
-        mBus = index;
-        mPacket = &(get_share_mem()->data[mBus]);
-    }
+    //if(mBus != index) {
+    //    mBus = index;
+    mPacket = &(get_share_mem()->data[index]);
+    //}
 
     int dc = mPacket ? mPacket->box[0].dc : 0;
     if(mDc != dc ) {

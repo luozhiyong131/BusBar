@@ -58,13 +58,13 @@ void UdpHeartBeat::heartbeatPacket(void)
 //    static QByteArray msg = UDP_HEARTBEAT_MSG;
 
     if(mSocket) {
+
         for(int i=0; i<mIpList.size(); ++i) {
 //            QString ip = mIpList.at(i);
 //            QHostAddress addr(ip);
 
 
 //            mSocket->sentData(addr, msg, UDP_HB_PORT);
-
               udp_sent_data(mIpList.at(i), UDP_HB_PORT,
                             (uchar *)UDP_HEARTBEAT_MSG,
                             strlen(UDP_HEARTBEAT_MSG));

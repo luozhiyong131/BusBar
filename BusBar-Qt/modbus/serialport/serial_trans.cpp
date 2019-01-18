@@ -3,7 +3,8 @@
   *         Lzy       2016-6-1
   */
 #include "serial_trans.h"
-
+#include "rtu485/rtu_sent.h"
+#include "common.h"
 Serial_Trans::Serial_Trans(QObject *parent) :
     QThread(parent)
 {
@@ -151,13 +152,13 @@ int Serial_Trans::sendData(uchar *pBuff, int nCount, int msec)
 
     for(int i = 0; i < 3; i++){ //连发三次
         ret = sendData(pBuff, nCount);
-        QByteArray array;
-        QString strArray;
-        array.append((char *)pBuff, nCount);
-        strArray = array.toHex(); // 十六进制
-        for(int i=0; i<array.size(); ++i)
-            strArray.insert(2+3*i, " "); // 插入空格
-        qDebug()<< "send:" << strArray;
+//        QByteArray array;
+//        QString strArray;
+//        array.append((char *)pBuff, nCount);
+//        strArray = array.toHex(); // 十六进制
+//        for(int i=0; i<array.size(); ++i)
+//            strArray.insert(2+3*i, " "); // 插入空格
+        //qDebug()<< "send:" << strArray;
         msleep(msec);
     }
     if(ret > 0) {
@@ -193,6 +194,9 @@ int Serial_Trans::recvData(uchar *pBuf, int msecs)
         do
         {
             int rtn = read(fd, pBuf, 256);
+            #if (SI_RTUWIFI==1)
+            msleep(90);
+            #endif
             if(rtn > 0) {
                 pBuf += rtn; // 指针移动
                 ret += rtn; // 长度增加
@@ -216,13 +220,6 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
 {
     QMutexLocker locker(&mutex);
     int ret = sendData(sent, len);
-    QByteArray array;
-    QString strArray;
-    array.append((char *)sent, len);
-    strArray = array.toHex(); // 十六进制
-    for(int i=0; i<array.size(); ++i)
-        strArray.insert(2+3*i, " "); // 插入空格
-    //qDebug()<< "send:" << strArray;
     if(ret > 0) {
         ret = recvData(recv, 5);
         //         if(ret <=0 ) qDebug() << "Serial Trans Err!!!" << ret;
@@ -230,6 +227,40 @@ int Serial_Trans::transmit(uchar *sent, int len, uchar *recv)
     return ret;
 }
 
+/**
+  * 功　能：传输数据
+  * 入口参数：sent -> 发送缓冲区, len ->  发送长度
+  * 出口参数：recv -> 接收缓冲区
+  * 返回值：读取的实际长度  <=0 出错
+  */
+int Serial_Trans::transmit_p(uchar *sent, int len, uchar *recv)
+{
+    QMutexLocker locker(&mutex);
+    int ret = sendData(sent, len);
+
+//    QByteArray array;
+//    QString strArray;
+//    array.append((char *)sent, len);
+//    strArray = array.toHex(); // 十六进制
+//    for(int i=0; i<array.size(); ++i)
+//        strArray.insert(2+3*i, " "); // 插入空格
+//    qDebug()<< "send:" << strArray<<ret;RTU_SENT_DC_LEN
+    while(ret < RTU_SENT_LEN) {
+        ret = recvData(recv, 5);
+        if(ret == 5||ret == 0)
+        {
+           break;
+        }
+    }
+//    array.clear();
+//    strArray="";
+//    array.append((char *)recv, ret);
+//    strArray = array.toHex(); // 十六进制
+//    for(int i=0; i<array.size(); ++i)
+//        strArray.insert(2+3*i, " "); // 插入空格
+//    qDebug()<< "recv:" << strArray<<ret;
+    return ret;
+}
 
 void Serial_Trans::readDataSlot()
 {

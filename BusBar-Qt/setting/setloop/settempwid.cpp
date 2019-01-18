@@ -7,6 +7,10 @@ SetTempWid::SetTempWid(QWidget *parent) : ComTableWid(parent)
     initWid();
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
+
+    timer = new QTimer(this);
+    timer->start(2000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 
@@ -25,10 +29,10 @@ void SetTempWid::initWid()
 
 void SetTempWid::checkBus(int index)
 {
-    if(mBus != index) {
-        mBus = index;
-        mPacket = &(get_share_mem()->data[mBus]);
-    }
+    //if(mBus != index) {
+    //    mBus = index;
+    mPacket = &(get_share_mem()->data[index]);
+    //}
 }
 
 
@@ -78,7 +82,7 @@ void SetTempWid::timeoutDone()
 
 void SetTempWid::itemClicked(QTableWidgetItem *it)
 {
-    if(it->text().compare("---") == 0) return;  //为空不设置
+    //if(it->text().compare("---") == 0) return;  //为空不设置
     int column = it->column();
     if(column > 0)
     {

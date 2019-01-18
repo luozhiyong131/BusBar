@@ -5,7 +5,7 @@
 #include "common.h"
 
 #define NET_DATA_VERSION		2 /*IP设备通讯类型*/
-#define OFF_LINE_TIME   10
+#define OFF_LINE_TIME   35
 
 typedef enum {
     PDU_CMD_1=1,

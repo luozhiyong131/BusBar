@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "common.h"
 #include "modbus/rtuthread.h"
+#define CH1 "435"
 namespace Ui {
 class ChannelSettingDlg;
 }

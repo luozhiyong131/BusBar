@@ -10,6 +10,6 @@
 
 #include "devDataType.h"
 
-void sent_dev_data(void);
+void sent_dev_data(int index);
 
 #endif /* DEVDATA_DEVDATASENT_H_ */

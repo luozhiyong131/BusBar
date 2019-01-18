@@ -52,30 +52,32 @@ void ChannelSettingDlg::initData()
             gBusHZMap.insert(0,str);
             ui->CH1lineEdit->setText(str);
         }
+        else
+        {//写入默认值
+            chs << CH1;
+            gBusHZMap.insert(0,str);
+            ui->CH1lineEdit->setText(str);
+        }
 
         str = sys_configFile_readStr("CH2");
-        if(!str.isEmpty()){
-            chs << str;
-            gBusHZMap.insert(1,str);
-            ui->CH2lineEdit->setText(str);
-        }
+        chs << str;
+        gBusHZMap.insert(1,str);
+        ui->CH2lineEdit->setText(str);
 
         str = sys_configFile_readStr("CH3");
-        if(!str.isEmpty()){
-            chs << str;
-            gBusHZMap.insert(2,str);
-            ui->CH3lineEdit->setText(str);
-        }
+        chs << str;
+        gBusHZMap.insert(2,str);
+        ui->CH3lineEdit->setText(str);
 
         str = sys_configFile_readStr("CH4");
-        if(!str.isEmpty()){
-            chs << str;
-            gBusHZMap.insert(3,str);
-            ui->CH4lineEdit->setText(str);
-        }
+        chs << str;
+        gBusHZMap.insert(3,str);
+        ui->CH4lineEdit->setText(str);
 
         sys_configFile_close();
+        #if ( SI_RTUWIFI == 1)
         if(chs.size()) set_ch(chs , 0);
+        #endif
     }
 }
 
@@ -110,6 +112,7 @@ bool ChannelSettingDlg::chCheck(int i, QLineEdit *edit)
             return false;
         }
     }
+
     sys_configFile_writeParam(tr("CH%1").arg(i+1), str);
 
     return ret;
@@ -129,7 +132,9 @@ void ChannelSettingDlg::on_saveBtn_clicked()
          chs << edit[i]->text();
          if(ret) recordindex = i;
     }
+    #if ( SI_RTUWIFI == 1)
     set_ch(chs , recordindex);
+    #endif
 
     ui->CHlab->setText(tr("CH%1").arg(mIndex+1));
     ui->HZlab->setText(tr("%1HZ").arg(gHZ));

@@ -16,6 +16,9 @@ protected:
 signals:
 
 public slots:
+    void recvBusSlot(int index);
+private:
+    int mIndex;
 };
 
 #endif // NETSENDTHREAD_H

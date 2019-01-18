@@ -130,6 +130,7 @@ void MainWindow::initFunSLot()
     connect(mCheckDlg,SIGNAL(dialogClosed(bool)),this,SLOT(dialogClosed(bool)));
 
     mNetWork = new NetWork(this);
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)),mNetWork,SIGNAL(sendNetBusSig(int)));
 }
 
 void MainWindow::initWidget()

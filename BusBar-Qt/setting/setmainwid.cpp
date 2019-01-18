@@ -31,7 +31,7 @@ void SetMainWid::initWidget()
 
     mSystemDlg = new SystemSettingDlg(ui->stackedWidget); //系统
     ui->stackedWidget->addWidget(mSystemDlg);
-    #if (SI_RTUWIFI == 1 )
+    #if ( SI_RTUWIFI == 1 )
     connect(this, SIGNAL(busChangedSig(int)), mSystemDlg, SIGNAL(busChangedSig(int)));
     #endif
 

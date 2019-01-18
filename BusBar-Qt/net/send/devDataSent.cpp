@@ -450,14 +450,15 @@ void sent_busBoxNum(int id, sBusData *bus)
 /**
  * 发送测试数据， 测试用
  */
-void sent_dev_data(void)
+void sent_dev_data(int index)
 {
-    uchar id = currentBus - '0';
+    //uchar id = currentBus - '0';
+    int id = index;
     sDataPacket *shm = get_share_mem(); // 获取共享内存
     static pduDevData *devData = nullptr;
     if(!devData) devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
 
-    int len = shm->data[id].boxNum + 1;  //始端箱也算
+    int len = shm->data[index].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
         memset(devData, 0, sizeof(pduDevData));
