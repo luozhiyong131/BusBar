@@ -19,7 +19,6 @@ void SetThresholdDlg::initSpinBox(sThresholdItem &item)
 {
     ui->minBox->setValue(item.min);
     ui->maxBox->setValue(item.max);
-
     int range = 63;
     QString str = "A";
     switch (item.type) {

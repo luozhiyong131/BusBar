@@ -75,7 +75,7 @@ bool SetNetCmd::send(sThresholdItem &item)
     if(item.type==2) rate = 10;
 
     int line = item.num;
-    if(item.box == 0xff) line = 0xff;
+    if(item.box == 0xff||item.bus ==0xff) line = 0xff;
     pkt.fn[1] = line; // 相
 
     pkt.len = 4;

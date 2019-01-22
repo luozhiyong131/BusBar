@@ -85,7 +85,7 @@
     <string>保存</string>
    </property>
   </widget>
-  <widget class="MySpinBox" name="minBox">
+  <widget class="QSpinBox" name="minBox">
    <property name="geometry">
     <rect>
      <x>121</x>
@@ -172,11 +172,6 @@
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">setthreshold/myspinbox.h</header>
-  </customwidget>
   <customwidget>
    <class>MyLabel</class>
    <extends>QLabel</extends>

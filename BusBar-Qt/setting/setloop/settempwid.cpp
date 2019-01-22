@@ -50,7 +50,6 @@ int SetTempWid::updateDev(sBoxData *dev, int row)
             list <<  QString::number(value) + "℃";
             setItemColor(row, i+1, unit->alarm[i]);
         }
-
         setTableRow(row, list);
     }
 

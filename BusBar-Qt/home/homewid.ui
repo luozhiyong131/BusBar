@@ -347,7 +347,7 @@
     <number>1</number>
    </property>
    <property name="text">
-    <string>直</string>
+    <string>交</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
