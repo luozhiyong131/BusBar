@@ -13,13 +13,6 @@
 extern char currentBus;
 static uchar gSentBuf[DATA_MSG_SIZE]={0};
 
-#define LEN_DATA 5
-static ushort valueBuf[LEN_DATA][LINE_NUM] = {100};
-static ushort maxBuf[LEN_DATA][LINE_NUM] = {2*200};
-static ushort minBuf[LEN_DATA][LINE_NUM] = {2*200};
-static uchar  alarmBuf[LEN_DATA][LINE_NUM] = {1};
-static ushort crMinBuf[LEN_DATA][LINE_NUM] = {300};
-static ushort crMaxBuf[LEN_DATA][LINE_NUM] = {600};
 
 static int data_msg_packetSent(uchar *buf, ushort len)
 {
@@ -227,11 +220,10 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
     msg->len = len;
     sent_packet(msg);
 
-    /*排C量*/
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->carbon,len,buf);
+    msg->len = shortToChar(obj->apPow,len,buf);
     sent_packet(msg);
 
     /*电压频率*/
@@ -241,16 +233,23 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
     msg->len = shortToChar(obj->rate,len,buf); // 功率
     sent_packet(msg);
 
+    /**/
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->apPow,len,buf);
+    msg->len = shortToChar(obj->pl,len,buf);
     sent_packet(msg);
 
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
-    msg->len = shortToChar(obj->wave,len,buf);
+    msg->len = shortToChar(obj->curThd,len,buf);
+    sent_packet(msg);
+
+    fn += 1;
+    msg->fn[1] = fn << 4;
+    msg->data = buf;
+    msg->len = shortToChar(obj->volThd,len,buf);
     sent_packet(msg);
 }
 
@@ -317,126 +316,58 @@ void sent_devData(uchar id, int box, pduDevData *devData)
     sent_envObject(&(devData->env), buf,&msg);
 }
 
-/**
- * 初始化数据  测试用，
- */
-void init_unit(_devDataUnit *unit)
-{
-    unit->value = valueBuf[0];
-    unit->max = maxBuf[0];
-    unit->min = minBuf[0];
-    unit->alarm = alarmBuf[0];
 
-    unit->crMin = crMinBuf[0];
-    unit->crMax = crMaxBuf[0];
-}
 
-/**
- * 数据初始化  测试用
- */
-void init_data(_devDataObj *ptr)
-{
-    static ushort buf[LINE_NUM] = {200};
-    static uint buf2[LINE_NUM] = {2*1000};
-    static uchar swbuf[LINE_NUM] = {1};
-
-    ptr->len = LINE_NUM;
-    init_unit(&(ptr->cur));
-    init_unit(&(ptr->vol));
-
-    ptr->sw = swbuf;
-    ptr->pow = buf2;
-    ptr->ele = buf2;
-    ptr->pf = buf;
-}
 
 /**
  * 初始化数据  Unit，
  */
-void init_Unit(_devDataUnit *unit, sDataUnit *cUnit, int n)
+void init_Unit(_devDataUnit *unit, sDataUnit *cUnit)
 {
-    for(int i = 0; i < LINE_NUM; i++){
-        valueBuf[n][i]  = (ushort)cUnit->value[i]; //;
-        maxBuf[n][i]    = (ushort)cUnit->max[i];
-        minBuf[n][i]    = (ushort)cUnit->min[i];
-        alarmBuf[n][i]  = (uchar)cUnit->alarm[i];
-        crMinBuf[n][i]  = (ushort)cUnit->crMin[i];
-        crMaxBuf[n][i]  = (ushort)cUnit->crMax[i];
-    }
+    unit->value = cUnit->value;
+    unit->max = cUnit->max;
+    unit->min = cUnit->min;
+    unit->alarm = cUnit->alarm;
 
-    unit->value = valueBuf[n];
-    unit->max = maxBuf[n];
-    unit->min = minBuf[n];
-    unit->alarm = alarmBuf[n];
-
-    unit->crMin = crMinBuf[n];
-    unit->crMax = crMaxBuf[n];
+    unit->crMin = cUnit->crMin;
+    unit->crMax = cUnit->crMax;
+    unit->crAlarm = cUnit->crAlarm;
 }
 
 /**
  * 数据初始化  -- 相
  */
-void init_dataLine(_devDataObj *ptr, sObjData *obj)
-{    
-    static uchar swBuf[LINE_NUM] = {1};
-    static uint powBuf[LINE_NUM] = {2*1000};
-    static uint eleBuf[LINE_NUM] = {2*1000};
-    static ushort pfBuf[LINE_NUM] = {200};
-    static ushort apPowBuf[LINE_NUM] = {2*1000};
-    static ushort waveBuf[LINE_NUM] = {2*1000};
-
-    for(int i = 0; i < LINE_NUM; i++){
-        swBuf[i]    = (uchar)obj->sw[i];
-        powBuf[i]   = (uint)obj->pow[i];
-        eleBuf[i]   = (uint)obj->ele[i];
-        pfBuf[i]    = (ushort)obj->pf[i];
-        apPowBuf[i] = (ushort)obj->apPow[i];
-        waveBuf[i]  = (ushort)obj->wave[i];
-    }
+void init_dataLoop(_devDataObj *ptr, sObjData *obj)
+{
 
     ptr->len = obj->lineNum;
-    ptr->len = LINE_NUM;
+    init_Unit(&(ptr->vol), &(obj->vol));
+    init_Unit(&(ptr->cur), &(obj->cur));
 
-    init_Unit(&(ptr->vol), &(obj->vol), 0);
-    init_Unit(&(ptr->cur), &(obj->cur), 1);
-
-    ptr->sw    = swBuf;   //开关状态
-    ptr->pow   = powBuf;  // 功率
-    ptr->ele   = eleBuf;  // 电能
-    ptr->pf    = pfBuf;   //功率因素
-    ptr->apPow = apPowBuf; //视在功率
-    ptr->wave  = waveBuf;  // 谐波值
+    ptr->sw    = obj->sw;   //开关状态
+    ptr->pow   = obj->pow;  // 功率
+    ptr->ele   = obj->ele;  // 电能
+    ptr->pf    = obj->pf;   //功率因素
+    ptr->apPow = obj->apPow; //视在功率
+    //    ptr->pl  = obj->pl;  // 谐波值
+    //    ptr->curThd  = obj->curThd;
+    //    ptr->volThd  = obj->volThd;
 }
 
-void init_dataLoop(_devDataObj *ptr, sLineTgObjData *obj)
+void init_dataLine(_devDataObj *ptr, sLineTgObjData *obj, sObjData *p)
 {
-    static ushort volArray[3], curArray[3];
-    static uint powBuf[3], eleBuf[3];
-    static ushort pfBuf[3], apPowBuf[3];
-    int len = 0;
-
-    for(int i = 0; i < 3; i++){
-        volArray[i] = (ushort)obj->vol[i];
-        if(volArray[i] > 0) len++;
-        curArray[i] = (ushort)obj->cur[i];
-
-        powBuf[i]   = (uint)obj->pow[i];
-        eleBuf[i]   = (uint)obj->ele[i];
-        pfBuf[i]    = (ushort)obj->pf[i];
-        apPowBuf[i] = (ushort)obj->apPow[i];
-    }
-
-//    ptr->len = len;
     ptr->len = 3;
-    ptr->vol.value = volArray;
-    ptr->cur.value = curArray;
-    ptr->pow   = powBuf;  // 功率
-    ptr->ele   = eleBuf;  // 电能
-    ptr->pf    = pfBuf;   //功率因素
-    ptr->apPow = apPowBuf; //视在功率
+    ptr->vol.value = obj->vol;
+    ptr->cur.value = obj->cur;
+    ptr->pow   = obj->pow;  // 功率
+    ptr->ele   = obj->ele;  // 电能
+    ptr->pf    = obj->pf;   //功率因素
+    ptr->apPow = obj->apPow; //视在功率
+
+    ptr->pl  = p->pl;  // 谐波值
+    ptr->curThd  = p->curThd;
+    ptr->volThd  = p->volThd;
 }
-
-
 
 
 void sent_str(int id, int fn1, int fn2, short len, char *str)
@@ -451,24 +382,28 @@ void sent_str(int id, int fn1, int fn2, short len, char *str)
     data_packet_sent(&msg);
 }
 
-
-
-void sent_busName(int id, sBusData *bus)
+void sent_busName(sBusData *bus)
 {
-    static uchar nameBuf[NAME_LEN] = {0};
-    for(int i = 0; i < NAME_LEN; i++)
-        nameBuf[i] = (uchar)bus->busName[i];
-
     dev_data_packet msg;
     msg.num = 0;
     msg.addr = 0;
 
-    msg.len = NAME_LEN;  //=======
-    msg.data = nameBuf;
+    char *nameBuf = bus->busName;
+    msg.len = strlen(nameBuf);
+    msg.data = (uchar *)nameBuf;
 
     msg.fn[0] = 5;
     msg.fn[1] = 0x11;
     data_packet_sent(&msg);
+}
+
+void sent_loopName(int id,sBoxData *box)
+{
+    for(int i=0; i<box->loopNum; ++i) {
+        char *nameBuf = box->loopName[i];
+        int len = strlen(nameBuf);
+        sent_str(id, 10, i, len,  nameBuf);
+    }
 }
 
 void sent_busRateCur(int id, sBusData *bus)
@@ -510,37 +445,71 @@ void sent_busBoxNum(int id, sBusData *bus)
     data_packet_sent(&msg);
 }
 
+void sent_thdData(int id, sBusData *bus)
+{
+    int len = 32;
+    uchar buf[70] = {0};
+    ushort *ptr = nullptr;
+    dev_data_packet msg;
+
+    msg.num = id;
+    msg.addr = 0;
+    msg.fn[0] = 3;
+    msg.data = buf;
+
+    for(int i=0; i<3; i++) {
+        msg.fn[1] = 0x00 + i;
+        ptr = bus->thdData.curThd[i];
+        msg->len = shortToChar(ptr,len,buf);
+        data_packet_sent(&msg);
+    }
+
+    for(int i=0; i<3; i++) {
+        msg.fn[1] = 0x10 + i;
+        ptr = bus->thdData.volThd[i];
+        msg->len = shortToChar(ptr,len,buf);
+        data_packet_sent(&msg);
+    }
+}
+
 /**
  * 发送测试数据， 测试用
  */
-void sent_dev_data(void)
+void sent_dev_data(int index)
 {
-    uchar id = currentBus - '0';
+    //uchar id = currentBus - '0';
+    int id = index;
     sDataPacket *shm = get_share_mem(); // 获取共享内存
-    int len = shm->data[id].boxNum + 1;  //始端箱也算
+    static pduDevData *devData = nullptr;
+    if(!devData) devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
+
+    int len = shm->data[index].boxNum + 1;  //始端箱也算
     for(int  i=0; i< len; ++i) {
 
-        if(shm->data[id].box[i].offLine < 1) continue; //不在线就跳过
-
-        pduDevData *devData = (pduDevData*)malloc(sizeof(pduDevData)); //申请内存
         memset(devData, 0, sizeof(pduDevData));
-
         sBoxData *box =  &(shm->data[id].box[i]);
-        init_dataLine(&(devData->line), &(box->data));  //输出位
-        init_dataLoop(&(devData->loop), &(box->lineTgBox));
+
+        if(box->offLine < 1) continue; //不在线就跳过
+        else if(box->boxSpec) box->offLine--;
+
+        init_dataLoop(&(devData->loop), &(box->data));
+        init_dataLine(&(devData->line), &(box->lineTgBox), &(box->data));
 
         devData->env.len = SENSOR_NUM;
-        init_Unit(&(devData->env.tem), &(box->env.tem), 2); //温度
-        // init_unit(&(devData->env.hum));
+        init_Unit(&(devData->env.tem), &(box->env.tem)); //温度
 
         sent_devData(id, i,devData);
         sent_devStatus(id, i, box);
+        sent_loopName(id, box);
+
         //sent_str(i, 6, 0x11, strlen(str), str);
-        free(devData); //释放
+        //free(devData); //释放
     }
-    sent_busName(id, &shm->data[id]);
+
+    sent_busName(&shm->data[id]);
     sent_busRateCur(id, &shm->data[id]);
     sent_busBoxNum(id, &shm->data[id]);
+    sent_thdData(id, &shm->data[id]);
 }
 
 
