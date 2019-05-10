@@ -26,7 +26,7 @@ void DevSetThread::insert(const dev_data_packet &pkt)
     else item.box = 0xff;
 
     int i=0, rate=1;
-    if((item.type==1) || (item.type==3)) rate = 10;
+//    if((item.type==1) || (item.type==3)) rate = 10;
     item.min = (pkt.data[i++]*256 + pkt.data[i++]) / rate;
     item.max = (pkt.data[i++]*256 + pkt.data[i++]) / rate;
 

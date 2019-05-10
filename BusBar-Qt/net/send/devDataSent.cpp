@@ -500,6 +500,7 @@ void sent_dev_data(int index)
         //sent_str(i, 6, 0x11, strlen(str), str);
         //free(devData); //释放
     }
+
     sent_busName(&shm->data[id]);
     sent_busRateCur(id, &shm->data[id]);
     sent_busBoxNum(id, &shm->data[id]);
