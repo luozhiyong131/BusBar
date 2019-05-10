@@ -33,7 +33,7 @@ extern void com_setBackColour(const QString &,QWidget *target);
 #define COM_RATE_TEM	1.0    // 温度
 #define COM_RATE_HUM	1.0    // 湿度
 
-#define SI_RTUWIFI	0    // SI RTU WIFI 区分 1代表开启SI RTU WIFI功能  0代表SI RTU 有线功能
+#define SI_RTUWIFI	1    // SI RTU WIFI 区分 1代表开启SI RTU WIFI功能  0代表SI RTU IP-BUSBAR有线功能
 
 
 QString cm_pathOfData(const QString& name);
