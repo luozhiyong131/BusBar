@@ -30,6 +30,7 @@ void SetThresholdDlg::initSpinBox(sThresholdItem &item)
     ui->minBox->setSuffix(str);
     ui->maxBox->setSuffix(str);
 
+    if(!mFlag) range = 250;
     ui->minBox->setMaximum(range);
     ui->maxBox->setMaximum(range);
 }
@@ -52,19 +53,42 @@ void SetThresholdDlg::setTitle(sThresholdItem &item)
     ui->titleLab->setText(title);
 }
 
-void SetThresholdDlg::set(sThresholdItem &item)
+void SetThresholdDlg::set(sThresholdItem &item,bool flag)
 {
     int rate = 1;
-    sBusData *busData = &(share_mem_get()->data[item.bus]);
-    sObjData *obj = &(busData->box[item.box].data);
+    mFlag = flag;
+    if(mFlag)
+    {
+        sBusData *busData = &(share_mem_get()->data[item.bus]);
+        sObjData *obj = &(busData->box[item.box].data);
 
-    sDataUnit  *unit = &(busData->box[item.box].env.tem);
-    switch (item.type) {
-    case 1: unit = &(obj->vol); break;
-    case 2: unit = &(obj->cur); rate = 10; break;
+        sDataUnit  *unit = &(busData->box[item.box].env.tem);
+        switch (item.type) {
+        case 1: unit = &(obj->vol); break;
+        case 2: unit = &(obj->cur); rate = 10; break;
+        }
+        item.min = unit->min[item.num] / rate;
+        item.max = unit->max[item.num] / rate;
     }
-    item.min = unit->min[item.num] / rate;
-    item.max = unit->max[item.num] / rate;
+    else
+    {
+        ui->checkBox->hide();
+        bool ret = sys_configFile_open();
+        if(ret)
+        {
+            QString str = sys_configFile_readStr("NLineMin");
+            if(str.isEmpty())
+                item.min = 0;
+            else
+                item.min = str.toInt();
+            str = sys_configFile_readStr("NLineMax");
+            if(str.isEmpty())
+                item.max = 250;
+            else
+                item.max = str.toInt();
+        }
+        sys_configFile_close();
+    }
 
     mItem = item;
     setTitle(item);
@@ -93,12 +117,20 @@ void SetThresholdDlg::on_saveBtn_clicked()
 {
     bool ret = checkData();
     if(ret) {
-        if(ui->checkBox->isChecked()) {
+        if(mFlag)
+        {
+            if(ui->checkBox->isChecked()) {
             if(mItem.box) mItem.box = 0xff;
             else mItem.bus = 0xff;
             SetThread::bulid()->append(mItem);//统一设置发两遍
+            }
+            SetThread::bulid()->append(mItem);
         }
-        SetThread::bulid()->append(mItem);
+        else
+        {
+            sys_configFile_writeParam("NLineMin",QString::number(mItem.min));
+            sys_configFile_writeParam("NLineMax",QString::number(mItem.max));
+        }
     }
 }
 

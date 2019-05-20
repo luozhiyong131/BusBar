@@ -149,6 +149,15 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
     msg->lps = *(ptr++); // 防雷开关
      // 读取负载百分比
     for(int i=0; i<3; ++i) msg->pl[i] = *(ptr++);
+
+    {//定制零线电流解析
+        if(msg->addr==0)
+        {
+           (&(msg->data[N_Line-1]))->cur = (*ptr) * 256 + *(ptr+1);
+        }
+        ptr+=6;//始端箱需要两个字节零线电流/插接箱保留
+    }
+
     msg->hc = *(ptr++);    
 
     int len = 32;
@@ -157,8 +166,9 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
         msg->thd[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     }
 
-    return (1+3+1+len*2);
+    return (1+3+1+6+len*2);
 }
+
 
 
 
@@ -184,12 +194,32 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 
         pkt->lineNum = *(ptr++); //[输出位]
         pkt->version = *(ptr++); // 版本
-        ptr += 2;
+        //ptr += 2;
+        ptr++;// 暂不解析 00:485  01：LORA WIFI
+
+        bool state[RTU_LINE_NUM] = {false};
+        {//定制IOF触点解析
+            if(pkt->addr == 0)
+            {
+                state[0] = ((*(ptr++))&0x01)==1?true:false;
+            }
+            else
+            {
+                for(int i = 0 ; i < 3 ; i++)
+                    state[i] = ((*ptr)>>(3-1-i)&0x01)==1?true:false;
+                ptr++;
+            }
+        }
 
         int lineSum = pkt->lineNum; //交流
         if(!pkt->dc) lineSum = 4; //[暂时未加宏]
         for(int i=0; i<lineSum; ++i) // 读取电参数
-            ptr += rtu_recv_data(ptr, &(pkt->data[i]));
+        {
+            RtuRecvLine *msg = &(pkt->data[i]);
+            ptr += rtu_recv_data(ptr, msg);
+            if(pkt->dc)//定制IOF触点状态重新赋值
+            msg->sw = state[i]?1:0;
+        }
 
         if(pkt->dc) { // 交流
             ptr += rtu_recv_thd(ptr, pkt);

@@ -24,6 +24,7 @@
 #define NAME_LEN	32 // 名称最大长度
 #define SENSOR_NUM 3 // 二个传感器
 
+#define N_Line  4
 #define SRC_DATA_LEN_MAX 255 //一包数据最长 —— 用于对接动环
 
 /**
@@ -94,7 +95,6 @@ typedef struct _sEnvData {
     sDataUnit tem; // 温度
     sDataUnit hum; // 湿度
 }sEnvData;
-
 
 /**
  * 插接箱数据结构体：包括最多三个插接位，插接箱名称

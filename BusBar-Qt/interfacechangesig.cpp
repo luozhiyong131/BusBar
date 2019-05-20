@@ -3,12 +3,18 @@
 
 InterfaceChangeSig::InterfaceChangeSig(QObject *parent) : QObject(parent)
 {
-
 }
 
-InterfaceChangeSig *InterfaceChangeSig::get()
+InterfaceChangeSig::~InterfaceChangeSig()
 {
-    static InterfaceChangeSig *sington = new InterfaceChangeSig();
+}
+
+InterfaceChangeSig *InterfaceChangeSig::get(QObject *parent)
+{
+    static InterfaceChangeSig *sington = NULL;
+    if(!sington) {
+        sington = new InterfaceChangeSig(parent);
+    }
     return sington;
 }
 

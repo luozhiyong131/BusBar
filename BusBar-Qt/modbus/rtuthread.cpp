@@ -249,7 +249,7 @@ int RtuThread::transData(int addr)
 //    strArray = array.toHex(); // 十六进制
 //    for(int i=0; i<array.size(); ++i)
 //        strArray.insert(2+3*i, " "); // 插入空格
-    //qDebug()<< "recv:" << strArray;
+//    qDebug()<< "recv:" <<rtn<< strArray;
 
     if(rtn > 0) {
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it
@@ -261,6 +261,8 @@ int RtuThread::transData(int addr)
                 box->rate = pkt->rate;
                 box->dc = pkt->dc;
                 box->version = pkt->version;
+                if(addr == 0 && pkt->dc)
+                    box->data.cur.value[N_Line-1] = pkt->data[N_Line-1].cur;
 
                 thdData(pkt);
             }

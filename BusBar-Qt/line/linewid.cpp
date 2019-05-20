@@ -13,8 +13,8 @@ LineWid::LineWid(QWidget *parent) :
     initFun();
     initWid();
 
-    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(indexChanged(int)));
     connect(InterfaceChangeSig::get(), SIGNAL(typeSig(int)), this,SLOT(interfaceChangedSlot(int)));
+    connect(this, SIGNAL(busChangedSig(int)), this, SLOT(indexChanged(int)));
 }
 
 LineWid::~LineWid()
@@ -31,6 +31,7 @@ void LineWid::initFun()
     timer = new QTimer(this);
     timer->start(3*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    //isRun = true;
 }
 
 void LineWid::initWid()
@@ -64,22 +65,106 @@ void LineWid::interfaceChangedSlot(int id)
     }
 }
 
+double LineWid::calcThreePhaseUnbalance()
+{
+    double sum = 0;
+    double maxb = 0.0;
+    if(mData->box[0].data.lineNum == 3&& mData->box[0].dc)
+     {
+        double b[3]={0};
+        for(int i = 0 ; i < 3 ; i++)
+         sum += mData->box[0].data.cur.value[i]/COM_RATE_CUR;
+
+        double avg = sum / 3.0;
+        for(int i = 0 ; i < 3 ; i++)
+        b[i] = (mData->box[0].data.cur.value[i]/COM_RATE_CUR - avg)/avg;
+
+        if(b[0]<0) b[0] = 0-b[0];
+        if(b[1]<0) b[1] = 0-b[1];
+        if(b[2]<0) b[2] = 0-b[2];
+        maxb = b[0]>b[1]?
+                    (b[0]>b[2]?b[0]:b[2]):
+                    (b[1]>b[2]?b[1]:b[2]);
+    }
+    return maxb*1000;
+}
+
 void LineWid::timeoutDone()
 {
     if(isRun) {
         QString str;
         if(mData->box[0].dc){ //交流
-            str= QString::number(mData->box[0].rate) + "Hz";
+            str = QString::number(mData->box[0].rate) + "Hz";
             ui->rateLab->setText(str); //频率
-            ui->label->setText("频率：");
+            ui->label->setText(tr("频率："));
+
+            str = mData->box[0].data.sw[0]==0?tr("断开"):tr("闭合");
+            QPalette pe;
+            if(mData->box[0].data.sw[0]==0)
+            {
+                pe.setColor(QPalette::WindowText,Qt::red);
+                ui->OFLab->setPalette(pe);
+                ui->label_10->setPalette(pe);
+            }
+            else
+            {
+                pe.setColor(QPalette::WindowText,Qt::black);
+                ui->OFLab->setPalette(pe);
+                ui->label_10->setPalette(pe);
+            }
+            ui->OFLab->setText(str);//OF触点
+
+            str = QString::number(mData->box[0].data.cur.value[N_Line-1]/COM_RATE_CUR,'f',1) + "A";
+            bool flag = sys_configFile_open();
+            if(flag)
+            {
+                int max = sys_configFile_readInt("NLineMax");
+                int min = sys_configFile_readInt("NLineMin");
+
+                int value = QString::number(mData->box[0].data.cur.value[N_Line-1]/COM_RATE_CUR,'f',1).toInt()*10;
+                QPalette pe;
+                if(value > max*10 || value < min*10 )
+                {
+                    pe.setColor(QPalette::WindowText,Qt::red);
+                    ui->NcurLab->setPalette(pe);
+                    ui->label_11->setPalette(pe);
+                }
+                else
+                {
+                    pe.setColor(QPalette::WindowText,Qt::black);
+                    ui->NcurLab->setPalette(pe);
+                    ui->label_11->setPalette(pe);
+                }
+            }
+            sys_configFile_close();
+            ui->NcurLab->setText(str);//零线电流
+
+            str = (mData->box[0].lps == 0?tr("正常"):tr("损坏"));
+            if(mData->box[0].lps!=0)
+            {
+                pe.setColor(QPalette::WindowText,Qt::red);
+                ui->LpsLab->setPalette(pe);
+                ui->label_12->setPalette(pe);
+            }
+            else
+            {
+                pe.setColor(QPalette::WindowText,Qt::black);
+                ui->LpsLab->setPalette(pe);
+                ui->label_12->setPalette(pe);
+            }
+            ui->LpsLab->setText(str);//防雷
+
+            str = QString::number(calcThreePhaseUnbalance()/COM_RATE_CUR,'f',1)+ "%";
+            ui->BalanceLab->setText(str);//三相不平衡度
+
 
             ui->thdBtn->setHidden(false);
             ui->widget->setHidden(false);
             mLineTable->updateData(mData->box[0]);
         }else{
-            str= QString::number(mData->box[0].rate) + "路";
+            str= QString::number(mData->box[0].rate) + tr("路");
             ui->rateLab->setText(str); //频率
-            ui->label->setText("输入：");
+            ui->label->setText(tr("输入："));
 
             ui->thdBtn->setHidden(false);
             ui->widget->setHidden(true);

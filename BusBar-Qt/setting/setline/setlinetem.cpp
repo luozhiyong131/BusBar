@@ -49,7 +49,7 @@ void SetLineTem::setTem(int id)
     item.type = 3;
 
     SetThresholdDlg dlg(this);
-    dlg.set(item);
+    dlg.set(item,true);
     dlg.exec();
 }
 

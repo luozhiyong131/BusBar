@@ -8,7 +8,8 @@ class InterfaceChangeSig : public QObject
     Q_OBJECT
     explicit InterfaceChangeSig(QObject *parent = nullptr);
 public:
-    static InterfaceChangeSig* get();
+    ~InterfaceChangeSig();
+    static InterfaceChangeSig* get(QObject *parent = nullptr);
 
     void changeType(int);
 

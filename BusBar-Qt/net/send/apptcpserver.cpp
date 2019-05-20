@@ -62,7 +62,7 @@ static int tcp_creatSocket(int port, int lisnum)
                    backlog：等待连接队列的最大长度。
              * listen()仅适用于支持连接的套接口，如SOCK_STREAM类型的。
              */
-            ret = listen(sockfd,lisnum);                                                  //  _______ [3]
+            ret = listen(sockfd,lisnum);
             if(ret >= 0) //在端口sockfd监听
             {
                 qDebug("TCP accepting connections \n");

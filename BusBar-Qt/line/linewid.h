@@ -54,6 +54,7 @@ private:
     CustomDialPlot *mPfPlot;
     int mIndex;
     bool isRun;
+    double calcThreePhaseUnbalance();
 };
 
 #endif // LINEWID_H

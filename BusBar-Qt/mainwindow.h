@@ -9,6 +9,7 @@
 #include "logswid.h"
 #include "network.h"
 #include "setmainwid.h"
+#include "interfacechangesig.h"
 
 namespace Ui {
 class MainWindow;
@@ -69,7 +70,7 @@ private:
     CheckPasswordDlg *mCheckDlg;
 
     NetWork *mNetWork;
-
+    InterfaceChangeSig *mSig;
 };
 
 #endif // MAINWINDOW_H

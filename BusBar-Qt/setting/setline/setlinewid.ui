@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>832</width>
-    <height>377</height>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -159,6 +159,16 @@ color: rgb(0,0,0);</string>
      <y>280</y>
      <width>811</width>
      <height>91</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget_4" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>380</y>
+     <width>811</width>
+     <height>51</height>
     </rect>
    </property>
   </widget>

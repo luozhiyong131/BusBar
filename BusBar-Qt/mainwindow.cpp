@@ -3,11 +3,9 @@
 #include "rtuthread.h"
 #include "dpthread.h"
 #include "currentalarmsdlg.h"
-#include "interfacechangesig.h"
 #include "beepthread.h"
 #include "datetime/timesettingdlg.h"
 #include "net/send/netsendthread.h"
-
 #include "modbus/thirdthread.h"
 
 RtuThread *rtu[4] = {NULL, NULL, NULL, NULL};
@@ -22,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mInitShm = new InitShm(this); //线程
     mInitShm->start(); //初始化共享内存 -- 单线程运行一次
 
-
+    mSig = InterfaceChangeSig::get(this);
     mIndex = 0;
     initWidget();
     updateTime();
@@ -165,7 +163,7 @@ void MainWindow::on_homeBtn_clicked()
     ui->stackedWid->setCurrentWidget(mHomeWid);
     setButtonClickedImage(ui->homeBtn,"home_select");
 
-    InterfaceChangeSig::get()->changeType(1);
+    mSig->changeType(1);
 }
 
 void MainWindow::on_lineBtn_clicked()
@@ -173,7 +171,7 @@ void MainWindow::on_lineBtn_clicked()
     ui->stackedWid->setCurrentWidget(mLineWid);
     setButtonClickedImage(ui->lineBtn,"main_select");
 
-    InterfaceChangeSig::get()->changeType(2);
+    mSig->changeType(2);
 }
 
 void MainWindow::on_branchBtn_clicked()
@@ -181,14 +179,14 @@ void MainWindow::on_branchBtn_clicked()
     ui->stackedWid->setCurrentWidget(mBranchWid);
     setButtonClickedImage(ui->branchBtn,"branch_select");
 
-    InterfaceChangeSig::get()->changeType(3);
+    mSig->changeType(3);
 }
 
 void MainWindow::on_logBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mLogsWid);
     setButtonClickedImage(ui->logBtn,"data_select");
-    InterfaceChangeSig::get()->changeType(4);
+    mSig->changeType(4);
 }
 
 void MainWindow::on_setBtn_clicked()

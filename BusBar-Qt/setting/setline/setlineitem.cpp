@@ -1,19 +1,28 @@
 #include "setlineitem.h"
 #include "ui_setlineitem.h"
 
-SetLineItem::SetLineItem(QWidget *parent) :
+SetLineItem::SetLineItem(QWidget *parent, bool flag) :
     QWidget(parent),
     ui(new Ui::SetLineItem)
 {
     ui->setupUi(this);
     mBus = mLine = 0;
+    mFlag = flag;
     mPacket = get_share_mem();
 
     timer = new QTimer(this);
     timer->start(2000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     connect(ui->curBar,SIGNAL(clicked()),this,SLOT(curBarClicked()));
-    connect(ui->volBar,SIGNAL(clicked()),this,SLOT(volBarClicked()));
+    if(mFlag)
+        connect(ui->volBar,SIGNAL(clicked()),this,SLOT(volBarClicked()));
+    else
+    {
+        ui->label_2->hide();
+        ui->label_14->hide();
+        ui->volBar->hide();
+        ui->volLab->hide();
+    }
 }
 
 SetLineItem::~SetLineItem()
@@ -46,33 +55,73 @@ void SetLineItem::updateWidget(int bus, int line)
 
     sObjData  *objData = &(busData->box[0].data);
     ui->curLab->setText(QString::number(objData ->cur.value[line]/COM_RATE_CUR,'f', 1)+"A");
-    ui->volLab->setText(QString::number(objData ->vol.value[line]/COM_RATE_VOL,'f', 0)+"V");
-    ui->nameLab->setText(str+ QString::number(mLine+1));
-
     setProgressbarValue(ui->curBar,&(objData->cur),line);
-    setProgressbarValue(ui->volBar,&(objData->vol),line);
+    if(mFlag && mLine <= 2)
+    {
+        ui->volLab->setText(QString::number(objData ->vol.value[line]/COM_RATE_VOL,'f', 0)+"V");
+        setProgressbarValue(ui->volBar,&(objData->vol),line);
+        ui->nameLab->setText(str+ QString::number(mLine+1));
+        str = QString::number(mLine*2+1);
+        ui->label_1->setText(str);
+        str = QString::number(mLine*2+2);
+        ui->label_2->setText(str);
+    }
+    else if(!mFlag && mLine == 3)
+    {
+        str = QString::number(mLine*2+1);
+        ui->label_1->setText(str);
+        ui->nameLab->setFixedHeight(21);
+        ui->nameLab->setText("N ");
+    }
 }
 
 
 void SetLineItem::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int index)
 {
-    int max = data->max[index];
-    if(max > 0)
+    if(mFlag)
     {
-        double value = data->value[index]*1.0;
-        int ret = (value/max)*100;
-        bar->setValue(ret);
-    }else
-        bar->setValue(0);
+        int max = data->max[index];
+        if(max > 0)
+        {
+            double value = data->value[index]*1.0;
+            int ret = (value/max)*100;
+            bar->setValue(ret);
+        }else
+            bar->setValue(0);
 
-    int cirAlarm = data->crAlarm[index];
-    int alarm = data->alarm[index];
-    if(alarm == 1)
-        setProcessBarColor(bar,"red"); //告警
-    else if(cirAlarm == 1)
-        setProcessBarColor(bar,"yellow"); //预警
+        int cirAlarm = data->crAlarm[index];
+        int alarm = data->alarm[index];
+        if(alarm == 1)
+            setProcessBarColor(bar,"red"); //告警
+        else if(cirAlarm == 1)
+            setProcessBarColor(bar,"yellow"); //预警
+        else
+            setProcessBarColor(bar,"green"); //正常
+    }
     else
-        setProcessBarColor(bar,"green"); //正常
+    {
+        bool flag = sys_configFile_open();
+        if(flag)
+        {
+            int max = sys_configFile_readInt("NLineMax");
+            int min = sys_configFile_readInt("NLineMin");
+
+            double value = data->value[index]*1.0;
+            int compare = data->value[index]*10;
+            if(max > 0)
+            {
+                int ret = (value/(max-min))*100;
+                bar->setValue(ret);
+            }else{
+                bar->setValue(0);
+            }
+            if(compare > max*10 ||compare < min*10 )
+                setProcessBarColor(bar,"red"); //告警
+            else
+                setProcessBarColor(bar,"green"); //正常
+        }
+        sys_configFile_close();
+    }
 
 }
 
@@ -95,7 +144,7 @@ void SetLineItem::curBarClicked()
     item.type = 2;
 
     SetThresholdDlg dlg(this);
-    dlg.set(item);
+    dlg.set(item,mFlag);
     dlg.exec();
 }
 
@@ -110,6 +159,6 @@ void SetLineItem::volBarClicked()
     item.type = 1;
 
     SetThresholdDlg dlg(this);
-    dlg.set(item);
+    dlg.set(item,true);
     dlg.exec();
 }

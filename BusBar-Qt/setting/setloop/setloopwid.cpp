@@ -111,7 +111,7 @@ void SetLoopWid::itemClicked(QTableWidgetItem *it)
             item.type = 2;
 
             SetThresholdDlg dlg(this);
-            dlg.set(item);
+            dlg.set(item,true);
             dlg.exec();
             i = 1;
         }

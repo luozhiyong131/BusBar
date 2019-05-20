@@ -17,7 +17,7 @@ public:
     ~SetThresholdDlg();
 
 
-    void set(sThresholdItem &item);
+    void set(sThresholdItem &item, bool flag);
 
 protected:
     bool checkData();
@@ -31,6 +31,7 @@ private slots:
 private:
     Ui::SetThresholdDlg *ui;
     sThresholdItem mItem;
+    bool mFlag;
 };
 
 #endif // SETTHRESHOLDDLG_H
