@@ -1,15 +1,12 @@
 #include "setloopwid.h"
 
+
 SetLoopWid::SetLoopWid(QWidget *parent) : ComTableWid(parent)
 {
     mDc = 1;
     mBus = 0;
     mPacket =  &(get_share_mem()->data[mBus]);
     initWid();
-
-    timer = new QTimer(this);
-    timer->start(2000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 
@@ -34,10 +31,10 @@ void SetLoopWid::initWid()
 
 void SetLoopWid::checkBus(int index)
 {
-    //if(mBus != index) {
-    //    mBus = index;
-    mPacket = &(get_share_mem()->data[index]);
-    //}
+    if(mBus != index) {
+        mBus = index;
+        mPacket = &(get_share_mem()->data[mBus]);
+    }
 
     int dc = mPacket ? mPacket->box[0].dc : 0;
     if(mDc != dc ) {
@@ -63,10 +60,10 @@ int SetLoopWid::updateDev(sBoxData *dev, int row)
             setItemColor(row, i+1, unit->alarm[i]);
         }
 
-        setTableRow(row, list);
+        setTableRow(row++, list);
     }
 
-    return ++row;
+    return row;
 }
 
 /**
@@ -79,7 +76,7 @@ void SetLoopWid::updateData()
     for(int i=1; i<=mPacket->boxNum; ++i)
     {
         sBoxData *box = &(mPacket->box[i]);
-        row = updateDev(box, row);
+        row = updateDev(box, i);
     }
 
     checkTableRow(row);
@@ -95,25 +92,18 @@ void SetLoopWid::timeoutDone()
 void SetLoopWid::itemClicked(QTableWidgetItem *it)
 {
     if(it->text().compare("---") == 0) return;  //为空不设置
-    static int i = 0;//防止弹出多次对话框
-    i++;
-    if(i % 3 == 1)
+    int column = it->column();
+    if(column > 0)
     {
+        BeepThread::bulid()->beep();
+        sThresholdItem item;
+        item.bus = mBus;
+        item.box = it->row()+1;
+        item.num = column-1;
+        item.type = 2;
 
-        int column = it->column();
-        if(column > 0)
-        {
-            BeepThread::bulid()->beep();
-            sThresholdItem item;
-            item.bus = mBus;
-            item.box = it->row()+1;
-            item.num = column-1;
-            item.type = 2;
-
-            SetThresholdDlg dlg(this);
-            dlg.set(item);
-            dlg.exec();
-            i = 1;
-        }
+        SetThresholdDlg dlg(this);
+        dlg.set(item);
+        dlg.exec();
     }
 }

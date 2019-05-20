@@ -31,25 +31,14 @@ protected:
 
     void envData(sEnvData *env, Rtu_recv *pkt);
     void setBoxNum(ushort num);
-    void thdData(Rtu_recv *pkt);
-    void BusTransData();
-    #if (SI_RTUWIFI==1)
-    void ChangeBusCh(int ch, int index);
-    bool SendCmdToWifi(int& steps,int len ,const QString& send,QString& recv);
-    void sendSettingCmdData(int index);
-    #endif
-public:
-    Serial_Trans *mSerial;
+
 private:
     uchar *mBuf;
+    Serial_Trans *mSerial;
     Rtu_recv *mRtuPkt;
     sBusData *mBusData;
     int mId;
     bool isRun;
-    int mRecoder;
 };
-#if (SI_RTUWIFI == 1)
-void set_ch(const QStringList &chs, int recordindex);
-void insertBusCmd(int busID, int addr, ushort reg, ushort len);
-#endif
+
 #endif // RTUTHREAD_H

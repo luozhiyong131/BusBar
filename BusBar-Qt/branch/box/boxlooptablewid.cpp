@@ -35,7 +35,7 @@ void BoxLoopTableWid::initLine(int bus, int box)
 void BoxLoopTableWid::initFunSLot()
 {
     timer = new QTimer(this);
-    timer->start(2500);
+    timer->start(3*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -50,7 +50,7 @@ void BoxLoopTableWid::initTableWidget()
     ui->tableWidget->setRowCount(0);        //设置行数/
 
     QStringList header;
-    header <<tr("回路") <<tr("名称") <<tr("断路器") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能");// << tr("温度");
+    header <<tr("回路") <<tr("名称") <<tr("开关") << tr("电压") << tr("电流") << tr("功率") << tr("功率因素") << tr("电能");// << tr("温度");
     ui->tableWidget->setColumnCount(header.size());    //设置列数
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
@@ -114,7 +114,7 @@ void BoxLoopTableWid::initTable()
 void BoxLoopTableWid::initTableWid()
 {
     initTableWidget();
-    //checkTable();
+    checkTable();
 
     for(int i=0; i<mData->lineNum; ++i)
         initTable();
@@ -181,7 +181,6 @@ void BoxLoopTableWid::setLoop(int id, int column)
 void BoxLoopTableWid::setName(int id, int column)
 {
     QString name = mBoxData->loopName[id];
-    if(!name.isEmpty())
     setTableItem(id, column, name);
 }
 
@@ -217,7 +216,7 @@ void BoxLoopTableWid::setSw(int id, int column)
 
     int sw = mData->sw[id];
     if(sw)
-        str = "闭合";
+        str = "接通";
     else
         str = "断开";
 

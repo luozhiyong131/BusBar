@@ -7,21 +7,10 @@ SetNamesWid::SetNamesWid(QWidget *parent) :
     ui(new Ui::SetNamesWid)
 {
     ui->setupUi(this);
-    mIndex = 0;
     mSetShm = new SetShm;
     mSetNameDlg = new SetNameDlg(this);
-    mIndex = 0;
-    QTimer::singleShot(100,this,SLOT(initFunSLot()));
+    updateWid(0);
 }
-
-void SetNamesWid::initFunSLot()
-{
-    indexChanged(mIndex);
-    mTimer = new QTimer(this);
-    mTimer->start(3*1000);
-    connect(mTimer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-}
-
 
 SetNamesWid::~SetNamesWid()
 {
@@ -37,7 +26,7 @@ void SetNamesWid::initTableWidget()
     QStringList horHead;
     horHead<< tr("插接箱");
 
-    int dc = mPacket ? mPacket->box[0].dc : 1;
+    int dc = mPacket ? mPacket->box[0].dc : 0;
     if(dc){ //交流9个
         for(int i = 0; i < LINE_NUM; ++i)
             horHead << QString((char)('A' + i%3))+ QString("%1").arg(i/3 + 1);
@@ -89,7 +78,7 @@ void SetNamesWid::checkBus()
     int row = ui->tableWidget->rowCount();
     int col = ui->tableWidget->columnCount();
 
-    int dc = mPacket ? mPacket->box[0].dc : 1;
+    int dc = mPacket ? mPacket->box[0].dc : 0;
     int len = dc ? LINE_NUM : 4;
     if(mPacket->boxNum != row || col != len+1) { //修改判断条件——  2018.3.21——By>MW
         clearWidget();
@@ -97,21 +86,22 @@ void SetNamesWid::checkBus()
     }
 }
 
-/**
- * @brief 刷新界面
- * @param index 主路源编号
- */
 void SetNamesWid::indexChanged(int index)
 {
-//    if(mIndex == index)  return;
+    if(mIndex == index)  return;
 
     mIndex = index;
     mPacket = &(get_share_mem()->data[index]);
     initWid(index);
 }
 
-void SetNamesWid::updateWid()
+/**
+ * @brief 刷新界面
+ * @param index 主路源编号
+ */
+void SetNamesWid::updateWid(int index)
 {
+    indexChanged(index);
     checkBus();
 
     int row = ui->tableWidget->rowCount();
@@ -123,12 +113,6 @@ void SetNamesWid::updateWid()
         }
     }
 }
-
-void SetNamesWid::timeoutDone()
-{
-    updateWid();
-}
-
 
 void SetNamesWid::setName(int row, int column)
 {
@@ -144,13 +128,11 @@ void SetNamesWid::setTableItem(int row, int column)
     QTableWidgetItem *item = ui->tableWidget->item(row,column);
     sBoxData *box = &(mPacket->box[row+1]);
 
-    //box->rate 直流的情况下，box->rate代表路数
-    if(box->offLine > 0 /* && column <= box->rate */) {
+    if(box->offLine > 0 && column <= box->rate) {
         if(column <= box->loopNum) {
            str = box->loopName[column-1];
         }
     }
-    if(!str.isEmpty())
     item->setText(str);
 }
 
@@ -167,6 +149,9 @@ void SetNamesWid::itemDoubleClicked(QTableWidgetItem *item)
     connect(ui->tableWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemDoubleClicked(QTableWidgetItem*)));
 }
 
+
+
+
 void SetNamesWid::initWid(int index)
 {
     sBusData *busData = &(get_share_mem()->data[index]);
@@ -175,16 +160,6 @@ void SetNamesWid::initWid(int index)
 
     double rateCur = busData->box[0].ratedCur/COM_RATE_CUR;
     ui->rateCurSpin->setValue(rateCur);
-
-    checkBus();//切换通道，更新表格名称  2018-12-20 pmd
-    int row = ui->tableWidget->rowCount();
-    for(int i = 0 ; i < row ; i++)
-    {
-        setName(i,0);
-        for(int j=1; j<ui->tableWidget->columnCount(); ++j) {
-            setTableItem(i, j);
-        }
-    }
 }
 
 bool SetNamesWid::saveBusName()
@@ -212,10 +187,8 @@ void SetNamesWid::on_saveBtn_clicked()
     mSetShm->setLineBoxNum(mIndex, ui->boxNumSpin->value());
     if(saveBusName()) {
         set_box_num(mIndex, ui->boxNumSpin->value());
-        updateWid();                               //2018-12-17保存插接箱数量的同时，更新名称设置列表 pmd
 
         BeepThread::bulid()->beep();
         InfoMsgBox box(this, tr("保存成功！"));
     }
 }
-

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>806</width>
+    <width>805</width>
     <height>548</height>
    </rect>
   </property>
@@ -41,6 +41,19 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="totalWid" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>761</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -86,7 +99,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>10</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -102,10 +115,10 @@
   <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>10</width>
-     <height>531</height>
+     <x>-7</x>
+     <y>14</y>
+     <width>20</width>
+     <height>540</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -124,10 +137,10 @@
   <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>796</x>
+     <x>790</x>
      <y>10</y>
-     <width>10</width>
-     <height>531</height>
+     <width>20</width>
+     <height>540</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -147,19 +160,37 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>537</y>
+     <y>535</y>
      <width>800</width>
-     <height>10</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
    <property name="lineWidth">
-    <number>5</number>
+    <number>2</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="loopWid" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>210</y>
+     <width>781</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -186,19 +217,6 @@
    </property>
    <property name="text">
     <string>0.0</string>
-   </property>
-  </widget>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>771</width>
-     <height>461</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>-1</number>
    </property>
   </widget>
  </widget>

@@ -5,7 +5,7 @@
 #include "common.h"
 
 #define NET_DATA_VERSION		2 /*IP设备通讯类型*/
-#define OFF_LINE_TIME   35
+#define OFF_LINE_TIME   10
 
 typedef enum {
     PDU_CMD_1=1,
@@ -36,10 +36,7 @@ typedef enum {
 int get_pdu_devCode(uchar *prt);
 bool pdu_netData_check(uchar type, uchar trans);  //协议匹配
 
-int pdu_saveHash_toData(uint *ptr, ushort len, uchar *data, int sizeBit);
-int pdu_saveHash_toData(ushort *ptr, ushort len, uchar *data, int sizeBit);
-int pdu_saveHash_toData(uchar *ptr, ushort len, uchar *data, int sizeBit);
-
+void pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit);
 bool char_to_string(QString &str, uchar *data, ushort len);
 void pdu_saveHash_string(char *strBase, ushort len, uchar *data);
 void pdu_devStr_save(char *strBase, pdu_dev_data *data);

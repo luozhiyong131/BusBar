@@ -31,15 +31,11 @@ void SetMainWid::initWidget()
 
     mSystemDlg = new SystemSettingDlg(ui->stackedWidget); //系统
     ui->stackedWidget->addWidget(mSystemDlg);
-    #if ( SI_RTUWIFI == 1 )
-    connect(this, SIGNAL(busChangedSig(int)), mSystemDlg, SIGNAL(busChangedSig(int)));
-    #endif
 
     mSetNamesWid = new SetNamesWid(ui->stackedWidget); //名称
     ui->stackedWidget->addWidget(mSetNamesWid);
 
     setButtonColor(ui->lineBtn);
-//    ui->stackedWidget->setCurrentWidget(mSetLineWid);
 }
 
 
@@ -61,9 +57,6 @@ void SetMainWid::busChangedSlot(int index)
     mSetLoopWid->setBus(index);
     mSetTemWid->updateWid(index);
     mSetNamesWid->indexChanged(index);
-    #if (SI_RTUWIFI == 1 )
-    emit busChangedSig(index);
-    #endif
 }
 
 void SetMainWid::initFunSLot()

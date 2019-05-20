@@ -16,7 +16,7 @@
  */
 static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 {
-    ushort *ptr = NULL;
+    int *ptr = NULL;
     int sizeBit = 2;
 
     int fc = data->fn[1] & 0x0f; // 处理功能码，第二字节的低四位数据
@@ -36,7 +36,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 
     case PDU_CMD_ALARM:
         sizeBit = 1;
-        // ptr = unit->alarm;
+        ptr = unit->alarm;
         return; /////====
 
     case PDU_CDM_CRMIN:
@@ -49,7 +49,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
 
     case PDU_CMD_CRALARM:
         sizeBit = 1;
-        // ptr = unit->crAlarm;
+        ptr = unit->crAlarm;
         break;
 
     default:
@@ -58,7 +58,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
     }
 
     if(ptr)
-        pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
+        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
 }
 
 
@@ -69,9 +69,7 @@ static void pdu_hash_unitData(sDataUnit *unit, pdu_dev_data *data)
  */
 static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 {
-    ushort *ptr = NULL;
-    uint *iPtr = NULL;
-    uchar *cPtr=NULL;
+    int *ptr = NULL;
     int sizeBit = 2;
 
     int fc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
@@ -91,12 +89,12 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 
     case PDU_CMD_POW: // 功率
         sizeBit = 4;
-        iPtr = obj->pow;
+        ptr = obj->pow;
         break;
 
     case PDU_CMD_ELE: // 电能
         sizeBit = 4;
-        iPtr = obj->ele;
+        ptr = obj->ele;
         break;
 
     case PDU_CMD_PF: // 功率因素
@@ -105,28 +103,26 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
 
     case PDU_CMD_SW: // 开关状态
         sizeBit = 1;
-        cPtr = obj->sw;
+        ptr = obj->sw;
         break;
 
-    case PDU_CMD_PL:
-        ptr = obj->pl;
-        break;
+//    case PDU_CMD_CA: // 排碳量
+//        ptr = obj->carbon;
+//        break;
 
-    case PDU_CMD_CTHD:
-        ptr = obj->curThd;
-        break;
+//    case PDU_CMD_RATE: //电压频率
+//        ptr = obj->rate;
+//        break;
 
-    case PDU_CMD_VTHD:
-        ptr = obj->volThd;
-        break;
     default:
         qDebug() << "pdu_hash_objData err" << fc;
         break;
     }
-    if(iPtr) pdu_saveHash_toData(iPtr, data->len, data->data, sizeBit);
-    if(ptr)  pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
-    if(cPtr) pdu_saveHash_toData(cPtr, data->len, data->data, sizeBit);
+
+    if(ptr)
+        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
 }
+
 
 /**
  * @brief 环境数据的处理
@@ -135,7 +131,7 @@ static void pdu_hash_objData(sObjData *obj,pdu_dev_data *data)
  */
 static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
 {
-    uint *ptr = NULL;
+    int *ptr = NULL;
     int sizeBit = 1;
 
     int fc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
@@ -166,22 +162,7 @@ static void pdu_hash_envData(sEnvData *env,pdu_dev_data *data)
         break;
     }
     if(ptr)
-        pdu_saveHash_toData(ptr, data->len, data->data, sizeBit);
-}
-
-
-/**
- * @brief 设置输出位的名称
- * @param name
- * @param data
- */
-void pdu_output_name(sBoxData *dev, pdu_dev_data *data)
-{
-    int l = data->fn[1];
-    if(data->len) {
-        sprintf(dev->loopName[l], "%s",data->data);
-        dev->loopName[l][data->len] = 0;
-    }
+        pdu_saveHash_intData(ptr, data->len, data->data, sizeBit);
 }
 
 
@@ -197,11 +178,10 @@ void pdu_hashDevData_save(sBoxData *dev,pdu_dev_data *data)
     {
     case PDU_CMD_LINE: //相电气参数
         pdu_hash_objData(&(dev->data), data);
-        dev->loopNum = dev->data.lineNum;
         break;
 
-    case PDU_CMD_OUTPUTNAME: // 输出位电气参数
-        pdu_output_name(dev, data);
+    case PDU_CMD_OUTPUT: // 输出位电气参数
+//        pdu_hash_objData(dev->output, data);
         break;
 
     case PDU_CMD_ENV: //环境数据

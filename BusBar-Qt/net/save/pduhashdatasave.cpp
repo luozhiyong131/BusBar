@@ -12,17 +12,13 @@
  */
 #include "pduhashdatasave.h"
 #include "pduhashdevdatasave.h"
+//#include "pduhashoutputsave.h"
+//#include "pduhashdevinfosave.h"
+//#include "pduhashdevusrsave.h"
+//#include "pduhashdevnetsave.h"
+//#include "pduhashmanslave.h"
+//#include "pduhashdevchartsave.h"
 
-
-static void thd_hash_objData(sThdData *thd,pdu_dev_data *data)
-{
-    int vc = data->fn[1] >> 4; // // 处理功能码，第二字节的高四位
-    int line = data->fn[1] & 0x0f; // 处理功能码，第二字节的低四位数据
-
-    ushort *ptr = thd->curThd[line];;
-    if(vc) ptr = thd->volThd[line];
-    pdu_saveHash_toData(ptr, data->len, data->data, 2);
-}
 
 
 
@@ -31,16 +27,15 @@ static void thd_hash_objData(sThdData *thd,pdu_dev_data *data)
  * @param dev
  * @param data
  */
-static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data, sThdData *thd)
+static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data)
 {
     int fc = data->fn[0]; //根据功能码，进行分支处理
 
     switch (fc)
     {
     case PDU_CMD_STATUS: //设备工作状态
-        dev->dc = data->fn[1];
+        dev->boxSpec = data->fn[1]; // 设备类型
         dev->boxStatus = data->data[0]; //0正常 >0不正常
-        dev->boxSpec = 1;
         break;
 
     case PDU_CMD_RATE:
@@ -48,26 +43,73 @@ static void pdu_hashData_function(sBoxData *dev,pdu_dev_data *data, sThdData *th
         break;
 
     case PDU_CMD_LINE: // 设备相参数
-    case PDU_CMD_OUTPUTNAME: // 设备输出位
+    case PDU_CMD_OUTPUT: // 设备输出位
     case PDU_CMD_ENV: //环境数据
         pdu_hashDevData_save(dev, data);
         break;
 
-    case PDU_CMD_THD:
-        thd_hash_objData(thd, data);
-        break;
+        //    case PDU_CMD_DEVINFO: // 设备信息
+        //        pdu_hashDevInfo_save(dev->info, data);
+        //        break;
 
-    case PDU_CMD_VERSION:
-        dev->version = data->data[0];
-        break;
+        //    case PDU_CMD_DEVUSR: // 设备用户信息
+        //        pdu_hashDevUsr_save(dev->usr, data);
+        //        break;
 
-    case PDU_CMD_DEVINFO: // 设备信息
-        // sprintf(dev->boxName, "%s",data->data);
-        // dev->boxName[data->len] = 0;
-        break;
+        //    case PDU_CMD_DEVNET: // 设备网络信息
+        //        pdu_hashDevNet_save(dev->net,data);
+        //        break;
+
+        //    case PDU_CMD_DEVMAN: // 基本设置信息
+        //        pdu_hashDevSet_save(dev->manage, data);
+        //        break;
+
+        //    case PDU_CMD_DEVCHART: // 设备图表信息
+        //        pdu_hashDevChart_save(dev->chart, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_NAME: // 输出位名称
+        //        pdu_output_name(dev->output->name, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_GROUP: // 输出位分组信息
+        //        pdu_output_group(dev->manage->groupInfo, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_CUT: // 输出位超限断电
+        //        pdu_output_cutOff(dev->manage->cutOff, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_SW_CTRL: // 输出位控制开关
+        //        pdu_output_SWctrl(dev->manage->sw, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_TIME: // 输出位定时开关
+        //        pdu_output_time(dev->manage->timeSW, data);
+        //        break;
+
+        //    case PDU_CMD_OUTPUT_SORT: // 输出位排序
+        //        pdu_output_sort(dev->output->sort, data);
+        //        break;
+
+        //    case PDU_CMD_GROUP_CUT: // 组管理，超时断电
+        //        pdu_group_cutOff(dev->manage->cutOff, data);
+        //        break;
+
+        //    case PDU_CMD_GROUP_SW_CTRL: // 组管理，控制开关
+        //        pdu_group_SWctrl(dev->manage->sw, data);
+        //        break;
+
+        //    case PDU_CMD_ALL_SW_CTRL: // 输出位全开、全断
+        //        pdu_all_SWctrl(dev->manage->sw, data);
+        //        break;
+
+        //     case PDU_CMD_GROUP_TIME: // 组定时上下电
+        //        pdu_group_time(dev->manage->timeSW, data);
+        //        break;
 
     default:
-        //        qDebug() << "pdu_hashData_function err" << fc;
+//        qDebug() << "pdu_hashData_function err" << fc;
         break;
     }
 }
@@ -92,7 +134,10 @@ void pdu_hashData_save(pdu_devData_packet *packet)
         int devType = get_pdu_devCode(packet->code->devCode); // 获取设备类型码
         if(devType > 0)
         {
+//            int num = packet->data->num;
+
             int num = getByIp(packet->ip);
+
             int addr = packet->data->addr;
             boxDev  = &(dataPacket->data[num].box[addr]);
 
@@ -102,8 +147,7 @@ void pdu_hashData_save(pdu_devData_packet *packet)
                 //   dev->devNum = packet->data->addr; // 设备地址
                 //   dev->ip->set(packet->ip); //设备IP
                 boxDev->offLine = OFF_LINE_TIME; //设备在线标识
-                sThdData *thd = &(dataPacket->data[num].thdData);
-                pdu_hashData_function(boxDev, packet->data, thd); //功能预处理
+                pdu_hashData_function(boxDev, packet->data); //功能预处理
             }
             else
                 qDebug() << "NET DATA VERSION err";

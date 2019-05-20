@@ -55,33 +55,7 @@ bool pdu_netData_check(uchar type, uchar trans)
  * @param size 几位表示一个整数
  * @return
  */
-static int uchar_to_int(uint *dest, ushort len, uchar *buf, int size)
-{
-    int i=0,j=0,k=0,temp=0;
-
-    if(len%size == 0) //必须是偶数
-    {
-        for(i=0; i<len/size; ++i)
-        {
-            temp = 0;
-            for(j=0; j<size; ++j)
-            {
-                temp <<= 8;
-                temp += buf[k++];
-            }
-            dest[i] = temp;
-        }
-    }
-    else
-    {
-        qDebug() << "char_to_int err" << len;
-        len = 0;
-    }
-
-    return len/size;
-}
-
-static int uchar_to_short(ushort *dest, ushort len, uchar *buf, int size)
+static int uchar_to_int(int *dest, ushort len, uchar *buf, int size)
 {
     int i=0,j=0,k=0,temp=0;
 
@@ -114,47 +88,20 @@ static int uchar_to_short(ushort *dest, ushort len, uchar *buf, int size)
  * @param data
  * @param sizeBit
  */
-int pdu_saveHash_toData(uint *ptr, ushort len, uchar *data, int sizeBit)
+void pdu_saveHash_intData(int *ptr, ushort len, uchar *data, int sizeBit)
 {
-    static uint buf[512] = {0};
+    static int buf[512] = {0};
 
     int rtn = uchar_to_int(buf, len, data, sizeBit); // 数据转化
     if(rtn > 0)
     {
         for(int i=0; i<rtn; ++i) {
-            //            ptr->set(i, buf[i]); //数据保存
+//            ptr->set(i, buf[i]); //数据保存
             ptr[i] = buf[i];
         }
     }
-
-    return rtn;
 }
 
-int pdu_saveHash_toData(ushort *ptr, ushort len, uchar *data, int sizeBit)
-{
-    static ushort buf[512] = {0};
-
-    int rtn = uchar_to_short(buf, len, data, sizeBit); // 数据转化
-    if(rtn > 0)
-    {
-        for(int i=0; i<rtn; ++i) {
-            //            ptr->set(i, buf[i]); //数据保存
-            ptr[i] = buf[i];
-        }
-    }
-
-    return rtn;
-}
-
-
-int pdu_saveHash_toData(uchar *ptr, ushort len, uchar *data, int sizeBit)
-{
-    for(int i=0; i<len; ++i) {
-        ptr[i] = data[i];
-    }
-
-    return len;
-}
 
 bool char_to_string(QString &str, uchar *data, ushort len)
 {
@@ -182,12 +129,12 @@ bool char_to_string(QString &str, uchar *data, ushort len)
  */
 void pdu_saveHash_string(char *strBase, ushort len, uchar *data)
 {
-    QString str;
-    bool ret = char_to_string(str,data,len);
-    if(ret) {
-        //        strBase->set(str);
-        //////================
-    }
+   QString str;
+   bool ret = char_to_string(str,data,len);
+   if(ret) {
+//        strBase->set(str);
+       //////================
+   }
 }
 
 /**
@@ -197,7 +144,7 @@ void pdu_saveHash_string(char *strBase, ushort len, uchar *data)
  */
 void pdu_devStr_save(char *strBase, pdu_dev_data *data)
 {
-    pdu_saveHash_string(strBase, data->len, data->data);
+     pdu_saveHash_string(strBase, data->len, data->data);
 }
 
 

@@ -1,6 +1,5 @@
 #include "setthresholddlg.h"
 #include "ui_setthresholddlg.h"
-#include "setthread.h"
 
 SetThresholdDlg::SetThresholdDlg(QWidget *parent) :
     QDialog(parent),
@@ -19,11 +18,12 @@ void SetThresholdDlg::initSpinBox(sThresholdItem &item)
 {
     ui->minBox->setValue(item.min);
     ui->maxBox->setValue(item.max);
+
     int range = 63;
     QString str = "A";
     switch (item.type) {
     case 1:  str = "V"; range = 400;  break;
-    case 2: if(!item.box) range = 650; str = "A";  break;
+    case 2: if(!item.box) range = 630; str = "A";  break;
     case 3: str = "℃"; range = 99;  break;
     }
 
@@ -54,17 +54,16 @@ void SetThresholdDlg::setTitle(sThresholdItem &item)
 
 void SetThresholdDlg::set(sThresholdItem &item)
 {
-    int rate = 1;
     sBusData *busData = &(share_mem_get()->data[item.bus]);
     sObjData *obj = &(busData->box[item.box].data);
 
     sDataUnit  *unit = &(busData->box[item.box].env.tem);
     switch (item.type) {
     case 1: unit = &(obj->vol); break;
-    case 2: unit = &(obj->cur); rate = 10; break;
+    case 2: unit = &(obj->cur); break;
     }
-    item.min = unit->min[item.num] / rate;
-    item.max = unit->max[item.num] / rate;
+    item.min = unit->min[item.num];
+    item.max = unit->max[item.num];
 
     mItem = item;
     setTitle(item);
@@ -77,7 +76,7 @@ bool SetThresholdDlg::checkData()
     bool ret = true;
     int min = ui->minBox->value();
     int max = ui->maxBox->value();
-    if(min < max)  {
+    if(max < min)  {
         mItem.min = min;
         mItem.max = max;
     } else {
@@ -94,11 +93,10 @@ void SetThresholdDlg::on_saveBtn_clicked()
     bool ret = checkData();
     if(ret) {
         if(ui->checkBox->isChecked()) {
-            if(mItem.box) mItem.box = 0xff;
-            else mItem.bus = 0xff;
-            SetThread::bulid()->append(mItem);//统一设置发两遍
+            if(mItem.box) mItem.box = 0xFF;
+            else mItem.bus = 0xFf;
         }
-        SetThread::bulid()->append(mItem);
+
     }
 }
 

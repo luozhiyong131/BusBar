@@ -1,7 +1,6 @@
 #include "linewid.h"
 #include "ui_linewid.h"
 #include "interfacechangesig.h"
-#include "thdmaindlg.h"
 
 LineWid::LineWid(QWidget *parent) :
     QWidget(parent),
@@ -37,10 +36,9 @@ void LineWid::initWid()
 {
     //    mTotalWid = new LineTotalWid(ui->totalWid);
     //    connect(this, SIGNAL(busChangedSig(int)), mTotalWid, SLOT(busChangeSlot(int)));
-    //    initTotalWid(); //表盘界面
     ui->totalWid->hide(); //隐藏和 By_MW_2018.4.23
+    initTotalWid(); //表盘界面
 
-    mLineTable = new LineTable(ui->widget) ;
     //三总线界面
     mLine[0] = new LineRoadWid(ui->line1Wid);
     mLine[1] = new LineRoadWid(ui->line2Wid);
@@ -72,19 +70,11 @@ void LineWid::timeoutDone()
             str= QString::number(mData->box[0].rate) + "Hz";
             ui->rateLab->setText(str); //频率
             ui->label->setText("频率：");
-
-            ui->thdBtn->setHidden(false);
-            ui->widget->setHidden(false);
-            mLineTable->updateData(mData->box[0]);
         }else{
             str= QString::number(mData->box[0].rate) + "路";
             ui->rateLab->setText(str); //频率
             ui->label->setText("输入：");
-
-            ui->thdBtn->setHidden(false);
-            ui->widget->setHidden(true);
         }
-
 
         //------[版本号]------------
         QString version = QString("V%1.%2").arg(mData->box[0].version/10).arg(mData->box[0].version%10);
@@ -103,19 +93,19 @@ void LineWid::initTotalWid()
     mCurPlot = new CustomDialPlot(ui->totalWid);
     mVolPlot = new CustomDialPlot(ui->totalWid);
     mPwPlot = new CustomDialPlot(ui->totalWid);
-    // mPfPlot = new CustomDialPlot(ui->totalWid);
+    //    mPfPlot = new CustomDialPlot(ui->totalWid);
 
     layout->addWidget(mVolPlot);
     layout->addWidget(mCurPlot);
     layout->addWidget(mPwPlot);
-    // layout->addWidget(mPfPlot);
+    //    layout->addWidget(mPfPlot);
 
     mVolPlot->setUnit("V");
     mCurPlot->setUnit("A");
     mPwPlot->setUnit("kW");
 
-    // mPfPlot->setUnit("");
-    // mPfPlot->setRange(0,1);
+    //    mPfPlot->setUnit("");
+    //    mPfPlot->setRange(0,1);
 }
 
 void LineWid::updateTotalWid()
@@ -150,10 +140,3 @@ void LineWid::indexChanged(int index)
     //-------------------------------------------
 }
 
-
-void LineWid::on_thdBtn_clicked()
-{
-    ThdMainDlg dlg(this);
-    dlg.initBus(mIndex);
-    dlg.exec();
-}

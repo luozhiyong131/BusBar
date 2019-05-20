@@ -35,7 +35,7 @@ void DpTgThread::timeoutDone()
  * @brief 获取平均数据 0视无效数据
  * @param data
  */
-int DpTgThread::averData(ushort *data, int len)
+int DpTgThread::averData(int *data, int len)
 {
     int size=0, value=0,temp;
 
@@ -86,8 +86,7 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
             tg->cur[i] += obj->cur.value[i+j*3];
             tg->pow[i] += obj->pow[i+j*3];
             tg->ele[i] += obj->ele[i+j*3];
-          //  tg->apPow[i] += obj->apPow[i+j*3];
-              tg->apPow[i] += obj->cur.value[i+j*3] * obj->vol.value[i+j*3]/10;
+            tg->apPow[i] += obj->apPow[i+j*3];
         }
     }
 
@@ -97,6 +96,7 @@ void DpTgThread::lineTgObj(sObjData *obj, sLineTgObjData *tg)
         if(tg->pf[i]>99) tg->pf[i] = 99;
         if(tg->pow[i] > tg->apPow[i]) tg->pow[i] = tg->apPow[i];
     }
+
 }
 
 
@@ -142,6 +142,7 @@ void DpTgThread::tgBox(sBoxData *box)
 
     if(box->offLine) {
         tgObj(loop, tgBox);
+
         if(box->dc) {
             lineTgObj(loop, linTgBox);
         } else  {

@@ -10,7 +10,6 @@
 
 #include <QtCore>
 
-#define BUSBAR_CODE     0x02020101
 #define DATA_MSG_SIZE	512		/*数据缓冲区大小*/
 #define DEV_CODE_SIZE	4		/*设备代号位数*/
 #define DEV_FN_SIZE     2       /*功能码长度*/

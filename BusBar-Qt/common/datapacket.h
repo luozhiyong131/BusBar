@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <QtCore>
 
 #define LINE_NUM 9 // 三相
 #define LINE_NUM_MAX 9 // 三相
@@ -32,8 +31,8 @@
 typedef struct _sTgObjData {
     int vol; // 电压
     int cur;  // 电流
-    int pow; // 功率
 
+    int pow; // 功率
     int ele; // 电能
     int pf; // 功率因素
     int apPow; // 袖在功率
@@ -41,28 +40,28 @@ typedef struct _sTgObjData {
 }sTgObjData;
 
 typedef struct _sLineTgObjData {
-    ushort vol[3]; // 电压
-    ushort cur[3];  // 电流
+    int vol[3]; // 电压
+    int cur[3];  // 电流
 
-    uint pow[3]; // 功率
-    uint ele[3]; // 电能
-    ushort pf[3]; // 功率因素
-    ushort apPow[3]; // 袖在功率
-    ushort tem[3];
+    int pow[3]; // 功率
+    int ele[3]; // 电能
+    int pf[3]; // 功率因素
+    int apPow[3]; // 袖在功率
+    int tem[3];
 }sLineTgObjData;
 
 /**
  * 数据单元：包括当前值，阈值，临界值，告警状态等
  */
 typedef struct _sDataUnit {
-    ushort value[LINE_NUM_MAX]; // 值
-    ushort min[LINE_NUM_MAX]; // 最小值
-    ushort max[LINE_NUM_MAX]; // 最大值
-    uchar alarm[LINE_NUM_MAX]; // 告警值 0表示未告警  1表示已告警 2表示已记录
+    int value[LINE_NUM_MAX]; // 值
+    int min[LINE_NUM_MAX]; // 最小值
+    int max[LINE_NUM_MAX]; // 最大值
+    int alarm[LINE_NUM_MAX]; // 告警值 0表示未告警  1表示已告警 2表示已记录
 
-    ushort crMin[LINE_NUM_MAX]; // 临界最小值
-    ushort crMax[LINE_NUM_MAX]; // 临界最大值
-    uchar crAlarm[LINE_NUM_MAX]; // 临界告警值
+    int crMin[LINE_NUM_MAX]; // 临界最小值
+    int crMax[LINE_NUM_MAX]; // 临界最大值
+    int crAlarm[LINE_NUM_MAX]; // 临界告警值
 }sDataUnit;
 
 /**
@@ -73,17 +72,13 @@ typedef struct _sObjData {
     sDataUnit vol; // 电压
     sDataUnit cur;  // 电流
 
-    uint pow[LINE_NUM_MAX]; // 功率
-    uint ele[LINE_NUM_MAX]; // 电能
-    ushort pf[LINE_NUM_MAX]; // 功率因素
-    uchar sw[LINE_NUM_MAX]; // 开关状态
-    ushort apPow[LINE_NUM_MAX]; // 视在功率
-    ushort ratedCur[LINE_NUM_MAX]; // 额定电流
-    ushort wave[LINE_NUM_MAX]; // 谐波值
-
-    ushort pl[3]; // 负载百分比
-    ushort curThd[3]; // 电流谐波含量
-    ushort volThd[3]; // 电压谐波含量
+    int pow[LINE_NUM_MAX]; // 功率
+    int ele[LINE_NUM_MAX]; // 电能
+    int pf[LINE_NUM_MAX]; // 功率因素
+    int sw[LINE_NUM_MAX]; // 开关状态
+    int apPow[LINE_NUM_MAX]; // 视在功率
+    int ratedCur[LINE_NUM_MAX]; // 额定电流
+    int wave[LINE_NUM_MAX]; // 谐波值
 }sObjData;
 
 
@@ -95,13 +90,12 @@ typedef struct _sEnvData {
     sDataUnit hum; // 湿度
 }sEnvData;
 
-
 /**
  * 插接箱数据结构体：包括最多三个插接位，插接箱名称
  */
 typedef struct _sBoxData {
     char offLine; // 离线标识
-    char loopNum; // 回路数量
+    int loopNum; // 回路数量
     char version;
 
     sObjData data; // 回路数据
@@ -118,18 +112,10 @@ typedef struct _sBoxData {
     int ratedCur; // 额定电流
     int rate; // 电压频率
     char dc; // 交直流标志位
-    uchar lps; // 防雷开关
 
-    uchar rtuLen;
-    uchar rtuArray[SRC_DATA_LEN_MAX];
+    u_char rtuLen;
+    u_char rtuArray[SRC_DATA_LEN_MAX];
 }sBoxData;
-
-
-typedef struct _sThdData {
-    ushort curThd[3][35]; // 电流谐波含量
-    ushort volThd[3][35]; // 电压谐波含量
-}sThdData;
-
 
 /**
  * 母线数据结构体：包括插接箱数据，电压频率 母线名称
@@ -138,15 +124,12 @@ typedef struct _sBusData{
     int boxNum; // 插接箱数量
     sBoxData   box[BOX_NUM+1];  // 最多20个插接箱
     char busName[NAME_LEN]; // 母线名称
-    sThdData thdData;
 }sBusData;
 
 typedef struct _sDataPacket
 {
     sBusData data[BUS_NUM];  // 四条母线数据
 }sDataPacket;
-
-
 
 /**
  * 设置地址枚举：包括各种参数的地址

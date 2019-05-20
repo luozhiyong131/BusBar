@@ -31,13 +31,11 @@ void BoxDlg::initBox(int bus, int box)
 
 void BoxDlg::initWid(int bus, int box)
 {
-    mTotalWid = new BoxTotalWid(ui->tabWidget);
+    mTotalWid = new BoxTotalWid(ui->totalWid);
     mTotalWid->initFun(bus, box);
-    ui->tabWidget->addTab(mTotalWid, tr("各相信息"));
 
-    mLineWid = new BoxLoopTableWid(ui->tabWidget);
+    mLineWid = new BoxLoopTableWid(ui->loopWid);
     mLineWid->initLine(bus, box);
-    ui->tabWidget->addTab(mLineWid, tr("各回路信息"));
 }
 
 void BoxDlg::on_pushButton_clicked()

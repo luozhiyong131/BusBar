@@ -1,16 +1,10 @@
 #include "settempwid.h"
-#include <QGridLayout>
+
 SetTempWid::SetTempWid(QWidget *parent) : ComTableWid(parent)
 {
     mBus = 0;
     mPacket =  &(get_share_mem()->data[mBus]);
     initWid();
-    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
-    gridLayout->addWidget(this);
-
-    timer = new QTimer(this);
-    timer->start(2000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 
@@ -29,10 +23,10 @@ void SetTempWid::initWid()
 
 void SetTempWid::checkBus(int index)
 {
-    //if(mBus != index) {
-    //    mBus = index;
-    mPacket = &(get_share_mem()->data[index]);
-    //}
+    if(mBus != index) {
+        mBus = index;
+        mPacket = &(get_share_mem()->data[mBus]);
+    }
 }
 
 
@@ -50,10 +44,11 @@ int SetTempWid::updateDev(sBoxData *dev, int row)
             list <<  QString::number(value) + "℃";
             setItemColor(row, i+1, unit->alarm[i]);
         }
-        setTableRow(row, list);
+
+        setTableRow(row++, list);
     }
 
-    return ++row;
+    return row;
 }
 
 /**
@@ -66,7 +61,7 @@ void SetTempWid::updateData()
     for(int i=1; i<=mPacket->boxNum; ++i)
     {
         sBoxData *box = &(mPacket->box[i]);
-        row = updateDev(box, row);
+        row = updateDev(box, i);
     }
 
     checkTableRow(row);
@@ -81,7 +76,7 @@ void SetTempWid::timeoutDone()
 
 void SetTempWid::itemClicked(QTableWidgetItem *it)
 {
-    //if(it->text().compare("---") == 0) return;  //为空不设置
+    if(it->text().compare("---") == 0) return;  //为空不设置
     int column = it->column();
     if(column > 0)
     {

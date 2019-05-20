@@ -14,8 +14,8 @@ signals:
 
 protected:
     void run();
-    void alarmDataUnit(sDataUnit &unit, int lineNum, bool cr=false);
-    char alarmFlag(sDataUnit &unit, int line, bool cr=false);
+    void alarmDataUnit(sDataUnit &unit, int lineNum, bool cr=true);
+    char alarmFlag(sDataUnit &unit, bool cr=true);
 
     void boxAlarm(sBoxData &box);
     void busAlarm(sBusData &bus);

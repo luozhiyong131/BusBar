@@ -8,12 +8,7 @@ SystemSettingDlg::SystemSettingDlg(QWidget *parent) :
 {
     ui->setupUi(this);
     //mEmailWid = new EmailWid(ui->smtpWid);
-#if ( SI_RTUWIFI == 0 )
     mIpWid = new IpSettingDlg(ui->smtpWid);
-#elif ( SI_RTUWIFI == 1)
-    mChannelWid = new ChannelSettingDlg(ui->smtpWid);
-    connect(this, SIGNAL(busChangedSig(int)), mChannelWid, SLOT(busChangedSlot(int)));
-#endif
     mNetWid = new NetSettingDlg(ui->netWid);
     mOtherWid = new OtherSettingDlg(ui->otherWid);
 }

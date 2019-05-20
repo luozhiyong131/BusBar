@@ -41,9 +41,6 @@ void share_mem_init()
     sDataPacket *shared = share_mem_get();//指向shm
     if(shared) {
         memset(shared, 0, sizeof(sDataPacket));
-        for(int i=0; i<BUS_NUM; ++i) {
-            shared->data[i].box[0].dc = 1;
-        }
         printf("\nMemory init ok!!!\n");
     }
 }

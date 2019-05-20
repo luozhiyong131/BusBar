@@ -125,7 +125,7 @@ static int udp_creatSocket(void)
 static void udp_initServerAddr(char *server_ip, int port)
 {
     char* url = server_ip;
-    //printf("%s\n",url);
+//	printf("%s\n",url);
 
     struct hostent *host= (struct hostent *) gethostbyname(url); /* 通过函数入口参数url获得host地址（如果是域名，会做域名解析）*/
 

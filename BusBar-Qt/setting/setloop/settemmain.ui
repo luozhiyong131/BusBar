@@ -13,29 +13,26 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10">
-   <property name="spacing">
-    <number>0</number>
+  <widget class="QWidget" name="widget_1" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>811</width>
+     <height>80</height>
+    </rect>
    </property>
-   <property name="leftMargin">
-    <number>0</number>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>109</y>
+     <width>801</width>
+     <height>291</height>
+    </rect>
    </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <item>
-    <widget class="QWidget" name="widget_1" native="true"/>
-   </item>
-   <item>
-    <widget class="QWidget" name="widget_2" native="true"/>
-   </item>
-  </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

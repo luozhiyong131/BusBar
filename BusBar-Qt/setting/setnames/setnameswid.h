@@ -20,7 +20,7 @@ public:
     ~SetNamesWid();
 
     void indexChanged(int index);
-    void updateWid();
+    void updateWid(int index);
 
 protected:
     void initWid(int index);
@@ -32,11 +32,10 @@ protected:
     void setName(int row, int column);
     void setTableItem(int row, int column);
 
+
 private slots:
     void on_saveBtn_clicked();
     void itemDoubleClicked(QTableWidgetItem *item);
-    void initFunSLot();
-    void timeoutDone();
 
 private:
     Ui::SetNamesWid *ui;
@@ -45,7 +44,6 @@ private:
     int mIndex;
     SetShm *mSetShm;
     sBusData *mPacket ;
-    QTimer* mTimer;
 };
 
 #endif // SETNAMESWID_H

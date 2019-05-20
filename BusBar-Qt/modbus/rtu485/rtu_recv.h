@@ -43,11 +43,6 @@ struct Rtu_recv {
     uchar rate;
     uchar dc; // 交直流标志位
 
-    uchar lps; // 防雷开关
-    uchar pl[3]; // 负载百分比
-    uchar hc; //谐波通道(00表示A路电压通道，01表示B路电压通道，02表示C路电压通道 03表示A路电流通道，04表示B路电流通道，05表示C路电流通道)
-    ushort thd[40]; // 庇波含量
-
     ushort crc; // 检验码
 };
 

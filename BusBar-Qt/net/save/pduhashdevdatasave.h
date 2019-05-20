@@ -24,9 +24,7 @@ typedef enum {
     PDU_CMD_ELE, // 电能
     PDU_CMD_PF, // 功率因素
     PDU_CMD_SW, // 开关状态 0 表示未启用    
-    PDU_CMD_PL, // 负载率
-    PDU_CMD_CTHD, // 电流谐波
-    PDU_CMD_VTHD, // 电压谐波
+    PDU_CMD_CA, // 排碳量
 }PDU_CMD_OBJ;
 
 
@@ -45,10 +43,6 @@ typedef enum {
     PDU_CMD_LINE, //相电参数
     PDU_CMD_OUTPUT,//输出位
     PDU_CMD_ENV, //环境数据
-    PDU_CMD_DEVINFO,
-    PDU_CMD_OUTPUTNAME,
-    PDU_CMD_THD,
-    PDU_CMD_VERSION,
 }PDU_CMD_ID_DEV_DATA;
 
 

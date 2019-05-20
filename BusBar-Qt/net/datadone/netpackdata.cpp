@@ -251,18 +251,3 @@ int net_data_packets(int num, uchar type,net_dev_data *pkt, uchar *buf)
 }
 
 
-int net_data_packets(net_dev_data *pkt, uchar *buf)
-{
-    static uchar sentBuf[DATA_MSG_SIZE]={0};
-
-    static QReadWriteLock lock;
-    QWriteLocker locker(&lock); //上锁
-
-    memset(sentBuf,0,sizeof(sentBuf));
-    ushort len = dev_data_pack(pkt, sentBuf);
-
-    pdu_dev_code *code = get_dev_code(BUSBAR_CODE, TRA_TYPR_UDP);
-    net_data_packet *msg = get_data_packet(code, sentBuf, len);
-
-    return data_msg_packet(msg, buf);
-}
