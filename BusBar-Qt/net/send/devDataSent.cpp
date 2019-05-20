@@ -234,6 +234,7 @@ static void sent_object(_devDataObj *obj, uchar *buf, dev_data_packet *msg)
     sent_packet(msg);
 
     /**/
+    if(len>3) len=3;
     fn += 1;
     msg->fn[1] = fn << 4;
     msg->data = buf;
@@ -339,7 +340,6 @@ void init_Unit(_devDataUnit *unit, sDataUnit *cUnit)
  */
 void init_dataLoop(_devDataObj *ptr, sObjData *obj)
 {
-
     ptr->len = obj->lineNum;
     init_Unit(&(ptr->vol), &(obj->vol));
     init_Unit(&(ptr->cur), &(obj->cur));
@@ -349,10 +349,9 @@ void init_dataLoop(_devDataObj *ptr, sObjData *obj)
     ptr->ele   = obj->ele;  // 电能
     ptr->pf    = obj->pf;   //功率因素
     ptr->apPow = obj->apPow; //视在功率
-    //    ptr->pl  = obj->pl;  // 谐波值
-    //    ptr->curThd  = obj->curThd;
-    //    ptr->volThd  = obj->volThd;
-
+    ptr->pl  = obj->pl;  // 谐波值
+    ptr->curThd  = obj->curThd;
+    ptr->volThd  = obj->volThd;
 }
 
 void init_dataLine(_devDataObj *ptr, sLineTgObjData *obj, sObjData *p)
@@ -409,7 +408,6 @@ void sent_loopName(int id,sBoxData *box)
 
 void sent_busRateCur(int id, sBusData *bus)
 {
-
     static uchar rateCurBuf[2] = {1};
     rateCurBuf[0] = (uchar)(bus->box[0].ratedCur >> 8);
     rateCurBuf[1] = (uchar)(bus->box[0].ratedCur);
@@ -417,8 +415,6 @@ void sent_busRateCur(int id, sBusData *bus)
     dev_data_packet msg;
     msg.num = id;
     msg.addr = 0;
-
-    //uchar data[2] = {0, 200};
 
     msg.len = 2;  //=======
     msg.data = rateCurBuf;
@@ -446,6 +442,30 @@ void sent_busBoxNum(int id, sBusData *bus)
     data_packet_sent(&msg);
 }
 
+void sent_busThdData(int id, sThdData *thdData)
+{
+    static uchar buf[DATA_MSG_SIZE] = {0};
+
+    dev_data_packet msg;
+    msg.num = id;
+    msg.addr = 0;
+    msg.data = buf;
+    msg.fn[0] = 3;
+
+    for(int i=0; i<3; ++i) {
+        msg.fn[1] = 1 << 4;
+        msg.fn[1] += i;
+        msg.len = shortToChar(thdData->volThd[i],30,buf);
+        data_packet_sent(&msg);
+    }
+
+    for(int i=0; i<3; ++i) {
+        msg.fn[1] = 2 << 4;
+        msg.fn[1] += i;
+        msg.len = shortToChar(thdData->curThd[i],30,buf);
+        data_packet_sent(&msg);
+    }
+}
 
 /**
  * 发送测试数据， 测试用
@@ -483,6 +503,7 @@ void sent_dev_data(int index)
     sent_busName(&shm->data[id]);
     sent_busRateCur(id, &shm->data[id]);
     sent_busBoxNum(id, &shm->data[id]);
+    sent_busThdData(id, &shm->data[id].thdData);
 }
 
 
