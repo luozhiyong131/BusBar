@@ -39,7 +39,7 @@ void BoxTotalWid::updateAll()
 {
     QString str= "---";
 
-    if(mTgBox->vol){
+    if(mBox->offLine){
         str = QString::number(mTgBox->vol) + "V";
         ui->volH->setText(str);
 
