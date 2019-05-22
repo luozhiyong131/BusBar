@@ -90,7 +90,7 @@ void BoxTotalWid::updateData()
 
     for(int i=0; i<3; ++i) {
         QString str = "---";
-        if(mLineTgBox->vol[i]){
+        if(mBox->offLine){
             str = QString::number(mLineTgBox->vol[i]) + "V";
             volLab[i]->setText(str);
 
