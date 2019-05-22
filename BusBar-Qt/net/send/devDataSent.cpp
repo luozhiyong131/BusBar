@@ -444,14 +444,7 @@ void sent_busBoxNum(int id, sBusData *bus)
 
 void sent_busThdData(int id, sThdData *thdData)
 {
-<<<<<<< ecf6c98f2262bb059390ded8bdce76fd6e144c8c
     static uchar buf[DATA_MSG_SIZE] = {0};
-=======
-    int len = 32;
-    static uchar buf[70] = {0};
-    ushort *ptr = nullptr;
-    dev_data_packet msg;
->>>>>>> ding
 
     dev_data_packet msg;
     msg.num = id;
@@ -459,18 +452,10 @@ void sent_busThdData(int id, sThdData *thdData)
     msg.data = buf;
     msg.fn[0] = 3;
 
-<<<<<<< ecf6c98f2262bb059390ded8bdce76fd6e144c8c
     for(int i=0; i<3; ++i) {
         msg.fn[1] = 1 << 4;
         msg.fn[1] += i;
         msg.len = shortToChar(thdData->volThd[i],30,buf);
-=======
-
-    for(int i=0; i<3; i++) {
-        msg.fn[1] = 0x00 + i;
-        ptr = bus->thdData.curThd[i];
-        msg.len = shortToChar(ptr,len,buf);
->>>>>>> ding
         data_packet_sent(&msg);
     }
 
@@ -480,8 +465,8 @@ void sent_busThdData(int id, sThdData *thdData)
         msg.len = shortToChar(thdData->curThd[i],30,buf);
         data_packet_sent(&msg);
     }
-
 }
+
 
 /**
  * 发送测试数据， 测试用
