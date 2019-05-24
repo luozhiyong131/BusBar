@@ -62,6 +62,7 @@ static int rtu_sent_packet(Rtu_Sent *pkt, uchar *ptr)
     *(ptr++) = (0xff)&(pkt->crc); /*低8位*/
     *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
 
+    #if (SI_RTUWIFI ==1)
     for(int i = 0 ; i < 8 ; ++i)//SI-BUSBAR无线加头BUSBAR的ascii码
     {
         *(ptr+6-i-1)=*(ptr-i-1);
@@ -73,8 +74,9 @@ static int rtu_sent_packet(Rtu_Sent *pkt, uchar *ptr)
     *(ptr-4) = 0x41;
     *(ptr-3) = 0x52;
     return 14;
-
-    //return 8;
+    #else
+    return 8;
+    #endif
 }
 
 /**

@@ -249,7 +249,7 @@ int RtuThread::transData(int addr)
 //    strArray = array.toHex(); // 十六进制
 //    for(int i=0; i<array.size(); ++i)
 //        strArray.insert(2+3*i, " "); // 插入空格
-    //qDebug()<< "recv:" << strArray;
+//    qDebug()<< "recv:" << strArray;
 
     if(rtn > 0) {
         bool ret = rtu_recv_packet(buf, rtn, pkt); // 解析数据 data - len - it
