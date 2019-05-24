@@ -22,6 +22,33 @@ SetLineItem::SetLineItem(QWidget *parent, bool flag) :
         ui->label_14->hide();
         ui->volBar->hide();
         ui->volLab->hide();
+        sys_configFile_open();
+
+        for(int i = 0 ; i < 4 ; i++)
+        {
+            sBusData *busData = &(mPacket->data[i]);
+            QString strmin = QString("NLineMin%1").arg(i);
+            QString strmax = QString("NLineMax%1").arg(i);
+
+            int value = sys_configFile_readInt(strmax);
+            if(value <= 0)
+            {
+                busData->box[0].data.cur.max[N_Line] = 250;
+                sys_configFile_write(strmax,QString::number(250));
+            }
+            else
+                busData->box[0].data.cur.max[N_Line] = value;
+
+            value = sys_configFile_readInt(strmin);
+            if(value<0)
+            {
+                busData->box[0].data.cur.min[N_Line] = 0;
+                sys_configFile_write(strmin,QString::number(0));
+            }
+            else
+                busData->box[0].data.cur.min[N_Line] = value;
+        }
+        sys_configFile_close();
     }
 }
 
@@ -78,13 +105,14 @@ void SetLineItem::updateWidget(int bus, int line)
 
 void SetLineItem::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int index)
 {
+    int max = data->max[index];
+    int min = data->min[index];
     if(mFlag)
     {
-        int max = data->max[index];
         if(max > 0)
         {
             double value = data->value[index]*1.0;
-            int ret = (value/max)*100;
+            int ret = (value/(max-min))*100;
             bar->setValue(ret);
         }else
             bar->setValue(0);
@@ -100,27 +128,19 @@ void SetLineItem::setProgressbarValue(QProgressBar *bar, sDataUnit *data, int in
     }
     else
     {
-        bool flag = sys_configFile_open();
-        if(flag)
+        double value = data->value[index]*1.0;
+        int compare = data->value[index]*10;
+        if(max > 0)
         {
-            int max = sys_configFile_readInt("NLineMax");
-            int min = sys_configFile_readInt("NLineMin");
-
-            double value = data->value[index]*1.0;
-            int compare = data->value[index]*10;
-            if(max > 0)
-            {
-                int ret = (value/(max-min))*100;
-                bar->setValue(ret);
-            }else{
-                bar->setValue(0);
-            }
-            if(compare > max*10 ||compare < min*10 )
-                setProcessBarColor(bar,"red"); //告警
-            else
-                setProcessBarColor(bar,"green"); //正常
+            int ret = (value/(max-min))*100;
+            bar->setValue(ret);
+        }else{
+            bar->setValue(0);
         }
-        sys_configFile_close();
+        if(compare > max*10 ||compare < min*10 )
+            setProcessBarColor(bar,"red"); //告警
+        else
+            setProcessBarColor(bar,"green"); //正常
     }
 
 }

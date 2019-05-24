@@ -262,7 +262,7 @@ int RtuThread::transData(int addr)
                 box->dc = pkt->dc;
                 box->version = pkt->version;
                 if(addr == 0 && pkt->dc)
-                    box->data.cur.value[N_Line-1] = pkt->data[N_Line-1].cur;
+                    box->data.cur.value[N_Line] = pkt->data[N_Line].cur;
 
                 thdData(pkt);
             }

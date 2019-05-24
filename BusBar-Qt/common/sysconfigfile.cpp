@@ -44,9 +44,9 @@ bool sys_configFile_open(void)
  */
 void sys_configFile_close(void)
 {
-    delete pConfigIni;
-    pConfigIni = NULL;
-   // sync();
+//    delete pConfigIni;
+//    pConfigIni = NULL;
+     pConfigIni->sync();
 }
 
 /**
@@ -95,6 +95,7 @@ void sys_configFile_write(QString strParameterName, QString strParameter, QStrin
 {
     strParameterName = "/" + strGroup + "/" + strParameterName;
     pConfigIni->setValue(strParameterName, strParameter);
+    pConfigIni->sync();
 }
 
 /**

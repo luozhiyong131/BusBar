@@ -153,7 +153,7 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
     {//定制零线电流解析
         if(msg->addr==0)
         {
-           (&(msg->data[N_Line-1]))->cur = (*ptr) * 256 + *(ptr+1);
+           (&(msg->data[N_Line]))->cur = (*ptr) * 256 + *(ptr+1);
         }
         ptr+=6;//始端箱需要两个字节零线电流/插接箱保留
     }

@@ -11,7 +11,7 @@
 //原来
 //#define RTU_SENT_LEN (22*RTU_LINE_NUM+1+3*3+1+1+3+11)  // 长度需要改变 ////============ 加上开关，功率因素之后，是为14 [追加交直流区分]
 #define RTU_SENT_DC_LEN (22*4+1+3*3+1+1+3+5)  // 长度需要改变 直流长度 [追加交直流区分
-#define N_Line  4
+#define N_Line  3
 
 struct Rtu_Sent {
     Rtu_Sent():fn(3),reg(0),len(RTU_SENT_LEN){} // 下位机有问题

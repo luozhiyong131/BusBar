@@ -57,11 +57,10 @@ void SetThresholdDlg::set(sThresholdItem &item,bool flag)
 {
     int rate = 1;
     mFlag = flag;
+    sBusData *busData = &(share_mem_get()->data[item.bus]);
+    sObjData *obj = &(busData->box[item.box].data);
     if(mFlag)
     {
-        sBusData *busData = &(share_mem_get()->data[item.bus]);
-        sObjData *obj = &(busData->box[item.box].data);
-
         sDataUnit  *unit = &(busData->box[item.box].env.tem);
         switch (item.type) {
         case 1: unit = &(obj->vol); break;
@@ -73,21 +72,9 @@ void SetThresholdDlg::set(sThresholdItem &item,bool flag)
     else
     {
         ui->checkBox->hide();
-        bool ret = sys_configFile_open();
-        if(ret)
-        {
-            QString str = sys_configFile_readStr("NLineMin");
-            if(str.isEmpty())
-                item.min = 0;
-            else
-                item.min = str.toInt();
-            str = sys_configFile_readStr("NLineMax");
-            if(str.isEmpty())
-                item.max = 250;
-            else
-                item.max = str.toInt();
-        }
-        sys_configFile_close();
+        item.min = obj->cur.min[N_Line];
+        item.max = obj->cur.max[N_Line];
+        qDebug()<<"show"<<item.bus<<item.box<<item.min<<item.max;
     }
 
     mItem = item;
@@ -128,8 +115,14 @@ void SetThresholdDlg::on_saveBtn_clicked()
         }
         else
         {
-            sys_configFile_writeParam("NLineMin",QString::number(mItem.min));
-            sys_configFile_writeParam("NLineMax",QString::number(mItem.max));
+            QString strmin = QString("NLineMin%1").arg(mItem.bus);
+            QString strmax = QString("NLineMax%1").arg(mItem.bus);
+            sys_configFile_writeParam(strmin,QString::number(mItem.min));
+            sys_configFile_writeParam(strmax,QString::number(mItem.max));
+            sBusData *busData = &(share_mem_get()->data[mItem.bus]);
+            sObjData *obj = &(busData->box[0].data);
+            obj->cur.min[N_Line] = mItem.min;
+            obj->cur.max[N_Line] = mItem.max;
         }
     }
 }

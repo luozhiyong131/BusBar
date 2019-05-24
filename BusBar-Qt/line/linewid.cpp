@@ -114,29 +114,25 @@ void LineWid::timeoutDone()
             }
             ui->OFLab->setText(str);//OF触点
 
-            str = QString::number(mData->box[0].data.cur.value[N_Line-1]/COM_RATE_CUR,'f',1) + "A";
-            bool flag = sys_configFile_open();
-            if(flag)
-            {
-                int max = sys_configFile_readInt("NLineMax");
-                int min = sys_configFile_readInt("NLineMin");
+            sDataUnit *ncur = &(mData->box[0].data.cur);
+            str = QString::number(ncur->value[N_Line]/COM_RATE_CUR,'f',1) + "A";
 
-                int value = QString::number(mData->box[0].data.cur.value[N_Line-1]/COM_RATE_CUR,'f',1).toInt()*10;
-                QPalette pe;
-                if(value > max*10 || value < min*10 )
-                {
-                    pe.setColor(QPalette::WindowText,Qt::red);
-                    ui->NcurLab->setPalette(pe);
-                    ui->label_11->setPalette(pe);
-                }
-                else
-                {
-                    pe.setColor(QPalette::WindowText,Qt::black);
-                    ui->NcurLab->setPalette(pe);
-                    ui->label_11->setPalette(pe);
-                }
+            int max = ncur->max[N_Line];
+            int min = ncur->min[N_Line];
+            int value = QString::number(ncur->value[N_Line]/COM_RATE_CUR,'f',1).toInt()*10;
+
+            if(value > max*10 || value < min*10 )
+            {
+                pe.setColor(QPalette::WindowText,Qt::red);
+                ui->NcurLab->setPalette(pe);
+                ui->label_11->setPalette(pe);
             }
-            sys_configFile_close();
+            else
+            {
+                pe.setColor(QPalette::WindowText,Qt::black);
+                ui->NcurLab->setPalette(pe);
+                ui->label_11->setPalette(pe);
+            }
             ui->NcurLab->setText(str);//零线电流
 
             str = (mData->box[0].lps == 0?tr("正常"):tr("损坏"));
