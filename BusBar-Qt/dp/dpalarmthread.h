@@ -17,7 +17,7 @@ protected:
     void alarmDataUnit(sDataUnit &unit, int lineNum, bool cr=false);
     char alarmFlag(sDataUnit &unit, int line, bool cr=false);
 
-    void boxAlarm(sBoxData &box);
+    void boxAlarm(sBoxData &box , int i);
     void busAlarm(sBusData &bus);
 
 protected slots:

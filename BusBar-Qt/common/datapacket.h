@@ -78,6 +78,7 @@ typedef struct _sObjData {
     uint ele[LINE_NUM_MAX]; // 电能
     ushort pf[LINE_NUM_MAX]; // 功率因素
     uchar sw[LINE_NUM_MAX]; // 开关状态
+    uchar swAlarm[LINE_NUM_MAX]; // 开关状态告警值 0表示未告警  1表示已告警 2表示已记录
     ushort apPow[LINE_NUM_MAX]; // 视在功率
     ushort ratedCur[LINE_NUM_MAX]; // 额定电流
     ushort wave[LINE_NUM_MAX]; // 谐波值
@@ -119,6 +120,7 @@ typedef struct _sBoxData {
     int rate; // 电压频率
     char dc; // 交直流标志位
     uchar lps; // 防雷开关
+    uchar lpsAlarm;// 防雷开关告警值 0表示未告警  1表示已告警 2表示已记录
 
     uchar rtuLen;
     uchar rtuArray[SRC_DATA_LEN_MAX];

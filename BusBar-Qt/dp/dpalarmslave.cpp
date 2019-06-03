@@ -168,32 +168,54 @@ void DpAlarmSlave::unitAlarmVA(sBoxData &box, QString &typeStr, QString &msg, sD
 }
 
 
-void DpAlarmSlave::boxAlarm(sBoxData &box)
+void DpAlarmSlave::boxAlarm(sBoxData &box , QString busName)
 {
     if(box.offLine) {
         if(box.boxAlarm)  {
             QString typeStr = tr("回路电流");
             if(box.boxCurAlarm) {
-                QString msg = tr("插接箱：%1，").arg(box.boxName);
+                QString msg = tr("母线：%1,插接箱：%2，").arg(busName).arg(box.boxName);
                 unitAlarmVA(box, typeStr, msg, box.data.cur, COM_RATE_CUR, "A");
             }
 
             typeStr = tr("回路电压");
             if(box.boxVolAlarm) {
-                QString msg = tr("插接箱：%1，").arg(box.boxName);
+                QString msg = tr("母线：%1,插接箱：%1，").arg(busName).arg(box.boxName);
                 unitAlarmVA(box, typeStr, msg, box.data.vol, COM_RATE_VOL, "V");
             }
 
             typeStr = tr("插接箱温度");
             if(box.boxEnvAlarm) {
-                QString msg = tr("插接箱：%1，温度").arg(box.boxName);
+                QString msg = tr("母线：%1,插接箱：%1，温度").arg(busName).arg(box.boxName);
                 unitAlarm(typeStr, msg, box.env.tem, COM_RATE_TEM, "°C");
             }
+        }
+
+        for(int i = 0 ; i < 3 ; i ++)
+        {
+            if( box.data.sw[i] == 0)
+            {
+                if(box.data.swAlarm[i] == 0)
+                {
+                    box.data.swAlarm[i] = 2;
+                    QString typeStr = tr("插接箱断路器");
+                    QString str = tr("母线：%1,插接箱：%1").arg(busName).arg(box.boxName);
+                    QString tempStr = typeStr + tr("告警");
+                    str += tr("第%1个断路器断开").arg(i+1);
+                    saveMsg(typeStr, str);
+                    // 实时告警信息
+                    mAlarmStr << shm->data[mBusId].busName;
+                    mAlarmStr << tempStr;
+                    mAlarmStr << str;
+                }
+            }
+            else
+                box.data.swAlarm[i] = 0;
         }
     } else {
         mAlarmStr << shm->data[mBusId].busName;
         mAlarmStr << tr("插接箱离线");
-        mAlarmStr << tr("插接箱：%1 已离线").arg(box.boxName);
+        mAlarmStr << tr("母线：%1,插接箱：%1 已离线").arg(busName).arg(box.boxName);
     }
 }
 
@@ -213,7 +235,7 @@ void DpAlarmSlave::busAlarm(int id)
         if(busBox->boxCurAlarm) { // 总线电流告警
             QString typeStr = tr("主路电流");
             QString msg = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
-            unitAlarm(typeStr, msg, busBox->data.cur, COM_RATE_CUR, "A");
+            unitAlarm(typeStr, msg, busBox->data.cur, COM_RATE_CUR, "A");           
         }
 
         if(busBox->boxVolAlarm) { // 总线电压告警
@@ -229,8 +251,67 @@ void DpAlarmSlave::busAlarm(int id)
         }
     }
 
+    QString typeStr = tr("零线电流");
+    QString str = tr("母线：%1，%2 ").arg(bus->busName).arg(alarmStr);
+    QString tempStr;
+    if(busBox->data.cur.alarm[N_Line])
+    {
+        tempStr = typeStr + tr("告警");
+        str += tr("当前值：%1%2, 最小值：%3%4, 最大值：%5%6").arg(busBox->data.cur.value[N_Line]/COM_RATE_CUR).arg("A")
+                .arg(busBox->data.cur.min[N_Line]).arg("A")
+                .arg(busBox->data.cur.max[N_Line]).arg("A");
+
+        if(busBox->data.cur.alarm[N_Line] == 1){
+            busBox->data.cur.alarm[N_Line] = 2;
+            saveMsg(typeStr, str);
+        }
+    }
+    // 实时告警信息
+    if((busBox->data.cur.alarm[N_Line])) {
+        mAlarmStr << shm->data[mBusId].busName;
+        mAlarmStr << tempStr;
+        mAlarmStr << str;
+    }
+    if(busBox->lps != 0)
+    {
+        if(busBox->lpsAlarm == 0)
+        {
+            busBox->lpsAlarm = 2;
+            QString typeStr = tr("主路防雷");
+            QString str = tr("母线：%1").arg(bus->busName);
+            QString tempStr = typeStr + tr("告警");
+            str += tr("防雷装置损坏");
+            saveMsg(typeStr, str);
+            // 实时告警信息
+            mAlarmStr << shm->data[mBusId].busName;
+            mAlarmStr << tempStr;
+            mAlarmStr << str;
+        }
+    }
+    else
+        busBox->lpsAlarm = 0;
+
+    if( busBox->data.sw[0] == 0)
+    {
+        if(busBox->data.swAlarm[0] == 0)
+        {
+            busBox->data.swAlarm[0] = 2;
+            QString typeStr = tr("主路断路器");
+            QString str = tr("母线：%1").arg(bus->busName);
+            QString tempStr = typeStr + tr("告警");
+            str += tr("断路器断开");
+            saveMsg(typeStr, str);
+            // 实时告警信息
+            mAlarmStr << shm->data[mBusId].busName;
+            mAlarmStr << tempStr;
+            mAlarmStr << str;
+        }
+    }
+    else
+        busBox->data.swAlarm[0] = 0;
+
     for(int i=1; i<=bus->boxNum; ++i) {
-        boxAlarm(bus->box[i]);
+        boxAlarm(bus->box[i],bus->busName);
     }
 }
 

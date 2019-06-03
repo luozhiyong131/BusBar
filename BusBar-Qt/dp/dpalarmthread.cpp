@@ -77,12 +77,22 @@ char DpAlarmThread::alarmFlag(sDataUnit &unit, int line, bool cr)
     return flag;
 }
 
-void DpAlarmThread::boxAlarm(sBoxData &box)
+void DpAlarmThread::boxAlarm(sBoxData &box, int i)
 {
     if(box.offLine > 0) {
         int lineNum = box.data.lineNum;
         alarmDataUnit(box.data.cur, lineNum); // 回路是否有告警
         box.boxCurAlarm = alarmFlag(box.data.cur, lineNum);
+        if(i == 0)
+        {
+            if((box.data.cur.value[N_Line] < box.data.cur.min[N_Line]) || (box.data.cur.value[N_Line] > box.data.cur.max[N_Line]))
+            {
+                if(box.data.cur.alarm[N_Line] == 0)
+                    box.data.cur.alarm[N_Line] = 1;
+            }
+            else
+                box.data.cur.alarm[N_Line] = 0;
+        }
 
         alarmDataUnit(box.data.vol, lineNum); // 回路是否有告警
         box.boxVolAlarm = alarmFlag(box.data.vol, lineNum);
@@ -107,7 +117,7 @@ void DpAlarmThread::boxAlarm(sBoxData &box)
 void DpAlarmThread::busAlarm(sBusData &bus)
 {
     for(int i=0; i<=bus.boxNum; ++i) {
-        boxAlarm(bus.box[i]);
+        boxAlarm(bus.box[i] , i);
     }
 }
 
