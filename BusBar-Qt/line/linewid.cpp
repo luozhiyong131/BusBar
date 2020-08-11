@@ -52,6 +52,8 @@ void LineWid::initWid()
         connect(this, SIGNAL(busChangedSig(int)), line, SLOT(busChangeSlot(int)));
     }
 
+    ui->lpsLab->hide();
+    ui->label_10->hide();
 }
 
 
@@ -76,6 +78,17 @@ void LineWid::timeoutDone()
             ui->thdBtn->setHidden(false);
             ui->widget->setHidden(false);
             mLineTable->updateData(mData->box[0]);
+            ui->lpsLab->setText(mData->box[0].lps==0?"正常":"损坏");
+            QPalette pa;
+            if(mData->box[0].lps==1)
+            {
+                pa.setColor(QPalette::WindowText, Qt::red);
+                ui->lpsLab->setPalette(pa);
+            }
+            else {
+                pa.setColor(QPalette::WindowText, Qt::black);
+                ui->lpsLab->setPalette(pa);
+            }
         }else{
             str= QString::number(mData->box[0].rate) + "路";
             ui->rateLab->setText(str); //频率
