@@ -216,7 +216,11 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         }
 
 #if 1
-        pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
+        if(pkt->dc) {
+            pkt->crc = (ptr[RTU_SENT_LEN+5-1]*256) + ptr[RTU_SENT_LEN+5-2]; // 获取校验码RTU_SENT_LEN+5
+        }else{
+            pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码RTU_SENT_LEN+5
+        }
         ret = rtu_recv_crc(buf, len, pkt); //校验码
 #else
         ret = true;
