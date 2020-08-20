@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>806</width>
+    <width>882</width>
     <height>548</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
   <widget class="QLabel" name="titleLab">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>340</x>
      <y>20</y>
      <width>171</width>
      <height>31</height>
@@ -46,7 +46,7 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>820</x>
      <y>20</y>
      <width>51</width>
      <height>41</height>
@@ -85,8 +85,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>10</height>
+     <width>881</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -124,7 +124,7 @@
   <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>796</x>
+     <x>870</x>
      <y>10</y>
      <width>10</width>
      <height>531</height>
@@ -147,9 +147,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>537</y>
-     <width>800</width>
-     <height>10</height>
+     <y>530</y>
+     <width>871</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="frameShadow">
@@ -193,7 +193,7 @@
     <rect>
      <x>20</x>
      <y>70</y>
-     <width>771</width>
+     <width>841</width>
      <height>461</height>
     </rect>
    </property>

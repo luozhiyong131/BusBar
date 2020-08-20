@@ -242,8 +242,10 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         }
 
 #if 1
-        pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
+        //pkt->crc = (buf[1]*256) + buf[0]; // 获取校验码
+        pkt->crc = (buf[RTU_SENT_LEN+5-1]*256) + buf[RTU_SENT_LEN+5-2]; // 获取校验码RTU_SENT_LEN+5
         ret = rtu_recv_crc(buf, len, pkt); //校验码
+        qDebug()<<ret<<"ret  "<<endl;
 #else
         ret = true;
 #endif
