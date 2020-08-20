@@ -150,7 +150,7 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
      // 读取负载百分比
     for(int i=0; i<3; ++i) msg->pl[i] = *(ptr++);
 
-    //ptr+=6;//1.4版本 ，1.3版本需要注释
+    ptr+=6;//1.4版本 ，1.3版本需要注释
 
     msg->hc = *(ptr++);    
 
@@ -160,8 +160,8 @@ static int rtu_recv_thd(uchar *ptr, Rtu_recv *msg)
         msg->thd[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     }
 
-    return (1+3+1+len*2);//1.3版本
-    //return (1+3+1+6+len*2); //1.4版本
+    //return (1+3+1+len*2);//1.3版本
+    return (1+3+1+6+len*2); //1.4版本
 }
 
 
@@ -217,7 +217,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
 
 #if 1
         if(pkt->dc) {
-            pkt->crc = (ptr[RTU_SENT_LEN+5-1]*256) + ptr[RTU_SENT_LEN+5-2]; // 获取校验码RTU_SENT_LEN+5
+            pkt->crc = (buf[RTU_SENT_LEN+5-1]*256) + buf[RTU_SENT_LEN+5-2]; // 获取校验码RTU_SENT_LEN+5
         }else{
             pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码RTU_SENT_LEN+5
         }
