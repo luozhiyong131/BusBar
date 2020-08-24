@@ -197,7 +197,7 @@ bool rtu_recv_packet(uchar *buf, int len, Rtu_recv *pkt)
         //ptr += 2;
         ptr++;// 暂不解析 00:485  01：LORA WIFI
 
-        bool state[RTU_LINE_NUM] = {false};
+        bool state[RTU_LINE_NUM] = {true};
         {//定制IOF触点解析
             if(pkt->addr == 0)
             {
