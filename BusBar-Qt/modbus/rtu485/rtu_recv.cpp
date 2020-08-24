@@ -91,7 +91,7 @@ static int rtu_recv_data(uchar *ptr, RtuRecvLine *msg)
     msg->cur =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电流
     msg->pow =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取功率
     msg->ele =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
-    msg->ele <<= 8; // 左移8位
+    msg->ele <<= 16; // 左移8位
     msg->ele +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
 
     msg->maxVol =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
