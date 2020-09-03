@@ -625,8 +625,8 @@ color: rgb(255, 255, 255);</string>
       <widget class="QComboBox" name="comboBox">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>40</height>
+         <width>130</width>
+         <height>45</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -634,6 +634,11 @@ color: rgb(255, 255, 255);</string>
          <width>100</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
        </property>
        <item>
         <property name="text">

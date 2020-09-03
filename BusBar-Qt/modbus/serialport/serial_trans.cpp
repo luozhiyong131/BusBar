@@ -204,8 +204,13 @@ int Serial_Trans::recvData(uchar *pBuf, int msecs)
             } else {
                 count++;
             }
-        } while (count < msecs) ;
 
+            if(ret > 250) {
+                read(fd, pBuf-250, 256);
+                ret = 0; break;
+            }
+
+        } while (count < msecs);
     }
     return ret;
 }

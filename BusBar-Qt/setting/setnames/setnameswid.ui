@@ -34,6 +34,9 @@
      <property name="spacing">
       <number>0</number>
      </property>
+     <property name="bottomMargin">
+      <number>10</number>
+     </property>
      <item>
       <widget class="QLabel" name="label">
        <property name="sizePolicy">
@@ -122,9 +125,22 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>55</width>
-         <height>45</height>
+         <width>60</width>
+         <height>50</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
        </property>
        <property name="suffix">
         <string>A</string>
@@ -178,9 +194,22 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>55</width>
-         <height>45</height>
+         <width>60</width>
+         <height>50</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
        </property>
        <property name="suffix">
         <string>个</string>

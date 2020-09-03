@@ -35,11 +35,24 @@
   <widget class="QSpinBox" name="maxBox">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>90</y>
-     <width>91</width>
-     <height>40</height>
+     <x>330</x>
+     <y>80</y>
+     <width>100</width>
+     <height>50</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
    </property>
    <property name="maximum">
     <number>999</number>
@@ -48,7 +61,7 @@
   <widget class="MyLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>19</x>
+     <x>0</x>
      <y>90</y>
      <width>100</width>
      <height>40</height>
@@ -88,11 +101,24 @@
   <widget class="QSpinBox" name="minBox">
    <property name="geometry">
     <rect>
-     <x>121</x>
-     <y>90</y>
-     <width>101</width>
-     <height>40</height>
+     <x>101</x>
+     <y>80</y>
+     <width>100</width>
+     <height>50</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
    </property>
    <property name="suffix">
     <string/>
@@ -152,7 +178,7 @@
   <widget class="MyLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>231</x>
      <y>90</y>
      <width>100</width>
      <height>40</height>

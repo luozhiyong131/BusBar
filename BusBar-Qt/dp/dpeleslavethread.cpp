@@ -16,7 +16,7 @@ DpEleSlaveThread::DpEleSlaveThread(QObject *parent) : QThread(parent)
     shm = get_share_mem(); // 获取共享内存
 
     timer = new QTimer(this);
-    timer->start(4*60*60*1000);
+    timer->start(24*60*60*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 

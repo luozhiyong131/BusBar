@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>441</width>
     <height>350</height>
    </rect>
   </property>
@@ -32,6 +32,25 @@
       </item>
       <item row="1" column="2">
        <widget class="QDateEdit" name="endDateEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QDateEdit::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QDateEdit::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
+        </property>
         <property name="displayFormat">
          <string>yyyy-MM-dd</string>
         </property>
@@ -60,6 +79,25 @@
       </item>
       <item row="0" column="2">
        <widget class="QDateEdit" name="startDateEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QDateEdit::up-button
+{
+	width: 35px;
+	height: 25px;
+}
+
+QDateEdit::down-button
+{
+	width: 35px;
+	height: 25px;
+}</string>
+        </property>
         <property name="displayFormat">
          <string>yyyy-MM-dd</string>
         </property>
