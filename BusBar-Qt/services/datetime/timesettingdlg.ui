@@ -61,7 +61,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>1</number>
@@ -137,7 +147,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>0</number>
@@ -162,7 +182,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>1</number>
@@ -219,7 +249,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>0</number>
@@ -244,7 +284,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>2000</number>
@@ -269,7 +319,17 @@
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox::up-button
+{
+	width: 35px;
+	height: 20px;
+}
+
+QSpinBox::down-button
+{
+	width: 35px;
+	height: 20px;
+}</string>
    </property>
    <property name="minimum">
     <number>0</number>
